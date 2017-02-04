@@ -49,6 +49,23 @@ export const routes: Routes = [
       {
         path: 'uikits',
         loadChildren: './uikits/uikits.module#UIKitsModule'
+      },
+      //New
+      {
+        path: 'accounts',
+        loadChildren: './accounts/accounts.module#AccountsModule'
+      },
+      {
+        path: 'admin',
+        loadChildren: './admin/admin.module#AdminModule'
+      },
+      {
+        path: 'design-director',
+        loadChildren: './design-director/design-director.module#DesignDirectorModule'
+      },
+      {
+        path: 'designer',
+        loadChildren: './designer/designer.module#DesignerModule'
       }
     ]
   },

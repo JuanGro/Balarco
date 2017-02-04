@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+//Base
 import { ButtonsComponent } from './buttons.component';
 import { CardsComponent } from './cards.component';
 import { FormsComponent } from './forms.component';
@@ -43,13 +44,6 @@ const routes: Routes = [
         component: ModalsComponent,
         data: {
           title: 'Modals'
-        }
-      },
-      {
-        path: 'social-buttons',
-        component: SocialButtonsComponent,
-        data: {
-          title: 'Social buttons'
         }
       },
       {

@@ -4,7 +4,21 @@ import { Component, OnInit }            from '@angular/core';
     selector: 'app-dashboard',
     templateUrl: './full-layout.component.html'
 })
+
 export class FullLayoutComponent implements OnInit {
+    /* Example */
+
+    public charge: string = "Cuentas";
+
+    //We are going to make some permissions for the example
+    //public permission: number = 1;
+
+    private designDirector: boolean = true;
+    private designer: boolean = true;
+    private accounts: boolean = true;
+    private admin: boolean = true;
+    
+    /* End of example */
 
     constructor() { }
 

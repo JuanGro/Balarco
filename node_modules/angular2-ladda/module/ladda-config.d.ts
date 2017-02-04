@@ -1,0 +1,13 @@
+export declare type laddaStyle = "expand-left" | "expand-right" | "expand-up" | "expand-down" | "contract" | "contract-overlay" | "zoom-in" | "zoom-out" | "slide-left" | "slide-right" | "slide-up" | "slide-down";
+export declare abstract class LaddaConfigArgs {
+    style?: laddaStyle;
+    spinnerSize?: number;
+    spinnerColor?: string;
+    spinnerLines?: number;
+}
+export declare let configAttributes: {
+    [key: string]: keyof LaddaConfigArgs;
+};
+export declare class LaddaConfig implements LaddaConfigArgs {
+    constructor(config?: LaddaConfigArgs);
+}
