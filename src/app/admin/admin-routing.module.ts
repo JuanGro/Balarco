@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-//Base
 import { CompletedDesignsListComponent } from './completed-designs-list.component';
 
 const routes: Routes = [

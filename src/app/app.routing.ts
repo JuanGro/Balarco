@@ -8,7 +8,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'designer/owned-designs-list',
     pathMatch: 'full',
   },
   {
@@ -22,7 +22,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
-      {
+      /*{
         path: 'components',
         loadChildren: './components/components.module#ComponentsModule'
       },
@@ -49,7 +49,7 @@ export const routes: Routes = [
       {
         path: 'uikits',
         loadChildren: './uikits/uikits.module#UIKitsModule'
-      },
+      }, */
       //New
       {
         path: 'accounts',

@@ -1,12 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 
 @Component({
+  selector: 'completed-designs-list',
   templateUrl: 'completed-designs-list.component.html'
 })
 export class CompletedDesignsListComponent {
   @ViewChild('childModal') public childModal: ModalDirective;
   public completedDesigns: any; //This should not happen, because assign "any" is not a good practice but it's just an example
+  
+  public name: string;
+  public client: string;
+  public endDate: string;
 
   constructor() {
     this.completedDesigns = [
@@ -17,12 +22,10 @@ export class CompletedDesignsListComponent {
     ];
   }
 
-  public showChildModal(): void {
-    this.childModal.show();
-  }
-
-  public hideChildModal(): void {
-    this.childModal.hide();
+  clicked(name, client, endDate) {
+    this.name = name;
+    this.client = client;
+    this.endDate = endDate;
   }
 
 }
