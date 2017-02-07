@@ -1,31 +1,34 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, OnInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { CompletedDesignsList } from './completed-designs-list';
+import { DjangoService } from './../django.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'completed-designs-list',
-  templateUrl: 'completed-designs-list.component.html'
+  templateUrl: 'completed-designs-list.component.html',
+  moduleId: module.id,
 })
-export class CompletedDesignsListComponent {
-  @ViewChild('childModal') public childModal: ModalDirective;
-  public completedDesigns: any; //This should not happen, because assign "any" is not a good practice but it's just an example
-  
-  public name: string;
-  public client: string;
-  public endDate: string;
+export class CompletedDesignsListComponent implements OnInit{
+  pageTitle: string = "document from django"
+  documents: CompletedDesignsList[];
+  errorMessage: string;
+  mode = "Observable";
 
-  constructor() {
-    this.completedDesigns = [
-      {'id' : '1', 'name' : 'Campaña Té manzanilla', 'client' : 'Starbucks', 'endDate' : '2012/01/01'},
-      {'id' : '2', 'name' : 'Campaña Predix', 'client' : 'General Electric', 'endDate' : '2012/01/01'},
-      {'id' : '3', 'name' : 'Campaña LigaMX', 'client' : 'Comex', 'endDate' : '2012/01/01'},
-      {'id' : '4', 'name' : 'Campaña Té manzanilla', 'client' : 'Starbucks', 'endDate' : '2012/01/01'}
-    ];
+  constructor(private djangoService: DjangoService){
+    let timer = Observable.timer(0, 5000);
+    timer.subscribe(() => this.getDocuments());
   }
 
-  clicked(name, client, endDate) {
-    this.name = name;
-    this.client = client;
-    this.endDate = endDate;
+  ngOnInit() {
+
   }
 
+  getDocuments() {
+    this.djangoService.getDocuments()
+        .subscribe(
+          documents => this.documents = documents,
+          error => this.errorMessage = <any>error
+        );
+  }
 }

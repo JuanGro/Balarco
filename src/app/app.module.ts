@@ -7,6 +7,11 @@ import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 
+//Django
+import { DjangoService } from './django.service';
+import { HttpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
@@ -25,7 +30,9 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
     AppRoutingModule,
     DropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    NgbModule.forRoot(),
+    HttpModule
   ],
   declarations: [
     AppComponent,
@@ -36,7 +43,8 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective
   ],
-  providers: [{
+  providers: [ DjangoService, 
+  {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
