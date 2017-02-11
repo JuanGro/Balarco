@@ -2,22 +2,26 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Rx';
 
-import { CompletedDesignsList } from './admin/completed-designs-list';
+//Interface
+import { CompletedDesignsList } from './completed-designs-list';
 
 @Injectable()
-export class DjangoService {
-    private documentsUrl = './admin/prueba.json';
+export class CompletedDesignsListService {
+    private completedDesignsListUrl = 'http://jsonplaceholder.typicode.com/posts';
     
     constructor(private http: Http) {
-        
+        //Nothing here
     }
 
+    //Get the json with observables
     getDocuments(): Observable<CompletedDesignsList[]> {
-        return this.http.get(this.documentsUrl)
+        return this.http.get(this.completedDesignsListUrl)
                         .map((response: Response) => <Document[]>response.json())
                         .catch(this.handleError);
     }
 
+    //sendDocuments(): {}
+    
     private handleError (error: Response | any) {
         let errMsg: string;
         if ( error instanceof Response) {
@@ -30,6 +34,5 @@ export class DjangoService {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-
 
 }

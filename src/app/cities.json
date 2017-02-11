@@ -2,26 +2,31 @@
     {
         "id": "1",
         "name": "Mumbai",
-        "state": "Maharashtra"
+        "client": "Maharashtra",
+        "endDate": "2012/01/01"
     },
     {
         "id": "2",
         "name": "Delhi",
-        "state": "Delhi"
+        "client": "Delhi",
+        "endDate": "2012/01/01"
     },
     {
         "id": "3",
         "name": "Bengaluru",
-        "state": "Karnataka"
+        "client": "Karnataka",
+        "endDate": "2012/01/01"
     },
     {
         "id": "4",
         "name": "Ahmedabad",
-        "state": "Gujarat"
+        "client": "Gujarat",
+        "endDate": "2012/01/01"
     },
     {
         "id": "5",
         "name": "Hyderabad",
-        "state": "Telangana"
+        "client": "Telangana",
+        "endDate": "2012/01/01"
     }
 ]

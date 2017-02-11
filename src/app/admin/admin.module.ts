@@ -3,10 +3,13 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ng2-bootstrap/modal';
-import { DjangoService } from './../django.service';
 
-import { CompletedDesignsListComponent } from './completed-designs-list.component';
+//Router
 import { AdminRoutingModule } from './admin-routing.module';
+
+//Components
+import { CompletedDesignsListService } from './completed-designs-list.service';
+import { CompletedDesignsListComponent } from './completed-designs-list.component';
 
 @NgModule({
   imports: [
@@ -17,6 +20,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     ModalModule.forRoot()
   ],
   declarations: [ CompletedDesignsListComponent ],
-  providers: [ DjangoService ]
+  providers: [ CompletedDesignsListService ]
 })
 export class AdminModule { }
