@@ -10,6 +10,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 //Components
 import { CompletedDesignsListService } from './completed-designs-list.service';
 import { CompletedDesignsListComponent } from './completed-designs-list.component';
+import { CompletedDesignsListModal } from './completed-designs-list.modal';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { CompletedDesignsListComponent } from './completed-designs-list.componen
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompletedDesignsListComponent ],
+  declarations: [ CompletedDesignsListComponent, CompletedDesignsListModal ],
   providers: [ CompletedDesignsListService ]
 })
 export class AdminModule { }

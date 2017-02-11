@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 //Components
 import { CompletedDesignsList } from './completed-designs-list';
+import { CompletedDesignsListModal } from './completed-designs-list.modal';
 
 //Services
 import { CompletedDesignsListService } from './completed-designs-list.service';
@@ -20,12 +21,6 @@ export class CompletedDesignsListComponent implements OnInit{
   public errorMessage: string;
   public mode = "Observable";
 
-  @Input() document: CompletedDesignsList;
-
-  public title: string;
-  public body: string;
-  public id: number;
-
   constructor(private completedDesignsListService: CompletedDesignsListService){
     let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getDocuments());
@@ -41,11 +36,5 @@ export class CompletedDesignsListComponent implements OnInit{
           documents => this.documents = documents,
           error => this.errorMessage = <any>error
         );
-  }
-
-  clicked(title, body, id) {
-    this.title = title;
-    this.body = body;
-    this.id = id;
   }
 }

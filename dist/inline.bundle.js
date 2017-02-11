@@ -32,7 +32,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		22: 0
+/******/ 		10: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
