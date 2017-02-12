@@ -8,7 +8,7 @@ import { TabsModule } from 'ng2-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 
 //Django
-import { CompletedDesignsListService } from './admin/completed-designs-list.service';
+//import { CompletedDesignsListService } from './admin/completed-designs-list.service';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -43,7 +43,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective
   ],
-  providers: [ CompletedDesignsListService, 
+  providers: [ //CompletedDesignsListService, 
   {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
