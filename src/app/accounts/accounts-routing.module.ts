@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-//Base
+// Base
 import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
 import { IgualasListComponent } from './igualas-list.component';

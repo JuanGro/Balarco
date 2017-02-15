@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: '500.component.html'
+  templateUrl: 'not-found.component.html'
 })
-export class p500Component {
+export class NotFoundComponent {
 
   constructor() { }
 

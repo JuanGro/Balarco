@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { p404Component } from './404.component';
-import { p500Component } from './500.component';
+import { NotFoundComponent } from './not-found.component';
+import { InternalServerErrorComponent } from './internal-server-error.component';
 import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 
@@ -10,8 +10,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 @NgModule({
   imports: [ PagesRoutingModule ],
   declarations: [
-    p404Component,
-    p500Component,
+    NotFoundComponent,
+    InternalServerErrorComponent,
     LoginComponent,
     RegisterComponent
   ]

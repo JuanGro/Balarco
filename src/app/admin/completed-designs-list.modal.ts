@@ -1,23 +1,22 @@
-import { Component, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
-import { Observable } from 'rxjs/Rx';
 
-//Components
-import { CompletedDesignsListComponent } from './completed-designs-list.component';
+// Components
+// import { CompletedDesignsListComponent } from './completed-designs-list.component';
 
-//Services
-import { CompletedDesignsListService } from './completed-designs-list.service';
+// Services
+// import { CompletedDesignsListService } from './completed-designs-list.service';
 
 @Component({
   selector: 'completed-designs-list-modal',
   templateUrl: 'completed-designs-list.modal.html',
   moduleId: module.id,
 })
-export class CompletedDesignsListModal implements OnInit{
+export class CompletedDesignsListModalComponent implements OnInit {
   @ViewChild('childModal') public childModal: ModalDirective;
-  //@Input() id: number;
+  // @Input() id: number;
 
-  constructor(){}
+  constructor() {}
 
   ngOnInit() {}
 }

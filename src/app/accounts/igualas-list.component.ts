@@ -6,7 +6,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 })
 export class IgualasListComponent {
   @ViewChild('childModal') public childModal: ModalDirective;
-  public igualas: any; //This should not happen, because assign "any" is not a good practice but it's just an example
+  public igualas: any; // This should not happen, because assign "any" is not a good practice but it's just an example
 
   constructor() {
     this.igualas = [

@@ -8,28 +8,33 @@ import { Component, OnInit }            from '@angular/core';
 export class FullLayoutComponent implements OnInit {
     /* Example */
 
-    public charge: string = "Cuentas";
+    public charge: string = 'Cuentas';
 
-    //We are going to make some permissions for the example
-    //public permission: number = 1;
+    // We are going to make some permissions for the example
+    // public permission: number = 1;
 
     private designDirector: boolean = true;
     private designer: boolean = true;
     private accounts: boolean = true;
     private admin: boolean = true;
-    
+
     /* End of example */
 
-    constructor() { }
+    constructor() {
+        this.designDirector = true;
+        this.designer = true;
+        this.accounts = true;
+        this.admin = true;
+    }
 
-    public disabled:boolean = false;
-    public status:{isopen:boolean} = {isopen: false};
+    public disabled: boolean = false;
+    public status: {isopen: boolean} = {isopen: false};
 
-    public toggled(open:boolean):void {
+    public toggled(open: boolean): void {
         console.log('Dropdown is now: ', open);
     }
 
-    public toggleDropdown($event:MouseEvent):void {
+    public toggleDropdown($event: MouseEvent): void {
         $event.preventDefault();
         $event.stopPropagation();
         this.status.isopen = !this.status.isopen;

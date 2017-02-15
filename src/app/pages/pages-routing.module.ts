@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { p404Component } from './404.component';
-import { p500Component } from './500.component';
+import { NotFoundComponent } from './not-found.component';
+import { InternalServerErrorComponent } from './internal-server-error.component';
 import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 
@@ -14,15 +14,15 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '404',
-        component: p404Component,
+        path: 'notfound',
+        component: NotFoundComponent,
         data: {
           title: 'Page 404'
         }
       },
       {
-        path: '500',
-        component: p500Component,
+        path: 'internalservererror',
+        component: InternalServerErrorComponent,
         data: {
           title: 'Page 500'
         }

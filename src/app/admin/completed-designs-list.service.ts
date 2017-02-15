@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-//Interface
+// Interface
 import { CompletedDesignsList } from './completed-designs-list';
 
 @Injectable()
 export class CompletedDesignsListService {
     private completedDesignsListUrl = 'http://jsonplaceholder.typicode.com/posts';
-    
+
     constructor(private http: Http) {
-        //Nothing here
+        // Nothing here
     }
 
-    //Get the json with observables
+    // Get the json with observables
     getDocuments(): Observable<CompletedDesignsList[]> {
         return this.http.get(this.completedDesignsListUrl)
                         .map((response: Response) => <Document[]>response.json())
                         .catch(this.handleError);
     }
 
-    //sendDocuments(): {}
-    
+    // sendDocuments(): {}
+
     private handleError (error: Response | any) {
         let errMsg: string;
         if ( error instanceof Response) {
