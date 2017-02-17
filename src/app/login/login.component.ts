@@ -3,4 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   templateUrl: 'login.component.html'
 })
-export class LoginComponent { }
+export class LoginComponent { 
+  public title: string = 'Login';
+
+  constructor() {
+    this.title = 'Login';
+  }
+}
