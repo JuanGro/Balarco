@@ -8,7 +8,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'designer/owned-designs-list',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -37,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'designer',
         loadChildren: './designer/designer.module#DesignerModule'
+      },
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule'
       }
     ]
   },
