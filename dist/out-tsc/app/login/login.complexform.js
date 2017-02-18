@@ -9,16 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { LoginService } from './login.service';
+import { Login } from './login';
 var LoginComplexFormComponent = (function () {
-    function LoginComplexFormComponent(fb) {
+    function LoginComplexFormComponent(fb, loginService) {
+        this.loginService = loginService;
+        this.loginObject = new Login();
         this.loginForm = fb.group({
             'username': '',
             'password': ''
         });
+        this.submitForm('any');
     }
     LoginComplexFormComponent.prototype.submitForm = function (value) {
+        var _this = this;
         console.log('Reactive form');
         console.log(value);
+        var loginOperation;
+        loginOperation = this.loginService.sendLoginData(this.loginObject);
+        loginOperation.subscribe(function (res) {
+            _this.token = res;
+            console.log('Request finished');
+            console.log(_this.token);
+        });
     };
     return LoginComplexFormComponent;
 }());
@@ -27,7 +40,7 @@ LoginComplexFormComponent = __decorate([
         selector: 'login-complex-form',
         templateUrl: 'login.complexform.html'
     }),
-    __metadata("design:paramtypes", [FormBuilder])
+    __metadata("design:paramtypes", [FormBuilder, LoginService])
 ], LoginComplexFormComponent);
 export { LoginComplexFormComponent };
 //# sourceMappingURL=../../../../src/app/login/login.complexform.js.map
