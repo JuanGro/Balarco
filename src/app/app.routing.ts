@@ -19,10 +19,6 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-      },
-      {
         path: 'accounts',
         loadChildren: './accounts/accounts.module#AccountsModule'
       },

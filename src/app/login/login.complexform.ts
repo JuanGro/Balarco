@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { Observable } from 'rxjs/Rx';
 
@@ -11,25 +11,30 @@ import { Token } from './token';
   selector: 'login-complex-form',
   templateUrl: 'login.complexform.html'
 })
-export class LoginComplexFormComponent {
-  loginForm: FormGroup;
-  loginObject = new Login();
-  token: Token;
+export class LoginComplexFormComponent implements OnInit {
+  public loginForm: FormGroup;
+  public loginObject: Login[];
+  public token: Token;
+  // Forms
+  public submitted: boolean; // keep track on whether form is submitted
+  public events: any[] = []; // use later to display form changes
 
-  constructor(fb: FormBuilder, private loginService: LoginService) {
-    this.loginForm = fb.group({
-      'username': '',
-      'password': ''
+  constructor(private _fb: FormBuilder, private loginService: LoginService) { }
+
+  ngOnInit() {
+    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [<any>Validators.required, <any>Validators.pattern(emailRegex)]),
+      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)])
     });
-
-    this.submitForm('any');
   }
 
-  submitForm(value: any): void {
+  submitForm(model: Login, isValid: boolean): void {
+    this.submitted = true;
     console.log('Reactive form');
-    console.log(value);
-    let loginOperation: Observable<Token>;
-    loginOperation = this.loginService.sendLoginData(this.loginObject);
+    console.log(model);
+
+    let loginOperation: Observable<Token> = this.loginService.sendLoginData(this.loginObject);
 
     loginOperation.subscribe(
       res => {
