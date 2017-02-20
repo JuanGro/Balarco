@@ -11,6 +11,10 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/throw';
+
 @Injectable()
 export class HttpService extends Http {
   // This should be in environment variables
@@ -19,13 +23,18 @@ export class HttpService extends Http {
   constructor(
     backend: XHRBackend,
     defaultOptions: RequestOptions,
-    //private router: Router,
-    //private userStore: SessionStoreService
+    // TODO: Define user token sessions variable
   ) {
     super(backend, defaultOptions);
-
   }
 
+  postObject(url, object): Observable<Response> {
+    return this.post(url, object);
+  }
+
+  /**
+  * Overrides base clase method
+  **/
   request(
     request: string | Request,
     options: RequestOptionsArgs = { headers: new Headers()}): Observable<Response> {
@@ -34,6 +43,7 @@ export class HttpService extends Http {
   }
 
   private configureRequest(request: string | Request, options: RequestOptionsArgs) {
+    console.log('CONFIGURING REQUEST!');
     if (typeof request === 'string') {
       request = this.getUrl(request);
       this.setHeaders(options);
@@ -52,11 +62,17 @@ export class HttpService extends Http {
     return this.apiUrl + currentUrl;
   }
 
+  /**
+  * Interceptor to build headers in each request
+  **/
   private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
     const headers = objectToSetHeadersTo.headers;
     headers.set('Content-Type', 'application/json');
   }
 
+  /**
+  * Interceptor for general errors catch
+  **/
   private onCatch() {
     return (res: Response) => {
       // Security errors

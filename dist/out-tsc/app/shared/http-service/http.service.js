@@ -15,6 +15,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/throw';
 var HttpService = (function (_super) {
     __extends(HttpService, _super);
     function HttpService(backend, defaultOptions) {
@@ -22,12 +25,16 @@ var HttpService = (function (_super) {
         _this.apiUrl = 'http://127.0.0.1:8000/';
         return _this;
     }
+    HttpService.prototype.postObject = function (url, object) {
+        return this.post(url, object);
+    };
     HttpService.prototype.request = function (request, options) {
         if (options === void 0) { options = { headers: new Headers() }; }
         this.configureRequest(request, options);
         return this.interceptResponse(request, options);
     };
     HttpService.prototype.configureRequest = function (request, options) {
+        console.log('CONFIGURING REQUEST!');
         if (typeof request === 'string') {
             request = this.getUrl(request);
             this.setHeaders(options);

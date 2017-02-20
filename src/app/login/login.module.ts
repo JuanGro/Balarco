@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
-import { LoginService } from './login.service';
+import { HttpService } from '../shared/http-service/http.service';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { LoginService } from './login.service';
     ReactiveFormsModule
   ],
   declarations: [ LoginComponent, LoginComplexFormComponent ],
-  providers: [ LoginService ]
+  providers: [ HttpService ]
 })
 export class LoginModule {
   constructor(){

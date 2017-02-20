@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { LoginService } from './login.service';
+import { HttpService } from '../shared/http-service/http.service';
 import { Login } from './login';
 var LoginComplexFormComponent = (function () {
     function LoginComplexFormComponent(fb, loginService) {
@@ -22,15 +22,13 @@ var LoginComplexFormComponent = (function () {
         this.submitForm('any');
     }
     LoginComplexFormComponent.prototype.submitForm = function (value) {
-        var _this = this;
         console.log('Reactive form');
         console.log(value);
         var loginOperation;
-        loginOperation = this.loginService.sendLoginData(this.loginObject);
+        loginOperation = this.loginService.postObject('users/api-login', this.loginObject);
         loginOperation.subscribe(function (res) {
-            _this.token = res;
             console.log('Request finished');
-            console.log(_this.token);
+            console.log(res);
         });
     };
     return LoginComplexFormComponent;
@@ -40,7 +38,7 @@ LoginComplexFormComponent = __decorate([
         selector: 'login-complex-form',
         templateUrl: 'login.complexform.html'
     }),
-    __metadata("design:paramtypes", [FormBuilder, LoginService])
+    __metadata("design:paramtypes", [FormBuilder, HttpService])
 ], LoginComplexFormComponent);
 export { LoginComplexFormComponent };
 //# sourceMappingURL=../../../../src/app/login/login.complexform.js.map

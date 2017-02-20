@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoginService } from './login.service';
+import { HttpService } from '../shared/http-service/http.service';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 // Interface
@@ -16,7 +18,7 @@ export class LoginComplexFormComponent {
   loginObject = new Login();
   token: Token;
 
-  constructor(fb: FormBuilder, private loginService: LoginService) {
+  constructor(fb: FormBuilder, private loginService: HttpService) {
     this.loginForm = fb.group({
       'username': '',
       'password': ''
@@ -28,14 +30,13 @@ export class LoginComplexFormComponent {
   submitForm(value: any): void {
     console.log('Reactive form');
     console.log(value);
-    let loginOperation: Observable<Token>;
-    loginOperation = this.loginService.sendLoginData(this.loginObject);
+    let loginOperation: Observable<Response>;
+    loginOperation = this.loginService.postObject('users/api-login', this.loginObject);
 
     loginOperation.subscribe(
       res => {
-        this.token = res;
         console.log('Request finished');
-        console.log(this.token);
+        console.log(res);
       }
     );
   }
