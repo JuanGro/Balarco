@@ -23,7 +23,7 @@ var HttpService = (function (_super) {
     __extends(HttpService, _super);
     function HttpService(backend, defaultOptions) {
         var _this = _super.call(this, backend, defaultOptions) || this;
-        _this.apiUrl = 'http://127.0.0.1:8000/';
+        _this.apiUrl = 'http://localhost:8000/';
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         _this.token = currentUser && currentUser.token;
         return _this;
@@ -49,7 +49,12 @@ var HttpService = (function (_super) {
         return observableRequest;
     };
     HttpService.prototype.getUrl = function (currentUrl) {
-        return this.apiUrl + currentUrl;
+        if (!currentUrl.includes('/assets/')) {
+            return this.apiUrl + currentUrl;
+        }
+        else {
+            return currentUrl;
+        }
     };
     HttpService.prototype.setHeaders = function (objectToSetHeadersTo) {
         var headers = objectToSetHeadersTo.headers;
@@ -68,7 +73,7 @@ var HttpService = (function (_super) {
     HttpService.prototype.login = function (username, password) {
         var _this = this;
         var user = JSON.stringify({ username: username, password: password });
-        return this.post('users/api-login', user)
+        return this.post('users/api-login/', user)
             .map(function (response) {
             var token = response.json() && response.json().token;
             if (token) {

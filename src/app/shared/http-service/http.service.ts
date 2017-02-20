@@ -19,7 +19,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class HttpService extends Http {
   // TODO: This should be in environment variables
-  public apiUrl = 'http://127.0.0.1:8000/'
+  public apiUrl = 'http://localhost:8000/';
   public token: string;
 
   constructor(
@@ -58,8 +58,15 @@ export class HttpService extends Http {
     return observableRequest;
   }
 
+  /**
+  * Useful in problems with CORS
+  **/
   private getUrl(currentUrl) {
-    return this.apiUrl + currentUrl;
+    if (!currentUrl.includes('/assets/')) {
+      return this.apiUrl + currentUrl;
+    } else {
+      return currentUrl;
+    }
   }
 
   /**
@@ -89,7 +96,7 @@ export class HttpService extends Http {
 
   login(username: string, password: string): Observable<boolean> {
     let user = JSON.stringify({ username: username, password: password });
-    return this.post('users/api-login', user)
+    return this.post('users/api-login/', user)
       .map((response: Response) => {
         let token = response.json() && response.json().token;
         if (token) {
