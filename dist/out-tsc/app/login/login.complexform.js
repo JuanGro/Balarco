@@ -19,16 +19,14 @@ var LoginComplexFormComponent = (function () {
             'username': '',
             'password': ''
         });
-        this.submitForm('any');
+        this.login();
     }
-    LoginComplexFormComponent.prototype.submitForm = function (value) {
-        console.log('Reactive form');
-        console.log(value);
-        var loginOperation;
-        loginOperation = this.loginService.postObject('users/api-login', this.loginObject);
-        loginOperation.subscribe(function (res) {
-            console.log('Request finished');
-            console.log(res);
+    LoginComplexFormComponent.prototype.login = function () {
+        this.loginService.login('username', 'password').subscribe(function (result) {
+            if (result == true) {
+            }
+            else {
+            }
         });
     };
     return LoginComplexFormComponent;

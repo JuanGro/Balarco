@@ -17,17 +17,17 @@ import { Http, XHRBackend, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 var HttpService = (function (_super) {
     __extends(HttpService, _super);
     function HttpService(backend, defaultOptions) {
         var _this = _super.call(this, backend, defaultOptions) || this;
         _this.apiUrl = 'http://127.0.0.1:8000/';
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        _this.token = currentUser && currentUser.token;
         return _this;
     }
-    HttpService.prototype.postObject = function (url, object) {
-        return this.post(url, object);
-    };
     HttpService.prototype.request = function (request, options) {
         if (options === void 0) { options = { headers: new Headers() }; }
         this.configureRequest(request, options);
@@ -64,6 +64,29 @@ var HttpService = (function (_super) {
     };
     HttpService.prototype.onFinally = function () {
         return function () { return console.log('FINISH!'); };
+    };
+    HttpService.prototype.login = function (username, password) {
+        var _this = this;
+        var user = JSON.stringify({ username: username, password: password });
+        return this.post('users/api-login', user)
+            .map(function (response) {
+            var token = response.json() && response.json().token;
+            if (token) {
+                _this.token = token;
+                localStorage.setItem('currentUser', user);
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    };
+    HttpService.prototype.logout = function () {
+        this.token = null;
+        localStorage.removeItem('currentUser');
+    };
+    HttpService.prototype.postObject = function (url, object) {
+        return this.post(url, object);
     };
     return HttpService;
 }(Http));

@@ -23,21 +23,16 @@ export class LoginComplexFormComponent {
       'username': '',
       'password': ''
     });
-
-    this.submitForm('any');
+    this.login();
   }
 
-  submitForm(value: any): void {
-    console.log('Reactive form');
-    console.log(value);
-    let loginOperation: Observable<Response>;
-    loginOperation = this.loginService.postObject('users/api-login', this.loginObject);
-
-    loginOperation.subscribe(
-      res => {
-        console.log('Request finished');
-        console.log(res);
+  login() {
+    this.loginService.login('username', 'password').subscribe(result => {
+      if (result == true) {
+        // Login succesful
+      } else {
+        // Login failed
       }
-    );
+    });
   }
 }

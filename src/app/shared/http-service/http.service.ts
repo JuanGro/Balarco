@@ -13,12 +13,14 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpService extends Http {
-  // This should be in environment variables
+  // TODO: This should be in environment variables
   public apiUrl = 'http://127.0.0.1:8000/'
+  public token: string;
 
   constructor(
     backend: XHRBackend,
@@ -26,10 +28,8 @@ export class HttpService extends Http {
     // TODO: Define user token sessions variable
   ) {
     super(backend, defaultOptions);
-  }
-
-  postObject(url, object): Observable<Response> {
-    return this.post(url, object);
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = currentUser && currentUser.token;
   }
 
   /**
@@ -85,5 +85,29 @@ export class HttpService extends Http {
 
   private onFinally() {
     return () => console.log('FINISH!');
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    let user = JSON.stringify({ username: username, password: password });
+    return this.post('users/api-login', user)
+      .map((response: Response) => {
+        let token = response.json() && response.json().token;
+        if (token) {
+          this.token = token;
+          localStorage.setItem('currentUser', user);
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
+
+  logout() {
+    this.token = null;
+    localStorage.removeItem('currentUser');
+  }
+
+  postObject(url: string, object: any): Observable<Response> {
+    return this.post(url, object);
   }
 }
