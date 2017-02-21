@@ -1,37 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { HttpService } from '../shared/http-service/http.service';
 import { LoginComponent } from './login.component';
+import { LoginComplexFormComponent } from './login.complexform';
 describe('Component: LoginComponent', function () {
-    var component;
+    var loginComponent;
     var fixture;
-    var de;
-    var el;
     beforeEach(function () {
         TestBed.configureTestingModule({
-            declarations: [LoginComponent],
-            imports: [ReactiveFormsModule]
+            declarations: [LoginComponent, LoginComplexFormComponent],
+            imports: [ReactiveFormsModule],
+            providers: [HttpService],
         });
-        var fixture = TestBed.createComponent(LoginComponent);
-        component = fixture.componentInstance;
-        de = fixture.debugElement.query(By.css('h1'));
-        el = de.nativeElement;
+        var loginFixture = TestBed.createComponent(LoginComponent);
+        loginComponent = loginFixture.componentInstance;
     });
     it('should have a defined component', function () {
-        expect(component).toBeDefined();
-    });
-    it('should display original title', function () {
-        expect(el.textContent).toContain(component.title);
-    });
-    it('should still see original title after comp.title change', function () {
-        var oldTitle = component.title;
-        component.title = 'Test Title';
-        expect(el.textContent).toContain(oldTitle);
-    });
-    it('should display updated title after detectChanges', function () {
-        component.title = 'Test Title';
-        fixture.detectChanges();
-        expect(el.textContent).toContain(component.title);
+        expect(loginComponent).toBeDefined();
     });
 });
 //# sourceMappingURL=../../../../src/app/login/login.component.spec.js.map

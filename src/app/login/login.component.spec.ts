@@ -1,47 +1,39 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import {
+  TestBed,
+  ComponentFixture,
+  fakeAsync,
+  inject
+} from '@angular/core/testing';
+
 import { ReactiveFormsModule } from '@angular/forms';
-import { By }              from '@angular/platform-browser';
-import { DebugElement }    from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { HttpService } from '../shared/http-service/http.service';
+import { Http, XHRBackend, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { DebugElement } from '@angular/core';
 
 // Components
 import { LoginComponent } from './login.component';
+import  { LoginComplexFormComponent } from './login.complexform';
 
 describe('Component: LoginComponent', () => {
-    let component: LoginComponent;
+    let loginComponent: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
-    let de: DebugElement;
-    let el: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [LoginComponent], // declare the test component
-            imports: [ReactiveFormsModule]
+            declarations: [LoginComponent, LoginComplexFormComponent], // declare the test component
+            imports: [ReactiveFormsModule],
+            providers: [ HttpService ],
         });
 
-        const fixture = TestBed.createComponent(LoginComponent);
-        component = fixture.componentInstance; // LoginComponent test instance
-        de = fixture.debugElement.query(By.css('h1'));
-        el = de.nativeElement;
+        const loginFixture = TestBed.createComponent(LoginComponent);
+        loginComponent = loginFixture.componentInstance; // LoginComponent test instance
     });
 
     it('should have a defined component', () => {
-        expect(component).toBeDefined();
+        expect(loginComponent).toBeDefined();
     });
 
-    it('should display original title', () => {
-      expect(el.textContent).toContain(component.title);
-    });
-
-    it('should still see original title after comp.title change', () => {
-      const oldTitle = component.title;
-      component.title = 'Test Title';
-      expect(el.textContent).toContain(oldTitle);
-    });
-
-    it('should display updated title after detectChanges', () => {
-      component.title = 'Test Title';
-      fixture.detectChanges(); // detect changes explicitly
-      expect(el.textContent).toContain(component.title);
-    });
 
 });
