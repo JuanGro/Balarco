@@ -5,7 +5,7 @@ import { ContactsList } from './contacts-list';
 
 @Component({
   selector: 'contacts-list-table',
-  templateUrl: 'contacts-list.table.html',
+  templateUrl: 'contacts-list-table.component.html',
   moduleId: module.id,
 })
 export class ContactsListTableComponent {

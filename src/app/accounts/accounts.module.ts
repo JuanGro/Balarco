@@ -6,15 +6,15 @@ import { CommonModule } from '@angular/common';
 
 import { ModalModule } from 'ng2-bootstrap/modal';
 
-import { CompaniesListComponent } from './companies-list/companies-list.component';
+// Contacts
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
+import { ContactsListTableComponent } from './contacts-list/contacts-list-table.component';
+import { NewContactFormComponent } from './contacts-list/new-contact-form.component';
+import { UpdateContactFormComponent } from './contacts-list/update-contact-form.component';
+
+import { CompaniesListComponent } from './companies-list/companies-list.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
-
-// import { CompaniesListModalComponent } from './companies-list/companies-list.modal';
-import { ContactsListTableComponent } from './contacts-list/contacts-list.table';
-// import { IgualasListModalComponent } from './igualas-list/igualas-list.modal';
-// import { DesignsListModalComponent } from './designs-list/designs-list.modal';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 
@@ -28,6 +28,6 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     ModalModule.forRoot()
   ],
   declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent, 
-  ContactsListTableComponent ]
+  ContactsListTableComponent, NewContactFormComponent, UpdateContactFormComponent ]
 })
 export class AccountsModule { }
