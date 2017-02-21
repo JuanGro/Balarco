@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Base
 import { CompaniesListComponent } from './companies-list.component';
-import { ClientsListComponent } from './clients-list.component';
+import { ContactsListComponent } from './contacts-list.component';
 import { IgualasListComponent } from './igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
 
@@ -22,10 +22,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'clients-list',
-        component: ClientsListComponent,
+        path: 'contacts-list',
+        component: ContactsListComponent,
         data: {
-          title: 'Clients List'
+          title: 'Contacts List'
         }
       },
       {

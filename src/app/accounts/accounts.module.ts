@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 import { CompaniesListComponent } from './companies-list.component';
-import { ClientsListComponent } from './clients-list.component';
+import { ContactsListComponent } from './contacts-list.component';
 import { IgualasListComponent } from './igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
 
@@ -20,6 +20,6 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ClientsListComponent, IgualasListComponent, DesignsListComponent ]
+  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent ]
 })
 export class AccountsModule { }

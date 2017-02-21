@@ -2,9 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 
 @Component({
-  templateUrl: 'clients-list.component.html'
+  templateUrl: 'contacts-list.component.html'
 })
-export class ClientsListComponent {
+export class ContactsListComponent {
   @ViewChild('childModal') public childModal: ModalDirective;
   public clients: any; // This should not happen, because assign "any" is not a good practice but it's just an example
 
