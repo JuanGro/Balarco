@@ -17,7 +17,8 @@ var LoginComplexFormComponent = (function () {
         this.events = [];
     }
     LoginComplexFormComponent.prototype.ngOnInit = function () {
-        var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
+        var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
+                      {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
         this.loginForm = new FormGroup({
             username: new FormControl('', [Validators.required, Validators.pattern(emailRegex)]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)])

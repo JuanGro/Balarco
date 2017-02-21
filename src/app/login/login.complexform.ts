@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from './login.service';
 import { HttpService } from '../shared/http-service/http.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -24,7 +23,8 @@ export class LoginComplexFormComponent implements OnInit {
   constructor(private _fb: FormBuilder, private loginService: HttpService) { }
 
   ngOnInit() {
-    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
+    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
+                      {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     this.loginForm = new FormGroup({
       username: new FormControl('', [<any>Validators.required, <any>Validators.pattern(emailRegex)]),
       password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)])
