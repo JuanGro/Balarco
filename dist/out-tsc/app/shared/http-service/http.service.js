@@ -96,6 +96,10 @@ var HttpService = (function (_super) {
     HttpService.prototype.postObject = function (url, object) {
         return this.post(url, object);
     };
+    HttpService.prototype.getObject = function (url, params) {
+        if (params === void 0) { params = null; }
+        return this.get(url, { search: params });
+    };
     return HttpService;
 }(Http));
 HttpService = __decorate([

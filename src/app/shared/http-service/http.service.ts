@@ -6,7 +6,8 @@ import {
   RequestOptionsArgs,
   Headers,
   Request,
-  Response
+  Response,
+  URLSearchParams
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
@@ -117,5 +118,9 @@ export class HttpService extends Http {
 
   postObject(url: string, object: any): Observable<Response> {
     return this.post(url, object);
+  }
+
+  getObject(url: string, params: URLSearchParams = null): Observable<Response> {
+    return this.get(url, { search: params });
   }
 }
