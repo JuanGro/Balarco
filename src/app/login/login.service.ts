@@ -6,16 +6,17 @@ import { Observable } from 'rxjs/Rx';
 import { Token } from './token';
 
 // Import RxJs required methods
-//import 'rxjs/add/operator/map';
-//import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class LoginService {
+  private loginUrl: string = 'http://localhost:8000/users/api-login';
+
   constructor (private http: Http) { }
-  private loginUrl = 'http://localhost:8000/users/api-login';
 
   sendLoginData(body: Object): Observable<Token> {
-    let bodyString = JSON.stringify(body);
+    // let bodyString = JSON.stringify(body);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 

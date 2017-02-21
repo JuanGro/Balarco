@@ -8,22 +8,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../shared/http-service/http.service';
-import { Login } from './login';
 var LoginComplexFormComponent = (function () {
-    function LoginComplexFormComponent(fb, loginService) {
+    function LoginComplexFormComponent(_fb, loginService) {
+        this._fb = _fb;
         this.loginService = loginService;
-        this.loginObject = new Login();
-        this.loginForm = fb.group({
-            'username': '',
-            'password': ''
-        });
-        this.login();
+        this.events = [];
     }
-    LoginComplexFormComponent.prototype.login = function () {
+    LoginComplexFormComponent.prototype.ngOnInit = function () {
+        var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
+        this.loginForm = new FormGroup({
+            username: new FormControl('', [Validators.required, Validators.pattern(emailRegex)]),
+            password: new FormControl('', [Validators.required, Validators.minLength(6)])
+        });
+    };
+    LoginComplexFormComponent.prototype.submitForm = function (model, isValid) {
         var _this = this;
-        this.loginService.login('eduardovaca', 'adminadmin').subscribe(function (result) {
+        this.loginService.login(model.username, model.password).subscribe(function (result) {
             if (result == true) {
                 console.log('TOKEN: ' + _this.loginService.token);
             }

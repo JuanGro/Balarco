@@ -19,6 +19,8 @@ export class FullLayoutComponent implements OnInit {
     private admin: boolean = true;
 
     /* End of example */
+    public disabled: boolean = false;
+    public status: {isopen: boolean} = {isopen: false};
 
     constructor() {
         this.designDirector = true;
@@ -26,9 +28,6 @@ export class FullLayoutComponent implements OnInit {
         this.accounts = true;
         this.admin = true;
     }
-
-    public disabled: boolean = false;
-    public status: {isopen: boolean} = {isopen: false};
 
     public toggled(open: boolean): void {
         console.log('Dropdown is now: ', open);
