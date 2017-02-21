@@ -123,4 +123,12 @@ export class HttpService extends Http {
   getObject(url: string, params: URLSearchParams = null): Observable<Response> {
     return this.get(url, { search: params });
   }
+
+  updateObject(url: string, object: any): Observable<Response> {
+    return this.put(url, object);
+  }
+
+  deleteObject(url: string): Observable<Response> {
+    return this.delete(url);
+  }
 }

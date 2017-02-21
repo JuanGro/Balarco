@@ -100,6 +100,12 @@ var HttpService = (function (_super) {
         if (params === void 0) { params = null; }
         return this.get(url, { search: params });
     };
+    HttpService.prototype.updateObject = function (url, object) {
+        return this.put(url, object);
+    };
+    HttpService.prototype.deleteObject = function (url) {
+        return this.delete(url);
+    };
     return HttpService;
 }(Http));
 HttpService = __decorate([
