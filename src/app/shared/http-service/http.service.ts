@@ -8,8 +8,8 @@ import {
   Request,
   Response
 } from '@angular/http';
-
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
@@ -18,14 +18,12 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpService extends Http {
-  // TODO: This should be in environment variables
-  public apiUrl = 'http://localhost:8000/';
   public token: string;
 
   constructor(
     backend: XHRBackend,
     defaultOptions: RequestOptions,
-    // TODO: Define user token sessions variable
+
   ) {
     super(backend, defaultOptions);
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -61,9 +59,9 @@ export class HttpService extends Http {
   /**
   * Useful in problems with CORS
   **/
-  private getUrl(currentUrl) {
+  private getUrl(currentUrl: string) {
     if (!currentUrl.includes('/assets/')) {
-      return this.apiUrl + currentUrl;
+      return environment.API_URL + currentUrl;
     } else {
       return currentUrl;
     }

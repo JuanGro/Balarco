@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/map';
@@ -23,7 +24,6 @@ var HttpService = (function (_super) {
     __extends(HttpService, _super);
     function HttpService(backend, defaultOptions) {
         var _this = _super.call(this, backend, defaultOptions) || this;
-        _this.apiUrl = 'http://localhost:8000/';
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         _this.token = currentUser && currentUser.token;
         return _this;
@@ -50,7 +50,7 @@ var HttpService = (function (_super) {
     };
     HttpService.prototype.getUrl = function (currentUrl) {
         if (!currentUrl.includes('/assets/')) {
-            return this.apiUrl + currentUrl;
+            return environment.API_URL + currentUrl;
         }
         else {
             return currentUrl;
