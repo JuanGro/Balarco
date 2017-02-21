@@ -1,10 +1,9 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 import { Observable } from 'rxjs/Rx';
 
 // Components
 import { CompletedDesignsList } from './completed-designs-list';
-// import { CompletedDesignsListModal } from './completed-designs-list.modal';
 
 // Services
 import { CompletedDesignsListService } from './completed-designs-list.service';
@@ -15,20 +14,17 @@ import { CompletedDesignsListService } from './completed-designs-list.service';
   moduleId: module.id,
 })
 export class CompletedDesignsListComponent implements OnInit {
-  @ViewChild('childModal') public childModal: ModalDirective;
-
   public documents: CompletedDesignsList[];
   public errorMessage: string;
-  public mode = 'Observable';
+  public design: CompletedDesignsList;
+  @Input() notify: CompletedDesignsList;
 
-  constructor(private completedDesignsListService: CompletedDesignsListService) {
+  public constructor(private completedDesignsListService: CompletedDesignsListService) {
     let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getDocuments());
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   getDocuments() {
     this.completedDesignsListService.getDocuments()
@@ -36,5 +32,9 @@ export class CompletedDesignsListComponent implements OnInit {
           documents => this.documents = documents,
           error => this.errorMessage = <any>error
         );
+  }
+
+  onNotify(object: CompletedDesignsList): void {
+    this.design = object;
   }
 }
