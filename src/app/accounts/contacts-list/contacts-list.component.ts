@@ -24,9 +24,10 @@ export class ContactsListComponent implements OnInit {
   // Received from child component
   @Input() currentContact: ContactsList;
   // Control form
-  public contactsModalForm: FormGroup;
+  public contactsNewModalForm: FormGroup;
+  public contactsUpdateModalForm: FormGroup;
 
-  public constructor() {
+  public constructor(private _fb: FormBuilder) {
     // Get Observable
     /* let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getDocuments()); */
@@ -40,7 +41,7 @@ export class ContactsListComponent implements OnInit {
   public ngOnInit() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                         {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-    this.contactsModalForm = new FormGroup({
+    this.contactsNewModalForm = new FormGroup({
       name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
       lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
       company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
@@ -49,7 +50,19 @@ export class ContactsListComponent implements OnInit {
       ext: new FormControl('', [<any>Validators.required]),
       phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
       phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)]),
+      email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
+    });
+
+    this.contactsUpdateModalForm = new FormGroup({
+      name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
+      lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
+      company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
+      landline: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
+      job: new FormControl('', [<any>Validators.required, <any>Validators.minLength(3)]),
+      ext: new FormControl('', [<any>Validators.required]),
+      phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
+      phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
+      email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
     });
   }
   
@@ -62,7 +75,13 @@ export class ContactsListComponent implements OnInit {
         );
   } */
 
-  public onNotify(object: ContactsList): void {
+  public getContact(object: ContactsList): void {
     this.contact = object;
+  }
+
+  public submitNewContactForm(model: ContactsList, isValid: boolean) {
+  }
+
+  public submitUpdateContactForm(model: ContactsList, isValid: boolean) {
   }
 }

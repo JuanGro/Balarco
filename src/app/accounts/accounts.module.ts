@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,7 @@ import { AccountsRoutingModule } from './accounts-routing.module';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AccountsRoutingModule,
     ChartsModule,
     DropdownModule,

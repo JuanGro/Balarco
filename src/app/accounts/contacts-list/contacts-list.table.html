@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <!-- Add new contact -->
-                    <div (click)="requestShowModal($event)">
+                    <div (click)="requestNewContactModal($event)">
                     <i class="icon-plus icons font-2xl d-block mt-2"></i>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             <!-- We are sending the request to show the modal and the current contact -->
-                            <tr data-toggle="modal" *ngFor="let contact of docs" (click)="requestShowModal($event)" (click)="sendCurrentContact(contact)">
+                            <tr data-toggle="modal" *ngFor="let contact of docs" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.lastname }}</td>
