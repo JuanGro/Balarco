@@ -59,7 +59,7 @@ var HttpService = (function (_super) {
         var headers = objectToSetHeadersTo.headers;
         headers.set('Content-Type', 'application/json');
         if (this.token != null) {
-            headers.set('auth_token', 'Token ' + this.token);
+            headers.set('Authentication', 'Token ' + this.token);
         }
     };
     HttpService.prototype.onCatch = function () {

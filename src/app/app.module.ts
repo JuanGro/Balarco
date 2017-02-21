@@ -47,7 +47,8 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
   {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  }
+],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
