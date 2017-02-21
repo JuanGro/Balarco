@@ -23,7 +23,7 @@ export class ContactsListComponent implements OnInit {
     /*let timer = Observable.timer(0, 5000);
     timer.subscribe(() => this.getDocuments());*/
   this.documents = [
-      {'name' : 'Mark', 'lastname' : 'Otto', 'job' : 'marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'phone2' : '2222222222', 'email' : 'mail@gmail.com'}
+      {'id': 1, 'name' : 'Mark', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'phone2' : '2222222222', 'email' : 'mail@gmail.com'}
     ];
   }
 
