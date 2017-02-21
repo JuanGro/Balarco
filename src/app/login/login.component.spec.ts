@@ -1,39 +1,58 @@
-import {
-  TestBed,
-  ComponentFixture,
-  fakeAsync,
-  inject
-} from '@angular/core/testing';
-
-import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HttpService } from '../shared/http-service/http.service';
-import { Http, XHRBackend, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
 import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Components
 import { LoginComponent } from './login.component';
-import  { LoginComplexFormComponent } from './login.complexform';
+import { LoginComplexFormComponent } from './login.complexform';
+import { HttpService } from '../shared/http-service/http.service';
 
-describe('Component: LoginComponent', () => {
-    let loginComponent: LoginComponent;
-    let fixture: ComponentFixture<LoginComponent>;
+describe('Login Component', () => {
+  let comp: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let httpServiceStub;
+  let httpService;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [LoginComponent, LoginComplexFormComponent], // declare the test component
-            imports: [ReactiveFormsModule],
-            providers: [ HttpService ],
-        });
+  beforeEach(() => {
 
-        const loginFixture = TestBed.createComponent(LoginComponent);
-        loginComponent = loginFixture.componentInstance; // LoginComponent test instance
+    httpServiceStub = {
+      isLoggedIn: true,
+      user: { name: 'Test User'}
+    };
+
+    TestBed.configureTestingModule({
+      imports: [ FormsModule, ReactiveFormsModule],
+      declarations: [ LoginComponent, LoginComplexFormComponent ],
+      providers: [ {provide: HttpService, useValue: httpServiceStub }]
     });
 
-    it('should have a defined component', () => {
-        expect(loginComponent).toBeDefined();
-    });
+    httpService = TestBed.get(HttpService);
 
+    fixture = TestBed.createComponent(LoginComponent);
+    comp = fixture.componentInstance;
+    de = fixture.debugElement.query(By.css('h1'));
+    el = de.nativeElement;
+  });
+
+  /**
+  * Tests the mock provider for the test
+  **/
+  it('stub object and injected HttpService should not be the same', () => {
+    expect(httpServiceStub === httpService).toBe(false);
+
+    // Changing the stub object has no effect on the injected service
+    httpServiceStub.isLoggedIn = false;
+    expect(httpService.isLoggedIn).toBe(true);
+  });
+
+  /**
+  * Tests the interface creation by the component
+  **/
+  it('should display original title', () => {
+    fixture.detectChanges();
+    expect(el.textContent).toContain(comp.title);
+  });
 
 });
