@@ -11,7 +11,7 @@ import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
 
 // import { CompaniesListModalComponent } from './companies-list/companies-list.modal';
-import { ContactsListModalComponent } from './contacts-list/contacts-list.modal';
+import { ContactsListTableComponent } from './contacts-list/contacts-list.table';
 // import { IgualasListModalComponent } from './igualas-list/igualas-list.modal';
 // import { DesignsListModalComponent } from './designs-list/designs-list.modal';
 
@@ -26,6 +26,6 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     ModalModule.forRoot()
   ],
   declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent, 
-  ContactsListModalComponent ]
+  ContactsListTableComponent ]
 })
 export class AccountsModule { }

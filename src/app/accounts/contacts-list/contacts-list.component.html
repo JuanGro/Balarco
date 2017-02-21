@@ -1,5 +1,9 @@
-<contacts-list-modal [docs]="documents" (uploaded)="largeModal.show()" (notify)="onNotify($event)"></contacts-list-modal>
+<!-- Child component, it contains the table -->
+<!-- (uploaded) receives the event to show the modal and (currentContact) receives the object of the current contact to show -->
+<!-- [docs] sends the contacts to child component -->
+<contacts-list-table [docs]="documents" (requestModal)="largeModal.show()" (currentContact)="onNotify($event)"></contacts-list-table>
 
+<!-- Modal Update Contact -->
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -17,7 +21,7 @@
                     <label for="recipient-name" class="form-control-label">Nombre:</label>
                     <input type="text" value="{{ contact?.name }}" class="form-control" id="recipient-name">
                 </div>
-                <!-- Last name -->
+                <!-- Lastname -->
                 <div class="form-group">
                     <label for="recipient-lastname" class="form-control-label">Apellido:</label>
                     <input type="text" value="{{ contact?.lastname }}" class="form-control" id="recipient-lastname">
@@ -57,6 +61,27 @@
                     <label for="recipient-email" class="form-control-label">Email:</label>
                     <input type="email" value="{{ contact?.email }}" class="form-control" id="recipient-email">
                 </div>
+                
+                <!-- Validations -->
+                <!-- Feedback name -->
+                <div [hidden]="contactsModalForm.controls.name.valid || (contactsModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
+                <!-- Feedback lastname -->
+                <div [hidden]="contactsModalForm.controls.lastname.valid || (contactsModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
+                <!-- Feedback company -->
+                <div [hidden]="contactsModalForm.controls.company.valid || (contactsModalForm.controls.company.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
+                <!-- Feedback job -->
+                <div [hidden]="contactsModalForm.controls.job.valid || (contactsModalForm.controls.job.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
+                <!-- Feedback landline -->
+                <div [hidden]="contactsModalForm.controls.landline.valid || (contactsModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
+                <!-- Feedback extension -->
+                <div [hidden]="contactsModalForm.controls.ext.valid || (contactsModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
+                <!-- Feedback phone 1 -->
+                <div [hidden]="contactsModalForm.controls.phone1.valid || (contactsModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+                <!-- Feedback phone 2 -->
+                <div [hidden]="contactsModalForm.controls.phone2.valid || (contactsModalForm.controls.phone2.pristine && !submitted)" class="alert alert-danger">Ingrese su teléfono válido</div>
+                <!-- Feedback email -->
+                <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+                
                 </form>
             </div>
             <div class="modal-footer">
@@ -66,3 +91,5 @@
         </div>
     </div>
 </div>
+
+<!-- Modal New Contact -->
