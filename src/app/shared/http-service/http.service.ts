@@ -26,7 +26,7 @@ export class HttpService extends Http {
 
   ) {
     super(backend, defaultOptions);
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
   }
 
@@ -83,7 +83,7 @@ export class HttpService extends Http {
   private onCatch() {
     return (res: Response) => {
       // Security errors
-      if (res.status == 401 || res.status == 403) {
+      if (res.status === 401 || res.status === 403) {
         // TODO: Redirect to login to ask credentials
       }
       return Observable.throw(res);

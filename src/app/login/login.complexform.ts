@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../shared/http-service/http.service';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 
 // Interface
 import { Login } from './login';
@@ -33,7 +31,7 @@ export class LoginComplexFormComponent implements OnInit {
 
   submitForm(model: Login, isValid: boolean) {
     this.loginService.login(model.username, model.password).subscribe(result => {
-      if (result == true) {
+      if (result === true) {
         // Login succesful
         console.log('TOKEN: ' + this.loginService.token);
       } else {

@@ -27,7 +27,7 @@ var LoginComplexFormComponent = (function () {
     LoginComplexFormComponent.prototype.submitForm = function (model, isValid) {
         var _this = this;
         this.loginService.login(model.username, model.password).subscribe(function (result) {
-            if (result == true) {
+            if (result === true) {
                 console.log('TOKEN: ' + _this.loginService.token);
             }
             else {

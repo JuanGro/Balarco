@@ -64,7 +64,7 @@ var HttpService = (function (_super) {
     };
     HttpService.prototype.onCatch = function () {
         return function (res) {
-            if (res.status == 401 || res.status == 403) {
+            if (res.status === 401 || res.status === 403) {
             }
             return Observable.throw(res);
         };
