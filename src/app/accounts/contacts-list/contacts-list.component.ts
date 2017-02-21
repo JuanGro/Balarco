@@ -64,6 +64,18 @@ export class ContactsListComponent implements OnInit {
       phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
       email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
     });
+
+    /*this.contactsUpdateModalForm.patchValue({
+      name: this.contact.name,
+      lastname: this.contact.lastname,
+      company: this.contact.company,
+      landline: this.contact.landline,
+      job: this.contact.job,
+      ext: this.contact.ext,
+      phone1: this.contact.phone1,
+      phone2: this.contact.phone2,
+      email: this.contact.email
+    });*/
   }
   
   // Get the object from the service
@@ -83,5 +95,6 @@ export class ContactsListComponent implements OnInit {
   }
 
   public submitUpdateContactForm(model: ContactsList, isValid: boolean) {
+    console.log(model);
   }
 }
