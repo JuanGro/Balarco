@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Base
-import { CompaniesListComponent } from './companies-list.component';
-import { ContactsListComponent } from './contacts-list.component';
-import { IgualasListComponent } from './igualas-list.component';
-import { DesignsListComponent } from './designs-list.component';
+import { CompaniesListComponent } from './companies-list/companies-list.component';
+import { ContactsListComponent } from './contacts-list/contacts-list.component';
+import { IgualasListComponent } from './igualas-list/igualas-list.component';
+import { DesignsListComponent } from './designs-list/designs-list.component';
 
 const routes: Routes = [
   {

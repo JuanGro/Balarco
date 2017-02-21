@@ -5,10 +5,15 @@ import { CommonModule } from '@angular/common';
 
 import { ModalModule } from 'ng2-bootstrap/modal';
 
-import { CompaniesListComponent } from './companies-list.component';
-import { ContactsListComponent } from './contacts-list.component';
-import { IgualasListComponent } from './igualas-list.component';
-import { DesignsListComponent } from './designs-list.component';
+import { CompaniesListComponent } from './companies-list/companies-list.component';
+import { ContactsListComponent } from './contacts-list/contacts-list.component';
+import { IgualasListComponent } from './igualas-list/igualas-list.component';
+import { DesignsListComponent } from './designs-list/designs-list.component';
+
+// import { CompaniesListModalComponent } from './companies-list/companies-list.modal';
+import { ContactsListModalComponent } from './contacts-list/contacts-list.modal';
+// import { IgualasListModalComponent } from './igualas-list/igualas-list.modal';
+// import { DesignsListModalComponent } from './designs-list/designs-list.modal';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 
@@ -20,6 +25,7 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent ]
+  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent, 
+  ContactsListModalComponent ]
 })
 export class AccountsModule { }

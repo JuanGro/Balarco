@@ -1,0 +1,63 @@
+<contacts-list-modal [docs]="documents" (uploaded)="largeModal.show()" (notify)="onNotify($event)"></contacts-list-modal>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ contact?.name }}</h4>
+                <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Start form -->
+                <form>
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="recipient-name" class="form-control-label">Nombre:</label>
+                    <input type="text" value="{{ contact?.name }}" class="form-control" id="recipient-name">
+                </div>
+                <!-- Last name -->
+                <div class="form-group">
+                    <label for="recipient-lastname" class="form-control-label">Apellido:</label>
+                    <input type="text" value="{{ contact?.lastname }}" class="form-control" id="recipient-lastname">
+                </div>
+                <!-- Department or Job -->
+                <div class="form-group">
+                    <label for="recipient-apartment" class="form-control-label">Puesto (Departamento):</label>
+                    <input type="text" value="{{ contact?.job }}" class="form-control" id="recipient-apartment">
+                </div>
+                <!-- Landline -->
+                <div class="form-group">
+                    <label for="recipient-landline" class="form-control-label">Teléfono fijo:</label>
+                    <input type="tel" value="{{ contact?.landline }}" class="form-control" id="recipient-landline">
+                </div>
+                <!-- Extension -->
+                <div class="form-group">
+                    <label for="recipient-ext" class="form-control-label">Extensión:</label>
+                    <input type="number" value="{{ contact?.ext }}" class="form-control" id="recipient-ext">
+                </div>
+                <!-- Phone 1 -->
+                <div class="form-group">
+                    <label for="recipient-phone1" class="form-control-label">Teléfono móvil 1:</label>
+                    <input type="tel" value="{{ contact?.phone1 }}" class="form-control" id="recipient-phone1">
+                </div>
+                <!-- Phone 2 -->
+                <div class="form-group">
+                    <label for="recipient-phone2" class="form-control-label">Telefono móvil 2:</label>
+                    <input type="tel" value="{{ contact?.phone2 }}" class="form-control" id="recipient-phone2">
+                </div>
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="recipient-email" class="form-control-label">Email:</label>
+                    <input type="email" value="{{ contact?.email }}" class="form-control" id="recipient-email">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
