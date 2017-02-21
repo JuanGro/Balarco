@@ -27,9 +27,10 @@ export class LoginComplexFormComponent {
   }
 
   login() {
-    this.loginService.login('username', 'password').subscribe(result => {
+    this.loginService.login('eduardovaca', 'adminadmin').subscribe(result => {
       if (result == true) {
         // Login succesful
+        console.log('TOKEN: ' + this.loginService.token);
       } else {
         // Login failed
       }

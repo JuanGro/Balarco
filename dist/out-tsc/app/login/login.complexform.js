@@ -22,8 +22,10 @@ var LoginComplexFormComponent = (function () {
         this.login();
     }
     LoginComplexFormComponent.prototype.login = function () {
-        this.loginService.login('username', 'password').subscribe(function (result) {
+        var _this = this;
+        this.loginService.login('eduardovaca', 'adminadmin').subscribe(function (result) {
             if (result == true) {
+                console.log('TOKEN: ' + _this.loginService.token);
             }
             else {
             }

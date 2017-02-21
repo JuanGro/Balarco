@@ -41,7 +41,6 @@ export class HttpService extends Http {
   }
 
   private configureRequest(request: string | Request, options: RequestOptionsArgs) {
-    console.log('CONFIGURING REQUEST!');
     if (typeof request === 'string') {
       request = this.getUrl(request);
       this.setHeaders(options);
@@ -73,6 +72,9 @@ export class HttpService extends Http {
   private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
     const headers = objectToSetHeadersTo.headers;
     headers.set('Content-Type', 'application/json');
+    if (this.token != null) {
+      headers.set('auth_token', 'Token ' + this.token);
+    }
   }
 
   /**
@@ -99,7 +101,8 @@ export class HttpService extends Http {
         let token = response.json() && response.json().token;
         if (token) {
           this.token = token;
-          localStorage.setItem('currentUser', user);
+          let currentUser = JSON.stringify({ username: username, token: token });
+          localStorage.setItem('currentUser', currentUser);
           return true;
         } else {
           return false;

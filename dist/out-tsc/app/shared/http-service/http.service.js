@@ -34,7 +34,6 @@ var HttpService = (function (_super) {
         return this.interceptResponse(request, options);
     };
     HttpService.prototype.configureRequest = function (request, options) {
-        console.log('CONFIGURING REQUEST!');
         if (typeof request === 'string') {
             request = this.getUrl(request);
             this.setHeaders(options);
@@ -59,6 +58,9 @@ var HttpService = (function (_super) {
     HttpService.prototype.setHeaders = function (objectToSetHeadersTo) {
         var headers = objectToSetHeadersTo.headers;
         headers.set('Content-Type', 'application/json');
+        if (this.token != null) {
+            headers.set('auth_token', 'Token ' + this.token);
+        }
     };
     HttpService.prototype.onCatch = function () {
         return function (res) {
@@ -78,7 +80,8 @@ var HttpService = (function (_super) {
             var token = response.json() && response.json().token;
             if (token) {
                 _this.token = token;
-                localStorage.setItem('currentUser', user);
+                var currentUser = JSON.stringify({ username: username, token: token });
+                localStorage.setItem('currentUser', currentUser);
                 return true;
             }
             else {
