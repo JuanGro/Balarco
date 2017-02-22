@@ -54,6 +54,6 @@ describe('HttpService', () => {
       httpService.logout();
       httpService.login('test@test.com', '123').subscribe(result => {
         expect(result).toBe(false);
-      })
+      });
     })));
 });
