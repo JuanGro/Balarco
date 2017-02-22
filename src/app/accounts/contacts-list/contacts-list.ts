@@ -1,4 +1,4 @@
-export interface ContactsList {
+export class ContactsList {
     id: number;
     name: string;
     lastname: string;

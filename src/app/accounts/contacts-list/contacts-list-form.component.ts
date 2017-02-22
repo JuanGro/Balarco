@@ -20,7 +20,7 @@ export class ContactsListFormComponent implements OnChanges {
   // Control form
   public contactsModalForm: FormGroup;
 
-  public constructor(private fb: FormBuilder) { }
+  public constructor() { }
 
   public ngOnChanges() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
