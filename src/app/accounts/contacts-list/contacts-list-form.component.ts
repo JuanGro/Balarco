@@ -16,6 +16,7 @@ export class ContactsListFormComponent implements OnChanges {
   // Request action to parent component
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  @Output() requestSuccess: EventEmitter<string> = new EventEmitter();
   // Control form
   public contactsUpdateModalForm: FormGroup;
 
@@ -60,6 +61,10 @@ export class ContactsListFormComponent implements OnChanges {
 
   public removeContact(model: ContactsList){
     console.log(model);
+  }
+
+  public requestSuccessModal() {
+    this.requestSuccess.emit('complete');
   }
 
   public requestWarningModal() {

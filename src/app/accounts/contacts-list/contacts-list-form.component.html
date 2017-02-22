@@ -69,7 +69,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
         <button *ngIf="contact" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!contactsUpdateModalForm.valid">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!contactsUpdateModalForm.valid" (click)="requestSuccessModal($event)">Guardar</button>
     </div>
 
     </form>
