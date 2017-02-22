@@ -1,14 +1,10 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '.nav-dropdown',
-  host: {
-    '[class.open]': '_open',
-  }
+  selector: '.nav-dropdown'
 })
 export class NavDropdownDirective {
-
-  private _open = false;
+  @HostListener('[class.open]') _open: boolean = false;
 
   /**
   * Checks if the dropdown menu is open or not.

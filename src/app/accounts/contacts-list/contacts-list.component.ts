@@ -38,7 +38,7 @@ export class ContactsListComponent implements OnInit {
     this.contact = null;
   }
 
-  public removeContact(model: ContactsList){
+  public removeContact(model: ContactsList) {
     console.log(model);
   }
 
