@@ -13,7 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <update-contact-form [contactToEdit]="contact"></update-contact-form>
+            <contacts-list-form [contactToEdit]="contact"></contacts-list-form>
         </div>
     </div>
 </div>
@@ -23,12 +23,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{ contact?.name }}</h4>
+                <h4 class="modal-title">Modificar Contacto</h4>
                 <button type="button" class="close" (click)="updateContactModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <update-contact-form [contactToEdit]="contact"></update-contact-form>
+            <contacts-list-form [contactToEdit]="contact"></contacts-list-form>
         </div>
     </div>
 </div>

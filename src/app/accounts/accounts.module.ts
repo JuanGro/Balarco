@@ -9,8 +9,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Contacts
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactsListTableComponent } from './contacts-list/contacts-list-table.component';
-import { NewContactFormComponent } from './contacts-list/new-contact-form.component';
-import { UpdateContactFormComponent } from './contacts-list/update-contact-form.component';
+import { ContactsListFormComponent } from './contacts-list/contacts-list-form.component';
 
 import { CompaniesListComponent } from './companies-list/companies-list.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
@@ -28,6 +27,6 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     ModalModule.forRoot()
   ],
   declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent, 
-  ContactsListTableComponent, NewContactFormComponent, UpdateContactFormComponent ]
+  ContactsListTableComponent, ContactsListFormComponent ]
 })
 export class AccountsModule { }

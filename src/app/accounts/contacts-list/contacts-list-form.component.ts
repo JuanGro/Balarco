@@ -1,20 +1,16 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
 
 // Components
 import { ContactsList } from './contacts-list';
 
-// Services
-// import { ContactsListService } from './contacts-list.service';
-
 @Component({
-  selector: 'update-contact-form',
-  templateUrl: 'update-contact-form.component.html',
+  selector: 'contacts-list-form',
+  templateUrl: 'contacts-list-form.component.html',
   moduleId: module.id,
 })
-export class UpdateContactFormComponent implements OnChanges {
+export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
   @Input('contactToEdit') contact: ContactsList;
   // Control form
