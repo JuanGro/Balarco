@@ -57,6 +57,10 @@ export class ContactsListFormComponent implements OnChanges {
     console.log(model);
   }
 
+  public removeContact(model: ContactsList){
+    console.log(model);
+  }
+
   public requestCloseThisModal() {
     this.requestCloseModal.emit('complete');
   }
