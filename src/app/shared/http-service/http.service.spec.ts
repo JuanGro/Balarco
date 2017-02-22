@@ -39,7 +39,6 @@ describe('HttpService', () => {
       setUpResponseBody(mockBackend, { token: 'valid_token' }, 200);
       httpService.login('juan@gmail.com', 'juanjuan').subscribe(result => {
         expect(result).toBe(true);
-        console.log('Success', result);
         httpService.logout();
       });
     })));
