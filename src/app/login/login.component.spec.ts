@@ -55,4 +55,16 @@ describe('Login Component', () => {
     expect(el.textContent).toContain(comp.title);
   });
 
+  it('should display a different test title', () => {
+    comp.title = 'Test Title';
+    fixture.detectChanges();
+    expect(el.textContent).toContain('Test Title');
+  });
+
+  it('should display updated title after detectChanges', () => {
+    comp.title = 'Test Title';
+    fixture.detectChanges(); // detect changes explicitly
+    expect(el.textContent).toContain(comp.title);
+  });
+
 });

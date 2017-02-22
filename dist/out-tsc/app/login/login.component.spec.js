@@ -36,5 +36,15 @@ describe('Login Component', function () {
         fixture.detectChanges();
         expect(el.textContent).toContain(comp.title);
     });
+    it('should display a different test title', function () {
+        comp.title = 'Test Title';
+        fixture.detectChanges();
+        expect(el.textContent).toContain('Test Title');
+    });
+    it('should display updated title after detectChanges', function () {
+        comp.title = 'Test Title';
+        fixture.detectChanges();
+        expect(el.textContent).toContain(comp.title);
+    });
 });
 //# sourceMappingURL=../../../../src/app/login/login.component.spec.js.map
