@@ -18,7 +18,7 @@ export class ContactsListFormComponent implements OnChanges {
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   @Output() requestSuccess: EventEmitter<string> = new EventEmitter();
   // Control form
-  public contactsUpdateModalForm: FormGroup;
+  public contactsModalForm: FormGroup;
 
   public constructor(private _fb: FormBuilder) { }
 
@@ -27,7 +27,7 @@ export class ContactsListFormComponent implements OnChanges {
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {
       // Update Contact
-      this.contactsUpdateModalForm = new FormGroup({
+      this.contactsModalForm = new FormGroup({
         name: new FormControl(this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]),
         lastname: new FormControl(this.contact.lastname, [<any>Validators.required, <any>Validators.minLength(4)]),
         company: new FormControl(this.contact.company, [<any>Validators.required, <any>Validators.minLength(2)]),
@@ -41,7 +41,7 @@ export class ContactsListFormComponent implements OnChanges {
 
     } else {
       // New Contact
-      this.contactsUpdateModalForm = new FormGroup({
+      this.contactsModalForm = new FormGroup({
         name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
         lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
         company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
@@ -73,5 +73,9 @@ export class ContactsListFormComponent implements OnChanges {
 
   public requestCloseThisModal() {
     this.requestCloseModal.emit('complete');
+  }
+
+  public resetForm() {
+    this.contactsModalForm.reset();
   }
 }
