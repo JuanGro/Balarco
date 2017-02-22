@@ -30,7 +30,31 @@ contact to show [docs] sends the contacts to child component -->
                 </button>
             </div>
             <!-- Common Form -->
-            <contacts-list-form [contactToEdit]="contact" (requestCloseModal)="updateContactModal.hide()"></contacts-list-form>
+            <contacts-list-form [contactToEdit]="contact" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contacts-list-form>
         </div>
     </div>
 </div>
+
+<!-- Danger Modal to delete contact -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar contacto</h4>
+                <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está usted seguro de eliminar este contacto?&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="removeContact(contact)" (click)="dangerModal.hide()" (click)="updateContactModal.hide()">Eliminar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

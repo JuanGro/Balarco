@@ -13,8 +13,9 @@ import { ContactsList } from './contacts-list';
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
   @Input('contactToEdit') contact: ContactsList;
-  // Request close the modal to parent component
+  // Request action to parent component
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+  @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   // Control form
   public contactsUpdateModalForm: FormGroup;
 
@@ -59,6 +60,10 @@ export class ContactsListFormComponent implements OnChanges {
 
   public removeContact(model: ContactsList){
     console.log(model);
+  }
+
+  public requestWarningModal() {
+    this.requestWarning.emit('complete');
   }
 
   public requestCloseThisModal() {
