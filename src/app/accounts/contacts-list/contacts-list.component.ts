@@ -36,6 +36,10 @@ export class ContactsListComponent implements OnInit {
 
   public ngOnInit() { }
 
+  public initializeModal() {
+    this.contact = null;
+  }
+
   public getContactFromTable(object: ContactsList): void {
     this.contact = object;
   }
