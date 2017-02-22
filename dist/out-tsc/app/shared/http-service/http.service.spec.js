@@ -35,7 +35,11 @@ describe('HttpService', function () {
         setUpResponseBody(mockBackend, { token: 'valid_token' }, 200);
         httpService.login('juan@gmail.com', 'juanjuan').subscribe(function (result) {
             expect(result).toBe(true);
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            expect(currentUser.token).toBe('valid_token');
             httpService.logout();
+            currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            expect(currentUser).toBe(null);
         });
     })));
     it('does not authenticate the user if the backend returns an error', async(inject([XHRBackend, HttpService], function (mockBackend, httpService) {
@@ -47,6 +51,8 @@ describe('HttpService', function () {
         httpService.logout();
         httpService.login('test@test.com', '123').subscribe(function (result) {
             expect(result).toBe(false);
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            expect(currentUser).toBe(null);
         });
     })));
 });
