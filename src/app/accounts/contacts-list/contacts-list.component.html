@@ -41,7 +41,7 @@ contact to show [docs] sends the contacts to child component -->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Eliminar contacto</h4>
-                <button type="button" class="close" (click)="dangerModal.hide()" (click)="updateContactModal.hide()" (click)="newContactModal.hide()" aria-label="Close">
+                <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -65,7 +65,7 @@ contact to show [docs] sends the contacts to child component -->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Guardado</h4>
-                <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+                <button type="button" class="close" (click)="successModal.hide()" (click)="updateContactModal.hide()" (click)="newContactModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
