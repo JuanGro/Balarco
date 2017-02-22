@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 
 // Components
 import { ContactsList } from './contacts-list';

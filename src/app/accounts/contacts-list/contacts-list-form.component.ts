@@ -1,5 +1,4 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 // Components
@@ -12,7 +11,8 @@ import { ContactsList } from './contacts-list';
 })
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
-  @Input('contactToEdit') contact: ContactsList;
+  // @Input('contactToEdit') contact: ContactsList;
+  @Input() contact: ContactsList;
   // Request action to parent component
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
@@ -36,7 +36,8 @@ export class ContactsListFormComponent implements OnChanges {
         ext: new FormControl(this.contact.ext, [<any>Validators.required]),
         phone1: new FormControl(this.contact.phone1, [<any>Validators.required, <any>Validators.minLength(6)]),
         // phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
-        email: new FormControl(this.contact.email, [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
+        email: new FormControl(this.contact.email, [<any>Validators.required, <any>Validators.minLength(4),
+                              <any>Validators.pattern(emailRegex)])
       });
 
     } else {
@@ -59,7 +60,7 @@ export class ContactsListFormComponent implements OnChanges {
     console.log(model);
   }
 
-  public removeContact(model: ContactsList){
+  public removeContact(model: ContactsList) {
     console.log(model);
   }
 

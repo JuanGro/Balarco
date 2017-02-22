@@ -1,7 +1,7 @@
 export interface ContactsList {
     id: number;
     name: string;
-    lastname: string
+    lastname: string;
     company: string;
     job: string;
     landline: string;

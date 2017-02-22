@@ -26,7 +26,7 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent, 
+  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent,
   ContactsListTableComponent, ContactsListFormComponent ]
 })
 export class AccountsModule { }

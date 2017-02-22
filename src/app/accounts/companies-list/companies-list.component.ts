@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: 'companies-list.component.html'

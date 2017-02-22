@@ -11,7 +11,7 @@ import { CompletedDesignsList } from './completed-designs-list';
 export class CompletedDesignsListModalComponent implements OnInit {
   // Send to the child the data
   @Input('docs') docs: CompletedDesignsList;
-  //Receive the request to show the modal
+  // Receive the request to show the modal
   @Output() uploaded: EventEmitter<string> = new EventEmitter();
   @Output() notify: EventEmitter<CompletedDesignsList> = new EventEmitter<CompletedDesignsList>();
 

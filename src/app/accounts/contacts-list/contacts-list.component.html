@@ -14,7 +14,7 @@ contact to show [docs] sends the contacts to child component -->
                 </button>
             </div>
             <!-- Common Form -->
-            <contacts-list-form [contactToEdit]="contact" (requestSuccess)="successModal.show()" (requestCloseModal)="newContactModal.hide()"></contacts-list-form>
+            <contacts-list-form [contact]="contact" (requestSuccess)="successModal.show()" (requestCloseModal)="newContactModal.hide()"></contacts-list-form>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@ contact to show [docs] sends the contacts to child component -->
                 </button>
             </div>
             <!-- Common Form -->
-            <contacts-list-form [contactToEdit]="contact" (requestSuccess)="successModal.show()" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contacts-list-form>
+            <contacts-list-form [contact]="contact" (requestSuccess)="successModal.show()" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contacts-list-form>
         </div>
     </div>
 </div>
