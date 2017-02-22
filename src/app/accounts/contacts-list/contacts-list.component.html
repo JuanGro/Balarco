@@ -1,10 +1,10 @@
 <!-- Child component, it contains the table -->
-<!-- (uploaded) receives the event to show the modal and (currentContact) receives the object of the current contact to show -->
-<!-- [docs] sends the contacts to child component -->
+<!-- (uploaded) receives the event to show the modal and (currentContact) receives the object of the current 
+contact to show [docs] sends the contacts to child component -->
 <contacts-list-table [docs]="documents" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
 
 <!-- Modal New Contact -->
-<div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,13 +13,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <contacts-list-form [contactToEdit]="contact"></contacts-list-form>
+            <!-- Common Form -->
+            <contacts-list-form [contactToEdit]="contact" (requestCloseModal)="newContactModal.hide()"></contacts-list-form>
         </div>
     </div>
 </div>
 
 <!-- Modal Update Contact -->
-<div bsModal #updateContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #updateContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateContactModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +29,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <contacts-list-form [contactToEdit]="contact"></contacts-list-form>
+            <!-- Common Form -->
+            <contacts-list-form [contactToEdit]="contact" (requestCloseModal)="updateContactModal.hide()"></contacts-list-form>
         </div>
     </div>
 </div>

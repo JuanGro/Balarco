@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -13,6 +13,8 @@ import { ContactsList } from './contacts-list';
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
   @Input('contactToEdit') contact: ContactsList;
+  // Request close the modal to parent component
+  @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Control form
   public contactsUpdateModalForm: FormGroup;
 
@@ -22,6 +24,7 @@ export class ContactsListFormComponent implements OnChanges {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {
+      // Update Contact
       this.contactsUpdateModalForm = new FormGroup({
         name: new FormControl(this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]),
         lastname: new FormControl(this.contact.lastname, [<any>Validators.required, <any>Validators.minLength(4)]),
@@ -33,7 +36,9 @@ export class ContactsListFormComponent implements OnChanges {
         phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
         email: new FormControl(this.contact.email, [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
       });
+
     } else {
+      // New Contact
       this.contactsUpdateModalForm = new FormGroup({
         name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
         lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
@@ -50,5 +55,9 @@ export class ContactsListFormComponent implements OnChanges {
 
   public submitUpdateContactForm(model: ContactsList, isValid: boolean) {
     console.log(model);
+  }
+
+  public requestCloseThisModal() {
+    this.requestCloseModal.emit('complete');
   }
 }
