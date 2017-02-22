@@ -4,63 +4,63 @@
     <!-- Name -->
     <div class="form-group">
         <label for="recipient-name" class="form-control-label">Nombre:</label>
-        <input type="text" value="{{ contact?.name }}" class="form-control" id="recipient-name" formControlName="name" required>
+        <input type="text" class="form-control" id="recipient-name" formControlName="name" required>
     </div>
     <!-- Feedback name -->
     <div [hidden]="contactsUpdateModalForm.controls.name.valid || (contactsUpdateModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
     <!-- Lastname -->
     <div class="form-group">
         <label for="recipient-lastname" class="form-control-label">Apellido:</label>
-        <input type="text" value="{{ contact?.lastname }}" class="form-control" id="recipient-lastname" formControlName="lastname" required>
+        <input type="text" class="form-control" id="recipient-lastname" formControlName="lastname" required>
     </div>
     <!-- Feedback lastname -->
     <div [hidden]="contactsUpdateModalForm.controls.lastname.valid || (contactsUpdateModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
     <!-- Company -->
     <div class="form-group">
         <label for="recipient-company" class="form-control-label">Company:</label>
-        <input type="text" value="{{ contact?.company }}" class="form-control" id="recipient-company" formControlName="company" required>
+        <input type="text" class="form-control" id="recipient-company" formControlName="company" required>
     </div>
     <!-- Feedback company -->
     <div [hidden]="contactsUpdateModalForm.controls.company.valid || (contactsUpdateModalForm.controls.company.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
     <!-- Department or Job -->
     <div class="form-group">
         <label for="recipient-apartment" class="form-control-label">Puesto (Departamento):</label>
-        <input type="text" value="{{ contact?.job }}" class="form-control" id="recipient-job" formControlName="job" required>
+        <input type="text" class="form-control" id="recipient-job" formControlName="job" required>
     </div>
     <!-- Feedback job -->
     <div [hidden]="contactsUpdateModalForm.controls.job.valid || (contactsUpdateModalForm.controls.job.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
     <!-- Landline -->
     <div class="form-group">
         <label for="recipient-landline" class="form-control-label">Teléfono fijo:</label>
-        <input type="tel" value="{{ contact?.landline }}" class="form-control" id="recipient-landline" formControlName="landline" required>
+        <input type="tel" class="form-control" id="recipient-landline" formControlName="landline" required>
     </div>
     <!-- Feedback landline -->
     <div [hidden]="contactsUpdateModalForm.controls.landline.valid || (contactsUpdateModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
     <!-- Extension -->
     <div class="form-group">
         <label for="recipient-ext" class="form-control-label">Extensión:</label>
-        <input type="number" value="{{ contact?.ext }}" class="form-control" id="recipient-ext" formControlName="ext" required>
+        <input type="number" class="form-control" id="recipient-ext" formControlName="ext" required>
     </div>
     <!-- Feedback extension -->
     <div [hidden]="contactsUpdateModalForm.controls.ext.valid || (contactsUpdateModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
     <!-- Phone 1 -->
     <div class="form-group">
         <label for="recipient-phone1" class="form-control-label">Teléfono móvil 1:</label>
-        <input type="tel" value="{{ contact?.phone1 }}" class="form-control" id="recipient-phone1" formControlName="phone1" required>
+        <input type="tel" class="form-control" id="recipient-phone1" formControlName="phone1" required>
     </div>
     <!-- Feedback phone 1 -->
     <div [hidden]="contactsUpdateModalForm.controls.phone1.valid || (contactsUpdateModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
     <!-- Phone 2 -->
     <div class="form-group">
         <label for="recipient-phone2" class="form-control-label">Telefono móvil 2:</label>
-        <input type="tel" value="{{ contact?.phone2 }}" class="form-control" id="recipient-phone2" formControlName="phone2" required>
+        <input type="tel" class="form-control" id="recipient-phone2" formControlName="phone2" required>
     </div>
     <!-- Feedback phone 2 -->
     <div [hidden]="contactsUpdateModalForm.controls.phone2.valid || (contactsUpdateModalForm.controls.phone2.pristine && !submitted)" class="alert alert-danger">Ingrese su teléfono válido</div>
     <!-- Email -->
     <div class="form-group">
         <label for="recipient-email" class="form-control-label">Email:</label>
-        <input type="email" value="{{ contact?.email }}" class="form-control" id="recipient-email" formControlName="email" required>
+        <input type="email" class="form-control" id="recipient-email" formControlName="email" required>
     </div>
     <!-- Feedback email -->
     <div [hidden]="contactsUpdateModalForm.controls.email.valid || (contactsUpdateModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>

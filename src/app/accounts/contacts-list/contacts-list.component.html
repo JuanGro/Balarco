@@ -1,7 +1,7 @@
 <!-- Child component, it contains the table -->
 <!-- (uploaded) receives the event to show the modal and (currentContact) receives the object of the current contact to show -->
 <!-- [docs] sends the contacts to child component -->
-<contacts-list-table [docs]="documents" (requestShowNewContactModal)="newContactModal.show()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContact($event)"></contacts-list-table>
+<contacts-list-table [docs]="documents" (requestShowNewContactModal)="newContactModal.show()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
 
 <!-- Modal New Contact -->
 <div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -28,7 +28,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <update-contact-form></update-contact-form>
+            <update-contact-form [contactToEdit]="contact"></update-contact-form>
         </div>
     </div>
 </div>

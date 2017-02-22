@@ -28,73 +28,15 @@ export class ContactsListComponent implements OnInit {
   public contactsUpdateModalForm: FormGroup;
 
   public constructor(private _fb: FormBuilder) {
-    // Get Observable
-    /* let timer = Observable.timer(0, 5000);
-    timer.subscribe(() => this.getDocuments()); */
-    
     // Auxiliar to service
     this.documents = [
         {'id': 1, 'name' : 'Mark', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'phone2' : '2222222222', 'email' : 'mail@gmail.com'}
     ];
   }
 
-  public ngOnInit() {
-    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
-                        {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-    this.contactsNewModalForm = new FormGroup({
-      name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-      lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
-      company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-      landline: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      job: new FormControl('', [<any>Validators.required, <any>Validators.minLength(3)]),
-      ext: new FormControl('', [<any>Validators.required]),
-      phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
-    });
+  public ngOnInit() { }
 
-    this.contactsUpdateModalForm = new FormGroup({
-      name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-      lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
-      company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-      landline: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      job: new FormControl('', [<any>Validators.required, <any>Validators.minLength(3)]),
-      ext: new FormControl('', [<any>Validators.required]),
-      phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-      email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
-    });
-
-    /*this.contactsUpdateModalForm.patchValue({
-      name: this.contact.name,
-      lastname: this.contact.lastname,
-      company: this.contact.company,
-      landline: this.contact.landline,
-      job: this.contact.job,
-      ext: this.contact.ext,
-      phone1: this.contact.phone1,
-      phone2: this.contact.phone2,
-      email: this.contact.email
-    });*/
-  }
-  
-  // Get the object from the service
-  /* getDocuments() {
-    this.contactsListService.getDocuments()
-        .subscribe(
-          documents => this.documents = documents,
-          error => this.errorMessage = <any>error
-        );
-  } */
-
-  public getContact(object: ContactsList): void {
+  public getContactFromTable(object: ContactsList): void {
     this.contact = object;
-  }
-
-  public submitNewContactForm(model: ContactsList, isValid: boolean) {
-  }
-
-  public submitUpdateContactForm(model: ContactsList, isValid: boolean) {
-    console.log(model);
   }
 }
