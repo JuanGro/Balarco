@@ -17,6 +17,15 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
+/**
+* Generic class (service) that will manage the construction and configuration
+* of all requests from the platform:
+* - Builds URL.
+* - Configures request.
+* - Adds auth token in header of every request.
+* - Intercepts response.
+* - Manages login / logout with token storage.
+**/
 @Injectable()
 export class HttpService extends Http {
   public token: string;
@@ -32,7 +41,7 @@ export class HttpService extends Http {
   }
 
   /**
-  * Overrides base clase method
+  * Overrides base clase method.
   **/
   request(
     request: string | Request,
@@ -41,6 +50,12 @@ export class HttpService extends Http {
     return this.interceptResponse(request, options);
   }
 
+  /**
+  * Configures request with given arguments.
+  * Params:
+  *   - request: Request to be configured.
+  *   - options: Arguments to be injected in request.
+  **/
   private configureRequest(request: string | Request, options: RequestOptionsArgs) {
     if (typeof request === 'string') {
       request = this.getUrl(request);
@@ -51,16 +66,28 @@ export class HttpService extends Http {
     }
   }
 
+  /**
+  * Intercepts request's response to return an observable.
+  * Params:
+  *   - request: Request to be sent.
+  *   - options: Arguments for the request sent.
+  * Returns:
+  *   - Observable with the request's response.
+  **/
   private interceptResponse(request: string | Request, options: RequestOptionsArgs): Observable<Response> {
     const observableRequest = super.request(request, options).catch(this.onCatch()).finally(this.onFinally());
     return observableRequest;
   }
 
   /**
-  * Useful in problems with CORS
+  * Builds the url for the request.
+  * Params:
+  *   - currentUrl: Segment of the url specifying the web service.
+  * Returns:
+  *   - string representation of the complete url built.
   **/
-  private getUrl(currentUrl: string) {
-    if (!currentUrl.includes('/assets/')) {
+  private getUrl(currentUrl: string): string {
+    if (!currentUrl.includes('/assets/')) { // Useful in problem with CORS.
       return environment.API_URL + currentUrl;
     } else {
       return currentUrl;
@@ -68,7 +95,9 @@ export class HttpService extends Http {
   }
 
   /**
-  * Interceptor to build headers in each request
+  * Interceptor set the headers for the request.
+  * Params:
+  *   - objectToSetHeadersTo: Request or Arguments that will contain the headers.
   **/
   private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
     const headers = objectToSetHeadersTo.headers;
@@ -79,7 +108,9 @@ export class HttpService extends Http {
   }
 
   /**
-  * Interceptor for general errors catch
+  * Interceptor to catch request errors.
+  * If the response contains security (no authorization), then the user will be
+  * redirected to the Login page.
   **/
   private onCatch() {
     return (res: Response) => {
@@ -91,10 +122,23 @@ export class HttpService extends Http {
     };
   }
 
+  /**
+  * Method that executes after the request has finished.
+  **/
   private onFinally() {
     return () => console.log('FINISH!');
   }
 
+  /**
+  * Method that authenticates a user sending a request.
+  * If the user is authenticated the token returned is stored in Angula's
+  * local storage.
+  * Params:
+  *   - username: Name of user (email).
+  *   - password: Password for username.
+  * Returns:
+  *   - Observable with boolean based on request response.
+  **/
   login(username: string, password: string): Observable<boolean> {
     let user = JSON.stringify({ username: username, password: password });
     return this.post('users/api-login/', user)
@@ -111,23 +155,59 @@ export class HttpService extends Http {
       });
   }
 
+  /**
+  * Method to finish the current session.
+  * Removes token from Angular's local storage.
+  **/
   logout() {
     this.token = null;
     localStorage.removeItem('currentUser');
+    // TODO: Redirect to login page.
   }
 
+  /**
+  * Generic post method.
+  * Params:
+  *   - url: Url for the request.
+  *   - object: Object to be sent and saved in the DB.
+  * Returns:
+  *   - Observable with the response.
+  **/
   postObject(url: string, object: any): Observable<Response> {
     return this.post(url, object);
   }
 
+  /**
+  * Generic get method.
+  * Params:
+  *   - url: Url for the request.
+  *   - params: Params for the request.
+  * Returns:
+  *   - Observable with the response.
+  **/
   getObject(url: string, params: URLSearchParams = null): Observable<Response> {
     return this.get(url, { search: params });
   }
 
+  /**
+  * Generic update method.
+  * Params:
+  *   - url: Url for the request.
+  *   - object: Object to be sent and updated in the DB.
+  * Returns:
+  *   - Observable with the response.
+  **/
   updateObject(url: string, object: any): Observable<Response> {
     return this.put(url, object);
   }
 
+  /**
+  * Generic delete method.
+  * Params:
+  *   - url: Url for the request.
+  * Returns:
+  *   - Observable with the response.
+  **/
   deleteObject(url: string): Observable<Response> {
     return this.delete(url);
   }
