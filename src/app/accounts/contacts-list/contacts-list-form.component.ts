@@ -33,7 +33,7 @@ export class ContactsListFormComponent implements OnChanges {
         job: new FormControl(this.contact.job, [<any>Validators.required, <any>Validators.minLength(3)]),
         ext: new FormControl(this.contact.ext, [<any>Validators.required]),
         phone1: new FormControl(this.contact.phone1, [<any>Validators.required, <any>Validators.minLength(6)]),
-        phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
+        // phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
         email: new FormControl(this.contact.email, [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
       });
 
@@ -47,7 +47,7 @@ export class ContactsListFormComponent implements OnChanges {
         job: new FormControl('', [<any>Validators.required, <any>Validators.minLength(3)]),
         ext: new FormControl('', [<any>Validators.required]),
         phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-        phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
+        // phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
         email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
       });
     }

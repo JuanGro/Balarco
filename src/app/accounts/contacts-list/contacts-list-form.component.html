@@ -17,7 +17,7 @@
     <div [hidden]="contactsUpdateModalForm.controls.lastname.valid || (contactsUpdateModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
     <!-- Company -->
     <div class="form-group">
-        <label for="recipient-company" class="form-control-label">Company:</label>
+        <label for="recipient-company" class="form-control-label">Compañia:</label>
         <input type="text" class="form-control" id="recipient-company" formControlName="company" required>
     </div>
     <!-- Feedback company -->
@@ -45,18 +45,18 @@
     <div [hidden]="contactsUpdateModalForm.controls.ext.valid || (contactsUpdateModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
     <!-- Phone 1 -->
     <div class="form-group">
-        <label for="recipient-phone1" class="form-control-label">Teléfono móvil 1:</label>
+        <label for="recipient-phone1" class="form-control-label">Teléfono móvil:</label>
         <input type="tel" class="form-control" id="recipient-phone1" formControlName="phone1" required>
     </div>
     <!-- Feedback phone 1 -->
     <div [hidden]="contactsUpdateModalForm.controls.phone1.valid || (contactsUpdateModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
     <!-- Phone 2 -->
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="recipient-phone2" class="form-control-label">Telefono móvil 2:</label>
         <input type="tel" class="form-control" id="recipient-phone2" formControlName="phone2" required>
-    </div>
+    </div> -->
     <!-- Feedback phone 2 -->
-    <div [hidden]="contactsUpdateModalForm.controls.phone2.valid || (contactsUpdateModalForm.controls.phone2.pristine && !submitted)" class="alert alert-danger">Ingrese su teléfono válido</div>
+    <!-- <div [hidden]="contactsUpdateModalForm.controls.phone2.valid || (contactsUpdateModalForm.controls.phone2.pristine && !submitted)" class="alert alert-danger">Ingrese su teléfono válido</div> -->
     <!-- Email -->
     <div class="form-group">
         <label for="recipient-email" class="form-control-label">Email:</label>

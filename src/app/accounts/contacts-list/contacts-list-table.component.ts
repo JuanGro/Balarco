@@ -22,6 +22,7 @@ export class ContactsListTableComponent {
   public requestNewContactModal() {
     this.requestShowNewContactModal.emit('complete');
   }
+  
   public requestUpdateContactModal() {
     this.requestShowUpdateContactModal.emit('complete');
   }
