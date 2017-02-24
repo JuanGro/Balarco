@@ -58,6 +58,7 @@ describe('ContactsListComponent (inline template)', () => {
     it('should display original title', () => {
         fixtureParent.detectChanges();
         expect(el.textContent).toContain(component.title);
+        expect(el.textContent).not.toBe(null);
     });
     
     it('should display a different test title', () => {
