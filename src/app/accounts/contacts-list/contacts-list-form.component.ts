@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 // Components
 import { ContactsList } from './contacts-list';
@@ -18,39 +18,41 @@ export class ContactsListFormComponent implements OnChanges {
   @Output() requestSuccess: EventEmitter<string> = new EventEmitter();
   // Control form
   public contactsModalForm: FormGroup;
+  public formGroup: FormGroup;
 
-  public constructor() { }
+  public constructor(public fb: FormBuilder) { }
 
   public ngOnChanges() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {
       // Update Contact
-      this.contactsModalForm = new FormGroup({
-        name: new FormControl(this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]),
-        lastname: new FormControl(this.contact.lastname, [<any>Validators.required, <any>Validators.minLength(4)]),
-        company: new FormControl(this.contact.company, [<any>Validators.required, <any>Validators.minLength(2)]),
-        landline: new FormControl(this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]),
-        job: new FormControl(this.contact.job, [<any>Validators.required, <any>Validators.minLength(3)]),
-        ext: new FormControl(this.contact.ext, [<any>Validators.required]),
-        phone1: new FormControl(this.contact.phone1, [<any>Validators.required, <any>Validators.minLength(6)]),
+      this.contactsModalForm = this.fb.group({
+        name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
+        lastname: [this.contact.lastname, [<any>Validators.required, <any>Validators.minLength(4)]],
+        company: [this.contact.company, [<any>Validators.required, <any>Validators.minLength(2)]],
+        landline: [this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]],
+        job: [this.contact.job, [<any>Validators.required, <any>Validators.minLength(3)]],
+        ext: [this.contact.ext, [<any>Validators.required]],
+        phone1: [this.contact.phone1, [<any>Validators.required, <any>Validators.minLength(6)]],
         // phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
-        email: new FormControl(this.contact.email, [<any>Validators.required, <any>Validators.minLength(4),
-                              <any>Validators.pattern(emailRegex)])
+        email: [this.contact.email, [<any>Validators.required, <any>Validators.minLength(4),
+                              <any>Validators.pattern(emailRegex)]]
       });
 
     } else {
       // New Contact
-      this.contactsModalForm = new FormGroup({
-        name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-        lastname: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4)]),
-        company: new FormControl('', [<any>Validators.required, <any>Validators.minLength(2)]),
-        landline: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-        job: new FormControl('', [<any>Validators.required, <any>Validators.minLength(3)]),
-        ext: new FormControl('', [<any>Validators.required]),
-        phone1: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-        // phone2: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
-        email: new FormControl('', [<any>Validators.required, <any>Validators.minLength(4), <any>Validators.pattern(emailRegex)])
+      this.contactsModalForm = this.fb.group({
+        name: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
+        lastname: ['', [<any>Validators.required, <any>Validators.minLength(4)]],
+        company: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
+        landline: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
+        job: ['', [<any>Validators.required, <any>Validators.minLength(3)]],
+        ext: ['', [<any>Validators.required]],
+        phone1: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
+        // phone2: new FormControl(this.contact.phone2, [<any>Validators.required, <any>Validators.minLength(6)]),
+        email: ['', [<any>Validators.required, <any>Validators.minLength(4),
+                              <any>Validators.pattern(emailRegex)]]
       });
     }
   }

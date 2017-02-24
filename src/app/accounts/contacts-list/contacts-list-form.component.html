@@ -1,17 +1,18 @@
 <div class="modal-body">
     <!-- Start form -->
     <form [formGroup]="contactsModalForm" novalidate (ngSubmit)="submitUpdateContactForm(contactsModalForm.value, contactsModalForm.valid)">
-    <!-- Name -->
+    
     <div class="form-group row">
         <div class="col-md-6">
+            <!-- Name -->
             <label for="recipient-name" class="form-control-label">Nombre:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                 <input type="text" placeholder="Pablo" class="form-control" id="recipient-name" formControlName="name" required>
-                <!-- Feedback name -->
-                <div [hidden]="contactsModalForm.controls.name.valid || (contactsModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
             </div>
+            <!-- Feedback name -->
+            <div [hidden]="contactsModalForm.controls.name.valid || (contactsModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
         </div>
         <div class="col-md-6">
             <!-- Lastname -->
@@ -20,22 +21,23 @@
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                 <input type="text" placeholder="Hernández" class="form-control" id="recipient-lastname" formControlName="lastname" required>
-                <!-- Feedback lastname -->
-                <div [hidden]="contactsModalForm.controls.lastname.valid || (contactsModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
             </div>
+            <!-- Feedback lastname -->
+            <div [hidden]="contactsModalForm.controls.lastname.valid || (contactsModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
         </div>
     </div>
-    <!-- Company -->
+
     <div class="form-group row">
         <div class="col-md-6">
+            <!-- Company -->
             <label for="recipient-company" class="form-control-label">Compañia:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
                 <input type="text" placeholder="Starbucks" class="form-control" id="recipient-company" formControlName="company" required>
-                <!-- Feedback company -->
-                <div [hidden]="contactsModalForm.controls.company.valid || (contactsModalForm.controls.company.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
             </div>
+            <!-- Feedback company -->
+            <div [hidden]="contactsModalForm.controls.company.valid || (contactsModalForm.controls.company.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
         </div>
         <div class="col-md-6">
             <!-- Department or Job -->
@@ -44,22 +46,23 @@
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
                 <input type="text" placeholder="Marketing" class="form-control" id="recipient-job" formControlName="job" required>
-                <!-- Feedback job -->
-                <div [hidden]="contactsModalForm.controls.job.valid || (contactsModalForm.controls.job.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
             </div>
+            <!-- Feedback job -->
+            <div [hidden]="contactsModalForm.controls.job.valid || (contactsModalForm.controls.job.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
         </div>
     </div>
-    <!-- Landline -->
+    
     <div class="form-group row">
         <div class="col-md-6">
+            <!-- Landline -->
             <label for="recipient-landline" class="form-control-label">Teléfono fijo:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
                 <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" formControlName="landline" required>
-                <!-- Feedback landline -->
-                <div [hidden]="contactsModalForm.controls.landline.valid || (contactsModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
             </div>
+            <!-- Feedback landline -->
+            <div [hidden]="contactsModalForm.controls.landline.valid || (contactsModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
         </div>
         <div class="col-md-6">
             <!-- Extension -->
@@ -68,33 +71,35 @@
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
                 <input type="text" placeholder="33" class="form-control" id="recipient-ext" formControlName="ext" required>
-                <!-- Feedback extension -->
-                <div [hidden]="contactsModalForm.controls.ext.valid || (contactsModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
             </div>
+            <!-- Feedback extension -->
+            <div [hidden]="contactsModalForm.controls.ext.valid || (contactsModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
         </div>
     </div>
-    <!-- Phone 1 -->
+    
     <div class="form-group row">
         <div class="col-md-6">
+            <!-- Phone 1 -->
             <label for="recipient-phone1" class="form-control-label">Teléfono móvil:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
                 <input type="tel" placeholder="4441112233" class="form-control" id="recipient-phone1" formControlName="phone1" required>
-                <!-- Feedback phone 1 -->
-                <div [hidden]="contactsModalForm.controls.phone1.valid || (contactsModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
             </div>
+            <!-- Feedback phone 1 -->
+            <div [hidden]="contactsModalForm.controls.phone1.valid || (contactsModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
         </div>
-        <!-- Email -->
+        
         <div class="col-md-6">
+            <!-- Email -->
             <label for="recipient-email" class="form-control-label">Email:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
                 <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" formControlName="email" required>
-                <!-- Feedback email -->
-                <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
             </div>
+            <!-- Feedback email -->
+            <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
         </div>
     </div>
     <!-- Buttons close and submit -->
