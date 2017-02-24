@@ -43,7 +43,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective
   ],
-  providers: [ // CompletedDesignsListService,
+  providers: [
   {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
