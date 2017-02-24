@@ -19,7 +19,7 @@ export class ContactsListComponent implements OnInit {
   public constructor() { }
 
   public ngOnInit() {
-    this.title = 'Lista Contactos';
+    this.title = 'Lista de contactos';
     // Auxiliar to service
     this.documents = [
         {'id': 1, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
