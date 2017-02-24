@@ -1,12 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
 // Interface
 import { ContactsList } from './contacts-list';
 
 @Component({
   selector: 'contacts-list-table',
-  templateUrl: 'contacts-list-table.component.html',
-  moduleId: module.id,
+  templateUrl: 'contacts-list-table.component.html'
 })
 export class ContactsListTableComponent {
   // Receive the contacts from parent component
@@ -18,6 +17,8 @@ export class ContactsListTableComponent {
   @Output() currentContact: EventEmitter<ContactsList> = new EventEmitter<ContactsList>();
 
   public constructor() { }
+
+  public ngOnInit() { }
 
   public requestNewContactModal() {
     this.requestShowNewContactModal.emit('complete');

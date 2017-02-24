@@ -5,10 +5,10 @@ import { ContactsList } from './contacts-list';
 
 @Component({
   selector: 'contacts-list',
-  templateUrl: 'contacts-list.component.html',
-  moduleId: module.id,
+  templateUrl: 'contacts-list.component.html'
 })
 export class ContactsListComponent implements OnInit {
+  public title: string;
   // Object received from service
   public documents: ContactsList[];
   // Variable for save the object received from child component
@@ -19,6 +19,7 @@ export class ContactsListComponent implements OnInit {
   public constructor() { }
 
   public ngOnInit() {
+    this.title = 'Lista Contactos';
     // Auxiliar to service
     this.documents = [
         {'id': 1, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},

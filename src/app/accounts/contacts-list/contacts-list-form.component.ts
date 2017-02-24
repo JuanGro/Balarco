@@ -6,8 +6,7 @@ import { ContactsList } from './contacts-list';
 
 @Component({
   selector: 'contacts-list-form',
-  templateUrl: 'contacts-list-form.component.html',
-  moduleId: module.id,
+  templateUrl: 'contacts-list-form.component.html'
 })
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
