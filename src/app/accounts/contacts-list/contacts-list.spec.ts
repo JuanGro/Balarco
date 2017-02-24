@@ -65,9 +65,4 @@ describe('ContactsListComponent (inline template)', () => {
         fixtureParent.detectChanges();
         expect(el.textContent).toContain('Lista de contactos');
     });
-
-    /* it('should create a `FormGroup` comprised of `FormControl`s', () => {
-        componentForm.ngOnChanges();
-        expect(componentForm.formGroup instanceof FormGroup).toBe(true);
-    }); */
 });
