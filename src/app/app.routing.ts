@@ -8,7 +8,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login/login',
+    redirectTo: 'designer/owned-designs-list', // Mock dashboard route.
     pathMatch: 'full',
   },
   {

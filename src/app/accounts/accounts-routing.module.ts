@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
@@ -10,6 +10,7 @@ import { DesignsListComponent } from './designs-list.component';
 const routes: Routes = [
   {
     path: '',
+    canActivate: [CanActivateAuthGuard],
     data: {
       title: 'Accounts'
     },

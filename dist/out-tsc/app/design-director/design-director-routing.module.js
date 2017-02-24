@@ -7,35 +7,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
-import { LoginComponent } from './login.component';
+import { DesignsListComponent } from './designs-list.component';
 var routes = [
     {
         path: '',
         canActivate: [CanActivateAuthGuard],
         data: {
-            title: 'Login'
+            title: 'DesignDirector'
         },
         children: [
             {
-                path: 'login',
-                component: LoginComponent,
+                path: 'designs-list',
+                component: DesignsListComponent,
                 data: {
-                    title: 'Login'
+                    title: 'Designs List'
                 }
             }
         ]
     }
 ];
-var LoginRoutingModule = (function () {
-    function LoginRoutingModule() {
+var DesignDirectorRoutingModule = (function () {
+    function DesignDirectorRoutingModule() {
     }
-    return LoginRoutingModule;
+    return DesignDirectorRoutingModule;
 }());
-LoginRoutingModule = __decorate([
+DesignDirectorRoutingModule = __decorate([
     NgModule({
         imports: [RouterModule.forChild(routes)],
         exports: [RouterModule]
     })
-], LoginRoutingModule);
-export { LoginRoutingModule };
-//# sourceMappingURL=../../../../src/app/login/login-routing.module.js.map
+], DesignDirectorRoutingModule);
+export { DesignDirectorRoutingModule };
+//# sourceMappingURL=../../../../src/app/design-director/design-director-routing.module.js.map

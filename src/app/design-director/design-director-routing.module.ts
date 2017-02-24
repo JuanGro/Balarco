@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { DesignsListComponent } from './designs-list.component';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [CanActivateAuthGuard],
     data: {
       title: 'DesignDirector'
     },

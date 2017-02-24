@@ -11,6 +11,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { CompletedDesignsListService } from './completed-designs-list.service';
 import { CompletedDesignsListComponent } from './completed-designs-list.component';
 import { CompletedDesignsListModalComponent } from './completed-designs-list.modal';
+import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { CompletedDesignsListModalComponent } from './completed-designs-list.mo
     ModalModule.forRoot()
   ],
   declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent ],
-  providers: [ CompletedDesignsListService ]
+  providers: [ CompletedDesignsListService, CanActivateAuthGuard ]
 })
 export class AdminModule { }

@@ -11,7 +11,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 export var routes = [
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'designer/owned-designs-list',
         pathMatch: 'full',
     },
     {
@@ -21,10 +21,6 @@ export var routes = [
             title: 'Home'
         },
         children: [
-            {
-                path: 'dashboard',
-                loadChildren: './dashboard/dashboard.module#DashboardModule'
-            },
             {
                 path: 'accounts',
                 loadChildren: './accounts/accounts.module#AccountsModule'
@@ -40,23 +36,19 @@ export var routes = [
             {
                 path: 'designer',
                 loadChildren: './designer/designer.module#DesignerModule'
-            },
-            {
-                path: 'login',
-                loadChildren: './login/login.module#LoginModule'
             }
         ]
     },
     {
-        path: 'pages',
+        path: 'login',
         component: SimpleLayoutComponent,
         data: {
-            title: 'Pages'
+            title: 'Login'
         },
         children: [
             {
                 path: '',
-                loadChildren: './pages/pages.module#PagesModule',
+                loadChildren: './login/login.module#LoginModule',
             }
         ]
     }
