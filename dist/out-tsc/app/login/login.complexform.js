@@ -8,12 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../shared/http-service/http.service';
 var LoginComplexFormComponent = (function () {
-    function LoginComplexFormComponent(_fb, loginService, router) {
-        this._fb = _fb;
+    function LoginComplexFormComponent(loginService, router) {
         this.loginService = loginService;
         this.router = router;
         this.events = [];
@@ -43,7 +42,7 @@ LoginComplexFormComponent = __decorate([
         selector: 'login-complex-form',
         templateUrl: 'login.complexform.html'
     }),
-    __metadata("design:paramtypes", [FormBuilder, HttpService, Router])
+    __metadata("design:paramtypes", [HttpService, Router])
 ], LoginComplexFormComponent);
 export { LoginComplexFormComponent };
 //# sourceMappingURL=../../../../src/app/login/login.complexform.js.map
