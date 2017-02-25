@@ -6,12 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { LoginComponent } from './login.component';
 var routes = [
     {
         path: '',
-        canActivate: [CanActivateAuthGuard],
         data: {
             title: 'Login'
         },

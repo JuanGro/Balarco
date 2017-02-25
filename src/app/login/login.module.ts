@@ -4,7 +4,6 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
-import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -12,7 +11,7 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     ReactiveFormsModule
   ],
   declarations: [ LoginComponent, LoginComplexFormComponent ],
-  providers: [ HttpService, CanActivateAuthGuard ]
+  providers: [ HttpService ]
 })
 export class LoginModule {
   constructor() {

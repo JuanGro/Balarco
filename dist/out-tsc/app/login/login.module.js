@@ -13,7 +13,6 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
-import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 var LoginModule = (function () {
     function LoginModule() {
     }
@@ -26,7 +25,7 @@ LoginModule = __decorate([
             ReactiveFormsModule
         ],
         declarations: [LoginComponent, LoginComplexFormComponent],
-        providers: [HttpService, CanActivateAuthGuard]
+        providers: [HttpService]
     }),
     __metadata("design:paramtypes", [])
 ], LoginModule);
