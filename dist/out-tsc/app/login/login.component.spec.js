@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
@@ -11,15 +12,23 @@ describe('Login Component', function () {
     var el;
     var httpServiceStub;
     var httpService;
+    var mockRouter;
+    var navigate;
     beforeEach(function () {
         httpServiceStub = {
             isLoggedIn: true,
             user: { name: 'Test User' }
         };
+        mockRouter = {
+            navigate: navigate
+        };
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
             declarations: [LoginComponent, LoginComplexFormComponent],
-            providers: [{ provide: HttpService, useValue: httpServiceStub }]
+            providers: [
+                { provide: HttpService, useValue: httpServiceStub },
+                { provide: Router, useValue: mockRouter }
+            ]
         });
         httpService = TestBed.get(HttpService);
         fixture = TestBed.createComponent(LoginComponent);

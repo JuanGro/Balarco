@@ -2,10 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
+
 
 describe('Login Component', () => {
   let comp: LoginComponent;
@@ -14,6 +15,8 @@ describe('Login Component', () => {
   let el: HTMLElement;
   let httpServiceStub;
   let httpService;
+  let mockRouter;
+  let navigate;
 
   beforeEach(() => {
 
@@ -23,10 +26,20 @@ describe('Login Component', () => {
       user: { name: 'Test User'}
     };
 
+    // Mock provider for Router
+    mockRouter = {
+      //noinspection TypeScriptUnresolvedFunction
+      navigate = jasmine.createSpy('navigate');
+    }
+
+
     TestBed.configureTestingModule({
       imports: [ FormsModule, ReactiveFormsModule],
       declarations: [ LoginComponent, LoginComplexFormComponent ],
-      providers: [ {provide: HttpService, useValue: httpServiceStub }]
+      providers: [
+        {provide: HttpService, useValue: httpServiceStub },
+        {provide: Router, useValue: mockRouter }
+      ]
     });
 
     // UserService actually injected into the component
@@ -67,7 +80,7 @@ describe('Login Component', () => {
   });
 
   /**
-  * Tests changes in component reflects in interface and component changes kept. 
+  * Tests changes in component reflects in interface and component changes kept.
   **/
   it('should display updated title after detectChanges', () => {
     comp.title = 'Test Title';
