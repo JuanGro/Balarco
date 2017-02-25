@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from '../shared/http-service/http.service';
 
 // Interface
@@ -18,7 +19,7 @@ export class LoginComplexFormComponent implements OnInit {
   public submitted: boolean; // keep track on whether form is submitted
   public events: any[] = []; // use later to display form changes
 
-  constructor(private _fb: FormBuilder, private loginService: HttpService) { }
+  constructor(private _fb: FormBuilder, private loginService: HttpService, private router: Router) { }
 
   ngOnInit() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -33,7 +34,7 @@ export class LoginComplexFormComponent implements OnInit {
     this.loginService.login(model.username, model.password).subscribe(result => {
       if (result === true) {
         // Login succesful
-        console.log('TOKEN: ' + this.loginService.token);
+        this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
       } else {
         // Login failed
       }
