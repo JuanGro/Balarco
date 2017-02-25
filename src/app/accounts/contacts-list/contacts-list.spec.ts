@@ -10,7 +10,7 @@ import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
 import { ContactsListComponent } from './contacts-list.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
@@ -65,5 +65,17 @@ describe('ContactsListComponent (inline template)', () => {
         component.title = 'Lista de contactos';
         fixtureParent.detectChanges();
         expect(el.textContent).toContain('Lista de contactos');
+    });
+
+    it('should create a `FormBuilder` comprised of `FormControl`s', () => {
+        componentForm.ngOnChanges();
+        expect(componentForm.fb instanceof FormBuilder).toBe(true);
+    });
+
+    it('should return true if the form control is valid', () => {
+        const formControl = new FormControl( {name: 'hi'});
+
+        /* componentForm.contactsModalForm.controls = formControl;
+        expect(component.isValid).toBe(true); */
     });
 });
