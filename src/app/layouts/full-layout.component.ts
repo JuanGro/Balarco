@@ -6,7 +6,6 @@ import { Component, OnInit }            from '@angular/core';
 })
 
 export class FullLayoutComponent implements OnInit {
-    /* Example */
 
     public charge: string = 'Cuentas';
 
@@ -18,7 +17,6 @@ export class FullLayoutComponent implements OnInit {
     private accounts: boolean = true;
     private admin: boolean = true;
 
-    /* End of example */
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
 
