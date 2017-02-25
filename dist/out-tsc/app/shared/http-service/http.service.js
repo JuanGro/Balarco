@@ -58,7 +58,7 @@ var HttpService = (function (_super) {
     HttpService.prototype.setHeaders = function (objectToSetHeadersTo) {
         var headers = objectToSetHeadersTo.headers;
         headers.set('Content-Type', 'application/json');
-        if (this.token != null) {
+        if (this.token) {
             headers.set('Authentication', 'Token ' + this.token);
         }
     };
