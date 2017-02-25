@@ -5,7 +5,6 @@ import { HttpService } from '../shared/http-service/http.service';
 
 // Interface
 import { Login } from './login';
-import { Token } from './token';
 
 @Component({
   selector: 'login-complex-form',
@@ -14,7 +13,6 @@ import { Token } from './token';
 export class LoginComplexFormComponent implements OnInit {
   public loginForm: FormGroup;
   public loginObject: Login[];
-  public token: Token;
   // Forms
   public submitted: boolean; // keep track on whether form is submitted
   public events: any[] = []; // use later to display form changes
