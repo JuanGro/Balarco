@@ -9,7 +9,7 @@ import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
 import { IgualasListComponent } from './igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
-
+import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { AccountsRoutingModule } from './accounts-routing.module';
 
 @NgModule({
@@ -20,6 +20,7 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ClientsListComponent, IgualasListComponent, DesignsListComponent ]
+  declarations: [ CompaniesListComponent, ClientsListComponent, IgualasListComponent, DesignsListComponent ],
+  providers: [ CanActivateAuthGuard ]
 })
 export class AccountsModule { }

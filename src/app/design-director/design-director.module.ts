@@ -7,6 +7,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 
 import { DesignsListComponent } from './designs-list.component';
 import { DesignDirectorRoutingModule } from './design-director-routing.module';
+import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { DesignDirectorRoutingModule } from './design-director-routing.module';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ DesignsListComponent ]
+  declarations: [ DesignsListComponent ],
+  providers: [ CanActivateAuthGuard ]
 })
 export class DesignDirectorModule { }

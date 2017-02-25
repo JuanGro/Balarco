@@ -1,7 +1,7 @@
 {
   "name": "genesis-ui",
   "version": "1.7.0",
-  "description": "Bootstrap 4 Admin Template",
+  "description": "Balarco",
   "author": "",
   "url": "https://genesisui.com",
   "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
@@ -19,7 +19,7 @@
     "@angular/common": "2.4.3",
     "@angular/compiler": "2.4.3",
     "@angular/core": "2.4.3",
-    "@angular/forms": "2.4.3",
+    "@angular/forms": "^2.4.3",
     "@angular/http": "2.4.3",
     "@angular/platform-browser": "2.4.3",
     "@angular/platform-browser-dynamic": "2.4.3",
