@@ -139,7 +139,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Observable with boolean based on request response.
   **/
-  login(username: string, password: string): Observable<boolean> {
+  public login(username: string, password: string): Observable<boolean> {
     let user = JSON.stringify({ username: username, password: password });
     return this.post('users/api-login/', user)
       .map((response: Response) => {
@@ -159,7 +159,7 @@ export class HttpService extends Http {
   * Method to finish the current session.
   * Removes token from Angular's local storage.
   **/
-  logout() {
+  public logout() {
     this.token = null;
     localStorage.removeItem('currentUser');
     // TODO: Redirect to login page.
@@ -173,7 +173,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Observable with the response.
   **/
-  postObject(url: string, object: any): Observable<Response> {
+  public postObject(url: string, object: any): Observable<Response> {
     return this.post(url, object);
   }
 
@@ -185,7 +185,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Observable with the response.
   **/
-  getObject(url: string, params: URLSearchParams = null): Observable<Response> {
+  public getObject(url: string, params: URLSearchParams = null): Observable<Response> {
     return this.get(url, { search: params });
   }
 
@@ -197,7 +197,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Observable with the response.
   **/
-  updateObject(url: string, object: any): Observable<Response> {
+  public updateObject(url: string, object: any): Observable<Response> {
     return this.put(url, object);
   }
 
@@ -208,7 +208,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Observable with the response.
   **/
-  deleteObject(url: string): Observable<Response> {
+  public deleteObject(url: string): Observable<Response> {
     return this.delete(url);
   }
 }
