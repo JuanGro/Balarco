@@ -87,12 +87,6 @@ export class ContactsListFormComponent implements OnChanges {
     });
   }
 
-  public removeContact(model: ContactsList) {
-    this.httpService.deleteObject('clients/clients/' + model.id).subscribe(result => {
-      // console.log(result);
-    });
-  }
-
   public requestSuccessModal() {
     this.requestSuccess.emit('complete');
   }

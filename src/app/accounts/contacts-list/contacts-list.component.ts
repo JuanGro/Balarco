@@ -55,7 +55,9 @@ export class ContactsListComponent implements OnInit {
   }
 
   public removeContact(model: ContactsList) {
-    console.log(model);
+    this.httpService.deleteObject('clients/clients/' + model.id).subscribe(result => {
+      // console.log(result);
+    });
   }
 
   public getContactFromTable(object: ContactsList): void {
