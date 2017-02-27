@@ -6,7 +6,6 @@ import { Component, OnInit }            from '@angular/core';
 })
 
 export class FullLayoutComponent implements OnInit {
-    /* Example */
 
     public charge: string = 'Cuentas';
 

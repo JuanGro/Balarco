@@ -4,6 +4,9 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 // Components
 import { ContactsList } from './contacts-list';
 
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
+
 @Component({
   selector: 'contacts-list-form',
   templateUrl: 'contacts-list-form.component.html'
@@ -20,7 +23,7 @@ export class ContactsListFormComponent implements OnChanges {
   public contactsModalForm: FormGroup;
   public formGroup: FormGroup;
 
-  public constructor(public fb: FormBuilder) { }
+  public constructor(public fb: FormBuilder, private httpService: HttpService) { }
 
   public ngOnChanges() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -57,8 +60,21 @@ export class ContactsListFormComponent implements OnChanges {
     }
   }
 
-  public submitUpdateContactForm(model: ContactsList, isValid: boolean) {
-    console.log(model);
+  public submitContactForm(model: ContactsList, isValid: boolean) {
+    if (this.contact) {
+      this.httpService.updateContact(model.id, model.name, model.lastname, model.company, model.job, model.landline, model.ext, model.phone1, model.email).subscribe(result => {
+        if (result === true) {
+          // Login succesful
+          console.log('User updated');
+        } else {
+          // Login failed
+          console.log('User couldn\'t be saved');
+        }
+      });
+    } else {
+      // Create new contact
+      console.log("New form");
+    }
   }
 
   public removeContact(model: ContactsList) {
