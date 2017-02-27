@@ -31,6 +31,7 @@ export class ContactsListFormComponent implements OnChanges {
     if (this.contact) {
       // Update Contact
       this.contactsModalForm = this.fb.group({
+        id: [this.contact.id],
         name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
         lastname: [this.contact.lastname, [<any>Validators.required, <any>Validators.minLength(4)]],
         company: [this.contact.company, [<any>Validators.required, <any>Validators.minLength(2)]],
@@ -61,11 +62,36 @@ export class ContactsListFormComponent implements OnChanges {
   }
 
   public submitContactForm(model: ContactsList, isValid: boolean) {
-    console.log('OK');
+    // console.log(model);
+    if (isValid === true) {
+      if (this.contact) {
+        // Update contact
+        this.submitUpdatedContact(model);
+      } else {
+        // Create contact
+        this.submitNewContact(model);
+      }
+    } else {
+      console.log('Error in submitContactForm method');
+    }
+  }
+
+  public submitUpdatedContact(model: ContactsList) {
+    this.httpService.postObject('clients/clients/' + model.id, model).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  public submitNewContact(model: ContactsList) {
+    this.httpService.updateObject('clients/clients/', model).subscribe(result => {
+      console.log(result);
+    });
   }
 
   public removeContact(model: ContactsList) {
-    console.log(model);
+    this.httpService.deleteObject('clients/clients/' + model.id).subscribe(result => {
+      console.log(result);
+    });
   }
 
   public requestSuccessModal() {

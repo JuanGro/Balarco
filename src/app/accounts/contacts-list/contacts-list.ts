@@ -1,5 +1,5 @@
 export class ContactsList {
-    id: number;
+    id?: number;
     name: string;
     lastname: string;
     company: string;
