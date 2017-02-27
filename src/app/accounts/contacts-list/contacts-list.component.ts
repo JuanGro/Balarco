@@ -1,7 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 // Components
 import { ContactsList } from './contacts-list';
+
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
 
 @Component({
   selector: 'contacts-list',
@@ -16,23 +21,22 @@ export class ContactsListComponent implements OnInit {
   // Received from child component
   @Input() currentContact: ContactsList;
 
-  public constructor() { }
+  public constructor(public httpService: HttpService) { }
 
   public ngOnInit() {
     this.title = 'Lista de contactos';
-    // Auxiliar to service
-    this.documents = [
-        {'id': 1, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 2, 'name' : 'Juan', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 3, 'name' : 'Julian', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 4, 'name' : 'Carlos', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 5, 'name' : 'Fernando', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 6, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 7, 'name' : 'Juan', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 8, 'name' : 'Julian', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 9, 'name' : 'Carlos', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 10, 'name' : 'Fernando', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'}
-    ];
+
+    this.loadDocuments('clients/clients/');
+  }
+
+  public loadDocuments(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe( documents => this.documents = documents, 
+                                err => {
+                                  console.log(err);
+                                }
+                    );
   }
 
   public initializeModal() {

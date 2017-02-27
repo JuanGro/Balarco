@@ -61,20 +61,7 @@ export class ContactsListFormComponent implements OnChanges {
   }
 
   public submitContactForm(model: ContactsList, isValid: boolean) {
-    if (this.contact) {
-      this.httpService.updateContact(model.id, model.name, model.lastname, model.company, model.job, model.landline, model.ext, model.phone1, model.email).subscribe(result => {
-        if (result === true) {
-          // Login succesful
-          console.log('User updated');
-        } else {
-          // Login failed
-          console.log('User couldn\'t be saved');
-        }
-      });
-    } else {
-      // Create new contact
-      console.log("New form");
-    }
+    console.log('OK');
   }
 
   public removeContact(model: ContactsList) {
