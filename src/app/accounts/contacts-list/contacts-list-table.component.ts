@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Interface
 import { ContactsList } from './contacts-list';
@@ -17,8 +17,6 @@ export class ContactsListTableComponent {
   @Output() currentContact: EventEmitter<ContactsList> = new EventEmitter<ContactsList>();
 
   public constructor() { }
-
-  public ngOnInit() { }
 
   public requestNewContactModal() {
     this.requestShowNewContactModal.emit('complete');

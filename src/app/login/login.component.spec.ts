@@ -30,7 +30,7 @@ describe('Login Component', () => {
     mockRouter = {
       //noinspection TypeScriptUnresolvedFunction
       navigate = jasmine.createSpy('navigate');
-    }
+    };
 
 
     TestBed.configureTestingModule({

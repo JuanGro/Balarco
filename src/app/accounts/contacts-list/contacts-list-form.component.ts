@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Components
 import { ContactsList } from './contacts-list';
@@ -13,7 +13,6 @@ import { HttpService } from './../../shared/http-service/http.service';
 })
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
-  // @Input('contactToEdit') contact: ContactsList;
   @Input() contact: ContactsList;
   // Request action to parent component
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
@@ -78,19 +77,19 @@ export class ContactsListFormComponent implements OnChanges {
 
   public submitUpdatedContact(model: ContactsList) {
     this.httpService.postObject('clients/clients/' + model.id, model).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
   public submitNewContact(model: ContactsList) {
     this.httpService.updateObject('clients/clients/', model).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
   public removeContact(model: ContactsList) {
     this.httpService.deleteObject('clients/clients/' + model.id).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 

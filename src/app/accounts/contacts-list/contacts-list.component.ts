@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 // Components
 import { ContactsList } from './contacts-list';
@@ -27,6 +25,7 @@ export class ContactsListComponent implements OnInit {
     this.title = 'Lista de contactos';
 
     // this.loadDocuments('clients/clients/');
+
     this.documents = [
         {'id': 1, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
         {'id': 2, 'name' : 'Juan', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
@@ -44,7 +43,7 @@ export class ContactsListComponent implements OnInit {
   public loadDocuments(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( documents => this.documents = documents, 
+                    .subscribe( documents => this.documents = documents,
                                 err => {
                                   console.log(err);
                                 }

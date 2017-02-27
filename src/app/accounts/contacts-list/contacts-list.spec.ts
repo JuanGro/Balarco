@@ -20,28 +20,29 @@ describe('ContactsListComponent (inline template)', () => {
     let fixtureParent: ComponentFixture<ContactsListComponent>;
     let fixtureChildForm: ComponentFixture<ContactsListFormComponent>;
     let fixtureChildTable: ComponentFixture<ContactsListTableComponent>;
-    
+
     let component: ContactsListComponent;
     let componentTable: ContactsListTableComponent;
     let componentForm: ContactsListFormComponent;
 
     let de: DebugElement;
     let el: HTMLElement;
-    
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ ContactsListComponent, ContactsListTableComponent, ContactsListFormComponent ], // declare the test component
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule, ChartsModule, DropdownModule, ModalModule.forRoot() ]
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
+            ChartsModule, DropdownModule, ModalModule.forRoot() ]
         });
 
         fixtureParent = TestBed.createComponent(ContactsListComponent);
         fixtureChildForm = TestBed.createComponent(ContactsListFormComponent);
         fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
-        
+
         component = fixtureParent.componentInstance; // ContactsListComponent test instance
         componentForm = fixtureChildForm.componentInstance;
         componentTable = fixtureChildTable.componentInstance;
-        
+
         // query for the title <h1> by CSS element selector
         de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
@@ -60,7 +61,7 @@ describe('ContactsListComponent (inline template)', () => {
         expect(el.textContent).toContain(component.title);
         expect(el.textContent).not.toBe(null);
     });
-    
+
     it('should display a different test title', () => {
         component.title = 'Lista de contactos';
         fixtureParent.detectChanges();
