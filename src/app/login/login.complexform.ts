@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../shared/http-service/http.service';
+import { CustomToastService } from '../shared/toast/custom-toast.service';
 
 // Interface
 import { Login } from './login';
@@ -17,7 +18,7 @@ export class LoginComplexFormComponent implements OnInit {
   public submitted: boolean; // keep track on whether form is submitted
   public events: any[] = []; // use later to display form changes
 
-  constructor(private loginService: HttpService, private router: Router) { }
+  constructor(private loginService: HttpService, private router: Router, private toaster: CustomToastService) { }
 
   ngOnInit() {
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -29,6 +30,7 @@ export class LoginComplexFormComponent implements OnInit {
   }
 
   submitForm(model: Login, isValid: boolean) {
+    this.toaster.showSuccessToast('Yeah');
     this.loginService.login(model.username, model.password).subscribe(result => {
       if (result === true) {
         // Login succesful
