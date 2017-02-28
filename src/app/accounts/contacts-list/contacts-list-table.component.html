@@ -25,12 +25,14 @@
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Compañia</th>
+                                <th>Departamento o cargo</th>
                                 <th>Teléfono fijo</th>
-                                <th>Departamento</th>
-                                <th>Ext</th>
+                                <th>Extensión</th>
                                 <th>Teléfono móvil</th>
-                                <!-- <th>Móvil 2</th> -->
+                                <th>Teléfono móvil 2</th>
                                 <th>Correo</th>
+                                <th>Correo 2</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,14 +40,16 @@
                             <tr data-toggle="modal" *ngFor="let contact of docs" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
-                                <td>{{ contact.lastname }}</td>
-                                <td>{{ contact.company }}</td>
+                                <td>{{ contact.last_name }}</td>
+                                <td>{{ contact.client }}</td>
+                                <td>{{ contact.charge }}</td>
                                 <td>{{ contact.landline }}</td>
-                                <td>{{ contact.job }}</td>
-                                <td>{{ contact.ext }}</td>
-                                <td>{{ contact.phone1 }}</td>
-                                <!-- <td>{{ contact.phone2 }}</td> -->
+                                <td>{{ contact.extension }}</td>
+                                <td>{{ contact.mobile_phone_1 }}</td>
+                                <td>{{ contact.mobile_phone_2 }}</td>
                                 <td>{{ contact.email }}</td>
+                                <td>{{ contact.alternate_email }}</td>
+                                <td>{{ contact.is_active }}</td>
                             </tr>
                         </tbody>
                     </table>

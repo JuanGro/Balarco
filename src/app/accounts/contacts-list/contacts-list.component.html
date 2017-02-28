@@ -66,28 +66,3 @@ contact to show [docs] sends the contacts to child component -->
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<!-- Success Modal to confirm save -->
-<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-success" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Guardado</h4>
-                <button type="button" class="close" (click)="successModal.hide()" (click)="updateContactModal.hide()" (click)="newContactModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>El contacto se ha guardado con éxito</p>
-            </div>
-            <div class="modal-footer">
-                <button *ngIf="contact" type="button" class="btn btn-secondary" (click)="successModal.hide()" (click)="updateContactModal.hide()">Cerrar</button>
-                <button *ngIf="!contact" type="button" class="btn btn-secondary" (click)="successModal.hide()" (click)="newContactModal.hide()">Cerrar</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->

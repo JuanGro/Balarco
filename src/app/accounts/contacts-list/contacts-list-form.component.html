@@ -131,14 +131,14 @@
 
     <div class="form-group row">
         <div class="col-md-6">
-            <!-- Email -->
+            <!-- Status -->
             <label for="recipient-is_active" class="form-control-label">Email:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
                 <input type="text" placeholder="true" class="form-control" id="recipient-is_active" formControlName="is_active" required>
             </div>
-            <!-- Feedback email -->
+            <!-- Feedback Status -->
             <div [hidden]="contactsModalForm.controls.is_active.valid || (contactsModalForm.controls.is_active.pristine && !submitted)" class="alert alert-danger">Estatus</div>
         </div>
     </div>

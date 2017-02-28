@@ -100,7 +100,7 @@ export class ContactsListFormComponent implements OnChanges {
   }
 
   public requestSuccessModal() {
-    this.requestSuccess.emit('complete');
+    // this.requestSuccess.emit('complete');
   }
 
   public requestWarningModal() {

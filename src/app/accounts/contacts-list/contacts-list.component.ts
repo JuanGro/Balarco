@@ -24,14 +24,10 @@ export class ContactsListComponent implements OnInit {
   public ngOnInit() {
     this.title = 'Lista de contactos';
     
-    // this.loadDocuments('clients/contacts/');
-
-    this.documents = [
-        {'id': 1, 'name' : 'Marco', 'last_name' : 'Otto', 'client' : 1, 'charge' : 'Marketing', 'landline' : '2123434', 'extension' : '12', 'mobile_phone_1' : '4423333333', 'email' : 'mail@gmail.com'}
-    ];
-    console.log(this.documents);
+    this.loadDocuments('clients/contacts/');
   }
-
+  
+  // Use the get method from httpService
   public loadDocuments(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
@@ -47,7 +43,7 @@ export class ContactsListComponent implements OnInit {
   }
 
   public removeContact(model: ContactsList) {
-    this.httpService.deleteObject('clients/clients/' + model.id).subscribe(result => {
+    this.httpService.deleteObject('clients/contacts/' + model.id).subscribe(result => {
       // console.log(result);
     });
   }
