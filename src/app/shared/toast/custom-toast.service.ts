@@ -41,21 +41,19 @@ export class CustomToastService {
   **/
   public show(response: Response, title?: string, message?: string) {
     switch (response.status) {
-      case 200: {
+      case 200:
         if (!title) {
           title = 'Operación Exitosa';
         }
         this.toasterService.pop('success', title, response.statusText);
         break;
-      }
-      case 201: {
+      case 201:
         if (!title) {
           title = 'Objeto Creado';
         }
         this.toasterService.pop('success', title, response.statusText);
         break;
-      }
-      case 400 || 401: {
+      case 400 || 401:
         if (!title) {
           title = 'Operación Fallida';
         }
@@ -65,17 +63,14 @@ export class CustomToastService {
           this.toasterService.pop('error', title, response.statusText);
         }
         break;
-      }
-      case 0: {
+      case 0:
         title = 'No hay conexión';
         message = 'No es posible realizar conexión con servidor';
         this.toasterService.pop('warning', title, message);
         break;
-      }
-      default: {
+      default:
         console.log('No status supported for toast: STATUS ' + response.status);
         break;
-      }
     }
   }
 
