@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Components
-import { ContactsList } from './contacts-list';
+import { Contact } from './contacts-list';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -13,11 +13,11 @@ import { HttpService } from './../../shared/http-service/http.service';
 export class ContactsListComponent implements OnInit {
   public title: string;
   // Object received from service
-  public documents: ContactsList[];
+  public documents: Contact[];
   // Variable for save the object received from child component
-  public contact: ContactsList;
+  public contact: Contact;
   // Received from child component
-  @Input() currentContact: ContactsList;
+  @Input() currentContact: Contact;
 
   public constructor(public httpService: HttpService) { }
 
@@ -42,12 +42,12 @@ export class ContactsListComponent implements OnInit {
     this.contact = null;
   }
 
-  public removeContact(model: ContactsList) {
+  public removeContact(model: Contact) {
     this.httpService.deleteObject('clients/contacts/' + model.id).subscribe(result => {
     });
   }
 
-  public getContactFromTable(object: ContactsList): void {
+  public getContactFromTable(object: Contact): void {
     this.contact = object;
   }
 }

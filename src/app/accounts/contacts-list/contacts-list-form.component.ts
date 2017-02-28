@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Components
-import { ContactsList } from './contacts-list';
+import { Contact } from './contacts-list';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -13,7 +13,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 })
 export class ContactsListFormComponent implements OnChanges {
   // Received from parent component
-  @Input() contact: ContactsList;
+  @Input() contact: Contact;
   // Request action to parent component
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
@@ -21,7 +21,7 @@ export class ContactsListFormComponent implements OnChanges {
   // Control form
   public contactsModalForm: FormGroup;
 
-  public documents: ContactsList;
+  public documents: Contact;
 
   public constructor(public fb: FormBuilder, private httpService: HttpService) { }
 
@@ -62,7 +62,7 @@ export class ContactsListFormComponent implements OnChanges {
     }
   }
 
-  public submitContactForm(model: ContactsList, isValid: boolean) {
+  public submitContactForm(model: Contact, isValid: boolean) {
     // console.log(model);
     if (isValid === true) {
       if (this.contact) {
@@ -71,19 +71,20 @@ export class ContactsListFormComponent implements OnChanges {
       } else {
         // Create contact
         this.submitNewContact(model);
+        console.log(model);
       }
     } else {
       console.log('Error in submitContactForm method');
     }
   }
 
-  public submitUpdatedContact(model: ContactsList, id: number) {
+  public submitUpdatedContact(model: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', model).subscribe(result => {
         console.log(result);
     });
   }
 
-  public submitNewContact(model: ContactsList) {
+  public submitNewContact(model: Contact) {
     this.httpService.postObject('clients/contacts/', model).subscribe(result => {
         console.log(result);
     });
