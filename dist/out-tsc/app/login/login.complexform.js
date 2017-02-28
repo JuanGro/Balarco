@@ -33,9 +33,8 @@ var LoginComplexFormComponent = (function () {
             if (result === true) {
                 _this.router.navigateByUrl('designer/owned-designs-list');
             }
-            else {
-                _this.toaster.showWithMessage(false, 'Usuario o contraseña incorrectos');
-            }
+        }, function (err) {
+            _this.toaster.showWithMessage(false, 'Usuario o contraseña incorrectos');
         });
     };
     return LoginComplexFormComponent;
