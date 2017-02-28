@@ -29,26 +29,26 @@
 
     <div class="form-group row">
         <div class="col-md-6">
-            <!-- Company -->
-            <label for="recipient-company" class="form-control-label">Compañia:</label>
+            <!-- Client -->
+            <label for="recipient-client" class="form-control-label">Compañia:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <input type="text" placeholder="Starbucks" class="form-control" id="recipient-company" formControlName="company" required>
+                <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required>
             </div>
-            <!-- Feedback company -->
-            <div [hidden]="contactsModalForm.controls.company.valid || (contactsModalForm.controls.company.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
+            <!-- Feedback client -->
+            <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
         </div>
         <div class="col-md-6">
-            <!-- Department or Job -->
+            <!-- Department or charge -->
             <label for="recipient-apartment" class="form-control-label">Puesto (Departamento):</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <input type="text" placeholder="Marketing" class="form-control" id="recipient-job" formControlName="job" required>
+                <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" formControlName="charge" required>
             </div>
-            <!-- Feedback job -->
-            <div [hidden]="contactsModalForm.controls.job.valid || (contactsModalForm.controls.job.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
+            <!-- Feedback charge -->
+            <div [hidden]="contactsModalForm.controls.charge.valid || (contactsModalForm.controls.charge.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
         </div>
     </div>
     
@@ -66,30 +66,44 @@
         </div>
         <div class="col-md-6">
             <!-- Extension -->
-            <label for="recipient-ext" class="form-control-label">Extensión:</label>
+            <label for="recipient-extension" class="form-control-label">Extensión:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="text" placeholder="33" class="form-control" id="recipient-ext" formControlName="ext" required>
+                <input type="text" placeholder="33" class="form-control" id="recipient-extension" formControlName="extension" required>
             </div>
             <!-- Feedback extension -->
-            <div [hidden]="contactsModalForm.controls.ext.valid || (contactsModalForm.controls.ext.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
+            <div [hidden]="contactsModalForm.controls.extension.valid || (contactsModalForm.controls.extension.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div>
         </div>
     </div>
     
     <div class="form-group row">
         <div class="col-md-6">
-            <!-- Phone 1 -->
-            <label for="recipient-phone1" class="form-control-label">Teléfono móvil:</label>
+            <!-- Mobile phone 1 -->
+            <label for="recipient-mobile_phone_1" class="form-control-label">Teléfono móvil:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-phone1" formControlName="phone1" required>
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" formControlName="mobile_phone_1" required>
             </div>
-            <!-- Feedback phone 1 -->
-            <div [hidden]="contactsModalForm.controls.phone1.valid || (contactsModalForm.controls.phone1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+            <!-- Feedback mobile phone 1 -->
+            <div [hidden]="contactsModalForm.controls.mobile_phone_1.valid || (contactsModalForm.controls.mobile_phone_1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
         </div>
         
+        <div class="col-md-6">
+            <!-- Mobile phone 2 -->
+            <label for="recipient-mobile_phone_2" class="form-control-label">Teléfono móvil 2 (opcional):</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
+                </span>
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" formControlName="mobile_phone_2">
+            </div>
+            <!-- Feedback mobile phone 2 -->
+            <div [hidden]="contactsModalForm.controls.mobile_phone_2.valid || (contactsModalForm.controls.mobile_phone_2.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <div class="col-md-6">
             <!-- Email -->
             <label for="recipient-email" class="form-control-label">Email:</label>
@@ -100,6 +114,32 @@
             </div>
             <!-- Feedback email -->
             <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+        </div>
+        
+        <div class="col-md-6">
+            <!-- Alternate email -->
+            <label for="recipient-alternate_email" class="form-control-label">Alternate email (opcional):</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i>
+                </span>
+                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" formControlName="alternate_email">
+            </div>
+            <!-- Feedback alternate email -->
+            <div [hidden]="contactsModalForm.controls.alternate_email.valid || (contactsModalForm.controls.alternate_email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <!-- Email -->
+            <label for="recipient-is_active" class="form-control-label">Email:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i>
+                </span>
+                <input type="text" placeholder="true" class="form-control" id="recipient-is_active" formControlName="is_active" required>
+            </div>
+            <!-- Feedback email -->
+            <div [hidden]="contactsModalForm.controls.is_active.valid || (contactsModalForm.controls.is_active.pristine && !submitted)" class="alert alert-danger">Estatus</div>
         </div>
     </div>
     <!-- Buttons close and submit -->

@@ -23,21 +23,13 @@ export class ContactsListComponent implements OnInit {
 
   public ngOnInit() {
     this.title = 'Lista de contactos';
-
-    // this.loadDocuments('clients/clients/');
+    
+    // this.loadDocuments('clients/contacts/');
 
     this.documents = [
-        {'id': 1, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 2, 'name' : 'Juan', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 3, 'name' : 'Julian', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 4, 'name' : 'Carlos', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 5, 'name' : 'Fernando', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 6, 'name' : 'Marco', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 7, 'name' : 'Juan', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 8, 'name' : 'Julian', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 9, 'name' : 'Carlos', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'},
-        {'id': 10, 'name' : 'Fernando', 'lastname' : 'Otto', 'company' : 'Starbucks', 'job' : 'Marketing', 'landline' : '2123434', 'ext' : '12', 'phone1' : '4423333333', 'email' : 'mail@gmail.com'}
+        {'id': 1, 'name' : 'Marco', 'last_name' : 'Otto', 'client' : 1, 'charge' : 'Marketing', 'landline' : '2123434', 'extension' : '12', 'mobile_phone_1' : '4423333333', 'email' : 'mail@gmail.com'}
     ];
+    console.log(this.documents);
   }
 
   public loadDocuments(url: string) {

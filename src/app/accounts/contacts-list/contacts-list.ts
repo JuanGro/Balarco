@@ -1,12 +1,14 @@
 export class ContactsList {
     id?: number;
-    name: string;
-    lastname: string;
-    company: string;
-    job: string;
-    landline: string;
-    ext: string;
-    phone1: string;
-    // phone2: string;
-    email: string;
+    name?: string;
+    last_name?: string;
+    client?: number;
+    charge?: string;
+    landline?: string;
+    extension?: string;
+    mobile_phone_1?: string;
+    mobile_phone_2?: string;
+    email?: string;
+    alternate_email?: string;
+    is_active?: boolean;
 }

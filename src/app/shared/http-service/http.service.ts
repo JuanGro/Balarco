@@ -47,6 +47,7 @@ export class HttpService extends Http {
     request: string | Request,
     options: RequestOptionsArgs = { headers: new Headers()}): Observable<Response> {
     this.configureRequest(request, options);
+    console.log('REQUEST: ' + request);
     return this.interceptResponse(request, options);
   }
 
@@ -103,7 +104,7 @@ export class HttpService extends Http {
     const headers = objectToSetHeadersTo.headers;
     headers.set('Content-Type', 'application/json');
     if (this.token) {
-      headers.set('Authentication', 'Token ' + this.token);
+      headers.set('Authorization', 'Token ' + this.token);
       console.log(headers);
     }
   }
