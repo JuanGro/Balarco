@@ -43,7 +43,7 @@ export class ContactsListComponent implements OnInit {
   }
 
   public removeContact(model: Contact) {
-    this.httpService.deleteObject('clients/contacts/' + model.id).subscribe(result => {
+    this.httpService.deleteObject('clients/contacts/' + model.id + '/').subscribe(result => {
     });
   }
 
