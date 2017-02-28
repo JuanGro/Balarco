@@ -18,21 +18,21 @@ import { HttpService } from './../../shared/http-service/http.service';
 * - Remove a contact.
 **/
 export class ContactsComponent implements OnInit {
-  // Variable that saves the title to show in the template
+  // Variable that saves the title to show in the template.
   public title: string;
-  // List of contacts received from httpService
+  // List of contacts received from httpService.
   public contactsList: Contact[];
-  // Variable for save the object received from child component and manage if the form is for update or create contact
+  // Variable for save the object received from child component and manage if the form is for update or create contact.
   public contact: Contact;
-  // Received from child component
+  // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input() currentContact: Contact;
 
   public constructor(public httpService: HttpService) { }
-  
+
   /**
   * Builds the component for first time.
   *   - Save the title to show in the template.
-  *   - Load the contact list from get method in httpService
+  *   - Load the contact list from get method in httpService.
   **/
   public ngOnInit() {
     this.title = 'Lista de contactos';
@@ -40,7 +40,13 @@ export class ContactsComponent implements OnInit {
     this.loadcontactsList('clients/contacts/');
   }
 
-  // Use the get method from httpService
+  /**
+  * Load all the contacts from the get method in httpService.
+  * Params:
+  *   - url: The url where the service will comunicate to get the Contact object.
+  * Returns:
+  *   - contactsList: Contacts list with all the contacts.
+  **/
   public loadcontactsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
@@ -52,15 +58,32 @@ export class ContactsComponent implements OnInit {
                     );
   }
 
+  /**
+  * Clear the contact variable to get an empty modal.
+  **/
   public initializeModal() {
     this.contact = null;
   }
 
-  public removeContact(model: Contact) {
-    this.httpService.deleteObject('clients/contacts/' + model.id + '/').subscribe(result => {
+  /**
+  * Request to the Backend service to remove the contact selected by the user.
+  * Params:
+  *   - object: A Contact object.
+  * Returns:
+  *   - result: Response from backend service to know if the operation was success or not.
+  **/
+  public removeContact(object: Contact) {
+    this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(result => {
     });
   }
 
+  /**
+  * Know which contact was selected by the user.
+  * Params:
+  *   - object: A Contact object.
+  * Returns:
+  *   - contact: The Contact object selected by the user.
+  **/
   public getContactFromTable(object: Contact): void {
     this.contact = object;
   }
