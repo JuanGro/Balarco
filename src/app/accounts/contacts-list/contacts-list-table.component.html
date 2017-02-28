@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                             <!-- We are sending the request to show the modal and the current contact -->
-                            <tr data-toggle="modal" *ngFor="let contact of contacts" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
+                            <tr data-toggle="modal" *ngFor="let contact of docs" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.last_name }}</td>
