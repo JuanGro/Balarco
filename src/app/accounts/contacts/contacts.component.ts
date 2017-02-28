@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 // Class
 import { Contact } from './contact';
+import { Client } from './../companies-list/client';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -22,6 +23,8 @@ export class ContactsComponent implements OnInit {
   public title: string;
   // List of contacts received from httpService.
   public contactsList: Contact[];
+  // List of clients received from httpService.
+  public clientsList: Client[];
   // Variable for save the object received from child component and manage if the form is for update or create contact.
   public contact: Contact;
   // Received from table component, it gives me the contact that the user selected to see his detail.
@@ -49,7 +52,8 @@ export class ContactsComponent implements OnInit {
     this.titleDangerModal = 'Eliminar contacto';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este contacto?';
 
-    this.loadcontactsList('clients/contacts/');
+    this.loadClientsList('clients/clients/');
+    this.loadContactsList('clients/contacts/');
   }
 
   /**
@@ -59,10 +63,28 @@ export class ContactsComponent implements OnInit {
   * Returns:
   *   - contactsList: Contacts list with all the contacts.
   **/
-  public loadcontactsList(url: string) {
+  public loadContactsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe( contactsList => this.contactsList = contactsList,
+                                err => {
+                                  // console.log(err);
+                                  // Call of toast
+                                }
+                    );
+  }
+
+  /**
+  * Loads all the clients from the get method in httpService to use it the client attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the Client object.
+  * Returns:
+  *   - clientsList: Clients list with all the clients.
+  **/
+  public loadClientsList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe( clientsList => this.clientsList = clientsList,
                                 err => {
                                   // console.log(err);
                                   // Call of toast
