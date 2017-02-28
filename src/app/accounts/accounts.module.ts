@@ -7,9 +7,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Contacts
 import { AccountsRoutingModule } from './accounts-routing.module';
-import { ContactsListComponent } from './contacts-list/contacts-list.component';
-import { ContactsListTableComponent } from './contacts-list/contacts-list-table.component';
-import { ContactsListFormComponent } from './contacts-list/contacts-list-form.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { ContactsListTableComponent } from './contacts/contacts-list-table.component';
+import { ContactFormComponent } from './contacts/contact-form.component';
 import { CompaniesListComponent } from './companies-list/companies-list.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
@@ -27,8 +27,8 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ContactsListComponent, IgualasListComponent, DesignsListComponent,
-  ContactsListTableComponent, ContactsListFormComponent ],
+  declarations: [ CompaniesListComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
+  ContactsListTableComponent, ContactFormComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }

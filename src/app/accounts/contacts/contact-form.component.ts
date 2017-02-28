@@ -8,10 +8,10 @@ import { Contact } from './contact';
 import { HttpService } from './../../shared/http-service/http.service';
 
 @Component({
-  selector: 'contacts-list-form',
-  templateUrl: 'contacts-list-form.component.html'
+  selector: 'contact-form',
+  templateUrl: 'contact-form.component.html'
 })
-export class ContactsListFormComponent implements OnChanges {
+export class ContactFormComponent implements OnChanges {
   // Received from parent component
   @Input() contact: Contact;
   // Request action to parent component

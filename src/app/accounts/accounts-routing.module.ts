@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { CompaniesListComponent } from './companies-list/companies-list.component';
-import { ContactsListComponent } from './contacts-list/contacts-list.component';
+import { ContactsComponent } from './contacts/contacts.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'contacts-list',
-        component: ContactsListComponent,
+        component: ContactsComponent,
         data: {
           title: 'Contacts List'
         }

@@ -7,10 +7,10 @@ import { Contact } from './contact';
 import { HttpService } from './../../shared/http-service/http.service';
 
 @Component({
-  selector: 'contacts-list',
-  templateUrl: 'contacts-list.component.html'
+  selector: 'contacts',
+  templateUrl: 'contacts.component.html'
 })
-export class ContactsListComponent implements OnInit {
+export class ContactsComponent implements OnInit {
   public title: string;
   // Object received from service
   public documents: Contact[];
