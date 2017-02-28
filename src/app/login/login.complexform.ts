@@ -36,8 +36,8 @@ export class LoginComplexFormComponent implements OnInit {
           this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
         }
       },
-      err => {
-        this.toaster.showWithMessage(false, 'Usuario o contraseña incorrectos');
+      error => {
+        this.toaster.show(error, 'Error al ingresar', 'Usuario o contraseña incorrectos');
       });
   }
 }
