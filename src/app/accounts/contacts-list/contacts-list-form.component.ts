@@ -20,7 +20,6 @@ export class ContactsListFormComponent implements OnChanges {
   @Output() requestSuccess: EventEmitter<string> = new EventEmitter();
   // Control form
   public contactsModalForm: FormGroup;
-  public formGroup: FormGroup;
 
   public documents: ContactsList;
 
@@ -79,7 +78,7 @@ export class ContactsListFormComponent implements OnChanges {
   }
 
   public submitUpdatedContact(model: ContactsList, id: number) {
-    this.httpService.updateObject('clients/contacts/' + id +'/', model).subscribe(result => {
+    this.httpService.updateObject('clients/contacts/' + id + '/', model).subscribe(result => {
         console.log(result);
     });
   }
@@ -95,11 +94,11 @@ export class ContactsListFormComponent implements OnChanges {
   }
 
   public requestWarningModal() {
-    this.requestWarning.emit('complete');
+    this.requestWarning.emit();
   }
 
   public requestCloseThisModal() {
-    this.requestCloseModal.emit('complete');
+    this.requestCloseModal.emit();
   }
 
   public resetForm() {

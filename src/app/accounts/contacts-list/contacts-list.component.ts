@@ -23,11 +23,10 @@ export class ContactsListComponent implements OnInit {
 
   public ngOnInit() {
     this.title = 'Lista de contactos';
-    
+
     this.loadDocuments('clients/contacts/');
-    console.log(this.documents);
   }
-  
+
   // Use the get method from httpService
   public loadDocuments(url: string) {
     this.httpService.getObject(url)
@@ -45,7 +44,6 @@ export class ContactsListComponent implements OnInit {
 
   public removeContact(model: ContactsList) {
     this.httpService.deleteObject('clients/contacts/' + model.id).subscribe(result => {
-      // console.log(result);
     });
   }
 

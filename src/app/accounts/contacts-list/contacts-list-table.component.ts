@@ -19,11 +19,11 @@ export class ContactsListTableComponent {
   public constructor() { }
 
   public requestNewContactModal() {
-    this.requestShowNewContactModal.emit('complete');
+    this.requestShowNewContactModal.emit();
   }
 
   public requestUpdateContactModal() {
-    this.requestShowUpdateContactModal.emit('complete');
+    this.requestShowUpdateContactModal.emit();
   }
 
   public sendCurrentContact(object) {
