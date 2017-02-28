@@ -2,9 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
+import { CustomToastService } from '../shared/toast/custom-toast.service';
 describe('Login Component', function () {
     var comp;
     var fixture;
@@ -23,11 +25,12 @@ describe('Login Component', function () {
             navigate: navigate
         };
         TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule],
+            imports: [FormsModule, ReactiveFormsModule, ToasterModule],
             declarations: [LoginComponent, LoginComplexFormComponent],
             providers: [
                 { provide: HttpService, useValue: httpServiceStub },
-                { provide: Router, useValue: mockRouter }
+                { provide: Router, useValue: mockRouter },
+                CustomToastService,
             ]
         });
         httpService = TestBed.get(HttpService);
