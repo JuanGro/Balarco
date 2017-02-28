@@ -24,20 +24,20 @@
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Compañia</th>
-                                <th>Departamento o cargo</th>
+                                <th>Compañía</th>
+                                <th>Departamento o puesto</th>
                                 <th>Teléfono fijo</th>
                                 <th>Extensión</th>
                                 <th>Teléfono móvil</th>
-                                <th>Teléfono móvil 2</th>
+                                <th>Teléfono móvil secundario</th>
                                 <th>Correo</th>
-                                <th>Correo 2</th>
+                                <th>Correo alterno</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- We are sending the request to show the modal and the current contact -->
-                            <tr data-toggle="modal" *ngFor="let contact of docs" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
+                            <tr data-toggle="modal" *ngFor="let contact of contacts" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.last_name }}</td>
@@ -49,7 +49,10 @@
                                 <td>{{ contact.mobile_phone_2 }}</td>
                                 <td>{{ contact.email }}</td>
                                 <td>{{ contact.alternate_email }}</td>
-                                <td>{{ contact.is_active }}</td>
+                                <td>{{ contact.is_active }}
+                                    <!-- <button *ngIf="contact.is_active === true" type="button" class="btn btn-outline-primary">{{ contact.is_active }}</button>
+                                    <button *ngIf="contact.is_active === false" type="button" class="btn btn-outline-danger">{{ contact.is_active }}</button> -->
+                                </td>
                             </tr>
                         </tbody>
                     </table>

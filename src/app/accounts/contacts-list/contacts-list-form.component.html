@@ -30,7 +30,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <!-- Client -->
-            <label for="recipient-client" class="form-control-label">Compañia:</label>
+            <label for="recipient-client" class="form-control-label">Compañía:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
@@ -124,7 +124,7 @@
         
         <div class="col-md-6">
             <!-- Alternate email -->
-            <label for="recipient-alternate_email" class="form-control-label">Alternate email (opcional):</label>
+            <label for="recipient-alternate_email" class="form-control-label">Email alterno (opcional):</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
@@ -152,7 +152,7 @@
         <button *ngIf="!contact" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <button *ngIf="contact" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestSuccessModal($event)">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestSuccessModal($event)" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
 
     </form>

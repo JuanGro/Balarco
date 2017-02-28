@@ -25,6 +25,7 @@ export class ContactsListComponent implements OnInit {
     this.title = 'Lista de contactos';
     
     this.loadDocuments('clients/contacts/');
+    console.log(this.documents);
   }
   
   // Use the get method from httpService
