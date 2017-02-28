@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Components
-import { Contact } from './contacts-list';
+import { Contact } from './contact';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';

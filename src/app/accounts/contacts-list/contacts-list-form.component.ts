@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Components
-import { Contact } from './contacts-list';
+import { Contact } from './contact';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';

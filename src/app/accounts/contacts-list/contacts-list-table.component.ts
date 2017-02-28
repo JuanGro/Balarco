@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Class
-import { Contact } from './contacts-list';
+import { Contact } from './contact';
 
 @Component({
   selector: 'contacts-list-table',
