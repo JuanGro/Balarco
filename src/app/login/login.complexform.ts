@@ -30,13 +30,11 @@ export class LoginComplexFormComponent implements OnInit {
   }
 
   submitForm(model: Login, isValid: boolean) {
-    this.toaster.showSuccessToast('Yeah');
     this.loginService.login(model.username, model.password).subscribe(result => {
       if (result === true) {
-        // Login succesful
         this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
       } else {
-        // Login failed
+        this.toaster.showWithMessage(false, 'Usuario o contraseña incorrectos');
       }
     });
   }

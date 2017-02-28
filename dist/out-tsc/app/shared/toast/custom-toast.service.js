@@ -13,8 +13,33 @@ var CustomToastService = (function () {
     function CustomToastService(toasterService) {
         this.toasterService = toasterService;
     }
-    CustomToastService.prototype.showSuccessToast = function (message) {
-        this.toasterService.pop('success', message, 'Hi');
+    CustomToastService.prototype.showWithMessage = function (success, message, title) {
+        if (success) {
+            if (!title) {
+                title = 'Operación Exitosa';
+            }
+            this.toasterService.pop('success', title, message);
+        }
+        else {
+            if (!title) {
+                title = 'Operación Fallida';
+            }
+            this.toasterService.pop('error', title, message);
+        }
+    };
+    CustomToastService.prototype.show = function (response, title) {
+        if (response.ok) {
+            if (!title) {
+                title = 'Operación Exitosa';
+            }
+            this.toasterService.pop('success', title, response.statusText);
+        }
+        else {
+            if (!title) {
+                title = 'Operación Fallida';
+            }
+            this.toasterService.pop('error', title, response.statusText);
+        }
     };
     return CustomToastService;
 }());
