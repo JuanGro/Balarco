@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 
 /**
 * Generic class (service) that manages creation of toast messages.
@@ -12,66 +12,68 @@ export class CustomToastService {
   constructor(private toasterService: ToasterService) { }
 
   /**
-  * Creates a toast depending on a success flag.
+  * Creates a toast depending on a Response object.
   * Parameters:
-  *   - success: Flag representing success status of request.
-  *   - message: Message to be shown in the toast.
+  *   - response: Response received from the request.
   *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  * Returns:
+  *   - toast created.
   **/
-  public showWithMessage(success: boolean, message: string, title?: string) {
-    if (success) {
-      if (!title) {
-        title = 'Operación Exitosa';
-      }
-      this.toasterService.pop('success', title, message);
-    } else {
-      if (!title) {
-        title = 'Operación Fallida';
-      }
-      this.toasterService.pop('error', title, message);
+  private createToast(response: Response, title?: string, message?: string): Toast {
+    let type;
+    switch (response.status) {
+      case 200:
+        if (!title) {
+          title = 'Operación Exitosa';
+        }
+        type = 'success';
+        message = response.statusText;
+        break;
+      case 201:
+        if (!title) {
+          title = 'Objeto Creado';
+        }
+        type = 'success';
+        message = response.statusText;
+        break;
+      case 400 || 401:
+        if (!title) {
+          title = 'Operación Fallida';
+        }
+        if (!message) {
+          message = response.statusText
+        }
+        type = 'error';
+        break;
+      case 0:
+        title = 'No hay conexión';
+        message = 'No es posible realizar conexión con servidor';
+        type = 'warning';
+        break;
+      default:
+        title = message = type = '';
+        console.log('No status supported for toast: STATUS ' + response.status);
+        break;
     }
+    let toast : Toast = {
+        type: type,
+        title: title,
+        body: message,
+        showCloseButton: false
+    };
+    return toast;
   }
 
   /**
-  * Creates a toast depending on a Response object.
+  * Shows a toast depending on a Response object.
   * Parameters:
   *   - response: Response received from the request.
   *   - title(Optional): Title for the toast.
   *   - message(Optional): Message for the toast.
   **/
   public show(response: Response, title?: string, message?: string) {
-    switch (response.status) {
-      case 200:
-        if (!title) {
-          title = 'Operación Exitosa';
-        }
-        this.toasterService.pop('success', title, response.statusText);
-        break;
-      case 201:
-        if (!title) {
-          title = 'Objeto Creado';
-        }
-        this.toasterService.pop('success', title, response.statusText);
-        break;
-      case 400 || 401:
-        if (!title) {
-          title = 'Operación Fallida';
-        }
-        if (message) {
-          this.toasterService.pop('error', title, message);
-        } else {
-          this.toasterService.pop('error', title, response.statusText);
-        }
-        break;
-      case 0:
-        title = 'No hay conexión';
-        message = 'No es posible realizar conexión con servidor';
-        this.toasterService.pop('warning', title, message);
-        break;
-      default:
-        console.log('No status supported for toast: STATUS ' + response.status);
-        break;
-    }
+    this.toasterService.pop(this.createToast(response, title, message));
   }
 
 }
