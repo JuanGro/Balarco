@@ -21,11 +21,11 @@ import { HttpService } from './../../shared/http-service/http.service';
 * - Request actions in modals to the parent component.
 **/
 export class ContactFormComponent implements OnChanges {
-  // Received the contact selected by the user or the empty object to know if is called the update or create contact form.
+  // Receives the contact selected by the user or the empty object to know if is called the update or create contact form.
   @Input() contact: Contact;
-  // Request close of the current modal to parent component.
+  // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
-  // Request to parent component the show of the danger modal to confirm if the contact is permanent removed.
+  // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
 
   // Initialization of the control form

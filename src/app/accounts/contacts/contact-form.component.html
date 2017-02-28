@@ -164,15 +164,15 @@
     <!-- Buttons -->
     <div class="modal-footer">
         <!-- Clear form -->
-        <!-- Call the resetForm method, it's only displayed if the contact is empty because it's used only for Create new contact modal -->
+        <!-- Calls the resetForm method, it's only displayed if the contact is empty because it's used only for Create new contact modal -->
         <button *ngIf="!contact" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <!-- Delete contact -->
-        <!-- Call the requestWarningModal method, the confirmation is only displayed if the contact exists because it's used only for update contact modal -->
+        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact exists because it's used only for update contact modal -->
         <button *ngIf="contact" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
-        <!-- Hide modal -->
+        <!-- Hides modal -->
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
-        <!-- Submit updated or new contact -->
-        <!-- Call the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+        <!-- Submits updated or new contact -->
+        <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
         <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
 

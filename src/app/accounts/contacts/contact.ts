@@ -1,3 +1,6 @@
+/**
+* Class to define all the attributes used in the Contact object.
+**/
 export class Contact {
     id?: number;
     name: string;

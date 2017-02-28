@@ -8,11 +8,11 @@
  </div>
 
 <!-- Child component, it contains the table -->
-<!-- [docs] sends the contacts list to the table -->
+<!-- [contactsList] sends the contacts list to the table -->
 <!-- (requestShowNewContactModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
 <!-- (currentContact) receives the contact who was selected by the user -->
-<contacts-list-table [docs]="contactsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
+<contacts-list-table [contactsList]="contactsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
 
 <!-- Modal New Contact -->
 <div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">
