@@ -26,6 +26,14 @@ export class ContactsComponent implements OnInit {
   public contact: Contact;
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input() currentContact: Contact;
+  // Title of new contact modal.
+  public titleNewModal: string;
+  // Title of update contact modal.
+  public titleUpdateModal: string;
+  // Title of danger contact modal.
+  public titleDangerModal: string;
+  // Description for danger contact modal.
+  public descriptionDangerModal: string;
 
   public constructor(public httpService: HttpService) { }
 
@@ -36,6 +44,10 @@ export class ContactsComponent implements OnInit {
   **/
   public ngOnInit() {
     this.title = 'Lista de contactos';
+    this.titleNewModal = 'Nuevo Contacto';
+    this.titleUpdateModal = 'Modificar Contacto';
+    this.titleDangerModal = 'Eliminar contacto';
+    this.descriptionDangerModal = '¿Está usted seguro de eliminar este contacto?';
 
     this.loadcontactsList('clients/contacts/');
   }
