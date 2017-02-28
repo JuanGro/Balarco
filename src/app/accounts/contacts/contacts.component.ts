@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-// Components
+// Class
 import { Contact } from './contact';
 
 // Services
@@ -53,7 +53,7 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Load all the contacts from the get method in httpService.
+  * Loads all the contacts from the get method in httpService.
   * Params:
   *   - url: The url where the service will comunicate to get the Contact object.
   * Returns:
@@ -71,14 +71,14 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Clear the contact variable to get an empty modal.
+  * Clears the contact variable to get an empty modal.
   **/
   public initializeModal() {
     this.contact = null;
   }
 
   /**
-  * Request to the Backend service to remove the contact selected by the user.
+  * Requests to the Backend service to remove the contact selected by the user.
   * Params:
   *   - object: A Contact object.
   * Returns:
@@ -90,7 +90,7 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Know which contact was selected by the user.
+  * Knows which contact was selected by the user.
   * Params:
   *   - object: A Contact object.
   * Returns:

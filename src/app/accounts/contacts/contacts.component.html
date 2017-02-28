@@ -9,9 +9,9 @@
 
 <!-- Child component, it contains the table -->
 <!-- [docs] sends the contacts list to the table -->
-<!-- (requestShowNewContactModal) receive the request to show the new modal and initialize it -->
-<!-- (requestShowUpdateContactModal) receive the request to show the update modal -->
-<!-- (currentContact) receive the contact who was selected by the user -->
+<!-- (requestShowNewContactModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
+<!-- (currentContact) receives the contact who was selected by the user -->
 <contacts-list-table [docs]="contactsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
 
 <!-- Modal New Contact -->
@@ -28,7 +28,7 @@
             <!-- Child component, it contains the contact form -->
             <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <contact-form [contact]="contact" (requestSuccess)="successModal.show()" (requestCloseModal)="newContactModal.hide()"></contact-form>
+            <contact-form [contact]="contact" (requestCloseModal)="newContactModal.hide()"></contact-form>
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
             <!-- Child component, it contains the contact form -->
             <!-- [contact] sends the contact object to the form to display the current values -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <contact-form [contact]="contact" (requestSuccess)="successModal.show()" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contact-form>
+            <contact-form [contact]="contact" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contact-form>
         </div>
     </div>
 </div>

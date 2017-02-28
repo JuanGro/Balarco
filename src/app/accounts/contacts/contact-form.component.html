@@ -1,5 +1,8 @@
 <div class="modal-body">
     <!-- Start form -->
+    <!-- [formGroup] calls the form methods to the component -->
+    <!-- (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)" executes the submitContactForm method sending the 
+    values of each field and if the complete group is valid -->
     <form [formGroup]="contactsModalForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)">
     
     <!-- First row -->
@@ -17,7 +20,7 @@
         </div>
 
         <div class="col-md-6">
-            <!-- Lastname -->
+            <!-- Lastname field -->
             <label for="recipient-last_name" class="form-control-label">Apellido:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
@@ -160,14 +163,17 @@
 
     <!-- Buttons -->
     <div class="modal-footer">
-        <!-- Clean form -->
+        <!-- Clear form -->
+        <!-- Call the resetForm method, it's only displayed if the contact is empty because it's used only for Create new contact modal -->
         <button *ngIf="!contact" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <!-- Delete contact -->
+        <!-- Call the requestWarningModal method, the confirmation is only displayed if the contact exists because it's used only for update contact modal -->
         <button *ngIf="contact" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hide modal -->
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
         <!-- Submit updated or new contact -->
-        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestSuccessModal($event)" (click)="requestCloseThisModal($event)">Guardar</button>
+        <!-- Call the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
 
     </form>
