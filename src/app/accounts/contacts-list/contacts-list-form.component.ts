@@ -32,13 +32,12 @@ export class ContactsListFormComponent implements OnChanges {
     if (this.contact) {
       // Update Contact
       this.contactsModalForm = this.fb.group({
-        id: [this.contact.id],
         name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
         last_name: [this.contact.last_name, [<any>Validators.required, <any>Validators.minLength(4)]],
         client: [this.contact.client, [<any>Validators.required]],
         charge: [this.contact.charge, [<any>Validators.required, <any>Validators.minLength(3)]],
         landline: [this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: [this.contact.extension, [<any>Validators.required]],
+        extension: [this.contact.extension],
         mobile_phone_1: [this.contact.mobile_phone_1, [<any>Validators.required, <any>Validators.minLength(6)]],
         mobile_phone_2: [this.contact.mobile_phone_2],
         email: [this.contact.email, [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
@@ -54,7 +53,7 @@ export class ContactsListFormComponent implements OnChanges {
         client: ['', [<any>Validators.required]],
         charge: ['', [<any>Validators.required, <any>Validators.minLength(3)]],
         landline: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: ['', [<any>Validators.required]],
+        extension: [''],
         mobile_phone_1: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
         mobile_phone_2: [''],
         email: ['', [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
@@ -62,13 +61,6 @@ export class ContactsListFormComponent implements OnChanges {
         is_active: [true, [<any>Validators.required]]
       });
     }
-
-    /* this.documents =
-        {'name' : 'Marco', 'last_name' : 'Otto', 'client' : 1, 'charge' : 'Marketing', 'landline' : '2123434', 'extension' : '12', 'mobile_phone_1' : '4423333333', 'email' : 'mail@gmail.com', 'is_active' : true}
-    ; */
-
-    // this.submitNewContact(this.documents);
-    // console.log(this.documents);
   }
 
   public submitContactForm(model: ContactsList, isValid: boolean) {
@@ -76,20 +68,19 @@ export class ContactsListFormComponent implements OnChanges {
     if (isValid === true) {
       if (this.contact) {
         // Update contact
-        this.submitUpdatedContact(model);
+        this.submitUpdatedContact(model, this.contact.id);
       } else {
         // Create contact
         this.submitNewContact(model);
       }
-      console.log(model);
     } else {
       console.log('Error in submitContactForm method');
     }
   }
 
-  public submitUpdatedContact(model: ContactsList) {
-    this.httpService.updateObject('clients/contacts/' + model.id, model).subscribe(result => {
-      // console.log(result);
+  public submitUpdatedContact(model: ContactsList, id: number) {
+    this.httpService.updateObject('clients/contacts/' + id +'/', model).subscribe(result => {
+        console.log(result);
     });
   }
 

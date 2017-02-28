@@ -34,13 +34,13 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="select" name="select" class="form-control" size="1">
+                <!-- <select id="select" name="select" class="form-control" size="1">
                     <option value="0">Please select</option>
                     <option value="1">Option #1</option>
                     <option value="2">Option #2</option>
                     <option value="3">Option #3</option>
-                </select>
-                <!-- <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required> -->
+                </select> -->
+                <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required>
             </div>
             <!-- Feedback client -->
             <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válida</div>
