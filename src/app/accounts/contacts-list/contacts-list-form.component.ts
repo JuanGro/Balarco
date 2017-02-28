@@ -34,7 +34,7 @@ export class ContactsListFormComponent implements OnChanges {
       this.contactsModalForm = this.fb.group({
         id: [this.contact.id],
         name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
-        lastname: [this.contact.last_name, [<any>Validators.required, <any>Validators.minLength(4)]],
+        last_name: [this.contact.last_name, [<any>Validators.required, <any>Validators.minLength(4)]],
         client: [this.contact.client, [<any>Validators.required]],
         charge: [this.contact.charge, [<any>Validators.required, <any>Validators.minLength(3)]],
         landline: [this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]],
@@ -50,7 +50,7 @@ export class ContactsListFormComponent implements OnChanges {
       // New Contact
       this.contactsModalForm = this.fb.group({
         name: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
-        lastname: ['', [<any>Validators.required, <any>Validators.minLength(4)]],
+        last_name: ['', [<any>Validators.required, <any>Validators.minLength(4)]],
         client: ['', [<any>Validators.required]],
         charge: ['', [<any>Validators.required, <any>Validators.minLength(3)]],
         landline: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
@@ -59,7 +59,7 @@ export class ContactsListFormComponent implements OnChanges {
         mobile_phone_2: [''],
         email: ['', [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
         alternate_email: ['', [<any>Validators.pattern(emailRegex)]],
-        is_active: ['', [<any>Validators.required]]
+        is_active: [true, [<any>Validators.required]]
       });
     }
 

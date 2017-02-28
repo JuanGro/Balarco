@@ -16,14 +16,14 @@
         </div>
         <div class="col-md-6">
             <!-- Lastname -->
-            <label for="recipient-lastname" class="form-control-label">Apellido:</label>
+            <label for="recipient-last_name" class="form-control-label">Apellido:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" placeholder="Hernández" class="form-control" id="recipient-lastname" formControlName="lastname" required>
+                <input type="text" placeholder="Hernández" class="form-control" id="recipient-last_name" formControlName="last_name" required>
             </div>
             <!-- Feedback lastname -->
-            <div [hidden]="contactsModalForm.controls.lastname.valid || (contactsModalForm.controls.lastname.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
+            <div [hidden]="contactsModalForm.controls.last_name.valid || (contactsModalForm.controls.last_name.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
         </div>
     </div>
 
@@ -34,14 +34,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required>
+                <select id="select" name="select" class="form-control" size="1">
+                    <option value="0">Please select</option>
+                    <option value="1">Option #1</option>
+                    <option value="2">Option #2</option>
+                    <option value="3">Option #3</option>
+                </select>
+                <!-- <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required> -->
             </div>
             <!-- Feedback client -->
-            <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válido</div>
+            <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válida</div>
         </div>
         <div class="col-md-6">
             <!-- Department or charge -->
-            <label for="recipient-apartment" class="form-control-label">Puesto (Departamento):</label>
+            <label for="recipient-charge" class="form-control-label">Puesto (Departamento):</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
@@ -66,7 +72,7 @@
         </div>
         <div class="col-md-6">
             <!-- Extension -->
-            <label for="recipient-extension" class="form-control-label">Extensión:</label>
+            <label for="recipient-extension" class="form-control-label">Extensión (opcional):</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
@@ -130,18 +136,17 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-md-6">
-            <!-- Status -->
-            <label for="recipient-is_active" class="form-control-label">Email:</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i>
-                </span>
-                <input type="text" placeholder="true" class="form-control" id="recipient-is_active" formControlName="is_active" required>
+        <div class="col-md-6"></div>
+        <label class="col-md-4 form-control-label" for="recipient-is_active">Estado</label>
+        <div class="col-md-2">
+            <div class="checkbox">
+                <label for="checkbox1">
+                    <input type="checkbox" id="recipient-is_active" name="checkbox1" formControlName="is_active"> Activo
+                </label>
             </div>
-            <!-- Feedback Status -->
-            <div [hidden]="contactsModalForm.controls.is_active.valid || (contactsModalForm.controls.is_active.pristine && !submitted)" class="alert alert-danger">Estatus</div>
         </div>
     </div>
+
     <!-- Buttons close and submit -->
     <div class="modal-footer">
         <button *ngIf="!contact" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
