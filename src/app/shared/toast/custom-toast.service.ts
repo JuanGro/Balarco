@@ -9,6 +9,8 @@ import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 @Injectable()
 export class CustomToastService {
 
+  //TODO: Add Constants...
+
   constructor(private toasterService: ToasterService) { }
 
   /**
@@ -20,7 +22,7 @@ export class CustomToastService {
   * Returns:
   *   - toast created.
   **/
-  private createToast(response: Response, title?: string, message?: string): Toast {
+  public createToast(response: Response, title?: string, message?: string): Toast {
     let type;
     switch (response.status) {
       case 200:
