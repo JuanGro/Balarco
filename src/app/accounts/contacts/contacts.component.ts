@@ -10,30 +10,44 @@ import { HttpService } from './../../shared/http-service/http.service';
   selector: 'contacts',
   templateUrl: 'contacts.component.html'
 })
+/**
+* Component which manage the administration of the contacts:
+* - List all the contacts.
+* - Create a new contact.
+* - Update an specific contact.
+* - Remove a contact.
+**/
 export class ContactsComponent implements OnInit {
+  // Variable that saves the title to show in the template
   public title: string;
-  // Object received from service
-  public documents: Contact[];
-  // Variable for save the object received from child component
+  // List of contacts received from httpService
+  public contactsList: Contact[];
+  // Variable for save the object received from child component and manage if the form is for update or create contact
   public contact: Contact;
   // Received from child component
   @Input() currentContact: Contact;
 
   public constructor(public httpService: HttpService) { }
-
+  
+  /**
+  * Builds the component for first time.
+  *   - Save the title to show in the template.
+  *   - Load the contact list from get method in httpService
+  **/
   public ngOnInit() {
     this.title = 'Lista de contactos';
 
-    this.loadDocuments('clients/contacts/');
+    this.loadcontactsList('clients/contacts/');
   }
 
   // Use the get method from httpService
-  public loadDocuments(url: string) {
+  public loadcontactsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( documents => this.documents = documents,
+                    .subscribe( contactsList => this.contactsList = contactsList,
                                 err => {
-                                  console.log(err);
+                                  // console.log(err);
+                                  // Call of toast
                                 }
                     );
   }
