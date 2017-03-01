@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Class
 import { Contact } from './contact';
+import { Client } from './../companies-list/client';
 
 @Component({
   selector: 'contacts-list-table',
@@ -15,9 +16,9 @@ import { Contact } from './contact';
 **/
 export class ContactsListTableComponent {
   // Receives the contacts list from parent component.
-  @Input('contactsList') contactsList: Contact;
+  @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
-  @Input('clientsList') clientsList: Contact;
+  @Input('clientsList') clientsList: Client[];
   // Sends the request to show the new contact modal in parent component
   @Output() requestShowNewContactModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update contact modal in parent component

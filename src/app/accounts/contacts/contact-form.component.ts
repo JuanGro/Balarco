@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Class
 import { Contact } from './contact';
+import { Client } from './../companies-list/client';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -23,6 +24,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 export class ContactFormComponent implements OnChanges {
   // Receives the contact selected by the user or the empty object to know if is called the update or create contact form.
   @Input() contact: Contact;
+  // Receives the clients list from parent component.
+  @Input('clientsList') clientsList: Client[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -106,7 +109,7 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
-        console.log(result);
+        // console.log(result);
     });
   }
 
@@ -119,7 +122,7 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
-        console.log(result);
+        // console.log(result);
     });
   }
 
