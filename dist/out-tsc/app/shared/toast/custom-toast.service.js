@@ -36,7 +36,8 @@ var CustomToastService = (function () {
                 type = 'success';
                 message = response.statusText;
                 break;
-            case 400 || 401:
+            case 400:
+            case 401:
                 if (!title) {
                     title = this.DefaultTitles.title_400_401;
                 }
@@ -64,7 +65,9 @@ var CustomToastService = (function () {
         return toast;
     };
     CustomToastService.prototype.show = function (response, title, message) {
-        this.toasterService.pop(this.createToast(response, title, message));
+        var toast = this.createToast(response, title, message);
+        console.log(toast.title);
+        this.toasterService.pop(toast);
     };
     CustomToastService.prototype.getDefaultTiltles = function () {
         return this.DefaultTitles;

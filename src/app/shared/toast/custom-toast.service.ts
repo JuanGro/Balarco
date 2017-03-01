@@ -47,7 +47,8 @@ export class CustomToastService {
         type = 'success';
         message = response.statusText;
         break;
-      case 400 || 401:
+      case 400:
+      case 401:
         if (!title) {
           title = this.DefaultTitles.title_400_401;
         }
@@ -83,7 +84,9 @@ export class CustomToastService {
   *   - message(Optional): Message for the toast.
   **/
   public show(response: Response, title?: string, message?: string) {
-    this.toasterService.pop(this.createToast(response, title, message));
+    let toast = this.createToast(response, title, message);
+    console.log(toast.title);
+    this.toasterService.pop(toast);
   }
 
   /**
