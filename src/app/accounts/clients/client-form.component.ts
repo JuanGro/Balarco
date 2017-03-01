@@ -38,22 +38,23 @@ export class ClientFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update client form is called.
   **/
   public ngOnChanges() {
+    console.log(this.client)
     if (this.client) {
       // Update Client
       this.clientModalForm = this.fb.group({
         name: [this.client.name, [<any>Validators.required, <any>Validators.minLength(2)]],
-        address: [this.client.address, [<any>Validators.required, <any>Validators.minLength(2)]],
-        is_active: [this.client.is_active, [<any>Validators.required]]
+        address: [this.client.address, [<any>Validators.required, <any>Validators.minLength(2)]]
       });
 
     } else {
       // New Client
       this.clientModalForm = this.fb.group({
         name: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
-        address: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
-        is_active: [true, [<any>Validators.required]]
+        address: ['', [<any>Validators.required, <any>Validators.minLength(2)]]
       });
     }
+    console.log(this.clientModalForm.status)
+    console.log(this.clientModalForm.value)
   }
 
   /**

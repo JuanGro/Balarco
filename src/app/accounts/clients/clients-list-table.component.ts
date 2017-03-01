@@ -8,43 +8,43 @@ import { Client } from './client';
   templateUrl: 'clients-list-table.component.html'
 })
 /**
-* Component which manage the table which shows the list of contacts:
-* - List all the contacts.
+* Component which manage the table which shows the list of clients:
+* - List all the clients.
 * - Request open a modal depending of which option is selected.
-* - Send the contact that is selected by the user.
+* - Send the client that is selected by the user.
 **/
 export class ClientListTableComponent {
-  // Receives the contacts list from parent component.
+  // Receives the clients list from parent component.
   @Input('clientList') clientList: Client;
-  // Sends the request to show the new contact modal in parent component
+  // Sends the request to show the new client modal in parent component
   @Output() requestShowNewClientModal: EventEmitter<string> = new EventEmitter();
-  // Sends the request to show the update contact modal in parent component
+  // Sends the request to show the update client modal in parent component
   @Output() requestShowUpdateClientModal: EventEmitter<string> = new EventEmitter();
-  // Sends the contact selected by the user to parent component
+  // Sends the client selected by the user to parent component
   @Output() currentClient: EventEmitter<Client> = new EventEmitter<Client>();
 
   public constructor() { }
 
   /**
-  * Requests to parent component to show the new contact modal.
+  * Requests to parent component to show the new client modal.
   **/
   public requestNewClientModal() {
     this.requestShowNewClientModal.emit();
   }
 
   /**
-  * Requests to parent component to show the update contact modal.
+  * Requests to parent component to show the update client modal.
   **/
   public requestUpdateClientModal() {
     this.requestShowUpdateClientModal.emit();
   }
 
   /**
-  * Sends to parent component the contact selected by the user.
+  * Sends to parent component the client selected by the user.
   * Params:
-  *   - object: A Contact object.
+  *   - object: A Client object.
   **/
-  public sendCurrentContact(object: Client) {
+  public sendCurrentClient(object: Client) {
     this.currentClient.emit(object);
   }
 }
