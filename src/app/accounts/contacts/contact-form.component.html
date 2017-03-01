@@ -41,7 +41,7 @@
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
                 <select id="select" name="select" class="form-control" formControlName="client" size="1">
-                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.id }}</option>
+                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
                 <!-- <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required> -->
             </div>
@@ -150,11 +150,9 @@
         <!-- Status checkbox -->
         <label class="col-md-4 form-control-label" for="recipient-is_active">Estado</label>
         <div class="col-md-2">
-            <div class="checkbox">
-                <label for="checkbox1">
-                    <input type="checkbox" id="recipient-is_active" name="checkbox1" formControlName="is_active"> Activo
-                </label>
-            </div>
+            <label>
+                <input type="checkbox" id="recipient-is_active" name="checkbox1" formControlName="is_active"> Activo
+            </label>
         </div>
     </div>
 

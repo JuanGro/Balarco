@@ -26,6 +26,8 @@ export class ContactsListTableComponent {
   // Sends the contact selected by the user to parent component
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
 
+  public filterargs = {id: 2};
+
   public constructor() { }
 
   /**
