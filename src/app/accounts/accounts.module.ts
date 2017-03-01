@@ -10,7 +10,9 @@ import { AccountsRoutingModule } from './accounts-routing.module';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactsListTableComponent } from './contacts/contacts-list-table.component';
 import { ContactFormComponent } from './contacts/contact-form.component';
-import { CompaniesListComponent } from './companies-list/companies-list.component';
+import { ClientComponent } from './clients/clients.component';
+import { ClientListTableComponent } from './clients/clients-list-table.component';
+import { ClientFormComponent } from './clients/client-form.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
 
@@ -27,7 +29,7 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ CompaniesListComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
+  declarations: [ ClientComponent, ClientListTableComponent, ClientFormComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
   ContactsListTableComponent, ContactFormComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })

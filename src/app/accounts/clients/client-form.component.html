@@ -1,0 +1,50 @@
+<div class="modal-body">
+    <!-- Start form -->
+    <!-- [formGroup] calls the form methods to the component -->
+    <!-- (ngSubmit)="submitClientForm(clientModalForm.value, clientModalForm.valid)" executes the submitClientForm method sending the 
+    values of each field and if the complete group is valid -->
+    <form [formGroup]="clientModalForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value, clientModalForm.valid)">
+        <!-- First row -->
+        <div class="form-group row">
+            <div class="col-md-12">
+                <!-- Name field -->
+                <label for="recipient-name" class="form-control-label">Nombre:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i>
+                    </span>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" formControlName="name" required>
+                </div>
+                <!-- Feedback name -->
+                <div [hidden]="clientModalForm.controls.name.valid || (clientModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
+            </div>
+        </div>
+         <!-- Second row -->
+        <div class="form-group row">
+            <div class="col-md-12">
+                <!-- Name field -->
+                <label for="recipient-address" class="form-control-label">Dirección:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i>
+                    </span>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-address" formControlName="address" required>
+                </div>
+                <!-- Feedback address -->
+                <div [hidden]="clientModalForm.controls.address.valid || (clientModalForm.controls.address.pristine && !submitted)" class="alert alert-danger">Ingrese una dirección válida</div>
+            </div>
+        </div>
+        <!-- Buttons -->
+        <div class="modal-footer">
+            <!-- Clear form -->
+            <!-- Calls the resetForm method, it's only displayed if the client is empty because it's used only for Create new client modal -->
+            <button *ngIf="!client" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+            <!-- Delete client -->
+            <!-- Calls the requestWarningModal method, the confirmation is only displayed if the client exists because it's used only for update client modal -->
+            <button *ngIf="client" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+            <!-- Hides modal -->
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
+            <!-- Submits updated or new client -->
+            <!-- Calls the submitClientForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+            <button type="submit" class="btn btn-primary" [disabled]="!clientModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+        </div>
+    </form>
+</div>

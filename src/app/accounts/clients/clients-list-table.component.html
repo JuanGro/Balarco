@@ -1,0 +1,61 @@
+<div class="animated fadeIn">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- Header -->
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Add client -->
+                        <!-- Calls the requestNewClientModal method, it requests the new client modal -->
+                        <div class="col align-self-start" (click)="requestNewClientModal($event)">
+                            <i class="icon-plus icons font-2xl d-block"></i>
+                        </div>
+                        <!-- Search field -->
+                        <!-- <div class="col-4 input-group align-self-end">
+                            <span class="input-group-addon"><i class="fa fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search by name" />
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Start table -->
+                <div class="card-block">
+                    <table class="table table-inverse">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Select client to update -->
+                            <!-- Calls the requestUpdateClientModal method, it requests the update client modal -->
+                            <!-- Sends the user selected by the user to the function sendCurrentClient -->
+                            <tr data-toggle="modal" *ngFor="let client of clientList" (click)="requestUpdateClientModal($event)" (click)="sendCurrentClient(client)">
+                                <th scope="row">{{ client.id }}</th>
+                                <td>{{ client.name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Prev</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

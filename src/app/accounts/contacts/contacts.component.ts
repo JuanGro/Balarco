@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 // Class
 import { Contact } from './contact';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';

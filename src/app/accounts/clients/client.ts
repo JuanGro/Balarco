@@ -1,8 +1,9 @@
 /**
-* Class to define all the attributes used in the Client object.
+* Company class, defines the attributes of a company.
 **/
 export class Client {
     id?: number;
     name: string;
     address: string;
+    is_active: boolean;
 }
