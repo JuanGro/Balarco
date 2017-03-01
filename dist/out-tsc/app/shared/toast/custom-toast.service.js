@@ -12,27 +12,33 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 var CustomToastService = (function () {
     function CustomToastService(toasterService) {
         this.toasterService = toasterService;
+        this.DefaultTitles = {
+            title_200: 'Operación Exitosa',
+            title_201: 'Objeto Creado',
+            title_400_401: 'Operación Fallida',
+            title_0: 'No hay conexión'
+        };
     }
     CustomToastService.prototype.createToast = function (response, title, message) {
         var type;
         switch (response.status) {
             case 200:
                 if (!title) {
-                    title = 'Operación Exitosa';
+                    title = this.DefaultTitles.title_200;
                 }
                 type = 'success';
                 message = response.statusText;
                 break;
             case 201:
                 if (!title) {
-                    title = 'Objeto Creado';
+                    title = this.DefaultTitles.title_201;
                 }
                 type = 'success';
                 message = response.statusText;
                 break;
             case 400 || 401:
                 if (!title) {
-                    title = 'Operación Fallida';
+                    title = this.DefaultTitles.title_400_401;
                 }
                 if (!message) {
                     message = response.statusText;
@@ -40,7 +46,7 @@ var CustomToastService = (function () {
                 type = 'error';
                 break;
             case 0:
-                title = 'No hay conexión';
+                title = this.DefaultTitles.title_0;
                 message = 'No es posible realizar conexión con servidor';
                 type = 'warning';
                 break;
@@ -59,6 +65,9 @@ var CustomToastService = (function () {
     };
     CustomToastService.prototype.show = function (response, title, message) {
         this.toasterService.pop(this.createToast(response, title, message));
+    };
+    CustomToastService.prototype.getDefaultTiltles = function () {
+        return this.DefaultTitles;
     };
     return CustomToastService;
 }());

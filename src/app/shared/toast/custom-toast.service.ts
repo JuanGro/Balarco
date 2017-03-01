@@ -9,7 +9,15 @@ import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 @Injectable()
 export class CustomToastService {
 
-  //TODO: Add Constants...
+  /**
+  * Structure to store the default titles for toasts.
+  **/
+  private DefaultTitles = {
+    title_200: 'Operación Exitosa',
+    title_201: 'Objeto Creado',
+    title_400_401: 'Operación Fallida',
+    title_0: 'No hay conexión'
+  }
 
   constructor(private toasterService: ToasterService) { }
 
@@ -27,21 +35,21 @@ export class CustomToastService {
     switch (response.status) {
       case 200:
         if (!title) {
-          title = 'Operación Exitosa';
+          title = this.DefaultTitles.title_200;
         }
         type = 'success';
         message = response.statusText;
         break;
       case 201:
         if (!title) {
-          title = 'Objeto Creado';
+          title = this.DefaultTitles.title_201;
         }
         type = 'success';
         message = response.statusText;
         break;
       case 400 || 401:
         if (!title) {
-          title = 'Operación Fallida';
+          title = this.DefaultTitles.title_400_401;
         }
         if (!message) {
           message = response.statusText
@@ -49,7 +57,7 @@ export class CustomToastService {
         type = 'error';
         break;
       case 0:
-        title = 'No hay conexión';
+        title = this.DefaultTitles.title_0;
         message = 'No es posible realizar conexión con servidor';
         type = 'warning';
         break;
@@ -76,6 +84,16 @@ export class CustomToastService {
   **/
   public show(response: Response, title?: string, message?: string) {
     this.toasterService.pop(this.createToast(response, title, message));
+  }
+
+  /**
+  * Method that gets the DefaultTitles structure.
+  * It is used in tests.
+  * Returns:
+  *   - DefaultTitles
+  **/
+  public getDefaultTiltles() {
+    return this.DefaultTitles;
   }
 
 }
