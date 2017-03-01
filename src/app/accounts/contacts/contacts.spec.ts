@@ -90,11 +90,26 @@ describe('ContactsComponent (inline template)', () => {
     }));
 
     /**
-    * Tests that the component is correctly built.
+    * Tests that the current component is correctly built.
     **/
-    it('should have a defined component', () => {
+    it('should have a defined current component', () => {
         component.ngOnInit();
         expect(component).toBeDefined();
+    });
+
+    /**
+    * Tests that the child form component is correctly built.
+    **/
+    it('should have a defined child form component', () => {
+        componentForm.ngOnChanges();
+        expect(componentForm).toBeDefined();
+    });
+
+    /**
+    * Tests that the child table component is correctly built.
+    **/
+    it('should have a defined child table component', () => {
+        expect(componentTable).toBeDefined();
     });
 
     /**
@@ -111,6 +126,31 @@ describe('ContactsComponent (inline template)', () => {
         fixtureParent.detectChanges();
         expect(el.textContent).toContain(component.title);
         expect(el.textContent).not.toBe(null);
+    });
+
+    /**
+    * Tests that the new contact modal has correct attributes.
+    **/
+    it('should show the new contact modal with correct attributes', () => {
+        fixtureParent.detectChanges();
+        expect(component.titleNewModal).toContain('Nuevo Contacto');
+    });
+
+    /**
+    * Tests that the update contact modal has correct attributes.
+    **/
+    it('should show the update contact modal with correct attributes', () => {
+        fixtureParent.detectChanges();
+        expect(component.titleUpdateModal).toContain('Modificar Contacto');
+    });
+
+    /**
+    * Tests that the danger modal has correct attributes.
+    **/
+    it('should show the danger modal with correct attributes', () => {
+        fixtureParent.detectChanges();
+        expect(component.titleDangerModal).toContain('Eliminar contacto');
+        expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este contacto?');
     });
 
     /**

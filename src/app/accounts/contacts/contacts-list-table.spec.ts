@@ -1,4 +1,4 @@
-/*import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -10,58 +10,116 @@ import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+
+// Services
+import { HttpModule, XHRBackend, Response, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
+import { ContactFormComponent } from './contact-form.component';
+import { Contact } from './contact';
 
 describe('ContactsComponent (inline template)', () => {
-    let fixtureParentComponent: ComponentFixture<ContactsComponent>;
-    let fixtureCurrentComponent: ComponentFixture<ContactsListTableComponent>;
 
-    let component: ContactsComponent;
-    let componentTable: ContactsListTableComponent;
+    // Fixture for debugging and testing a ContactsComponent.
+    let fixtureParent: ComponentFixture<ContactsComponent>;
+    // Fixture for debugging and testing a ContactsFormComponent.
+    let fixtureChildForm: ComponentFixture<ContactFormComponent>;
+    // Fixture for debugging and testing a ContactsListTableComponent.
+    let fixtureChildTable: ComponentFixture<ContactsListTableComponent>;
 
+    // Save ContactsComponent to test it's methods and variables.
+    let componentParent: ContactsComponent;
+    // Save ContactsFormComponent to test it's methods and variables.
+    let componentForm: ContactFormComponent;
+    // Save ContactsListTableComponent to test it's methods and variables.
+    let component: ContactsListTableComponent;
+
+    // let httpServiceStub;
+    // Handles on the component's DOM element.
     let de: DebugElement;
     let el: HTMLElement;
 
+    // Create a Contact object example
+    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2, 
+                                charge: 'Estudent', landline: '2211111', extension: '22', 
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322', 
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com', 
+                                is_active: true }
+
+    // Base state before each test runs.
+    // Handles asynchronous compilation.
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ ContactsComponent, ContactsListTableComponent ], // declare the test component
+            // Declare all what the test component has.
+            declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot() ]
+            ChartsModule, DropdownModule, ModalModule.forRoot() ],
+            providers: [ 
+                {
+                  provide: HttpService, useFactory: (backend, options) => {
+                    return new HttpService(backend, options);
+                  },
+                  deps: [MockBackend, BaseRequestOptions]
+                }, 
+                MockBackend, BaseRequestOptions
+            ]
         });
 
-        fixtureParentComponent = TestBed.createComponent(ContactsComponent);
-        fixtureCurrentComponent = TestBed.createComponent(ContactsListTableComponent);
+        // Create an instance of the ContactsComponent.
+        fixtureParent = TestBed.createComponent(ContactsComponent);
+        // Create an instance of the ContactsFormComponent.
+        fixtureChildForm = TestBed.createComponent(ContactFormComponent);
+        // Create an instance of the ContactsListTableComponent.
+        fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
 
-        component = fixtureParentComponent.componentInstance; // ContactsComponent test instance
-        componentTable = fixtureCurrentComponent.componentInstance;
+        // ContactsComponent test instance.
+        componentParent = fixtureParent.componentInstance;
+        // ContactsFormComponent test instance.
+        componentForm = fixtureChildForm.componentInstance;
+        // ContactsListTableComponent test instance.
+        component = fixtureChildTable.componentInstance;
 
-        // query for the title <h1> by CSS element selector
-        de = fixtureParentComponent.debugElement.query(By.css('h1'));
+        // Query for the title <h1> by CSS element selector.
+        de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
     }));
 
-    it('should have a defined component', () => {
+    /**
+    * Tests that the current component is correctly built.
+    **/
+    it('should have a defined current component', () => {
         expect(component).toBeDefined();
     });
 
-    it('no title in the DOM until manually call `detectChanges`', () => {
-        expect(el.textContent).toEqual('');
+    /**
+    * Tests that the parent component is correctly built.
+    **/
+    it('should have a defined parent component', () => {
+        componentParent.ngOnInit();
+        expect(componentParent).toBeDefined();
     });
 
-    it('should display original title', () => {
-        fixtureParentComponent.detectChanges();
-        expect(el.textContent).toContain(component.title);
-        expect(el.textContent).not.toBe(null);
+    /**
+    * Tests that the Contact object received from parent component is not empty.
+    **/
+    it('should receive a not empty Contact object', () => {
+        expect(component.contactsList).not.toBeNull();
     });
 
-    it('should display a different test title', () => {
-        component.title = 'Lista de contactos';
-        fixtureParentComponent.detectChanges();
-        expect(el.textContent).toContain('Lista de contactos');
+    /**
+    * Tests that the Client object received from parent component is not empty.
+    **/
+    it('should receive a not empty Client object', () => {
+        expect(component.clientsList).not.toBeNull();
+    });
+
+    it('should receive a not empty Contact object from child table component', () => {
+        component.sendCurrentContact(testContact);
+        expect(componentParent.currentContact).not.toBeNull();
     });
 });
-*/
