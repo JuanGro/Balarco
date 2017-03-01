@@ -21,6 +21,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
+import { Contact } from './contact';
 
 describe('ContactsComponent (inline template)', () => {
     let fixtureParent: ComponentFixture<ContactsComponent>;
@@ -30,6 +31,13 @@ describe('ContactsComponent (inline template)', () => {
     let componentParent: ContactsComponent;
     let componentTable: ContactsListTableComponent;
     let component: ContactFormComponent;
+
+    // Create a Contact object example
+    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2, 
+                                charge: 'Estudent', landline: '2211111', extension: '22', 
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322', 
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com', 
+                                is_active: true }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -73,15 +81,41 @@ describe('ContactsComponent (inline template)', () => {
         expect(componentParent).toBeDefined();
     });
 
+    /**
+    * Tests that the Client object received from parent component is not empty.
+    **/
+    it('should receive a not empty Client object', () => {
+        expect(component.clientsList).not.toBeNull();
+    });
+
+    /**
+    * Tests that the Contact object received from parent component is not empty.
+    **/
+    it('should receive a not empty Contact object', () => {
+        expect(component.contact).not.toBeNull();
+    });
+
+    /**
+    * Tests that the form is correctly built with FormBuilder.
+    **/
     it('should create a `FormBuilder` comprised of `FormControl`s', () => {
         component.ngOnChanges();
         expect(component.fb instanceof FormBuilder).toBe(true);
     });
 
-    it('should return true if the form control is valid', () => {
-        const formControl = new FormControl( {name: 'hi'});
-
-        // componentForm.contactsModalForm.controls = formControl;
-        // expect(component.isValid).toBe(true); 
+    /**
+    * Tests that the contact is correctly managed by submitContactForm method.
+    **/
+    it('should send current Contact in the form to submit method', () => {
+        component.submitContactForm(testContact, true);
+        expect(component.success).toBeTruthy();
     });
+
+    /* it('should reset the form', () => {
+        component.contactsModalForm.value(testContact);
+        console.log(component.contactsModalForm);
+        component.resetForm();
+        console.log(component.contactsModalForm);
+        expect(component.contactsModalForm).not.toBeNull();
+    }); */
 });
