@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -12,12 +12,6 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormGroup, FormControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
-// Services
-import { HttpModule, XHRBackend, Response, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import { HttpService } from './../../shared/http-service/http.service';
-
-// Components
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
@@ -31,7 +25,6 @@ describe('ContactsComponent (inline template)', () => {
     let componentTable: ContactsListTableComponent;
     let componentForm: ContactFormComponent;
 
-    let httpServiceStub;
     let de: DebugElement;
     let el: HTMLElement;
 
@@ -39,16 +32,7 @@ describe('ContactsComponent (inline template)', () => {
         TestBed.configureTestingModule({
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ], // declare the test component
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [ 
-                {
-                  provide: HttpService, useFactory: (backend, options) => {
-                    return new HttpService(backend, options);
-                  },
-                  deps: [MockBackend, BaseRequestOptions]
-                }, 
-                MockBackend, BaseRequestOptions
-            ]
+            ChartsModule, DropdownModule, ModalModule.forRoot() ]
         });
 
         fixtureParent = TestBed.createComponent(ContactsComponent);
@@ -62,7 +46,6 @@ describe('ContactsComponent (inline template)', () => {
         // query for the title <h1> by CSS element selector
         de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
-        
     }));
 
     it('should have a defined component', () => {
@@ -84,4 +67,17 @@ describe('ContactsComponent (inline template)', () => {
         fixtureParent.detectChanges();
         expect(el.textContent).toContain('Lista de contactos');
     });
+
+    it('should create a `FormBuilder` comprised of `FormControl`s', () => {
+        componentForm.ngOnChanges();
+        expect(componentForm.fb instanceof FormBuilder).toBe(true);
+    });
+
+    it('should return true if the form control is valid', () => {
+        const formControl = new FormControl( {name: 'hi'});
+
+        /* componentForm.contactsModalForm.controls = formControl;
+        expect(component.isValid).toBe(true); 
+    });
 });
+*/
