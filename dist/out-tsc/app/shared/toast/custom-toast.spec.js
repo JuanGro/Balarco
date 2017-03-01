@@ -3,7 +3,6 @@ import { Response, ResponseOptions } from '@angular/http';
 import { CustomToastService } from './custom-toast.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 describe('Toast Generic Class', function () {
-    var toasterService;
     beforeEach(function () {
         TestBed.configureTestingModule({
             providers: [CustomToastService, ToasterService]
@@ -68,6 +67,38 @@ describe('Toast Generic Class', function () {
         var res = new Response(options);
         var toast = testService.createToast(res);
         expect(toast.type).toBe('warning');
+    }));
+    it('if no title is passed the defaults are used', inject([CustomToastService], function (testService) {
+        var options = new ResponseOptions({
+            status: 200,
+        });
+        var res = new Response(options);
+        var toast = testService.createToast(res);
+        expect(toast.title).toBe(testService.getDefaultTiltles().title_200);
+        options = new ResponseOptions({
+            status: 201,
+        });
+        res = new Response(options);
+        toast = testService.createToast(res);
+        expect(toast.title).toBe(testService.getDefaultTiltles().title_201);
+        options = new ResponseOptions({
+            status: 400,
+        });
+        res = new Response(options);
+        toast = testService.createToast(res);
+        expect(toast.title).toBe(testService.getDefaultTiltles().title_400_401);
+        options = new ResponseOptions({
+            status: 401,
+        });
+        res = new Response(options);
+        toast = testService.createToast(res);
+        expect(toast.title).toBe(testService.getDefaultTiltles().title_400_401);
+        options = new ResponseOptions({
+            status: 0,
+        });
+        res = new Response(options);
+        toast = testService.createToast(res);
+        expect(toast.title).toBe(testService.getDefaultTiltles().title_0);
     }));
 });
 //# sourceMappingURL=../../../../../src/app/shared/toast/custom-toast.spec.js.map

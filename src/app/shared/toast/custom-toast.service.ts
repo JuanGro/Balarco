@@ -17,7 +17,7 @@ export class CustomToastService {
     title_201: 'Objeto Creado',
     title_400_401: 'Operación Fallida',
     title_0: 'No hay conexión'
-  }
+  };
 
   constructor(private toasterService: ToasterService) { }
 
@@ -53,7 +53,7 @@ export class CustomToastService {
           title = this.DefaultTitles.title_400_401;
         }
         if (!message) {
-          message = response.statusText
+          message = response.statusText;
         }
         type = 'error';
         break;
@@ -67,7 +67,7 @@ export class CustomToastService {
         console.log('No status supported for toast: STATUS ' + response.status);
         break;
     }
-    let toast : Toast = {
+    let toast: Toast = {
         type: type,
         title: title,
         body: message,
