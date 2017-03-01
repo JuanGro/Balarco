@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement, NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
@@ -10,10 +8,10 @@ import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormGroup, FormControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
 // Services
-import { HttpModule, XHRBackend, Response, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 
@@ -33,11 +31,11 @@ describe('ContactsComponent (inline template)', () => {
     let component: ContactFormComponent;
 
     // Create a Contact object example
-    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2, 
-                                charge: 'Estudent', landline: '2211111', extension: '22', 
-                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322', 
-                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com', 
-                                is_active: true }
+    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
+                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
+                                is_active: true };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -45,13 +43,13 @@ describe('ContactsComponent (inline template)', () => {
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [ 
+            providers: [
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
                   },
                   deps: [MockBackend, BaseRequestOptions]
-                }, 
+                },
                 MockBackend, BaseRequestOptions
             ]
         });
