@@ -27,6 +27,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
+                                <th>Dirección</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,7 @@
                             <tr data-toggle="modal" *ngFor="let client of clientList" (click)="requestUpdateClientModal($event)" (click)="sendCurrentClient(client)">
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.name }}</td>
+                                <td>{{ client.address }}</td>
                             </tr>
                         </tbody>
                     </table>
