@@ -25,6 +25,8 @@ export class ContactsListTableComponent {
   @Output() requestShowUpdateContactModal: EventEmitter<string> = new EventEmitter();
   // Sends the contact selected by the user to parent component.
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
 
   public constructor() { }
 
@@ -32,14 +34,16 @@ export class ContactsListTableComponent {
   * Requests to parent component to show the new contact modal.
   **/
   public requestNewContactModal() {
-    this.requestShowNewContactModal.emit();
+    this.modalAction = 'Open new Contact modal';
+    this.requestShowNewContactModal.emit(this.modalAction);
   }
 
   /**
   * Requests to parent component to show the update contact modal.
   **/
   public requestUpdateContactModal() {
-    this.requestShowUpdateContactModal.emit();
+    this.modalAction = 'Open update Contact modal';
+    this.requestShowUpdateContactModal.emit(this.modalAction);
   }
 
   /**

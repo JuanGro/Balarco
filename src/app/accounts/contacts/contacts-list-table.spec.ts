@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
@@ -24,6 +24,7 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
+import { Client } from './../companies-list/client';
 
 describe('ContactsListTableComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
@@ -45,12 +46,34 @@ describe('ContactsListTableComponent tests.', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
+    // Variable to test which action is executing in modal.
+    let modalAction;
+
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 is_active: true };
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
+                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
+                                is_active: true },
+                                { id: 3, name: 'José', last_name: 'Perez', client: 3,
+                                charge: 'Estudent', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
+                                is_active: true }
+                                ];
+
+    let testListClients: Client[] = [
+                                { id: 1, name: 'Starbucks', address: 'Example' },
+                                { id: 2, name: 'General Electric', address: 'Example' }
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -60,7 +83,7 @@ describe('ContactsListTableComponent tests.', () => {
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [
+            providers: [ ContactsListTableComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
@@ -111,19 +134,67 @@ describe('ContactsListTableComponent tests.', () => {
         /**
         * Tests that the Contact object received from parent component is not empty.
         **/
-        it('should receive a not empty Contact object', () => {
-            console.log('contactsList');
-            console.log(component.contactsList);
-            expect(component.contactsList).not.toBeNull();
+        it('should load correctly contacts list in contactsList Input', () => {
+            component.contactsList = testListContacts;
+            fixtureParent.detectChanges();
+            expect(component.contactsList).toEqual(testListContacts);
         });
 
         /**
         * Tests that the Client object received from parent component is not empty.
         **/
-        it('should receive a not empty Client object', () => {
-            console.log('clientsList');
-            console.log(component.clientsList);
-            expect(component.clientsList).not.toBeNull();
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
         });
+    });
+
+    describe('EventEmitter of modal requests for child contacts list table component', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([ContactsListTableComponent], result => {
+            modalAction = result;
+        }));
+
+        /**
+        * Tests that the open new contact modal request is correctly received.
+        **/
+        it('should request to open the new contact modal', async(() => {
+            modalAction.requestShowNewContactModal.subscribe(result => {
+                expect(result).toBe('Open new Contact modal');
+            });
+            modalAction.requestNewContactModal();
+        }));
+
+        /**
+        * Tests that the open update modal request is correctly received.
+        **/
+        it('should request to open the new contact modal', async(() => {
+            modalAction.requestShowUpdateContactModal.subscribe(result => {
+                expect(result).toBe('Open update Contact modal');
+            });
+            modalAction.requestUpdateContactModal();
+        }));
+    });
+
+    describe('EventEmitter of current contact requests for child contacts list table component', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([ContactsListTableComponent], result => {
+            modalAction = result;
+        }));
+
+        /**
+        * Tests that the sendCurrentContact request is correctly received.
+        **/
+        it('should request to send a contact object', async(() => {
+            modalAction.currentContact.subscribe(result => {
+                expect(result).toEqual(testContact);
+            });
+            modalAction.sendCurrentContact(testContact);
+        }));
     });
 });

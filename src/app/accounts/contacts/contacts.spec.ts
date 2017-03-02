@@ -21,7 +21,10 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
+
+// Models
 import { Contact } from './contact-model';
+import { Client } from './../companies-list/client';
 
 describe('ContactsComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
@@ -48,6 +51,25 @@ describe('ContactsComponent tests.', () => {
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 is_active: true };
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
+                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
+                                is_active: true },
+                                { id: 3, name: 'José', last_name: 'Perez', client: 3,
+                                charge: 'Estudent', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
+                                is_active: true }
+                                ];
+
+    let testListClients: Client[] = [
+                                { id: 1, name: 'Starbucks', address: 'Example' },
+                                { id: 2, name: 'General Electric', address: 'Example' }
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -165,25 +187,23 @@ describe('ContactsComponent tests.', () => {
         });
     });
 
-    describe('Load of data with http service in local method for parent contacts component', () => {
+    describe('Load of example data to simulate that Input variables are correctly assigned for parent contacts component', () => {
         /**
         * Tests that the component doesn't obtain an error or empty contacts list.
         **/
-        it('should load the contacts list', () => {
-            component.loadClientsList('clients/contacts/');
-            console.log('contactsList');
-            console.log(component.contactsList);
-            expect(component.contactsList).not.toBeNull();
+        it('should load correctly contacts list in contactsList Input', () => {
+            component.contactsList = testListContacts;
+            fixtureParent.detectChanges();
+            expect(component.contactsList).toEqual(testListContacts);
         });
 
         /**
         * Tests that the component doesn't obtain an error or empty clients list.
         **/
-        it('should load the clients list', () => {
-            component.loadContactsList('clients/clients/');
-            console.log('clientsList');
-            console.log(component.clientsList);
-            expect(component.clientsList).not.toBeNull();
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
         });
     });
 
@@ -201,7 +221,7 @@ describe('ContactsComponent tests.', () => {
         **/
         it('should return a not empty Contact object', () => {
             component.getContactFromTable(testContact);
-            expect(component.contact).not.toBeNull();
+            expect(component.contact).toEqual(testContact);
         });
     });
 });

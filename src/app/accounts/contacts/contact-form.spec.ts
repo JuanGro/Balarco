@@ -22,6 +22,7 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
+import { Client } from './../companies-list/client';
 
 describe('ContactFormComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
@@ -47,6 +48,11 @@ describe('ContactFormComponent tests.', () => {
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 is_active: true };
+
+    let testListClients: Client[] = [
+                                { id: 1, name: 'Starbucks', address: 'Example' },
+                                { id: 2, name: 'General Electric', address: 'Example' }
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -102,21 +108,21 @@ describe('ContactFormComponent tests.', () => {
 
     describe('Initialization of variable for child contacts form component', () => {
         /**
-        * Tests that the Client object received from parent component is not empty.
+        * Tests that the Contact object received from parent component is not empty.
         **/
-        it('should receive a not empty Client object', () => {
-            console.log('clientsList');
-            console.log(component.clientsList);
-            expect(component.clientsList).not.toBeNull();
+        it('should load correctly a contact in contact Input', () => {
+            component.contact = testContact;
+            fixtureParent.detectChanges();
+            expect(component.contact).toEqual(testContact);
         });
 
         /**
-        * Tests that the Contact object received from parent component is not empty.
+        * Tests that the Client object received from parent component is not empty.
         **/
-        it('should receive a not empty Contact object', () => {
-            console.log('contact');
-            console.log(component.contact);
-            expect(component.contact).not.toBeNull();
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
         });
     });
 
@@ -167,7 +173,7 @@ describe('ContactFormComponent tests.', () => {
         /**
         * Tests that the show warning modal request is correctly received.
         **/
-        it('should decrement -1 (async)', async(() => {
+        it('should request to close the show warning modal', async(() => {
             modalAction.requestWarning.subscribe(result => {
                 expect(result).toBe('Show warning modal');
             });
