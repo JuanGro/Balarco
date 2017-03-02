@@ -40,13 +40,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <!-- <select id="select" name="select" class="form-control" size="1">
-                    <option value="0">Please select</option>
-                    <option value="1">Option #1</option>
-                    <option value="2">Option #2</option>
-                    <option value="3">Option #3</option>
-                </select> -->
-                <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required>
+                <select id="select" name="select" class="form-control" formControlName="client" size="1">
+                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                </select>
+                <!-- <input type="text" placeholder="Starbucks" class="form-control" id="recipient-client" formControlName="client" required> -->
             </div>
             <!-- Feedback client -->
             <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válida</div>
@@ -85,7 +82,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="text" placeholder="33" class="form-control" id="recipient-extension" formControlName="extension" required>
+                <input type="text" placeholder="33" class="form-control" id="recipient-extension" formControlName="extension">
             </div>
             <!-- Feedback extension -->
             <!-- <div [hidden]="contactsModalForm.controls.extension.valid || (contactsModalForm.controls.extension.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div> -->
@@ -147,19 +144,17 @@
     </div>
 
     <!-- Sixth row -->
-    <div class="form-group row">
+    <!-- <div class="form-group row"> -->
         <!-- Left empty space -->
-        <div class="col-md-6"></div>
+        <!-- <div class="col-md-6"></div> -->
         <!-- Status checkbox -->
-        <label class="col-md-4 form-control-label" for="recipient-is_active">Estado</label>
+        <!-- <label class="col-md-4 form-control-label" for="recipient-is_active">Estado</label>
         <div class="col-md-2">
-            <div class="checkbox">
-                <label for="checkbox1">
-                    <input type="checkbox" id="recipient-is_active" name="checkbox1" formControlName="is_active"> Activo
-                </label>
-            </div>
+            <label>
+                <input type="checkbox" id="recipient-is_active" name="checkbox1" formControlName="is_active"> Activo
+            </label>
         </div>
-    </div>
+    </div> -->
 
     <!-- Buttons -->
     <div class="modal-footer">
