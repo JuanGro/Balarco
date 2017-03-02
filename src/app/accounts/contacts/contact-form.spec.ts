@@ -142,14 +142,6 @@ describe('ContactFormComponent tests.', () => {
             component.submitContactForm(testContact, true);
             expect(component.success).toBeTruthy();
         });
-
-        /* it('should reset the form', () => {
-            component.contactsModalForm.value(testContact);
-            console.log(component.contactsModalForm);
-            component.resetForm();
-            console.log(component.contactsModalForm);
-            expect(component.contactsModalForm).not.toBeNull();
-        }); */
     });
 
     describe('EventEmitter of modal requests for child contacts form component', () => {
