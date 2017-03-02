@@ -127,6 +127,13 @@ export class ContactsComponent implements OnInit {
   * It pushes the new contact to the list.
   **/
   private onContactCreated(event) {
-    this.contactsList.push(event.contact);
+    this.contactsList.push(event);
   }
+
+  private onContactUpdated() {
+    console.log('RECEIVED BY EMITTER');
+    console.log(event);
+    //this.currentContact = event;
+  }
+
 }

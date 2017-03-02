@@ -24,6 +24,7 @@ export class Contact {
       let json = JSON.parse(jsonText);
       this.id = json && json.id;
       this.name = json && json.name;
+      this.last_name = json && json.last_name;
       this.client = json && json.client;
       this.charge = json&& json.charge;
       this.landline = json && json.landline;

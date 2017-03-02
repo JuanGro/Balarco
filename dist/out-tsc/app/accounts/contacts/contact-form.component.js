@@ -18,6 +18,7 @@ var ContactFormComponent = (function () {
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
         this.contactCreated = new EventEmitter();
+        this.onContactUpdated = new EventEmitter();
     }
     ContactFormComponent.prototype.ngOnChanges = function () {
         var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -68,7 +69,14 @@ var ContactFormComponent = (function () {
         }
     };
     ContactFormComponent.prototype.submitUpdatedContact = function (object, id) {
+        console.log('Updating...');
+        this.onContactUpdated.emit();
         this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(function (result) {
+            console.log('result');
+            if (result.ok) {
+                var newContact = new Contact(result.text());
+                console.log(newContact);
+            }
         });
     };
     ContactFormComponent.prototype.submitNewContact = function (object) {
@@ -77,7 +85,8 @@ var ContactFormComponent = (function () {
             console.log('result');
             if (result.ok) {
                 var newContact = new Contact(result.text());
-                _this.contactCreated.emit({ contact: newContact });
+                console.log(newContact);
+                _this.onContactUpdated.emit();
             }
         });
     };
@@ -110,8 +119,12 @@ __decorate([
 ], ContactFormComponent.prototype, "requestWarning", void 0);
 __decorate([
     Output(),
-    __metadata("design:type", Object)
+    __metadata("design:type", EventEmitter)
 ], ContactFormComponent.prototype, "contactCreated", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], ContactFormComponent.prototype, "onContactUpdated", void 0);
 ContactFormComponent = __decorate([
     Component({
         selector: 'contact-form',

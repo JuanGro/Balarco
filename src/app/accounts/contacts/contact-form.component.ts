@@ -31,7 +31,9 @@ export class ContactFormComponent implements OnChanges {
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   // Event for parent to push the new Contact to the list.
-  @Output() contactCreated = new EventEmitter();
+  @Output() contactCreated: EventEmitter<Contact> = new EventEmitter();
+  // Event for parent to update the currentContact.
+  @Output() onContactUpdated: EventEmitter<string> = new EventEmitter();
 
   // Initialization of the control form
   public contactsModalForm: FormGroup;
@@ -110,8 +112,14 @@ export class ContactFormComponent implements OnChanges {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
+    console.log('Updating...');
+    this.onContactUpdated.emit();
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
-        // console.log(result);
+        console.log('result');
+        if (result.ok) {
+          let newContact = new Contact(result.text());
+          console.log(newContact);
+        }
     });
   }
 
@@ -127,7 +135,8 @@ export class ContactFormComponent implements OnChanges {
         console.log('result');
         if (result.ok) {
           let newContact = new Contact(result.text());
-          this.contactCreated.emit({ contact: newContact });
+          console.log(newContact);
+          this.onContactUpdated.emit();
         }
     });
   }

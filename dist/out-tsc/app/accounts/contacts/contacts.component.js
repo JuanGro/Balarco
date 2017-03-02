@@ -48,7 +48,11 @@ var ContactsComponent = (function () {
         this.contact = object;
     };
     ContactsComponent.prototype.onContactCreated = function (event) {
-        this.contactsList.push(event.contact);
+        this.contactsList.push(event);
+    };
+    ContactsComponent.prototype.onContactUpdated = function () {
+        console.log('RECEIVED BY EMITTER');
+        console.log(event);
     };
     return ContactsComponent;
 }());
