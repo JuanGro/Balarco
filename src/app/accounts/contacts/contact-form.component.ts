@@ -35,7 +35,7 @@ export class ContactFormComponent implements OnChanges {
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
-  // Initialization of the control form.
+  // Initialization of control form.
   public contactsModalForm: FormGroup;
 
   public constructor(public fb: FormBuilder, private httpService: HttpService) { }
@@ -115,7 +115,6 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
-        // console.log(result);
     });
   }
 
@@ -128,7 +127,6 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
-        // console.log(result);
     });
   }
 

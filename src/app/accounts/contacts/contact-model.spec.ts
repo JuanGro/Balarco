@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 // Models
 import { Contact } from './contact-model';
 
-describe('ClubMemberModel', () => {
-    it('should return the correct properties', () => {
-    
+describe('ContactModel', () => {
+    /**
+    * Tests that verify if the Contact object is correctly built.
+    **/
+    it('should build a Contact object correctly', () => {
+        // Build the object with it's attributes.
         var newContact = new Contact();
         newContact.id = 10;
         newContact.name = 'John';
@@ -19,7 +22,8 @@ describe('ClubMemberModel', () => {
         newContact.email = 'john@gmail.com';
         newContact.alternate_email = 'john@gmail.com';
         newContact.is_active = true;
-    
+
+        // Check each attribute.
         expect(newContact.id).toBe(10);
         expect(newContact.name).toBe('John');
         expect(newContact.last_name).toBe('Smith');

@@ -24,12 +24,18 @@ import { ContactFormComponent } from './contact-form.component';
 import { Contact } from './contact-model';
 
 describe('ContactsComponent (inline template)', () => {
+    // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
+    // Fixture for debugging and testing a ContactsFormComponent.
     let fixtureChildForm: ComponentFixture<ContactFormComponent>;
+    // Fixture for debugging and testing a ContactsListTableComponent.
     let fixtureChildTable: ComponentFixture<ContactsListTableComponent>;
 
+    // Save ContactsComponent to test it's methods and variables.
     let componentParent: ContactsComponent;
+    // Save ContactsFormComponent to test it's methods and variables.
     let componentTable: ContactsListTableComponent;
+    // Save ContactsListTableComponent to test it's methods and variables.
     let component: ContactFormComponent;
 
     // Variable to test which action is executing in modal.
@@ -42,6 +48,8 @@ describe('ContactsComponent (inline template)', () => {
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 is_active: true };
 
+    // Base state before each test runs.
+    // Handles asynchronous compilation.
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
@@ -59,12 +67,18 @@ describe('ContactsComponent (inline template)', () => {
             ]
         });
 
+        // Create an instance of the ContactsComponent.
         fixtureParent = TestBed.createComponent(ContactsComponent);
+        // Create an instance of the ContactsFormComponent.
         fixtureChildForm = TestBed.createComponent(ContactFormComponent);
+        // Create an instance of the ContactsListTableComponent.
         fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
 
+        // ContactsComponent test instance.
         componentParent = fixtureParent.componentInstance; // ContactsComponent test instance.
+        // ContactsFormComponent test instance.
         component = fixtureChildForm.componentInstance;
+        // ContactsListTableComponent test instance.
         componentTable = fixtureChildTable.componentInstance;
     }));
 

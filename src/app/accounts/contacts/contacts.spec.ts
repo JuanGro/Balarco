@@ -88,99 +88,115 @@ describe('ContactsComponent (inline template)', () => {
         el = de.nativeElement;
     }));
 
-    /**
-    * Tests that the current component is correctly built.
-    **/
-    it('should have a defined current component', () => {
-        component.ngOnInit();
-        expect(component).toBeDefined();
+    describe('Components correctly defined for the parent contacts component', () => {
+        /**
+        * Tests that the current component is correctly built.
+        **/
+        it('should have a defined current component', () => {
+            component.ngOnInit();
+            expect(component).toBeDefined();
+        });
+    
+        /**
+        * Tests that the child form component is correctly built.
+        **/
+        it('should have a defined child form component', () => {
+            componentForm.ngOnChanges();
+            expect(componentForm).toBeDefined();
+        });
+    
+        /**
+        * Tests that the child table component is correctly built.
+        **/
+        it('should have a defined child table component', () => {
+            expect(componentTable).toBeDefined();
+        });
     });
 
-    /**
-    * Tests that the child form component is correctly built.
-    **/
-    it('should have a defined child form component', () => {
-        componentForm.ngOnChanges();
-        expect(componentForm).toBeDefined();
+    describe('Correct initialization of variable for parent contacts component', () => {
+        /**
+        * Tests that the page title is correct.
+        **/
+        it('should show the new contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.title).toContain('Lista de contactos');
+        });
+    
+        /**
+        * Tests that the new contact modal has correct attributes.
+        **/
+        it('should show the new contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleNewModal).toContain('Nuevo Contacto');
+        });
+    
+        /**
+        * Tests that the update contact modal has correct attributes.
+        **/
+        it('should show the update contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleUpdateModal).toContain('Modificar Contacto');
+        });
+    
+        /**
+        * Tests that the danger modal has correct attributes.
+        **/
+        it('should show the danger modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleDangerModal).toContain('Eliminar contacto');
+            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este contacto?');
+        });
     });
 
-    /**
-    * Tests that the child table component is correctly built.
-    **/
-    it('should have a defined child table component', () => {
-        expect(componentTable).toBeDefined();
+    describe('Correct load of the variables to the template for parent contacts component', () => {
+        /**
+        * Tests that the title is empty before the use of the title variable.
+        **/
+        it('no title in the DOM until manually call `detectChanges`', () => {
+            expect(el.textContent).toEqual('');
+        });
+    
+        /**
+        * Tests that the component have the correct title when everything is loaded.
+        **/
+        it('should display original page title', () => {
+            fixtureParent.detectChanges();
+            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).not.toBe(null);
+        });
     });
 
-    /**
-    * Tests that the title is empty before the use of the title variable.
-    **/
-    it('no title in the DOM until manually call `detectChanges`', () => {
-        expect(el.textContent).toEqual('');
-    });
-
-    /**
-    * Tests that the component have the correct title when everything is loaded.
-    **/
-    it('should display original page title', () => {
-        fixtureParent.detectChanges();
-        expect(el.textContent).toContain(component.title);
-        expect(el.textContent).not.toBe(null);
-    });
-
-    /**
-    * Tests that the new contact modal has correct attributes.
-    **/
-    it('should show the new contact modal with correct attributes', () => {
-        fixtureParent.detectChanges();
-        expect(component.titleNewModal).toContain('Nuevo Contacto');
-    });
-
-    /**
-    * Tests that the update contact modal has correct attributes.
-    **/
-    it('should show the update contact modal with correct attributes', () => {
-        fixtureParent.detectChanges();
-        expect(component.titleUpdateModal).toContain('Modificar Contacto');
-    });
-
-    /**
-    * Tests that the danger modal has correct attributes.
-    **/
-    it('should show the danger modal with correct attributes', () => {
-        fixtureParent.detectChanges();
-        expect(component.titleDangerModal).toContain('Eliminar contacto');
-        expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este contacto?');
-    });
-
-    /**
-    * Tests that the component doesn't obtain an error or empty contacts list.
-    **/
-    it('should load the contacts list', () => {
-        component.loadClientsList('clients/contacts/');
-        expect(component.contactsList).not.toBeNull();
-    });
-
-    /**
-    * Tests that the component doesn't obtain an error or empty clients list.
-    **/
-    it('should load the clients list', () => {
-        component.loadContactsList('clients/clients/');
-        expect(component.clientsList).not.toBeNull();
-    });
-
-    /**
-    * Tests that the initialize modal method is working correctly, setting the contact to null.
-    **/
-    it('should initialize the modal', () => {
-        component.initializeModal();
-        expect(component.contact).toBeNull();
-    });
-
-    /**
-    * Tests that the getContactFromTable method doesn't returns a Contact object empty.
-    **/
-    it('should return a not empty Contact object', () => {
-        component.getContactFromTable(testContact);
-        expect(component.contact).not.toBeNull();
+    describe('Correct use of methods for parent contacts component', () => {
+        /**
+        * Tests that the component doesn't obtain an error or empty contacts list.
+        **/
+        it('should load the contacts list', () => {
+            component.loadClientsList('clients/contacts/');
+            expect(component.contactsList).not.toBeNull();
+        });
+    
+        /**
+        * Tests that the component doesn't obtain an error or empty clients list.
+        **/
+        it('should load the clients list', () => {
+            component.loadContactsList('clients/clients/');
+            expect(component.clientsList).not.toBeNull();
+        });
+    
+        /**
+        * Tests that the initialize modal method is working correctly, setting the contact to null.
+        **/
+        it('should initialize the modal', () => {
+            component.initializeModal();
+            expect(component.contact).toBeNull();
+        });
+    
+        /**
+        * Tests that the getContactFromTable method doesn't returns a Contact object empty.
+        **/
+        it('should return a not empty Contact object', () => {
+            component.getContactFromTable(testContact);
+            expect(component.contact).not.toBeNull();
+        });
     });
 });
