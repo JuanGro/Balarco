@@ -19,7 +19,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 
 describe('ContactsComponent (inline template)', () => {
     let fixtureParent: ComponentFixture<ContactsComponent>;

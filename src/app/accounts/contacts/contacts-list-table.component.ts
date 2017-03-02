@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Class
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
 @Component({
@@ -25,8 +25,6 @@ export class ContactsListTableComponent {
   @Output() requestShowUpdateContactModal: EventEmitter<string> = new EventEmitter();
   // Sends the contact selected by the user to parent component
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
-
-  public filterargs = {id: 2};
 
   public constructor() { }
 

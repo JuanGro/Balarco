@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Class
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
 // Services
@@ -33,7 +33,7 @@ export class ContactFormComponent implements OnChanges {
   // Variable to check if the submitForm method finish correctly.
   public success: boolean = false;
   // Variable to check in test what action is executed between components.
-  public modalAction: string = 'Close modal';
+  public modalAction: string = '';
 
   // Initialization of the control form
   public contactsModalForm: FormGroup;

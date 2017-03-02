@@ -6,7 +6,7 @@ import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 
 // Modals
-import  * as ng2Bootstrap from 'ng2-bootstrap';
+import * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
@@ -21,7 +21,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 
 describe('ContactsComponent (inline template)', () => {
 

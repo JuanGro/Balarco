@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Class
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
 // Services
