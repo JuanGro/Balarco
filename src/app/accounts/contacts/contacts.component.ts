@@ -121,4 +121,12 @@ export class ContactsComponent implements OnInit {
   public getContactFromTable(object: Contact): void {
     this.contact = object;
   }
+
+  /**
+  * Recieves event when a new contact is created in the form.
+  * It pushes the new contact to the list.
+  **/
+  private onContactCreated(event) {
+    this.contactsList.push(event.contact);
+  }
 }

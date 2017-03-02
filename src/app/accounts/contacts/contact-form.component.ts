@@ -30,6 +30,8 @@ export class ContactFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Event for parent to push the new Contact to the list.
+  @Output() contactCreated = new EventEmitter();
 
   // Initialization of the control form
   public contactsModalForm: FormGroup;
@@ -124,8 +126,9 @@ export class ContactFormComponent implements OnChanges {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
         console.log('result');
         if (result.ok) {
-          console.log(result.text());
-        }        
+          let newContact = new Contact(result.text());
+          this.contactCreated.emit({ contact: newContact });
+        }
     });
   }
 

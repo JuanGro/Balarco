@@ -15,6 +15,11 @@ export class Contact {
     alternate_email?: string;
     is_active: boolean;
 
+    /**
+    * Constructor to create a Contact based on server response at POST.
+    * Params:
+    *   - jsonText: The contact returned from API in json format string.
+    **/
     constructor(jsonText: string) {
       let json = JSON.parse(jsonText);
       this.id = json && json.id;

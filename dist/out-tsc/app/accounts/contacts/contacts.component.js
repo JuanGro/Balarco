@@ -47,6 +47,9 @@ var ContactsComponent = (function () {
     ContactsComponent.prototype.getContactFromTable = function (object) {
         this.contact = object;
     };
+    ContactsComponent.prototype.onContactCreated = function (event) {
+        this.contactsList.push(event.contact);
+    };
     return ContactsComponent;
 }());
 __decorate([

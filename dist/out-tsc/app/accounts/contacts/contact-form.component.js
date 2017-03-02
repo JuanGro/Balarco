@@ -17,6 +17,7 @@ var ContactFormComponent = (function () {
         this.httpService = httpService;
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
+        this.contactCreated = new EventEmitter();
     }
     ContactFormComponent.prototype.ngOnChanges = function () {
         var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -71,10 +72,12 @@ var ContactFormComponent = (function () {
         });
     };
     ContactFormComponent.prototype.submitNewContact = function (object) {
+        var _this = this;
         this.httpService.postObject('clients/contacts/', object).subscribe(function (result) {
             console.log('result');
             if (result.ok) {
-                console.log(result.text());
+                var newContact = new Contact(result.text());
+                _this.contactCreated.emit({ contact: newContact });
             }
         });
     };
@@ -105,6 +108,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], ContactFormComponent.prototype, "requestWarning", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], ContactFormComponent.prototype, "contactCreated", void 0);
 ContactFormComponent = __decorate([
     Component({
         selector: 'contact-form',
