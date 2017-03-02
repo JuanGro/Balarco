@@ -1,3 +1,6 @@
+// Models
+import { Client } from './../companies-list/client';
+
 /**
 * Model to define all the attributes used in the Contact object.
 **/
@@ -13,5 +16,6 @@ export class Contact {
     mobile_phone_2?: string;
     email: string;
     alternate_email?: string;
-    is_active: boolean;
+    is_active?: boolean;
+    client_complete?: Client;
 }
