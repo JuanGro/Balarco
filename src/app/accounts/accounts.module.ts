@@ -14,9 +14,6 @@ import { CompaniesListComponent } from './companies-list/companies-list.componen
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
 
-// Pipes
-import { ClientNameByContactId } from './contacts/client-name.pipe';
-
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
@@ -31,7 +28,7 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     ModalModule.forRoot()
   ],
   declarations: [ CompaniesListComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
-  ContactsListTableComponent, ContactFormComponent, ClientNameByContactId ],
+  ContactsListTableComponent, ContactFormComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }
