@@ -19,6 +19,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 * - Remove a contact.
 **/
 export class ContactsComponent implements OnInit {
+  // Received from table component, it gives me the contact that the user selected to see his detail.
+  @Input() currentContact: Contact;
   // Variable that saves the title to show in the template.
   public title: string;
   // List of contacts received from httpService.
@@ -27,8 +29,6 @@ export class ContactsComponent implements OnInit {
   public clientsList: Client[];
   // Variable for save the object received from child component and manage if the form is for update or create contact.
   public contact: Contact;
-  // Received from table component, it gives me the contact that the user selected to see his detail.
-  @Input() currentContact: Contact;
   // Title of new contact modal.
   public titleNewModal: string;
   // Title of update contact modal.
