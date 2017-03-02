@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -39,7 +39,6 @@ describe('ContactsComponent (inline template)', () => {
     // Save ContactsListTableComponent to test it's methods and variables.
     let componentTable: ContactsListTableComponent;
 
-    // let httpServiceStub;
     // Handles on the component's DOM element.
     let de: DebugElement;
     let el: HTMLElement;

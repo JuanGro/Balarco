@@ -31,7 +31,9 @@ export class ContactFormComponent implements OnChanges {
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   // Variable to check if the submitForm method finish correctly.
-  success: boolean = false;
+  public success: boolean = false;
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = 'Close modal';
 
   // Initialization of the control form
   public contactsModalForm: FormGroup;
@@ -133,14 +135,16 @@ export class ContactFormComponent implements OnChanges {
   * Requests to parent component to show the confirmation to remove the contact selected.
   **/
   public requestWarningModal() {
-    this.requestWarning.emit();
+    this.modalAction = 'Show warning modal';
+    this.requestWarning.emit(this.modalAction);
   }
 
   /**
   * Requests to parent component to close the current modal.
   **/
   public requestCloseThisModal() {
-    this.requestCloseModal.emit();
+    this.modalAction = 'Close modal';
+    this.requestCloseModal.emit(this.modalAction);
   }
 
   /**

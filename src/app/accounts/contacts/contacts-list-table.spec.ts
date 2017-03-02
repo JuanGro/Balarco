@@ -117,9 +117,4 @@ describe('ContactsComponent (inline template)', () => {
     it('should receive a not empty Client object', () => {
         expect(component.clientsList).not.toBeNull();
     });
-
-    it('should receive a not empty Contact object from child table component', () => {
-        component.sendCurrentContact(testContact);
-        expect(componentParent.currentContact).not.toBeNull();
-    });
 });

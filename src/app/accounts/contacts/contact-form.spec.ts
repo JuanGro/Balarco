@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,8 @@ describe('ContactsComponent (inline template)', () => {
     let componentTable: ContactsListTableComponent;
     let component: ContactFormComponent;
 
+    let modalAction;
+
     // Create a Contact object example
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
@@ -43,7 +45,7 @@ describe('ContactsComponent (inline template)', () => {
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [
+            providers: [ ContactFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
@@ -96,7 +98,7 @@ describe('ContactsComponent (inline template)', () => {
     /**
     * Tests that the form is correctly built with FormBuilder.
     **/
-    it('should create a `FormBuilder` comprised of `FormControl`s', () => {
+    it('should create a FormBuilder comprised of FormControls', () => {
         component.ngOnChanges();
         expect(component.fb instanceof FormBuilder).toBe(true);
     });
@@ -116,4 +118,25 @@ describe('ContactsComponent (inline template)', () => {
         console.log(component.contactsModalForm);
         expect(component.contactsModalForm).not.toBeNull();
     }); */
+
+    describe('EventEmitter: Counter', () => {
+        beforeEach(inject([ContactFormComponent], result => {
+            modalAction = result;
+        }));
+    
+        //specs
+        it('should increment +1 (async)', async(() => {
+            modalAction.requestCloseModal.subscribe(x => { 
+                expect(x).toBe('Close modal');
+            });
+            modalAction.requestCloseThisModal();
+        }));
+        
+        it('should decrement -1 (async)', async(() => {
+            modalAction.requestWarning.subscribe(x => { 
+                expect(x).toBe('Show warning modal');
+            });
+            modalAction.requestWarningModal();
+        }));
+    }) 
 });
