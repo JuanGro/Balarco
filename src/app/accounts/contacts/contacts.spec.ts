@@ -43,7 +43,7 @@ describe('ContactsComponent (inline template)', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
-    // Create a Contact object example
+    // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',

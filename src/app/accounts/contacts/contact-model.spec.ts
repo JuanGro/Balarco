@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-// Model
+// Models
 import { Contact } from './contact-model';
 
 describe('ClubMemberModel', () => {

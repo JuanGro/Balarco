@@ -21,6 +21,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
+
+// Models
 import { Contact } from './contact-model';
 
 describe('ContactsComponent (inline template)', () => {

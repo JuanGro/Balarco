@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-// Class
+// Models
 import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 

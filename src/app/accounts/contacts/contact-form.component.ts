@@ -1,7 +1,7 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-// Class
+// Models
 import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
@@ -35,7 +35,7 @@ export class ContactFormComponent implements OnChanges {
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
-  // Initialization of the control form
+  // Initialization of the control form.
   public contactsModalForm: FormGroup;
 
   public constructor(public fb: FormBuilder, private httpService: HttpService) { }
@@ -46,6 +46,7 @@ export class ContactFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update contact form is called.
   **/
   public ngOnChanges() {
+    // Regular expression to valid an email.
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {

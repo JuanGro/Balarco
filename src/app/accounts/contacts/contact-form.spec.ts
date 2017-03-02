@@ -19,6 +19,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
+
+// Models
 import { Contact } from './contact-model';
 
 describe('ContactsComponent (inline template)', () => {
@@ -30,9 +32,10 @@ describe('ContactsComponent (inline template)', () => {
     let componentTable: ContactsListTableComponent;
     let component: ContactFormComponent;
 
+    // Variable to test which action is executing in modal.
     let modalAction;
 
-    // Create a Contact object example
+    // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
@@ -60,7 +63,7 @@ describe('ContactsComponent (inline template)', () => {
         fixtureChildForm = TestBed.createComponent(ContactFormComponent);
         fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
 
-        componentParent = fixtureParent.componentInstance; // ContactsComponent test instance
+        componentParent = fixtureParent.componentInstance; // ContactsComponent test instance.
         component = fixtureChildForm.componentInstance;
         componentTable = fixtureChildTable.componentInstance;
     }));
