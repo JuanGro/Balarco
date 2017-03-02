@@ -1,8 +1,8 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-// Class
-import { Contact } from './contact';
+// Models
+import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
 // Services
@@ -34,8 +34,11 @@ export class ContactFormComponent implements OnChanges {
   @Output() contactCreated: EventEmitter<Contact> = new EventEmitter();
   // Event for parent to update the currentContact.
   @Output() onContactUpdated: EventEmitter<string> = new EventEmitter();
-
-  // Initialization of the control form
+  // Variable to check if the submitForm method finish correctly.
+  public success: boolean = false;
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
+  // Initialization of control form.
   public contactsModalForm: FormGroup;
 
   public constructor(public fb: FormBuilder, private httpService: HttpService) { }
@@ -46,6 +49,7 @@ export class ContactFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update contact form is called.
   **/
   public ngOnChanges() {
+    // Regular expression to valid an email.
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {
@@ -97,10 +101,11 @@ export class ContactFormComponent implements OnChanges {
       } else {
         // Create contact
         this.submitNewContact(object);
-        console.log(object);
       }
+      this.success = true;
     } else {
       console.log('Error sending the contact from internal methods');
+      this.success = false;
     }
   }
 
@@ -145,14 +150,16 @@ export class ContactFormComponent implements OnChanges {
   * Requests to parent component to show the confirmation to remove the contact selected.
   **/
   public requestWarningModal() {
-    this.requestWarning.emit();
+    this.modalAction = 'Show warning modal';
+    this.requestWarning.emit(this.modalAction);
   }
 
   /**
   * Requests to parent component to close the current modal.
   **/
   public requestCloseThisModal() {
-    this.requestCloseModal.emit();
+    this.modalAction = 'Close modal';
+    this.requestCloseModal.emit(this.modalAction);
   }
 
   /**

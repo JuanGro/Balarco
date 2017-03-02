@@ -36,7 +36,6 @@
                                 <th>Teléfono móvil secundario</th>
                                 <th>Correo</th>
                                 <th>Correo alterno</th>
-                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,7 +46,8 @@
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.last_name }}</td>
-                                <td>{{ contact.client }}</td>
+                                <td>{{ contact.client_complete.name }}</td>
+                                <!-- <td>{{ contact.client }}</td> -->
                                 <td>{{ contact.charge }}</td>
                                 <td>{{ contact.landline }}</td>
                                 <td>{{ contact.extension }}</td>
@@ -55,10 +55,6 @@
                                 <td>{{ contact.mobile_phone_2 }}</td>
                                 <td>{{ contact.email }}</td>
                                 <td>{{ contact.alternate_email }}</td>
-                                <td>{{ contact.is_active }}
-                                    <!-- <button *ngIf="contact.is_active === true" type="button" class="btn btn-outline-primary">{{ contact.is_active }}</button>
-                                    <button *ngIf="contact.is_active === false" type="button" class="btn btn-outline-danger">{{ contact.is_active }}</button> -->
-                                </td>
                             </tr>
                         </tbody>
                     </table>

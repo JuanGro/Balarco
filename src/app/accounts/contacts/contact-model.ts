@@ -1,5 +1,8 @@
+// Models
+import { Client } from './../companies-list/client';
+
 /**
-* Class to define all the attributes used in the Contact object.
+* Model to define all the attributes used in the Contact object.
 **/
 export class Contact {
     id?: number;
@@ -13,7 +16,8 @@ export class Contact {
     mobile_phone_2?: string;
     email: string;
     alternate_email?: string;
-    is_active: boolean;
+    is_active?: boolean;
+    client_complete?: Client;
 
     /**
     * Constructor to create a Contact based on server response at POST.

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 import { HttpService } from './../../shared/http-service/http.service';
 var ContactFormComponent = (function () {
     function ContactFormComponent(fb, httpService) {
@@ -19,6 +19,8 @@ var ContactFormComponent = (function () {
         this.requestWarning = new EventEmitter();
         this.contactCreated = new EventEmitter();
         this.onContactUpdated = new EventEmitter();
+        this.success = false;
+        this.modalAction = '';
     }
     ContactFormComponent.prototype.ngOnChanges = function () {
         var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
@@ -61,11 +63,12 @@ var ContactFormComponent = (function () {
             }
             else {
                 this.submitNewContact(object);
-                console.log(object);
             }
+            this.success = true;
         }
         else {
             console.log('Error sending the contact from internal methods');
+            this.success = false;
         }
     };
     ContactFormComponent.prototype.submitUpdatedContact = function (object, id) {
@@ -91,10 +94,12 @@ var ContactFormComponent = (function () {
         });
     };
     ContactFormComponent.prototype.requestWarningModal = function () {
-        this.requestWarning.emit();
+        this.modalAction = 'Show warning modal';
+        this.requestWarning.emit(this.modalAction);
     };
     ContactFormComponent.prototype.requestCloseThisModal = function () {
-        this.requestCloseModal.emit();
+        this.modalAction = 'Close modal';
+        this.requestCloseModal.emit(this.modalAction);
     };
     ContactFormComponent.prototype.resetForm = function () {
         this.contactsModalForm.reset();
