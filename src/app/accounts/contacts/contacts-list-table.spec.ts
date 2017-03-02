@@ -25,7 +25,7 @@ import { ContactFormComponent } from './contact-form.component';
 // Models
 import { Contact } from './contact-model';
 
-describe('ContactsComponent (inline template)', () => {
+describe('ContactsListTableComponent tests', () => {
 
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;

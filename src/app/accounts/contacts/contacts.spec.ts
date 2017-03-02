@@ -23,7 +23,7 @@ import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
 import { Contact } from './contact-model';
 
-describe('ContactsComponent (inline template)', () => {
+describe('ContactsComponent tests.', () => {
 
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
@@ -88,7 +88,7 @@ describe('ContactsComponent (inline template)', () => {
         el = de.nativeElement;
     }));
 
-    describe('Components correctly defined for the parent contacts component', () => {
+    describe('Components defined for the parent contacts component', () => {
         /**
         * Tests that the current component is correctly built.
         **/
@@ -113,7 +113,7 @@ describe('ContactsComponent (inline template)', () => {
         });
     });
 
-    describe('Correct initialization of variable for parent contacts component', () => {
+    describe('Initialization of variable for parent contacts component', () => {
         /**
         * Tests that the page title is correct.
         **/
@@ -148,7 +148,7 @@ describe('ContactsComponent (inline template)', () => {
         });
     });
 
-    describe('Correct load of the variables to the template for parent contacts component', () => {
+    describe('Load of the variables to the template for parent contacts component', () => {
         /**
         * Tests that the title is empty before the use of the title variable.
         **/
@@ -166,7 +166,7 @@ describe('ContactsComponent (inline template)', () => {
         });
     });
 
-    describe('Correct use of methods for parent contacts component', () => {
+    describe('Load of data with http service in local method for parent contacts component', () => {
         /**
         * Tests that the component doesn't obtain an error or empty contacts list.
         **/
@@ -182,7 +182,9 @@ describe('ContactsComponent (inline template)', () => {
             component.loadContactsList('clients/clients/');
             expect(component.clientsList).not.toBeNull();
         });
-    
+    });
+
+    describe('Use of methods for parent contacts component', () => {
         /**
         * Tests that the initialize modal method is working correctly, setting the contact to null.
         **/

@@ -23,7 +23,7 @@ import { ContactFormComponent } from './contact-form.component';
 // Models
 import { Contact } from './contact-model';
 
-describe('ContactsComponent (inline template)', () => {
+describe('ContactFormComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
@@ -82,78 +82,92 @@ describe('ContactsComponent (inline template)', () => {
         componentTable = fixtureChildTable.componentInstance;
     }));
 
-    /**
-    * Tests that the current component is correctly built.
-    **/
-    it('should have a defined current component', () => {
-        component.ngOnChanges();
-        expect(component).toBeDefined();
+    describe('Components defined for the child contacts form component', () => {
+        /**
+        * Tests that the current component is correctly built.
+        **/
+        it('should have a defined current component', () => {
+            component.ngOnChanges();
+            expect(component).toBeDefined();
+        });
+    
+        /**
+        * Tests that the parent component is correctly built.
+        **/
+        it('should have a defined parent component', () => {
+            componentParent.ngOnInit();
+            expect(componentParent).toBeDefined();
+        });
+    });
+    
+    describe('Initialization of variable for child contacts form component', () => {
+        /**
+        * Tests that the Client object received from parent component is not empty.
+        **/
+        it('should receive a not empty Client object', () => {
+            expect(component.clientsList).not.toBeNull();
+        });
+    
+        /**
+        * Tests that the Contact object received from parent component is not empty.
+        **/
+        it('should receive a not empty Contact object', () => {
+            expect(component.contact).not.toBeNull();
+        });
     });
 
-    /**
-    * Tests that the parent component is correctly built.
-    **/
-    it('should have a defined parent component', () => {
-        componentParent.ngOnInit();
-        expect(componentParent).toBeDefined();
+    describe('Use and handle of forms for child contacts form component', () => {
+        /**
+        * Tests that the form is correctly built with FormBuilder.
+        **/
+        it('should create a FormBuilder comprised of FormControls', () => {
+            component.ngOnChanges();
+            expect(component.fb instanceof FormBuilder).toBe(true);
+        });
+    
+        /**
+        * Tests that the contact is correctly managed by submitContactForm method.
+        **/
+        it('should send current Contact in the form to submit method', () => {
+            component.submitContactForm(testContact, true);
+            expect(component.success).toBeTruthy();
+        });
+
+        /* it('should reset the form', () => {
+            component.contactsModalForm.value(testContact);
+            console.log(component.contactsModalForm);
+            component.resetForm();
+            console.log(component.contactsModalForm);
+            expect(component.contactsModalForm).not.toBeNull();
+        }); */
     });
-
-    /**
-    * Tests that the Client object received from parent component is not empty.
-    **/
-    it('should receive a not empty Client object', () => {
-        expect(component.clientsList).not.toBeNull();
-    });
-
-    /**
-    * Tests that the Contact object received from parent component is not empty.
-    **/
-    it('should receive a not empty Contact object', () => {
-        expect(component.contact).not.toBeNull();
-    });
-
-    /**
-    * Tests that the form is correctly built with FormBuilder.
-    **/
-    it('should create a FormBuilder comprised of FormControls', () => {
-        component.ngOnChanges();
-        expect(component.fb instanceof FormBuilder).toBe(true);
-    });
-
-    /**
-    * Tests that the contact is correctly managed by submitContactForm method.
-    **/
-    it('should send current Contact in the form to submit method', () => {
-        component.submitContactForm(testContact, true);
-        expect(component.success).toBeTruthy();
-    });
-
-    /* it('should reset the form', () => {
-        component.contactsModalForm.value(testContact);
-        console.log(component.contactsModalForm);
-        component.resetForm();
-        console.log(component.contactsModalForm);
-        expect(component.contactsModalForm).not.toBeNull();
-    }); */
-
-    describe('EventEmitter: Counter', () => {
+    
+    describe('EventEmitter of modal requests for child contacts form component', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
         beforeEach(inject([ContactFormComponent], result => {
             modalAction = result;
         }));
-    
-        //specs
-        it('should increment +1 (async)', async(() => {
-            modalAction.requestCloseModal.subscribe(x => { 
-                expect(x).toBe('Close modal');
+
+        /**
+        * Tests that the close modal request is correctly received.
+        **/
+        it('should request to close the current modal', async(() => {
+            modalAction.requestCloseModal.subscribe(result => { 
+                expect(result).toBe('Close modal');
             });
             modalAction.requestCloseThisModal();
         }));
-        
+
+        /**
+        * Tests that the show warning modal request is correctly received.
+        **/
         it('should decrement -1 (async)', async(() => {
-            modalAction.requestWarning.subscribe(x => { 
-                expect(x).toBe('Show warning modal');
+            modalAction.requestWarning.subscribe(result => { 
+                expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();
         }));
-    }) 
+    });
 });

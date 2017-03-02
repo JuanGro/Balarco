@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 // Models
 import { Contact } from './contact-model';
 
-describe('ContactModel', () => {
+describe('Contact object model tests', () => {
     /**
     * Tests that verify if the Contact object is correctly built.
     **/
