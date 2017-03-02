@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -96,7 +96,7 @@ describe('ContactsComponent tests.', () => {
             component.ngOnInit();
             expect(component).toBeDefined();
         });
-    
+
         /**
         * Tests that the child form component is correctly built.
         **/
@@ -104,7 +104,7 @@ describe('ContactsComponent tests.', () => {
             componentForm.ngOnChanges();
             expect(componentForm).toBeDefined();
         });
-    
+
         /**
         * Tests that the child table component is correctly built.
         **/
@@ -121,7 +121,7 @@ describe('ContactsComponent tests.', () => {
             fixtureParent.detectChanges();
             expect(component.title).toContain('Lista de contactos');
         });
-    
+
         /**
         * Tests that the new contact modal has correct attributes.
         **/
@@ -129,7 +129,7 @@ describe('ContactsComponent tests.', () => {
             fixtureParent.detectChanges();
             expect(component.titleNewModal).toContain('Nuevo Contacto');
         });
-    
+
         /**
         * Tests that the update contact modal has correct attributes.
         **/
@@ -137,7 +137,7 @@ describe('ContactsComponent tests.', () => {
             fixtureParent.detectChanges();
             expect(component.titleUpdateModal).toContain('Modificar Contacto');
         });
-    
+
         /**
         * Tests that the danger modal has correct attributes.
         **/
@@ -155,7 +155,7 @@ describe('ContactsComponent tests.', () => {
         it('no title in the DOM until manually call `detectChanges`', () => {
             expect(el.textContent).toEqual('');
         });
-    
+
         /**
         * Tests that the component have the correct title when everything is loaded.
         **/
@@ -174,7 +174,7 @@ describe('ContactsComponent tests.', () => {
             component.loadClientsList('clients/contacts/');
             expect(component.contactsList).not.toBeNull();
         });
-    
+
         /**
         * Tests that the component doesn't obtain an error or empty clients list.
         **/
@@ -192,7 +192,7 @@ describe('ContactsComponent tests.', () => {
             component.initializeModal();
             expect(component.contact).toBeNull();
         });
-    
+
         /**
         * Tests that the getContactFromTable method doesn't returns a Contact object empty.
         **/

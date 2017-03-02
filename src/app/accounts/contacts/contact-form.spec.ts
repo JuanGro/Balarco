@@ -90,7 +90,7 @@ describe('ContactFormComponent tests.', () => {
             component.ngOnChanges();
             expect(component).toBeDefined();
         });
-    
+
         /**
         * Tests that the parent component is correctly built.
         **/
@@ -99,7 +99,7 @@ describe('ContactFormComponent tests.', () => {
             expect(componentParent).toBeDefined();
         });
     });
-    
+
     describe('Initialization of variable for child contacts form component', () => {
         /**
         * Tests that the Client object received from parent component is not empty.
@@ -107,7 +107,7 @@ describe('ContactFormComponent tests.', () => {
         it('should receive a not empty Client object', () => {
             expect(component.clientsList).not.toBeNull();
         });
-    
+
         /**
         * Tests that the Contact object received from parent component is not empty.
         **/
@@ -124,7 +124,7 @@ describe('ContactFormComponent tests.', () => {
             component.ngOnChanges();
             expect(component.fb instanceof FormBuilder).toBe(true);
         });
-    
+
         /**
         * Tests that the contact is correctly managed by submitContactForm method.
         **/
@@ -141,7 +141,7 @@ describe('ContactFormComponent tests.', () => {
             expect(component.contactsModalForm).not.toBeNull();
         }); */
     });
-    
+
     describe('EventEmitter of modal requests for child contacts form component', () => {
         /**
         * Get the current component to use it in observables.
@@ -154,7 +154,7 @@ describe('ContactFormComponent tests.', () => {
         * Tests that the close modal request is correctly received.
         **/
         it('should request to close the current modal', async(() => {
-            modalAction.requestCloseModal.subscribe(result => { 
+            modalAction.requestCloseModal.subscribe(result => {
                 expect(result).toBe('Close modal');
             });
             modalAction.requestCloseThisModal();
@@ -164,7 +164,7 @@ describe('ContactFormComponent tests.', () => {
         * Tests that the show warning modal request is correctly received.
         **/
         it('should decrement -1 (async)', async(() => {
-            modalAction.requestWarning.subscribe(result => { 
+            modalAction.requestWarning.subscribe(result => {
                 expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();

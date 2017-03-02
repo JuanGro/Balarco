@@ -25,8 +25,7 @@ import { ContactFormComponent } from './contact-form.component';
 // Models
 import { Contact } from './contact-model';
 
-describe('ContactsListTableComponent tests', () => {
-
+describe('ContactsListTableComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
@@ -46,7 +45,7 @@ describe('ContactsListTableComponent tests', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
-    // Create a Contact object example
+    // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
@@ -91,32 +90,36 @@ describe('ContactsListTableComponent tests', () => {
         el = de.nativeElement;
     }));
 
-    /**
-    * Tests that the current component is correctly built.
-    **/
-    it('should have a defined current component', () => {
-        expect(component).toBeDefined();
+    describe('Components defined for the child contacts list table component', () => {
+        /**
+        * Tests that the current component is correctly built.
+        **/
+        it('should have a defined current component', () => {
+            expect(component).toBeDefined();
+        });
+
+        /**
+        * Tests that the parent component is correctly built.
+        **/
+        it('should have a defined parent component', () => {
+            componentParent.ngOnInit();
+            expect(componentParent).toBeDefined();
+        });
     });
 
-    /**
-    * Tests that the parent component is correctly built.
-    **/
-    it('should have a defined parent component', () => {
-        componentParent.ngOnInit();
-        expect(componentParent).toBeDefined();
-    });
+    describe('Initialization of variable for child contacts list table component', () => {
+        /**
+        * Tests that the Contact object received from parent component is not empty.
+        **/
+        it('should receive a not empty Contact object', () => {
+            expect(component.contactsList).not.toBeNull();
+        });
 
-    /**
-    * Tests that the Contact object received from parent component is not empty.
-    **/
-    it('should receive a not empty Contact object', () => {
-        expect(component.contactsList).not.toBeNull();
-    });
-
-    /**
-    * Tests that the Client object received from parent component is not empty.
-    **/
-    it('should receive a not empty Client object', () => {
-        expect(component.clientsList).not.toBeNull();
+        /**
+        * Tests that the Client object received from parent component is not empty.
+        **/
+        it('should receive a not empty Client object', () => {
+            expect(component.clientsList).not.toBeNull();
+        });
     });
 });

@@ -1,5 +1,3 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
 // Models
 import { Contact } from './contact-model';
 
@@ -9,7 +7,7 @@ describe('Contact object model tests', () => {
     **/
     it('should build a Contact object correctly', () => {
         // Build the object with it's attributes.
-        var newContact = new Contact();
+        let newContact = new Contact();
         newContact.id = 10;
         newContact.name = 'John';
         newContact.last_name = 'Smith';
