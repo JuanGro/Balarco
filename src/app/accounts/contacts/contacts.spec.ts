@@ -24,7 +24,6 @@ import { ContactFormComponent } from './contact-form.component';
 import { Contact } from './contact-model';
 
 describe('ContactsComponent tests.', () => {
-
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
@@ -172,6 +171,8 @@ describe('ContactsComponent tests.', () => {
         **/
         it('should load the contacts list', () => {
             component.loadClientsList('clients/contacts/');
+            console.log('contactsList');
+            console.log(component.contactsList);
             expect(component.contactsList).not.toBeNull();
         });
 
@@ -180,6 +181,8 @@ describe('ContactsComponent tests.', () => {
         **/
         it('should load the clients list', () => {
             component.loadContactsList('clients/clients/');
+            console.log('clientsList');
+            console.log(component.clientsList);
             expect(component.clientsList).not.toBeNull();
         });
     });

@@ -112,6 +112,8 @@ describe('ContactsListTableComponent tests.', () => {
         * Tests that the Contact object received from parent component is not empty.
         **/
         it('should receive a not empty Contact object', () => {
+            console.log('contactsList');
+            console.log(component.contactsList);
             expect(component.contactsList).not.toBeNull();
         });
 
@@ -119,6 +121,8 @@ describe('ContactsListTableComponent tests.', () => {
         * Tests that the Client object received from parent component is not empty.
         **/
         it('should receive a not empty Client object', () => {
+            console.log('clientsList');
+            console.log(component.clientsList);
             expect(component.clientsList).not.toBeNull();
         });
     });

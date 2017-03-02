@@ -1,7 +1,7 @@
 // Models
 import { Contact } from './contact-model';
 
-describe('Contact object model tests', () => {
+describe('Contact object model tests.', () => {
     /**
     * Tests that verify if the Contact object is correctly built.
     **/
