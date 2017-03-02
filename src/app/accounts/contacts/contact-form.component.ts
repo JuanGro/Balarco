@@ -122,7 +122,10 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
-        // console.log(result);
+        console.log('result');
+        if (result.ok) {
+          console.log(result.text());
+        }        
     });
   }
 
