@@ -11,10 +11,12 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../shared/http-service/http.service';
+import { CustomToastService } from '../shared/toast/custom-toast.service';
 var LoginComplexFormComponent = (function () {
-    function LoginComplexFormComponent(loginService, router) {
+    function LoginComplexFormComponent(loginService, router, toaster) {
         this.loginService = loginService;
         this.router = router;
+        this.toaster = toaster;
         this.events = [];
     }
     LoginComplexFormComponent.prototype.ngOnInit = function () {
@@ -25,14 +27,14 @@ var LoginComplexFormComponent = (function () {
             password: new FormControl('', [Validators.required, Validators.minLength(6)])
         });
     };
-    LoginComplexFormComponent.prototype.submitForm = function (model, isValid) {
+    LoginComplexFormComponent.prototype.submitForm = function (model) {
         var _this = this;
         this.loginService.login(model.username, model.password).subscribe(function (result) {
             if (result === true) {
                 _this.router.navigateByUrl('designer/owned-designs-list');
             }
-            else {
-            }
+        }, function (error) {
+            _this.toaster.show(error, 'Error al ingresar', 'Usuario o contraseña incorrectos');
         });
     };
     return LoginComplexFormComponent;
@@ -42,7 +44,7 @@ LoginComplexFormComponent = __decorate([
         selector: 'login-complex-form',
         templateUrl: 'login.complexform.html'
     }),
-    __metadata("design:paramtypes", [HttpService, Router])
+    __metadata("design:paramtypes", [HttpService, Router, CustomToastService])
 ], LoginComplexFormComponent);
 export { LoginComplexFormComponent };
 //# sourceMappingURL=../../../../src/app/login/login.complexform.js.map
