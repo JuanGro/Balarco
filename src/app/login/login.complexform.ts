@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 
-// Interface
+// Class
 import { Login } from './login';
 
 @Component({
@@ -29,7 +29,14 @@ export class LoginComplexFormComponent implements OnInit {
     });
   }
 
-  submitForm(model: Login, isValid: boolean) {
+  /**
+  * Method for sending the login request to the server.
+  * If login succesful, the user enters to the dashboard.
+  * If login failed, a toast is show as feedback.
+  * Params:
+  *   - model: Login object for login.
+  **/
+  submitForm(model: Login) {
     this.loginService.login(model.username, model.password).subscribe(
       result => {
         if (result === true) {

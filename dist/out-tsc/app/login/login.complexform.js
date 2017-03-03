@@ -27,7 +27,7 @@ var LoginComplexFormComponent = (function () {
             password: new FormControl('', [Validators.required, Validators.minLength(6)])
         });
     };
-    LoginComplexFormComponent.prototype.submitForm = function (model, isValid) {
+    LoginComplexFormComponent.prototype.submitForm = function (model) {
         var _this = this;
         this.loginService.login(model.username, model.password).subscribe(function (result) {
             if (result === true) {
