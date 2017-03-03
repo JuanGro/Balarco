@@ -66,7 +66,6 @@ var CustomToastService = (function () {
     };
     CustomToastService.prototype.show = function (response, title, message) {
         var toast = this.createToast(response, title, message);
-        console.log(toast.title);
         this.toasterService.pop(toast);
     };
     CustomToastService.prototype.getDefaultTiltles = function () {

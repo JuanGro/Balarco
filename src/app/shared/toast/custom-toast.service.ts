@@ -85,7 +85,6 @@ export class CustomToastService {
   **/
   public show(response: Response, title?: string, message?: string) {
     let toast = this.createToast(response, title, message);
-    console.log(toast.title);
     this.toasterService.pop(toast);
   }
 

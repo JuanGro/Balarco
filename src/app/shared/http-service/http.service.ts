@@ -117,8 +117,7 @@ export class HttpService extends Http {
       // Security errors
       if (res.status === 401 || res.status === 403) {
         // TODO: Redirect to login to ask credentials
-      }
-      console.log(res);
+      }      
       return Observable.throw(res);
     };
   }
