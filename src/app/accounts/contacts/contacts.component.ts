@@ -125,16 +125,24 @@ export class ContactsComponent implements OnInit {
   /**
   * Recieves event when a new contact is created in the form.
   * It pushes the new contact to the list.
+  * Params:
+  *   - event: New contact received from the event.
   **/
-  private onContactCreated(event) {
+  private onContactCreated(event: Contact) {
     this.contactsList.push(event);
   }
 
-  private onContactUpdated(event) {
+  /**
+  * Recieves event when a contact is updated in the form.
+  * It updates the contact selected.
+  * Params:
+  *   - event: Contact updated received from the event.
+  **/
+  private onContactUpdated(event: Contact) {
     let oldContact = this.contactsList.filter(contact => contact.id == event.id)[0];
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
-      this.contactsList[index] = event;      
+      this.contactsList[index] = event;
     }
   }
 
