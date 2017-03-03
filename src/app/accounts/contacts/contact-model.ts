@@ -38,5 +38,6 @@ export class Contact {
       this.email = json && json.email;
       this.alternate_email = json && json.alternate_email;
       this.is_active = json && json.is_active;
+      this.client_complete = json && new Client(JSON.stringify(json.client_complete));
     }
 }

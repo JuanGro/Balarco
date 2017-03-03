@@ -130,10 +130,12 @@ export class ContactsComponent implements OnInit {
     this.contactsList.push(event);
   }
 
-  private onContactUpdated() {
-    console.log('RECEIVED BY EMITTER');
-    console.log(event);
-    //this.currentContact = event;
+  private onContactUpdated(event) {
+    let oldContact = this.contactsList.filter(contact => contact.id == event.id)[0];
+    let index = this.contactsList.indexOf(oldContact);
+    if (index >= 0) {
+      this.contactsList[index] = event;      
+    }
   }
 
 }

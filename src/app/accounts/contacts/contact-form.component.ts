@@ -33,7 +33,7 @@ export class ContactFormComponent implements OnChanges {
   // Event for parent to push the new Contact to the list.
   @Output() contactCreated: EventEmitter<Contact> = new EventEmitter();
   // Event for parent to update the currentContact.
-  @Output() onContactUpdated: EventEmitter<string> = new EventEmitter();
+  @Output() contactUpdated: EventEmitter<Contact> = new EventEmitter();
   // Variable to check if the submitForm method finish correctly.
   public success: boolean = false;
   // Variable to check in test what action is executed between components.
@@ -93,7 +93,6 @@ export class ContactFormComponent implements OnChanges {
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
   public submitContactForm(object: Contact, isValid: boolean) {
-    // console.log(object);
     if (isValid === true) {
       if (this.contact) {
         // Update contact
@@ -117,13 +116,10 @@ export class ContactFormComponent implements OnChanges {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
-    console.log('Updating...');
-    this.onContactUpdated.emit();
-    this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
-        console.log('result');
+    this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {        
         if (result.ok) {
-          let newContact = new Contact(result.text());
-          console.log(newContact);
+          let updatedContact = new Contact(result.text());
+          this.contactUpdated.emit(updatedContact);
         }
     });
   }
@@ -137,11 +133,9 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
-        console.log('result');
         if (result.ok) {
           let newContact = new Contact(result.text());
-          console.log(newContact);
-          this.onContactUpdated.emit();
+          this.contactCreated.emit(newContact);
         }
     });
   }

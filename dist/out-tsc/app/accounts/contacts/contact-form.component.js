@@ -18,7 +18,7 @@ var ContactFormComponent = (function () {
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
         this.contactCreated = new EventEmitter();
-        this.onContactUpdated = new EventEmitter();
+        this.contactUpdated = new EventEmitter();
         this.success = false;
         this.modalAction = '';
     }
@@ -72,24 +72,20 @@ var ContactFormComponent = (function () {
         }
     };
     ContactFormComponent.prototype.submitUpdatedContact = function (object, id) {
-        console.log('Updating...');
-        this.onContactUpdated.emit();
+        var _this = this;
         this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(function (result) {
-            console.log('result');
             if (result.ok) {
-                var newContact = new Contact(result.text());
-                console.log(newContact);
+                var updatedContact = new Contact(result.text());
+                _this.contactUpdated.emit(updatedContact);
             }
         });
     };
     ContactFormComponent.prototype.submitNewContact = function (object) {
         var _this = this;
         this.httpService.postObject('clients/contacts/', object).subscribe(function (result) {
-            console.log('result');
             if (result.ok) {
                 var newContact = new Contact(result.text());
-                console.log(newContact);
-                _this.onContactUpdated.emit();
+                _this.contactCreated.emit(newContact);
             }
         });
     };
@@ -129,7 +125,7 @@ __decorate([
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
-], ContactFormComponent.prototype, "onContactUpdated", void 0);
+], ContactFormComponent.prototype, "contactUpdated", void 0);
 ContactFormComponent = __decorate([
     Component({
         selector: 'contact-form',

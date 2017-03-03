@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from '@angular/core';
-import { Contact } from './contact';
+import { Contact } from './contact-model';
 import { HttpService } from './../../shared/http-service/http.service';
 var ContactsComponent = (function () {
     function ContactsComponent(httpService) {
@@ -50,9 +50,12 @@ var ContactsComponent = (function () {
     ContactsComponent.prototype.onContactCreated = function (event) {
         this.contactsList.push(event);
     };
-    ContactsComponent.prototype.onContactUpdated = function () {
-        console.log('RECEIVED BY EMITTER');
-        console.log(event);
+    ContactsComponent.prototype.onContactUpdated = function (event) {
+        var oldContact = this.contactsList.filter(function (contact) { return contact.id == event.id; })[0];
+        var index = this.contactsList.indexOf(oldContact);
+        if (index >= 0) {
+            this.contactsList[index] = event;
+        }
     };
     return ContactsComponent;
 }());
