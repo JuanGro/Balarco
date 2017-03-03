@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { Response, ResponseOptions } from '@angular/http';
-import { CustomToastService } from './custom-toast.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { CustomToastService } from './custom-toast.service';
 describe('Toast Generic Class', function () {
     beforeEach(function () {
         TestBed.configureTestingModule({

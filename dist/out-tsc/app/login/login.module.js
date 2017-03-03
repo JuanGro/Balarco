@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { LoginComponent } from './login.component';
 import { LoginComplexFormComponent } from './login.complexform';
 import { HttpService } from '../shared/http-service/http.service';
-import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 var LoginModule = (function () {
     function LoginModule() {

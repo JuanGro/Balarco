@@ -31,7 +31,7 @@ export class CustomToastService {
   *   - toast created.
   **/
   public createToast(response: Response, title?: string, message?: string): Toast {
-    let type;
+    let type: string;
     switch (response.status) {
       case 200:
         if (!title) {
