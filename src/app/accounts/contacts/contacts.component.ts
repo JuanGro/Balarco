@@ -108,6 +108,12 @@ export class ContactsComponent implements OnInit {
   **/
   public removeContact(object: Contact) {
     this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.contactsList.indexOf(object);
+        if (index >= 0) {
+          this.contactsList.splice(index, 1);
+        }
+      }
     });
   }
 

@@ -41,7 +41,14 @@ var ContactsComponent = (function () {
         this.contact = null;
     };
     ContactsComponent.prototype.removeContact = function (object) {
+        var _this = this;
         this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(function (result) {
+            if (result.ok) {
+                var index = _this.contactsList.indexOf(object);
+                if (index >= 0) {
+                    _this.contactsList.splice(index, 1);
+                }
+            }
         });
     };
     ContactsComponent.prototype.getContactFromTable = function (object) {
