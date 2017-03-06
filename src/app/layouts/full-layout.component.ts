@@ -38,4 +38,8 @@ export class FullLayoutComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    private logout() {
+      console.log('In logout!');
+    }
 }

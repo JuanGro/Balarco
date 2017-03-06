@@ -31,6 +31,9 @@ var FullLayoutComponent = (function () {
         this.status.isopen = !this.status.isopen;
     };
     FullLayoutComponent.prototype.ngOnInit = function () { };
+    FullLayoutComponent.prototype.logout = function () {
+        console.log('In logout!');
+    };
     return FullLayoutComponent;
 }());
 FullLayoutComponent = __decorate([
