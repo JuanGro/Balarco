@@ -40,22 +40,21 @@ export class ContactFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public contactsModalForm: FormGroup;
+  // Angular can't recognize the selected value for dropdown in ngModel so we make it manual.
+  public clientSelected: number;
 
   public constructor(private httpService: HttpService) { }
 
   /**
   * Builds the component for first time each time when it's called.
-  *   - It uses a regular expression to know if the email is valid.
   *   - Initialize the form depending if the new or update contact form is called.
+  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    // Regular expression to valid an email.
-    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
-                          {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (!this.contact) {
-      this.contact = {
-        name: '', last_name: '', client: null, charge: '', landline: '', extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
-      }
+      this.initializeContact();
+    } else {
+      this.clientSelected = this.contact.client;
     }
   }
 
@@ -131,6 +130,16 @@ export class ContactFormComponent implements OnChanges {
   * Clears all the values in the form fields.
   **/
   public resetForm() {
-    this.contactsModalForm.reset();
+    // this.contactsModalForm.reset();
+    this.initializeContact();
+  }
+  
+  /**
+  * Clears the Contact object.
+  **/
+  public initializeContact() {
+    this.contact = {
+        name: '', last_name: '', client: null, charge: '', landline: '', extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
+    }
   }
 }
