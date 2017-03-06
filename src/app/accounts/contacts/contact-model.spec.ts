@@ -7,19 +7,11 @@ describe('Contact object model tests.', () => {
     **/
     it('should build a Contact object correctly', () => {
         // Build the object with it's attributes.
-        let newContact = new Contact();
-        newContact.id = 10;
-        newContact.name = 'John';
-        newContact.last_name = 'Smith';
-        newContact.client = 2;
-        newContact.charge = 'CEO';
-        newContact.landline = '2221122';
-        newContact.extension = '29';
-        newContact.mobile_phone_1 = '4423331122';
-        newContact.mobile_phone_2 = '4423331122';
-        newContact.email = 'john@gmail.com';
-        newContact.alternate_email = 'john@gmail.com';
-        newContact.is_active = true;
+        let newContact = {
+            id: 10, name: 'John', last_name: 'Smith', client: 2, charge: 'CEO', landline: '2221122',
+            extension: '29', mobile_phone_1: '4423331122', mobile_phone_2: '4423331122',
+            email: 'john@gmail.com', alternate_email: 'john@gmail.com', is_active: true
+        }
 
         // Check each attribute.
         expect(newContact.id).toBe(10);

@@ -126,24 +126,6 @@ describe('ContactFormComponent tests.', () => {
         });
     });
 
-    describe('Use and handle of forms for child contacts form component', () => {
-        /**
-        * Tests that the form is correctly built with FormBuilder.
-        **/
-        it('should create a FormBuilder comprised of FormControls', () => {
-            component.ngOnChanges();
-            expect(component.fb instanceof FormBuilder).toBe(true);
-        });
-
-        /**
-        * Tests that the contact is correctly managed by submitContactForm method.
-        **/
-        it('should send current Contact in the form to submit method', () => {
-            component.submitContactForm(testContact, true);
-            expect(component.success).toBeTruthy();
-        });
-    });
-
     describe('EventEmitter of modal requests for child contacts form component', () => {
         /**
         * Get the current component to use it in observables.

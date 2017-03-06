@@ -52,25 +52,6 @@ describe('ContactsComponent tests.', () => {
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 is_active: true };
 
-    // Create a Contact object example.
-    let testListContacts: Contact[] = [
-                                { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
-                                charge: 'Estudent', landline: '2211111', extension: '22',
-                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
-                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true },
-                                { id: 3, name: 'José', last_name: 'Perez', client: 3,
-                                charge: 'Estudent', landline: '2211111', extension: '11',
-                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
-                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
-                                is_active: true }
-                                ];
-
-    let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
-                                ];
-
     // Base state before each test runs.
     // Handles asynchronous compilation.
     beforeEach(async(() => {
@@ -184,26 +165,6 @@ describe('ContactsComponent tests.', () => {
             fixtureParent.detectChanges();
             expect(el.textContent).toContain(component.title);
             expect(el.textContent).not.toBe(null);
-        });
-    });
-
-    describe('Load of example data to simulate that Input variables are correctly assigned for parent contacts component', () => {
-        /**
-        * Tests that the component doesn't obtain an error or empty contacts list.
-        **/
-        it('should load correctly contacts list in contactsList Input', () => {
-            component.contactsList = testListContacts;
-            fixtureParent.detectChanges();
-            expect(component.contactsList).toEqual(testListContacts);
-        });
-
-        /**
-        * Tests that the component doesn't obtain an error or empty clients list.
-        **/
-        it('should load correctly clients list in clientsList Input', () => {
-            component.clientsList = testListClients;
-            fixtureParent.detectChanges();
-            expect(component.clientsList).toEqual(testListClients);
         });
     });
 
