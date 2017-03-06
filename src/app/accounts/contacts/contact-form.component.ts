@@ -41,7 +41,7 @@ export class ContactFormComponent implements OnChanges {
   // Initialization of control form.
   public contactsModalForm: FormGroup;
 
-  public constructor(public fb: FormBuilder, private httpService: HttpService) { }
+  public constructor(private httpService: HttpService) { }
 
   /**
   * Builds the component for first time each time when it's called.
@@ -52,37 +52,10 @@ export class ContactFormComponent implements OnChanges {
     // Regular expression to valid an email.
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-    if (this.contact) {
-      // Update Contact
-      this.contactsModalForm = this.fb.group({
-        name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
-        last_name: [this.contact.last_name, [<any>Validators.required, <any>Validators.minLength(4)]],
-        client: [this.contact.client, [<any>Validators.required]],
-        charge: [this.contact.charge, [<any>Validators.required, <any>Validators.minLength(3)]],
-        landline: [this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: [this.contact.extension],
-        mobile_phone_1: [this.contact.mobile_phone_1, [<any>Validators.required, <any>Validators.minLength(6)]],
-        mobile_phone_2: [this.contact.mobile_phone_2],
-        email: [this.contact.email, [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
-        alternate_email: [this.contact.alternate_email, [<any>Validators.pattern(emailRegex)]],
-        is_active: [this.contact.is_active, [<any>Validators.required]]
-      });
-
-    } else {
-      // New Contact
-      this.contactsModalForm = this.fb.group({
-        name: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
-        last_name: ['', [<any>Validators.required, <any>Validators.minLength(4)]],
-        client: ['', [<any>Validators.required]],
-        charge: ['', [<any>Validators.required, <any>Validators.minLength(3)]],
-        landline: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: [''],
-        mobile_phone_1: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
-        mobile_phone_2: [''],
-        email: ['', [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
-        alternate_email: ['', [<any>Validators.pattern(emailRegex)]],
-        is_active: [true, [<any>Validators.required]]
-      });
+    if (!this.contact) {
+      this.contact = {
+        name: '', last_name: '', client: null, charge: '', landline: '', extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
+      }
     }
   }
 
@@ -92,20 +65,18 @@ export class ContactFormComponent implements OnChanges {
   *   - object: Contact object received from modal.
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
-  public submitContactForm(object: Contact, isValid: boolean) {
-    if (isValid === true) {
-      if (this.contact) {
+  public submitContactForm(object: Contact) {
+    console.log(object);
+      if (this.contact.id) {
+        console.log('updated');
         // Update contact
         this.submitUpdatedContact(object, this.contact.id);
       } else {
+        console.log('New');
         // Create contact
         this.submitNewContact(object);
       }
       this.success = true;
-    } else {
-      console.log('Error sending the contact from internal methods');
-      this.success = false;
-    }
   }
 
   /**

@@ -1,9 +1,9 @@
 <div class="modal-body">
     <!-- Start form -->
-    <!-- [formGroup] calls the form methods to the component -->
+    <!-- #contactsModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)" executes the submitContactForm method sending the 
     values of each field and if the complete group is valid -->
-    <form [formGroup]="contactsModalForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)">
+    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)">
     
     <!-- First row -->
     <div class="form-group row">
@@ -13,10 +13,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" placeholder="Pablo" class="form-control" id="recipient-name" formControlName="name" required>
+                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="4" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" required>
             </div>
             <!-- Feedback name -->
-            <div [hidden]="contactsModalForm.controls.name.valid || (contactsModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
+            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div [hidden]="!name.errors.required">
+                Name is required
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                Name must be at least 4 characters long.
+                </div>
+                <div [hidden]="!name.errors.maxlength">
+                Name cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -25,10 +35,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" placeholder="Hernández" class="form-control" id="recipient-last_name" formControlName="last_name" required>
+                <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="4" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" required>
             </div>
             <!-- Feedback lastname -->
-            <div [hidden]="contactsModalForm.controls.last_name.valid || (contactsModalForm.controls.last_name.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
+            <div *ngIf="last_name.errors && (last_name.dirty || last_name.touched)" class="alert alert-danger">
+                <div [hidden]="!last_name.errors.required">
+                Last name is required
+                </div>
+                <div [hidden]="!last_name.errors.minlength">
+                Last name must be at least 4 characters long.
+                </div>
+                <div [hidden]="!last_name.errors.maxlength">
+                Last name cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -40,12 +60,14 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="select" name="select" class="form-control" formControlName="client" size="1">
+                <select id="client" name="client" class="form-control" [(ngModel)]="contactsModalForm.client" #client="ngModel" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
             <!-- Feedback client -->
-            <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válida</div>
+            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+                <div [hidden]="!client.errors.required">Company is required</div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -54,10 +76,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" formControlName="charge" required>
+                <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" required>
             </div>
             <!-- Feedback charge -->
-            <div [hidden]="contactsModalForm.controls.charge.valid || (contactsModalForm.controls.charge.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
+            <div *ngIf="charge.errors && (charge.dirty || charge.touched)" class="alert alert-danger">
+                <div [hidden]="!charge.errors.required">
+                Charge is required
+                </div>
+                <div [hidden]="!charge.errors.minlength">
+                Charge must be at least 4 characters long.
+                </div>
+                <div [hidden]="!charge.errors.maxlength">
+                Charge cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
     </div>
     
@@ -69,10 +101,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" formControlName="landline" required>
+                <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" required>
             </div>
             <!-- Feedback landline -->
-            <div [hidden]="contactsModalForm.controls.landline.valid || (contactsModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
+            <div *ngIf="landline.errors && (landline.dirty || landline.touched)" class="alert alert-danger">
+                <div [hidden]="!landline.errors.required">
+                Landline is required
+                </div>
+                <div [hidden]="!landline.errors.minlength">
+                Landline must be at least 7 characters long.
+                </div>
+                <div [hidden]="!landline.errors.maxlength">
+                Landline cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -81,10 +123,17 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="text" placeholder="33" class="form-control" id="recipient-extension" formControlName="extension">
+                <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel">
             </div>
             <!-- Feedback extension -->
-            <!-- <div [hidden]="contactsModalForm.controls.extension.valid || (contactsModalForm.controls.extension.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div> -->
+            <div *ngIf="extension.errors && (extension.dirty || extension.touched)" class="alert alert-danger">
+                <div [hidden]="!extension.errors.minlength">
+                Extension be at least 1 character long.
+                </div>
+                <div [hidden]="!extension.errors.maxlength">
+                Landline cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
     </div>
     
@@ -96,10 +145,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" formControlName="mobile_phone_1" required>
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" required>
             </div>
             <!-- Feedback mobile phone 1 -->
-            <div [hidden]="contactsModalForm.controls.mobile_phone_1.valid || (contactsModalForm.controls.mobile_phone_1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+            <div *ngIf="mobile_phone_1.errors && (mobile_phone_1.dirty || mobile_phone_1.touched)" class="alert alert-danger">
+                <div [hidden]="!mobile_phone_1.errors.required">
+                Mobile phone is required
+                </div>
+                <div [hidden]="!mobile_phone_1.errors.minlength">
+                Mobile phone must be at least 10 characters long.
+                </div>
+                <div [hidden]="!mobile_phone_1.errors.maxlength">
+                Mobile phone cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -108,10 +167,17 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" formControlName="mobile_phone_2">
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel">
             </div>
             <!-- Feedback mobile phone 2 -->
-            <div [hidden]="contactsModalForm.controls.mobile_phone_2.valid || (contactsModalForm.controls.mobile_phone_2.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+            <div *ngIf="mobile_phone_2.errors && (mobile_phone_2.dirty || mobile_phone_2.touched)" class="alert alert-danger">
+                <div [hidden]="!mobile_phone_2.errors.minlength">
+                Mobile phone must be at least 10 characters long.
+                </div>
+                <div [hidden]="!mobile_phone_2.errors.maxlength">
+                Mobile phone cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -123,10 +189,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
-                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" formControlName="email" required>
+                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" minlength="4" maxlength="24" name="email" [(ngModel)]="contact.email" #email="ngModel" required>
             </div>
             <!-- Feedback email -->
-            <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                <div [hidden]="!email.errors.required">
+                Email is required
+                </div>
+                <div [hidden]="!email.errors.minlength">
+                Email must be at least 4 characters long.
+                </div>
+                <div [hidden]="!email.errors.maxlength">
+                Email cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
         
         <div class="col-md-6">
@@ -135,10 +211,17 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
-                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" formControlName="alternate_email">
+                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" minlength="4" maxlength="24" name="alternate_email" [(ngModel)]="contact.alternate_email" #alternate_email="ngModel">
             </div>
             <!-- Feedback alternate email -->
-            <div [hidden]="contactsModalForm.controls.alternate_email.valid || (contactsModalForm.controls.alternate_email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+            <div *ngIf="alternate_email.errors && (alternate_email.dirty || !alternate_email.touched)" class="alert alert-danger">
+                <div [hidden]="!alternate_email.errors.minlength">
+                Email must be at least 4 characters long.
+                </div>
+                <div [hidden]="!alternate_email.errors.maxlength">
+                Email cannot be more than 24 characters long.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -154,7 +237,7 @@
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
         <!-- Submits updated or new contact -->
         <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
-        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
 
     </form>
