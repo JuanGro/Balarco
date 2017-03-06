@@ -1,6 +1,7 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { HttpModule, XHRBackend, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { Router } from '@angular/router';
 import { HttpService } from './http.service';
 describe('HttpService', function () {
     var setUpResponseBody = function (backend, body, status) {
@@ -22,10 +23,18 @@ describe('HttpService', function () {
         });
     };
     beforeEach(function () {
+        var MockRouter = (function () {
+            function MockRouter() {
+                this.url = '/test';
+                this.navigate = jasmine.createSpy('navigate');
+            }
+            return MockRouter;
+        }());
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
                 { provide: XHRBackend, useClass: MockBackend },
+                { provide: Router, useClass: MockRouter },
                 HttpService
             ]
         });

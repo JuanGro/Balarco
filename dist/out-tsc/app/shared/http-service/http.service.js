@@ -25,6 +25,8 @@ var HttpService = (function (_super) {
     __extends(HttpService, _super);
     function HttpService(backend, defaultOptions, router) {
         var _this = _super.call(this, backend, defaultOptions) || this;
+        _this.backend = backend;
+        _this.defaultOptions = defaultOptions;
         _this.router = router;
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         _this.token = currentUser && currentUser.token;

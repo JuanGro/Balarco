@@ -32,8 +32,8 @@ export class HttpService extends Http {
   public token: string;
 
   constructor(
-    backend: XHRBackend,
-    defaultOptions: RequestOptions,
+    private backend: XHRBackend,
+    private defaultOptions: RequestOptions,
     private router: Router
   ) {
     super(backend, defaultOptions);
