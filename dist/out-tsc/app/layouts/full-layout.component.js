@@ -8,8 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import { HttpService } from '../shared/http-service/http.service';
 var FullLayoutComponent = (function () {
-    function FullLayoutComponent() {
+    function FullLayoutComponent(httpService) {
+        this.httpService = httpService;
         this.charge = 'Cuentas';
         this.designDirector = true;
         this.designer = true;
@@ -32,16 +34,17 @@ var FullLayoutComponent = (function () {
     };
     FullLayoutComponent.prototype.ngOnInit = function () { };
     FullLayoutComponent.prototype.logout = function () {
-        console.log('In logout!');
+        this.httpService.logout();
     };
     return FullLayoutComponent;
 }());
 FullLayoutComponent = __decorate([
     Component({
         selector: 'app-dashboard',
-        templateUrl: './full-layout.component.html'
+        templateUrl: './full-layout.component.html',
+        providers: [HttpService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [HttpService])
 ], FullLayoutComponent);
 export { FullLayoutComponent };
 //# sourceMappingURL=../../../../src/app/layouts/full-layout.component.js.map

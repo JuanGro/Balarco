@@ -13,6 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, XHRBackend, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
@@ -22,8 +23,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 var HttpService = (function (_super) {
     __extends(HttpService, _super);
-    function HttpService(backend, defaultOptions) {
+    function HttpService(backend, defaultOptions, router) {
         var _this = _super.call(this, backend, defaultOptions) || this;
+        _this.router = router;
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         _this.token = currentUser && currentUser.token;
         return _this;
@@ -92,6 +94,7 @@ var HttpService = (function (_super) {
     HttpService.prototype.logout = function () {
         this.token = null;
         localStorage.removeItem('currentUser');
+        this.router.navigate(['/login/login']);
     };
     HttpService.prototype.postObject = function (url, object) {
         return this.post(url, object);
@@ -111,7 +114,8 @@ var HttpService = (function (_super) {
 HttpService = __decorate([
     Injectable(),
     __metadata("design:paramtypes", [XHRBackend,
-        RequestOptions])
+        RequestOptions,
+        Router])
 ], HttpService);
 export { HttpService };
 //# sourceMappingURL=../../../../../src/app/shared/http-service/http.service.js.map
