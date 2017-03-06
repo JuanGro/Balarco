@@ -1,5 +1,3 @@
-// Models
-import { Contact } from './contact-model';
 
 describe('Contact object model tests.', () => {
     /**
@@ -11,7 +9,7 @@ describe('Contact object model tests.', () => {
             id: 10, name: 'John', last_name: 'Smith', client: 2, charge: 'CEO', landline: '2221122',
             extension: '29', mobile_phone_1: '4423331122', mobile_phone_2: '4423331122',
             email: 'john@gmail.com', alternate_email: 'john@gmail.com', is_active: true
-        }
+        };
 
         // Check each attribute.
         expect(newContact.id).toBe(10);

@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 // Models
 import { Contact } from './contact-model';
@@ -86,7 +86,7 @@ export class ContactFormComponent implements OnChanges {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
-    this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {        
+    this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
         if (result.ok) {
           let updatedContact = new Contact(result.text());
           this.contactUpdated.emit(updatedContact);
@@ -133,13 +133,14 @@ export class ContactFormComponent implements OnChanges {
     // this.contactsModalForm.reset();
     this.initializeContact();
   }
-  
+
   /**
   * Clears the Contact object.
   **/
   public initializeContact() {
     this.contact = {
-        name: '', last_name: '', client: null, charge: '', landline: '', extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
-    }
+        name: '', last_name: '', client: null, charge: '', landline: '',
+        extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
+    };
   }
 }

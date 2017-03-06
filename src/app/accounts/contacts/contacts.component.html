@@ -30,7 +30,7 @@
             <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <contact-form [contact]="contact" [clientsList]="clientsList" (requestCloseModal)="newContactModal.hide()" (contactCreated)="onContactCreated($event)"></contact-form>
+            <contact-form [contact]="contact" [clientsList]="clientsList" (requestCloseModal)="newContactModal.hide()"></contact-form>
         </div>
     </div>
 </div>
@@ -50,7 +50,7 @@
             <!-- [contact] sends the contact object to the form to display the current values -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <contact-form [contact]="contact" [clientsList]="clientsList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()" (contactUpdated)="onContactUpdated($event)"></contact-form>
+            <contact-form [contact]="contact" [clientsList]="clientsList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()"></contact-form>
         </div>
     </div>
 </div>

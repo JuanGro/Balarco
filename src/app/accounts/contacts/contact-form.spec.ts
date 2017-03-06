@@ -8,7 +8,7 @@ import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormBuilder, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormsModule }  from '@angular/forms';
 
 // Services
 import { BaseRequestOptions } from '@angular/http';
@@ -60,7 +60,7 @@ describe('ContactFormComponent tests.', () => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
             providers: [ ContactFormComponent,
                 {
