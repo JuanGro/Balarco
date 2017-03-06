@@ -42,7 +42,10 @@ export class FullLayoutComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    private logout() {
+    /**
+    * Calls HttpService logout to delete token and returns user to url Login.
+    **/
+    public logout() {
       this.httpService.logout();
     }
 }
