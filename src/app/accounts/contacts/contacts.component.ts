@@ -134,7 +134,7 @@ export class ContactsComponent implements OnInit {
   * Params:
   *   - event: New contact received from the event.
   **/
-  private onContactCreated(event: Contact) {
+  public onContactCreated(event: Contact) {
     this.contactsList.push(event);
   }
 
@@ -144,7 +144,7 @@ export class ContactsComponent implements OnInit {
   * Params:
   *   - event: Contact updated received from the event.
   **/
-  private onContactUpdated(event: Contact) {
+  public onContactUpdated(event: Contact) {
     let oldContact = this.contactsList.filter(contact => contact.id == event.id)[0];
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
