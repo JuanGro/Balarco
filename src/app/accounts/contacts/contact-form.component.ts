@@ -65,13 +65,10 @@ export class ContactFormComponent implements OnChanges {
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
   public submitContactForm(object: Contact) {
-    console.log(object);
       if (this.contact.id) {
-        console.log('updated');
         // Update contact
         this.submitUpdatedContact(object, this.contact.id);
       } else {
-        console.log('New');
         // Create contact
         this.submitNewContact(object);
       }
