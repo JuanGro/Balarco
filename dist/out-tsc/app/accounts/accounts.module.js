@@ -13,6 +13,7 @@ import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
 import { IgualasComponent } from './igualas/igualas.component';
 import { IgualasListComponent } from './igualas/igualas-list.component';
+import { IgualaFormComponent } from './igualas/iguala-form.component';
 import { DesignsListComponent } from './designs-list.component';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { AccountsRoutingModule } from './accounts-routing.module';
@@ -30,7 +31,7 @@ AccountsModule = __decorate([
             DropdownModule,
             ModalModule.forRoot()
         ],
-        declarations: [CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, DesignsListComponent],
+        declarations: [CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, IgualaFormComponent, DesignsListComponent],
         providers: [CanActivateAuthGuard]
     })
 ], AccountsModule);

@@ -7,10 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 var IgualasListComponent = (function () {
     function IgualasListComponent() {
+        this.requestShowNewIgualaModal = new EventEmitter();
+        this.modalAction = '';
         this.igualas = [
             { 'id': '1', 'company': 'Starbucks', 'igualas_total': '90', 'igualas_available': '9' },
             { 'id': '2', 'company': 'General Electric', 'igualas_total': '100', 'igualas_available': '32' },
@@ -24,6 +26,11 @@ var IgualasListComponent = (function () {
             { 'id': '10', 'company': 'Starbucks', 'igualas_total': '90', 'igualas_available': '9' }
         ];
     }
+    IgualasListComponent.prototype.requestNewIgualaModal = function () {
+        console.log('In BUtton');
+        this.modalAction = 'Open new Iguala modal';
+        this.requestShowNewIgualaModal.emit(this.modalAction);
+    };
     IgualasListComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
@@ -32,6 +39,10 @@ var IgualasListComponent = (function () {
     };
     return IgualasListComponent;
 }());
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], IgualasListComponent.prototype, "requestShowNewIgualaModal", void 0);
 __decorate([
     ViewChild('childModal'),
     __metadata("design:type", ModalDirective)

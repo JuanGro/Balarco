@@ -1,0 +1,32 @@
+<div class="modal-body">
+  <!-- Start form -->
+  <form>
+
+    <!-- First row -->
+    <div class="form-group row">
+      <div class="col-md-6">
+        <!-- Name Field -->
+        <label for="iguala-name" class="form-control-label">Nombre:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user"></i></span>
+          <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="modal-footer">
+      <!-- Clear form -->
+        <!-- Calls the resetForm method, it's only displayed if the iguala.id is empty because it's not used for create a new iguala modal -->
+        <button type="reset" class="btn btn-danger">Limpiar</button>
+        <!-- Delete iguala -->
+        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the iguala.id exists because it's used only for update iguala modal -->
+        <button type="button" class="btn btn-danger">Eliminar</button>
+        <!-- Hides modal -->
+        <button type="button" class="btn btn-secondary">Cancelar</button>
+        <!-- Submits updated or new iguala -->
+        <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>

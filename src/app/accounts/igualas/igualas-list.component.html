@@ -1,12 +1,19 @@
 <div class="animated fadeIn">
 
-    <!--/.row-->
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
+              <!-- Header -->
                 <div class="card-header">
-                    <i class="icon-plus icons font-2xl d-block mt-2"></i>
+                  <div class="row">
+                    <!-- Add Iguala -->
+                    <!-- Calls the requestNewIgualaModal method -->
+                    <div class="col align-self-start" (click)="requestNewIgualaModal($event)">
+                      <i class="icon-plus icons font-2xl d-block mt-2"></i>
+                    </div>
+                  </div>
                 </div>
+
                 <div class="card-block">
                     <table class="table">
                     <thead class="thead-inverse">

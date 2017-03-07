@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 
 @Component({
@@ -6,6 +6,11 @@ import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
   templateUrl: 'igualas-list.component.html'
 })
 export class IgualasListComponent {
+  // Sends the request to show the new contact modal in parent component.
+  @Output() requestShowNewIgualaModal: EventEmitter<string> = new EventEmitter();
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
+
   @ViewChild('childModal') public childModal: ModalDirective;
   public igualas: any; // This should not happen, because assign "any" is not a good practice but it's just an example
 
@@ -22,6 +27,15 @@ export class IgualasListComponent {
       {'id' : '9', 'company' : 'Comex', 'igualas_total' : '77', 'igualas_available' : '2'},
       {'id' : '10', 'company' : 'Starbucks', 'igualas_total' : '90', 'igualas_available' : '9'}
     ];
+  }
+
+  /**
+  * Request to parent component to show the new Iguala modal.
+  **/
+  public requestNewIgualaModal() {
+    console.log('In BUtton');
+    this.modalAction = 'Open new Iguala modal';
+    this.requestShowNewIgualaModal.emit(this.modalAction);
   }
 
   public showChildModal(): void {
