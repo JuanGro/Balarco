@@ -145,7 +145,7 @@ export class ContactsComponent implements OnInit {
   *   - event: Contact updated received from the event.
   **/
   public onContactUpdated(event: Contact) {
-    let oldContact = this.contactsList.filter(contact => contact.id == event.id)[0];
+    let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
       this.contactsList[index] = event;
