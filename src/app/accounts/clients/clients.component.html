@@ -12,7 +12,7 @@
 <!-- (requestShowNewClientModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateClientModal) receives the request to show the update modal -->
 <!-- (currentClient) receives the client who was selected by the user -->
-<clients-list-table [clientList]="clientList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)"></clients-list-table>
+<clients-list [clientList]="clientList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)"></clients-list>
 
 <!-- Modal New Client -->
 <div bsModal #newClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewClientModal" aria-hidden="true">

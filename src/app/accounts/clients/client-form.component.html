@@ -1,35 +1,52 @@
 <div class="modal-body">
     <!-- Start form -->
-    <!-- [formGroup] calls the form methods to the component -->
-    <!-- (ngSubmit)="submitClientForm(clientModalForm.value, clientModalForm.valid)" executes the submitClientForm method sending the 
-    values of each field and if the complete group is valid -->
-    <form [formGroup]="clientModalForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value, clientModalForm.valid)">
+    <!-- #clientModalForm="ngForm" calls the form methods to the component -->
+    <!-- (ngSubmit)="submitClientForm(clientModalForm.value)" executes the submitClientForm method sending the values of each field -->
+    <form #clientModalForm="ngForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value)">
         <!-- First row -->
         <div class="form-group row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <!-- Name field -->
                 <label for="recipient-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                     </span>
-                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" formControlName="name" required>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" required>
                 </div>
                 <!-- Feedback name -->
-                <div [hidden]="clientModalForm.controls.name.valid || (clientModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
+                <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                    <div [hidden]="!name.errors.required">
+                        El nombre es obligatorio.
+                    </div>
+                    <div [hidden]="!name.errors.minlength">
+                        El nombre debe ser mayor o igual a 2 caracteres.
+                    </div>
+                    <div [hidden]="!name.errors.maxlength">
+                        El nombre debe ser menor a 25 caracteres.
+                    </div>
+                </div>
             </div>
-        </div>
-         <!-- Second row -->
-        <div class="form-group row">
-            <div class="col-md-12">
+
+            <div class="col-md-6">
                 <!-- Name field -->
                 <label for="recipient-address" class="form-control-label">Dirección:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                     </span>
-                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-address" formControlName="address" required>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
                 </div>
                 <!-- Feedback address -->
-                <div [hidden]="clientModalForm.controls.address.valid || (clientModalForm.controls.address.pristine && !submitted)" class="alert alert-danger">Ingrese una dirección válida</div>
+                <div *ngIf="address.errors && address.touched" class="alert alert-danger">
+                    <div [hidden]="!address.errors.required">
+                        El nombre es obligatorio.
+                    </div>
+                    <div [hidden]="!address.errors.minlength">
+                        El nombre debe ser mayor o igual a 3 caracteres.
+                    </div>
+                    <div [hidden]="!address.errors.maxlength">
+                        El nombre debe ser menor a 25 caracteres.
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Buttons -->
@@ -44,7 +61,7 @@
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
             <!-- Submits updated or new client -->
             <!-- Calls the submitClientForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
-            <button type="submit" class="btn btn-primary" [disabled]="!clientModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!clientModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
         </div>
     </form>
 </div>
