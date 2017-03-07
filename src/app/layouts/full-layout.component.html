@@ -253,7 +253,7 @@
                 <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
                 <div class="divider"></div>
                 <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>-->
-                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+                <a class="dropdown-item" href="#" (click)="logout($event)"><i class="fa fa-lock"></i> Logout</a>
             </div>
         </li>
         <li class="nav-item hidden-md-down">
@@ -307,21 +307,21 @@
                 </li>
 
                 <!-- Admin -->
-                <li *ngIf="admin == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="admin == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/completed-designs-list']"><i class="glyphicons glyphicons-crown"></i> Diseños terminados</a>
                 </li>
 
                 <!-- Account -->
-                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/designs-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Diseños activos</a>
                 </li>
-                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/clients-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Clientes</a>
                 </li>
-                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/companies-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Compañias</a>
                 </li>
-                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/igualas-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Igualas</a>
                 </li>
 
@@ -331,12 +331,12 @@
                 </li>
 
                 <!-- Designer -->
-                <li *ngIf="designer == true" class="nav-item nav-dropdown" routerLinkActive="open">   
+                <li *ngIf="designer == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/designer/owned-designs-list']"><i class="glyphicons glyphicons-brush"></i> Mis diseños</a>
                 </li>
 
                 <!-- End of example -->
-                
+
                 <!-- End left panel options -->
 
                 <!-- <li class="divider m-h"></li>
