@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+// Models
+import { Iguala } from './iguala-model';
+
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
 
 @Component({
   selector: 'igualas',
@@ -12,4 +17,31 @@ import { Component } from '@angular/core';
 * - Update an Iguala.
 * - Remove an Iguala.
 **/
-export class IgualasComponent { }
+export class IgualasComponent implements OnInit {
+  // Variable that saves the title to show in the template.
+  public title: string;
+  // List of igualas received from httpService.
+  public igualasList: Iguala[];
+  // List of clients received from httpService.
+  //TODO: public clientsList: Client[];
+
+  public constructor(public httpService: HttpService) { }
+
+  public ngOnInit() {
+    this.title = 'Lista de Igualas';
+  }
+
+  /**
+  * Loads all the igualas with httpService.
+  * Params:
+  *   - url: Url to igualas API methods.
+  **/
+  public loadIgualasList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(igualasList => this.igualasList = igualasList,
+                      err => {
+
+                      });
+  }
+}

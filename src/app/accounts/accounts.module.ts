@@ -13,6 +13,7 @@ import { IgualaFormComponent } from './igualas/iguala-form.component';
 import { DesignsListComponent } from './designs-list.component';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { AccountsRoutingModule } from './accounts-routing.module';
+import { HttpService } from '../shared/http-service/http.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { AccountsRoutingModule } from './accounts-routing.module';
     ModalModule.forRoot()
   ],
   declarations: [ CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, IgualaFormComponent, DesignsListComponent ],
-  providers: [ CanActivateAuthGuard ]
+  providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }
