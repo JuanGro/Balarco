@@ -30,10 +30,20 @@
     <div class="form-group row">
       <div class="col-md-6">
         <!-- StartDate Field -->
-        <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>
-          <input type="text" id="iguala-start-date" placeholder="01/01/2017" class="form-control" minlength="10" maxlength="10" name="name" required>
+        <div class="card">
+            <div class="card-header">
+                <strong>Datepicker</strong>
+                <small>A lightweight &amp; configurable datepicker component</small>
+            </div>
+            <div class="card-block">
+                <div style="display:inline-block; min-height:290px;">
+                    <datepicker></datepicker>
+                </div>
+                <hr />
+                <button type="button" class="btn btn-info" (click)="today()">Today</button>
+                <button type="button" class="btn btn-danger" (click)="clearDate()">Clear</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
+            </div>
         </div>
       </div>
 

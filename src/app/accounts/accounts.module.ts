@@ -14,6 +14,9 @@ import { DesignsListComponent } from './designs-list.component';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { HttpService } from '../shared/http-service/http.service';
+// Datepicker
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { SelectModule } from 'ng2-select';
 
 @NgModule({
   imports: [
@@ -21,7 +24,9 @@ import { HttpService } from '../shared/http-service/http.service';
     AccountsRoutingModule,
     ChartsModule,
     DropdownModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DatepickerModule.forRoot(),
+    SelectModule,
   ],
   declarations: [ CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, IgualaFormComponent, DesignsListComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
