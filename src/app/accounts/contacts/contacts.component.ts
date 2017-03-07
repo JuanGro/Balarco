@@ -60,8 +60,6 @@ export class ContactsComponent implements OnInit {
   * Loads all the contacts from the get method in httpService.
   * Params:
   *   - url: The url where the service will comunicate to get the Contact object.
-  * Returns:
-  *   - contactsList: Contacts list with all the contacts.
   **/
   public loadContactsList(url: string) {
     this.httpService.getObject(url)
@@ -78,8 +76,6 @@ export class ContactsComponent implements OnInit {
   * Loads all the clients from the get method in httpService to use it the client attribute of the current component.
   * Params:
   *   - url: The url where the service will comunicate to get the Client object.
-  * Returns:
-  *   - clientsList: Clients list with all the clients.
   **/
   public loadClientsList(url: string) {
     this.httpService.getObject(url)
@@ -118,11 +114,9 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Knows which contact was selected by the user.
+  * Saves which contact was selected by the user.
   * Params:
   *   - object: A Contact object.
-  * Returns:
-  *   - contact: The Contact object selected by the user.
   **/
   public getContactFromTable(object: Contact): void {
     this.contact = object;
