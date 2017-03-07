@@ -11,7 +11,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ContactsListTableComponent } from './contacts/contacts-list-table.component';
 import { ContactFormComponent } from './contacts/contact-form.component';
 import { ClientComponent } from './clients/clients.component';
-import { ClientListComponent } from './clients/clients-list.component';
+import { ClientsListComponent } from './clients/clients-list.component';
 import { ClientFormComponent } from './clients/client-form.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
@@ -29,7 +29,7 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ ClientComponent, ClientListComponent, ClientFormComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
+  declarations: [ ClientComponent, ClientsListComponent, ClientFormComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
   ContactsListTableComponent, ContactFormComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })
