@@ -15,7 +15,7 @@ import { Client } from './client';
 **/
 export class ClientListTableComponent {
   // Receives the clients list from parent component.
-  @Input('clientList') clientList: Client;
+  @Input('clientList') clientList: Client[];
   // Sends the request to show the new client modal in parent component
   @Output() requestShowNewClientModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update client modal in parent component
