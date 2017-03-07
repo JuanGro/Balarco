@@ -154,7 +154,7 @@
                     El teléfono es requerido.
                 </div>
                 <div [hidden]="!mobile_phone_1.errors.minlength">
-                    El teléfono debe ser mayor a 10 caracteres.
+                    El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_1.errors.maxlength">
                     El teléfono debe ser menor a 24 caracteres.
@@ -173,7 +173,7 @@
             <!-- Feedback mobile phone 2 -->
             <div *ngIf="mobile_phone_2.errors && mobile_phone_2.touched" class="alert alert-danger">
                 <div [hidden]="!mobile_phone_2.errors.minlength">
-                    El teléfono debe ser mayor a 10 caracteres.
+                    El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_2.errors.maxlength">
                     El teléfono debe ser menor a 24 caracteres.
