@@ -7,7 +7,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 
 import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
-import { IgualasListComponent } from './igualas-list.component';
+import { IgualasListComponent } from './igualas/igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { AccountsRoutingModule } from './accounts-routing.module';

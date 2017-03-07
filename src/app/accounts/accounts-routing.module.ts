@@ -4,7 +4,7 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
-import { IgualasListComponent } from './igualas-list.component';
+import { IgualasListComponent } from './igualas/igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
 
 const routes: Routes = [

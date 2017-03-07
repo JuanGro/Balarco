@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { CompaniesListComponent } from './companies-list.component';
 import { ClientsListComponent } from './clients-list.component';
-import { IgualasListComponent } from './igualas-list.component';
+import { IgualasListComponent } from './igualas/igualas-list.component';
 import { DesignsListComponent } from './designs-list.component';
 var routes = [
     {
