@@ -115,12 +115,12 @@ export class HttpService extends Http {
   * redirected to the Login page.
   **/
   private onCatch() {
-    return (res: Response) => {
+    return (response: Response) => {
       // Security errors
-      if (res.status === 401 || res.status === 403) {
+      if (response.status === 401 || response.status === 403) {
         // TODO: Redirect to login to ask credentials
       }
-      return Observable.throw(res);
+      return Observable.throw(response);
     };
   }
 

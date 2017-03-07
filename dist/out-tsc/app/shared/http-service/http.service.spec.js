@@ -1,7 +1,6 @@
 import { TestBed, inject, async } from '@angular/core/testing';
-import { HttpModule, XHRBackend, Response } from '@angular/http';
+import { HttpModule, XHRBackend, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { ResponseOptions } from '@angular/http';
 import { HttpService } from './http.service';
 describe('HttpService', function () {
     var setUpResponseBody = function (backend, body, status) {
