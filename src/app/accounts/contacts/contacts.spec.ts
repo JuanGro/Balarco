@@ -1,19 +1,19 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, NgModule } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 
 // Modals
-import  * as ng2Bootstrap from 'ng2-bootstrap';
+import * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormGroup, FormControl, FormBuilder, Validators, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
 // Services
-import { HttpModule, XHRBackend, Response, BrowserXhr, ResponseOptions, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 
@@ -21,10 +21,12 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { ContactsComponent } from './contacts.component';
 import { ContactsListTableComponent } from './contacts-list-table.component';
 import { ContactFormComponent } from './contact-form.component';
-import { Contact } from './contact';
 
-describe('ContactsComponent (inline template)', () => {
+// Models
+import { Contact } from './contact-model';
+import { Client } from './../companies-list/client';
 
+describe('ContactsComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
@@ -39,17 +41,35 @@ describe('ContactsComponent (inline template)', () => {
     // Save ContactsListTableComponent to test it's methods and variables.
     let componentTable: ContactsListTableComponent;
 
-    // let httpServiceStub;
     // Handles on the component's DOM element.
     let de: DebugElement;
     let el: HTMLElement;
 
-    // Create a Contact object example
-    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2, 
-                                charge: 'Estudent', landline: '2211111', extension: '22', 
-                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322', 
-                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com', 
+    // Create a Contact object example.
+    let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
+                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
+                                is_active: true };
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
+                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
+                                is_active: true },
+                                { id: 3, name: 'José', last_name: 'Perez', client: 3,
+                                charge: 'Estudent', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
                                 is_active: true }
+                                ];
+
+    let testListClients: Client[] = [
+                                { id: 1, name: 'Starbucks', address: 'Example' },
+                                { id: 2, name: 'General Electric', address: 'Example' }
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -59,13 +79,13 @@ describe('ContactsComponent (inline template)', () => {
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [ 
+            providers: [
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
                   },
                   deps: [MockBackend, BaseRequestOptions]
-                }, 
+                },
                 MockBackend, BaseRequestOptions
             ]
         });
@@ -89,59 +109,119 @@ describe('ContactsComponent (inline template)', () => {
         el = de.nativeElement;
     }));
 
-    /**
-    * Tests that the component is correctly built.
-    **/
-    it('should have a defined component', () => {
-        component.ngOnInit();
-        expect(component).toBeDefined();
+    describe('Components defined for the parent contacts component', () => {
+        /**
+        * Tests that the current component is correctly built.
+        **/
+        it('should have a defined current component', () => {
+            component.ngOnInit();
+            expect(component).toBeDefined();
+        });
+
+        /**
+        * Tests that the child form component is correctly built.
+        **/
+        it('should have a defined child form component', () => {
+            componentForm.ngOnChanges();
+            expect(componentForm).toBeDefined();
+        });
+
+        /**
+        * Tests that the child table component is correctly built.
+        **/
+        it('should have a defined child table component', () => {
+            expect(componentTable).toBeDefined();
+        });
     });
 
-    /**
-    * Tests that the title is empty before the use of the title variable.
-    **/
-    it('no title in the DOM until manually call `detectChanges`', () => {
-        expect(el.textContent).toEqual('');
+    describe('Initialization of variable for parent contacts component', () => {
+        /**
+        * Tests that the page title is correct.
+        **/
+        it('should show the new contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.title).toContain('Lista de contactos');
+        });
+
+        /**
+        * Tests that the new contact modal has correct attributes.
+        **/
+        it('should show the new contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleNewModal).toContain('Nuevo Contacto');
+        });
+
+        /**
+        * Tests that the update contact modal has correct attributes.
+        **/
+        it('should show the update contact modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleUpdateModal).toContain('Modificar Contacto');
+        });
+
+        /**
+        * Tests that the danger modal has correct attributes.
+        **/
+        it('should show the danger modal with correct attributes', () => {
+            fixtureParent.detectChanges();
+            expect(component.titleDangerModal).toContain('Eliminar contacto');
+            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este contacto?');
+        });
     });
 
-    /**
-    * Tests that the component have the correct title when everything is loaded.
-    **/
-    it('should display original page title', () => {
-        fixtureParent.detectChanges();
-        expect(el.textContent).toContain(component.title);
-        expect(el.textContent).not.toBe(null);
+    describe('Load of the variables to the template for parent contacts component', () => {
+        /**
+        * Tests that the title is empty before the use of the title variable.
+        **/
+        it('no title in the DOM until manually call `detectChanges`', () => {
+            expect(el.textContent).toEqual('');
+        });
+
+        /**
+        * Tests that the component have the correct title when everything is loaded.
+        **/
+        it('should display original page title', () => {
+            fixtureParent.detectChanges();
+            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).not.toBe(null);
+        });
     });
 
-    /**
-    * Tests that the component doesn't obtain an error or empty contacts list.
-    **/
-    it('should load the contacts list', () => {
-        component.loadClientsList('clients/contacts/');
-        expect(component.contactsList).not.toBeNull();
+    describe('Load of example data to simulate that Input variables are correctly assigned for parent contacts component', () => {
+        /**
+        * Tests that the component doesn't obtain an error or empty contacts list.
+        **/
+        it('should load correctly contacts list in contactsList Input', () => {
+            component.contactsList = testListContacts;
+            fixtureParent.detectChanges();
+            expect(component.contactsList).toEqual(testListContacts);
+        });
+
+        /**
+        * Tests that the component doesn't obtain an error or empty clients list.
+        **/
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
+        });
     });
 
-    /**
-    * Tests that the component doesn't obtain an error or empty clients list.
-    **/
-    it('should load the clients list', () => {
-        component.loadContactsList('clients/clients/');
-        expect(component.clientsList).not.toBeNull();
-    });
+    describe('Use of methods for parent contacts component', () => {
+        /**
+        * Tests that the initialize modal method is working correctly, setting the contact to null.
+        **/
+        it('should initialize the modal', () => {
+            component.initializeModal();
+            expect(component.contact).toBeNull();
+        });
 
-    /**
-    * Tests that the initialize modal method is working correctly, setting the contact to null.
-    **/
-    it('should initialize the modal', () => {
-        component.initializeModal();
-        expect(component.contact).toBeNull();
-    });
-
-    /**
-    * Tests that the getContactFromTable method doesn't returns a Contact object empty.
-    **/
-    it('should return a not empty Contact object', () => {
-        component.getContactFromTable(testContact);
-        expect(component.contact).not.toBeNull();
+        /**
+        * Tests that the getContactFromTable method doesn't returns a Contact object empty.
+        **/
+        it('should return a not empty Contact object', () => {
+            component.getContactFromTable(testContact);
+            expect(component.contact).toEqual(testContact);
+        });
     });
 });

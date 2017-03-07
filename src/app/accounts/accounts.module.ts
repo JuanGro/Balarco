@@ -16,9 +16,6 @@ import { ClientFormComponent } from './clients/client-form.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
 
-// Pipes
-import { ClientNameByContactId } from './contacts/client-name.pipe';
-
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';

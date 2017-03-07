@@ -1,8 +1,8 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-// Class
-import { Contact } from './contact';
+// Models
+import { Contact } from './contact-model';
 import { Client } from './../companies-list/client';
 
 // Services
@@ -30,8 +30,12 @@ export class ContactFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Variable to check if the submitForm method finish correctly.
+  public success: boolean = false;
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
 
-  // Initialization of the control form
+  // Initialization of control form.
   public contactsModalForm: FormGroup;
 
   public constructor(public fb: FormBuilder, private httpService: HttpService) { }
@@ -42,6 +46,7 @@ export class ContactFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update contact form is called.
   **/
   public ngOnChanges() {
+    // Regular expression to valid an email.
     let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
                           {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
     if (this.contact) {
@@ -93,10 +98,11 @@ export class ContactFormComponent implements OnChanges {
       } else {
         // Create contact
         this.submitNewContact(object);
-        console.log(object);
       }
+      this.success = true;
     } else {
       console.log('Error sending the contact from internal methods');
+      this.success = false;
     }
   }
 
@@ -109,7 +115,6 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
-        // console.log(result);
     });
   }
 
@@ -122,7 +127,6 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
-        // console.log(result);
     });
   }
 
@@ -130,14 +134,16 @@ export class ContactFormComponent implements OnChanges {
   * Requests to parent component to show the confirmation to remove the contact selected.
   **/
   public requestWarningModal() {
-    this.requestWarning.emit();
+    this.modalAction = 'Show warning modal';
+    this.requestWarning.emit(this.modalAction);
   }
 
   /**
   * Requests to parent component to close the current modal.
   **/
   public requestCloseThisModal() {
-    this.requestCloseModal.emit();
+    this.modalAction = 'Close modal';
+    this.requestCloseModal.emit(this.modalAction);
   }
 
   /**
