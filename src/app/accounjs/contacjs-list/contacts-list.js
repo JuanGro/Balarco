@@ -1,1 +1,0 @@
-"use strict";var ContactsList=function(){function t(){}return t}();exports.ContactsList=ContactsList;

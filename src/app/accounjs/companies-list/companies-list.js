@@ -1,1 +1,0 @@
-"use strict";var CompaniesList=function(){function i(){}return i}();exports.CompaniesList=CompaniesList;
