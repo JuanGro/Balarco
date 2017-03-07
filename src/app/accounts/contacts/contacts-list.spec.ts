@@ -39,7 +39,7 @@ describe('ContactsListComponent  tests.', () => {
     // Save ContactsFormComponent to test it's methods and variables.
     let componentForm: ContactFormComponent;
     // Save ContactsListComponent  to test it's methods and variables.
-    let component: ContactsListComponent ;
+    let component: ContactsListComponent;
 
     // let httpServiceStub;
     // Handles on the component's DOM element.
@@ -98,7 +98,7 @@ describe('ContactsListComponent  tests.', () => {
         fixtureParent = TestBed.createComponent(ContactsComponent);
         // Create an instance of the ContactsFormComponent.
         fixtureChildForm = TestBed.createComponent(ContactFormComponent);
-        // Create an instance of the ContactsListComponent .
+        // Create an instance of the ContactsListComponent.
         fixtureChildTable = TestBed.createComponent(ContactsListComponent);
 
         // ContactsComponent test instance.
@@ -154,7 +154,7 @@ describe('ContactsListComponent  tests.', () => {
         /**
         * Get the current component to use it in observables.
         **/
-        beforeEach(inject([ContactsListComponent ], result => {
+        beforeEach(inject([ ContactsListComponent ], result => {
             modalAction = result;
         }));
 
@@ -183,7 +183,7 @@ describe('ContactsListComponent  tests.', () => {
         /**
         * Get the current component to use it in observables.
         **/
-        beforeEach(inject([ContactsListComponent ], result => {
+        beforeEach(inject([ ContactsListComponent ], result => {
             modalAction = result;
         }));
 
