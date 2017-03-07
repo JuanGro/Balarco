@@ -12,6 +12,39 @@
           <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" required>
         </div>
       </div>
+
+      <div class="col-md-6">
+        <!-- Client field -->
+        <label for="iguala-client" class="form-control-label">Compañía:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+          <select id="client" name="client" class="form-control" size="1" required>
+              <option value="">ClientName</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Second row -->
+    <div class="form-group row">
+      <div class="col-md-6">
+        <!-- StartDate Field -->
+        <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>
+          <input type="text" id="iguala-start-date" placeholder="01/01/2017" class="form-control" minlength="10" maxlength="10" name="name" required>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- EndDate Field -->
+        <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-calendar-minus-o"></i></span>
+          <input type="text" id="iguala-end-date" placeholder="01/01/2018" class="form-control" minlength="10" maxlength="10" name="name" required>
+        </div>
+      </div>
     </div>
 
     <!-- Buttons -->
