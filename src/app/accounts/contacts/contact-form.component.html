@@ -20,10 +20,10 @@
                     El nombre es obligatorio.
                 </div>
                 <div [hidden]="!name.errors.minlength">
-                    El nombre debe ser mayor a 3 caracteres.
+                    El nombre debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!name.errors.maxlength">
-                    El nombre debe ser menor a 24 caracteres.
+                    El nombre debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -42,10 +42,10 @@
                     El apellido es obligatorio.
                 </div>
                 <div [hidden]="!last_name.errors.minlength">
-                    El apellido debe ser mayor a 3 caracteres.
+                    El apellido debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!last_name.errors.maxlength">
-                    El apellido debe ser menor a 24 caracteres.
+                    El apellido debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -85,10 +85,10 @@
                     El puesto o departamento es obligatorio.
                 </div>
                 <div [hidden]="!charge.errors.minlength">
-                    El puesto o departamento debe ser mayor a 3 caracteres.
+                    El puesto o departamento debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!charge.errors.maxlength">
-                    El puesto o departamento debe ser menor a 24 caracteres.
+                    El puesto o departamento debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -110,10 +110,10 @@
                     El teléfono es requerido.
                 </div>
                 <div [hidden]="!landline.errors.minlength">
-                    El teléfono debe ser mayor a 7 caracteres.
+                    El teléfono debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!landline.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
                     La extensión es requerida.
                 </div>
                 <div [hidden]="!extension.errors.maxlength">
-                    La extensión debe ser menor a 24 caracteres.
+                    La extensión debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                     El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_1.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -176,7 +176,7 @@
                     El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_2.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -201,10 +201,10 @@
                     El correo electrónico no es válido.
                 </div>
                 <div [hidden]="!email.errors.minlength">
-                    El correo electrónico debe ser mayor a 7 caracteres.
+                    El correo electrónico debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!email.errors.maxlength">
-                    El correo electrónico debe ser menor a 24 caracteres.
+                    El correo electrónico debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -223,10 +223,10 @@
                     El correo electrónico no es válido.
                 </div>
                 <div [hidden]="!alternate_email.errors.minlength">
-                    El correo electrónico debe ser mayor a 7 caracteres.
+                    El correo electrónico debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!alternate_email.errors.maxlength">
-                    El correo electrónico debe ser menor a 24 caracteres.
+                    El correo electrónico debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
