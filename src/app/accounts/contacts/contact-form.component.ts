@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 // Models
 import { Contact } from './contact-model';
@@ -30,56 +30,31 @@ export class ContactFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Event for parent to push the new Contact to the list.
+  @Output() contactCreated: EventEmitter<Contact> = new EventEmitter();
+  // Event for parent to update the currentContact.
+  @Output() contactUpdated: EventEmitter<Contact> = new EventEmitter();
   // Variable to check if the submitForm method finish correctly.
   public success: boolean = false;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-
   // Initialization of control form.
   public contactsModalForm: FormGroup;
+  // Angular can't recognize the selected value for dropdown in ngModel so we make it manual.
+  public clientSelected: number;
 
-  public constructor(public fb: FormBuilder, private httpService: HttpService) { }
+  public constructor(private httpService: HttpService) { }
 
   /**
   * Builds the component for first time each time when it's called.
-  *   - It uses a regular expression to know if the email is valid.
   *   - Initialize the form depending if the new or update contact form is called.
+  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    // Regular expression to valid an email.
-    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
-                          {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-    if (this.contact) {
-      // Update Contact
-      this.contactsModalForm = this.fb.group({
-        name: [this.contact.name, [<any>Validators.required, <any>Validators.minLength(2)]],
-        last_name: [this.contact.last_name, [<any>Validators.required, <any>Validators.minLength(4)]],
-        client: [this.contact.client, [<any>Validators.required]],
-        charge: [this.contact.charge, [<any>Validators.required, <any>Validators.minLength(3)]],
-        landline: [this.contact.landline, [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: [this.contact.extension],
-        mobile_phone_1: [this.contact.mobile_phone_1, [<any>Validators.required, <any>Validators.minLength(6)]],
-        mobile_phone_2: [this.contact.mobile_phone_2],
-        email: [this.contact.email, [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
-        alternate_email: [this.contact.alternate_email, [<any>Validators.pattern(emailRegex)]],
-        is_active: [this.contact.is_active, [<any>Validators.required]]
-      });
-
+    if (!this.contact) {
+      this.initializeContact();
     } else {
-      // New Contact
-      this.contactsModalForm = this.fb.group({
-        name: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
-        last_name: ['', [<any>Validators.required, <any>Validators.minLength(4)]],
-        client: ['', [<any>Validators.required]],
-        charge: ['', [<any>Validators.required, <any>Validators.minLength(3)]],
-        landline: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
-        extension: [''],
-        mobile_phone_1: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
-        mobile_phone_2: [''],
-        email: ['', [<any>Validators.required, <any>Validators.pattern(emailRegex)]],
-        alternate_email: ['', [<any>Validators.pattern(emailRegex)]],
-        is_active: [true, [<any>Validators.required]]
-      });
+      this.clientSelected = this.contact.client;
     }
   }
 
@@ -89,21 +64,18 @@ export class ContactFormComponent implements OnChanges {
   *   - object: Contact object received from modal.
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
-  public submitContactForm(object: Contact, isValid: boolean) {
-    // console.log(object);
-    if (isValid === true) {
-      if (this.contact) {
+  public submitContactForm(object: Contact) {
+    console.log(object);
+      if (this.contact.id) {
+        console.log('updated');
         // Update contact
         this.submitUpdatedContact(object, this.contact.id);
       } else {
+        console.log('New');
         // Create contact
         this.submitNewContact(object);
       }
       this.success = true;
-    } else {
-      console.log('Error sending the contact from internal methods');
-      this.success = false;
-    }
   }
 
   /**
@@ -115,6 +87,10 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
+        if (result.ok) {
+          let updatedContact = new Contact(result.text());
+          this.contactUpdated.emit(updatedContact);
+        }
     });
   }
 
@@ -127,6 +103,10 @@ export class ContactFormComponent implements OnChanges {
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
+        if (result.ok) {
+          let newContact = new Contact(result.text());
+          this.contactCreated.emit(newContact);
+        }
     });
   }
 
@@ -150,6 +130,17 @@ export class ContactFormComponent implements OnChanges {
   * Clears all the values in the form fields.
   **/
   public resetForm() {
-    this.contactsModalForm.reset();
+    // this.contactsModalForm.reset();
+    this.initializeContact();
+  }
+
+  /**
+  * Clears the Contact object.
+  **/
+  public initializeContact() {
+    this.contact = {
+        name: '', last_name: '', client: null, charge: '', landline: '',
+        extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
+    };
   }
 }

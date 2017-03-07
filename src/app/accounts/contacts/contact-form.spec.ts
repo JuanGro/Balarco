@@ -8,7 +8,7 @@ import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormBuilder, FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormsModule }  from '@angular/forms';
 
 // Services
 import { BaseRequestOptions } from '@angular/http';
@@ -60,7 +60,7 @@ describe('ContactFormComponent tests.', () => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
             declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
             providers: [ ContactFormComponent,
                 {
@@ -123,24 +123,6 @@ describe('ContactFormComponent tests.', () => {
             component.clientsList = testListClients;
             fixtureParent.detectChanges();
             expect(component.clientsList).toEqual(testListClients);
-        });
-    });
-
-    describe('Use and handle of forms for child contacts form component', () => {
-        /**
-        * Tests that the form is correctly built with FormBuilder.
-        **/
-        it('should create a FormBuilder comprised of FormControls', () => {
-            component.ngOnChanges();
-            expect(component.fb instanceof FormBuilder).toBe(true);
-        });
-
-        /**
-        * Tests that the contact is correctly managed by submitContactForm method.
-        **/
-        it('should send current Contact in the form to submit method', () => {
-            component.submitContactForm(testContact, true);
-            expect(component.success).toBeTruthy();
         });
     });
 

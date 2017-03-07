@@ -108,6 +108,12 @@ export class ContactsComponent implements OnInit {
   **/
   public removeContact(object: Contact) {
     this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.contactsList.indexOf(object);
+        if (index >= 0) {
+          this.contactsList.splice(index, 1);
+        }
+      }
     });
   }
 
@@ -120,5 +126,29 @@ export class ContactsComponent implements OnInit {
   **/
   public getContactFromTable(object: Contact): void {
     this.contact = object;
+  }
+
+  /**
+  * Recieves event when a new contact is created in the form.
+  * It pushes the new contact to the list.
+  * Params:
+  *   - event: New contact received from the event.
+  **/
+  public onContactCreated(event: Contact) {
+    this.contactsList.push(event);
+  }
+
+  /**
+  * Recieves event when a contact is updated in the form.
+  * It updates the contact selected.
+  * Params:
+  *   - event: Contact updated received from the event.
+  **/
+  public onContactUpdated(event: Contact) {
+    let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
+    let index = this.contactsList.indexOf(oldContact);
+    if (index >= 0) {
+      this.contactsList[index] = event;
+    }
   }
 }

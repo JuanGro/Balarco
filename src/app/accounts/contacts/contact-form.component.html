@@ -1,9 +1,8 @@
 <div class="modal-body">
     <!-- Start form -->
-    <!-- [formGroup] calls the form methods to the component -->
-    <!-- (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)" executes the submitContactForm method sending the 
-    values of each field and if the complete group is valid -->
-    <form [formGroup]="contactsModalForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value, contactsModalForm.valid)">
+    <!-- #contactsModalForm="ngForm" calls the form methods to the component -->
+    <!-- (ngSubmit)="submitContactForm(contactsModalForm.value)" executes the submitContactForm method sending the values of each field -->
+    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)">
     
     <!-- First row -->
     <div class="form-group row">
@@ -13,10 +12,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" placeholder="Pablo" class="form-control" id="recipient-name" formControlName="name" required>
+                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" required>
             </div>
             <!-- Feedback name -->
-            <div [hidden]="contactsModalForm.controls.name.valid || (contactsModalForm.controls.name.pristine && !submitted)" class="alert alert-danger">Ingrese un nombre válido</div>
+            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div [hidden]="!name.errors.required">
+                    El nombre es obligatorio.
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                    El nombre debe ser mayor a 3 caracteres.
+                </div>
+                <div [hidden]="!name.errors.maxlength">
+                    El nombre debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -25,10 +34,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" placeholder="Hernández" class="form-control" id="recipient-last_name" formControlName="last_name" required>
+                <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" required>
             </div>
             <!-- Feedback lastname -->
-            <div [hidden]="contactsModalForm.controls.last_name.valid || (contactsModalForm.controls.last_name.pristine && !submitted)" class="alert alert-danger">Ingrese un apellido válido</div>
+            <div *ngIf="last_name.errors && last_name.touched" class="alert alert-danger">
+                <div [hidden]="!last_name.errors.required">
+                    El apellido es obligatorio.
+                </div>
+                <div [hidden]="!last_name.errors.minlength">
+                    El apellido debe ser mayor a 3 caracteres.
+                </div>
+                <div [hidden]="!last_name.errors.maxlength">
+                    El apellido debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -40,12 +59,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="select" name="select" class="form-control" formControlName="client" size="1">
+                <select id="client" name="client" class="form-control" [(ngModel)]="clientSelected" #client="ngModel" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
             <!-- Feedback client -->
-            <div [hidden]="contactsModalForm.controls.client.valid || (contactsModalForm.controls.client.pristine && !submitted)" class="alert alert-danger">Ingrese una compañia válida</div>
+            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+                <div [hidden]="!client.errors.required">
+                    La compañía es obligatoria.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -54,10 +77,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" formControlName="charge" required>
+                <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" required>
             </div>
             <!-- Feedback charge -->
-            <div [hidden]="contactsModalForm.controls.charge.valid || (contactsModalForm.controls.charge.pristine && !submitted)" class="alert alert-danger">Ingrese un departamento o puesto válido</div>
+            <div *ngIf="charge.errors && charge.touched" class="alert alert-danger">
+                <div [hidden]="!charge.errors.required">
+                    El puesto o departamento es obligatorio.
+                </div>
+                <div [hidden]="!charge.errors.minlength">
+                    El puesto o departamento debe ser mayor a 3 caracteres.
+                </div>
+                <div [hidden]="!charge.errors.maxlength">
+                    El puesto o departamento debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
     </div>
     
@@ -69,10 +102,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" formControlName="landline" required>
+                <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" required>
             </div>
             <!-- Feedback landline -->
-            <div [hidden]="contactsModalForm.controls.landline.valid || (contactsModalForm.controls.landline.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono fijo válido</div>
+            <div *ngIf="landline.errors && landline.touched" class="alert alert-danger">
+                <div [hidden]="!landline.errors.required">
+                    El teléfono es requerido.
+                </div>
+                <div [hidden]="!landline.errors.minlength">
+                    El teléfono debe ser mayor a 7 caracteres.
+                </div>
+                <div [hidden]="!landline.errors.maxlength">
+                    El teléfono debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -81,10 +124,17 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                <input type="text" placeholder="33" class="form-control" id="recipient-extension" formControlName="extension">
+                <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel">
             </div>
             <!-- Feedback extension -->
-            <!-- <div [hidden]="contactsModalForm.controls.extension.valid || (contactsModalForm.controls.extension.pristine && !submitted)" class="alert alert-danger">Ingrese una extensión válida</div> -->
+            <div *ngIf="extension.errors && extension.touched" class="alert alert-danger">
+                <div [hidden]="!extension.errors.minlength">
+                    La extensión es requerida.
+                </div>
+                <div [hidden]="!extension.errors.maxlength">
+                    La extensión debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
     </div>
     
@@ -96,10 +146,20 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" formControlName="mobile_phone_1" required>
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" required>
             </div>
             <!-- Feedback mobile phone 1 -->
-            <div [hidden]="contactsModalForm.controls.mobile_phone_1.valid || (contactsModalForm.controls.mobile_phone_1.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+            <div *ngIf="mobile_phone_1.errors && mobile_phone_1.touched" class="alert alert-danger">
+                <div [hidden]="!mobile_phone_1.errors.required">
+                    El teléfono es requerido.
+                </div>
+                <div [hidden]="!mobile_phone_1.errors.minlength">
+                    El teléfono debe ser mayor a 10 caracteres.
+                </div>
+                <div [hidden]="!mobile_phone_1.errors.maxlength">
+                    El teléfono debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -108,10 +168,17 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" formControlName="mobile_phone_2">
+                <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel">
             </div>
             <!-- Feedback mobile phone 2 -->
-            <div [hidden]="contactsModalForm.controls.mobile_phone_2.valid || (contactsModalForm.controls.mobile_phone_2.pristine && !submitted)" class="alert alert-danger">Ingrese un teléfono válido</div>
+            <div *ngIf="mobile_phone_2.errors && mobile_phone_2.touched" class="alert alert-danger">
+                <div [hidden]="!mobile_phone_2.errors.minlength">
+                    El teléfono debe ser mayor a 10 caracteres.
+                </div>
+                <div [hidden]="!mobile_phone_2.errors.maxlength">
+                    El teléfono debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -123,10 +190,23 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
-                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" formControlName="email" required>
+                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" minlength="7" maxlength="24" name="email" [(ngModel)]="contact.email" #email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required>
             </div>
             <!-- Feedback email -->
-            <div [hidden]="contactsModalForm.controls.email.valid || (contactsModalForm.controls.email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+            <div *ngIf="email.errors && email.touched" class="alert alert-danger">
+                <div [hidden]="!email.errors.required">
+                    El correo electrónico es requerido.
+                </div>
+                <div [hidden]="!email.errors.pattern">
+                    El correo electrónico no es válido.
+                </div>
+                <div [hidden]="!email.errors.minlength">
+                    El correo electrónico debe ser mayor a 7 caracteres.
+                </div>
+                <div [hidden]="!email.errors.maxlength">
+                    El correo electrónico debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
         
         <div class="col-md-6">
@@ -135,26 +215,36 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
-                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" formControlName="alternate_email">
+                <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" minlength="7" maxlength="24" name="alternate_email" [(ngModel)]="contact.alternate_email" #alternate_email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
             </div>
             <!-- Feedback alternate email -->
-            <div [hidden]="contactsModalForm.controls.alternate_email.valid || (contactsModalForm.controls.alternate_email.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
+            <div *ngIf="alternate_email.errors && alternate_email.touched" class="alert alert-danger">
+                <div [hidden]="!alternate_email.errors.pattern">
+                    El correo electrónico no es válido.
+                </div>
+                <div [hidden]="!alternate_email.errors.minlength">
+                    El correo electrónico debe ser mayor a 7 caracteres.
+                </div>
+                <div [hidden]="!alternate_email.errors.maxlength">
+                    El correo electrónico debe ser menor a 24 caracteres.
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Buttons -->
     <div class="modal-footer">
         <!-- Clear form -->
-        <!-- Calls the resetForm method, it's only displayed if the contact is empty because it's used only for Create new contact modal -->
-        <button *ngIf="!contact" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+        <!-- Calls the resetForm method, it's only displayed if the contact.id is empty because it's not used for create a new contact modal -->
+        <button *ngIf="!contact.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <!-- Delete contact -->
-        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact exists because it's used only for update contact modal -->
-        <button *ngIf="contact" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact.id exists because it's used only for update contact modal -->
+        <button *ngIf="contact.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hides modal -->
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
         <!-- Submits updated or new contact -->
         <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
-        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
 
     </form>
