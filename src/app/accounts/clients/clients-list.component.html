@@ -34,7 +34,7 @@
                             <!-- Select client to update -->
                             <!-- Calls the requestUpdateClientModal method, it requests the update client modal -->
                             <!-- Sends the user selected by the user to the function sendCurrentClient -->
-                            <tr data-toggle="modal" *ngFor="let client of clientList" (click)="requestUpdateClientModal($event)" (click)="sendCurrentClient(client)">
+                            <tr data-toggle="modal" *ngFor="let client of clientsList" (click)="requestUpdateClientModal($event)" (click)="sendCurrentClient(client)">
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.name }}</td>
                                 <td>{{ client.address }}</td>

@@ -9,7 +9,7 @@
                 <!-- Name field -->
                 <label for="recipient-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i>
+                    <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                     </span>
                     <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" required>
                 </div>
@@ -31,7 +31,7 @@
                 <!-- Name field -->
                 <label for="recipient-address" class="form-control-label">Dirección:</label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i>
+                    <span class="input-group-addon"><i class="fa fa-map-marker"></i>
                     </span>
                     <input type="text" placeholder="Starbucks" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
                 </div>
@@ -53,10 +53,10 @@
         <div class="modal-footer">
             <!-- Clear form -->
             <!-- Calls the resetForm method, it's only displayed if the client is empty because it's used only for Create new client modal -->
-            <button *ngIf="!client" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+            <button *ngIf="!client.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
             <!-- Delete client -->
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the client exists because it's used only for update client modal -->
-            <button *ngIf="client" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+            <button *ngIf="client.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
             <!-- Submits updated or new client -->

@@ -13,9 +13,9 @@ import { Client } from './client';
 * - Request open a modal depending of which option is selected.
 * - Send the client that is selected by the user.
 **/
-export class ClientListComponent {
+export class ClientsListComponent {
   // Receives the clients list from parent component.
-  @Input('clientList') clientList: Client[];
+  @Input('clientsList') clientsList: Client[];
   // Sends the request to show the new client modal in parent component
   @Output() requestShowNewClientModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update client modal in parent component

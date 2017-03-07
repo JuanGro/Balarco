@@ -21,7 +21,7 @@ export class ClientComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
   // Client list
-  public clientList: Client[]
+  public clientsList: Client[]
   // Current selected client to update or delete
   public client: Client
   // Title of new client modal.
@@ -60,7 +60,7 @@ export class ClientComponent implements OnInit {
   public loadClientsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( clientList => this.clientList = clientList,
+                    .subscribe( clientsList => this.clientsList = clientsList,
                                 err => {
                                   // console.log(err);
                                   // Call of toast
@@ -84,6 +84,12 @@ export class ClientComponent implements OnInit {
   **/
   public removeClient(object: Client) {
     this.httpService.deleteObject('clients/clients/' + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.clientsList.indexOf(object);
+        if (index >= 0) {
+          this.clientsList.splice(index, 1);
+        }
+      }
     });
   }
 
@@ -96,5 +102,29 @@ export class ClientComponent implements OnInit {
   **/
   public getClientFromTable(object: Client): void {
     this.client = object;
+  }
+
+  /**
+  * Recieves event when a new client is created in the form.
+  * It pushes the new client to the list.
+  * Params:
+  *   - event: New client received from the event.
+  **/
+  public onClientCreated(event: Client) {
+    this.clientsList.push(event);
+  }
+
+  /**
+  * Recieves event when a client is updated in the form.
+  * It updates the client selected.
+  * Params:
+  *   - event: Client updated received from the event.
+  **/
+  public onClientUpdated(event: Client) {
+    let oldClient = this.clientsList.filter(client => client.id === event.id)[0];
+    let index = this.clientsList.indexOf(oldClient);
+    if (index >= 0) {
+      this.clientsList[index] = event;
+    }
   }
 }

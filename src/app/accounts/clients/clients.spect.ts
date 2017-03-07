@@ -19,7 +19,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
 import { ClientComponent } from './clients.component';
-import { ClientListComponent } from './clients-list.component';
+import { ClientsListComponent } from './clients-list.component';
 import { ClientFormComponent } from './client-form.component';
 
 // Models
@@ -31,14 +31,14 @@ describe('ClientComponent tests.', () => {
     // Fixture for debugging and testing a ClientFormComponent.
     let fixtureChildForm: ComponentFixture<ClientFormComponent>;
     // Fixture for debugging and testing a ClientListTableComponent.
-    let fixtureChildTable: ComponentFixture<ClientListComponent>;
+    let fixtureChildTable: ComponentFixture<ClientsListComponent>;
 
     // Save ClientComponent to test it's methods and variables.
     let component: ClientComponent;
     // Save ClientFormComponent to test it's methods and variables.
     let componentForm: ClientFormComponent;
     // Save ClientListTableComponent to test it's methods and variables.
-    let componentTable: ClientListTableComponent;
+    let componentTable: ClientsListComponent;
 
     // Handles on the component's DOM element.
     let de: DebugElement;
@@ -58,7 +58,7 @@ describe('ClientComponent tests.', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ ClientComponent, ClientListTableComponent, ClientFormComponent ],
+            declarations: [ ClientComponent, ClientsListComponent, ClientFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
             providers: [
@@ -77,7 +77,7 @@ describe('ClientComponent tests.', () => {
         // Create an instance of the ClientFormComponent.
         fixtureChildForm = TestBed.createComponent(ClientFormComponent);
         // Create an instance of the ClientListTableComponent.
-        fixtureChildTable = TestBed.createComponent(ClientListTableComponent);
+        fixtureChildTable = TestBed.createComponent(ClientsListComponent);
 
         // ClientComponent test instance.
         component = fixtureParent.componentInstance;
@@ -174,9 +174,9 @@ describe('ClientComponent tests.', () => {
         * Tests that the component doesn't obtain an error or empty client list.
         **/
         it('should load correctly clients list in clientsList Input', () => {
-            component.clientList = testListClients;
+            component.clientsList = testListClients;
             fixtureParent.detectChanges();
-            expect(component.clientList).toEqual(testListClients);
+            expect(component.clientsList).toEqual(testListClients);
         });
     });
 

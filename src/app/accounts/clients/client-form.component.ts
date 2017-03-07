@@ -27,6 +27,10 @@ export class ClientFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the client is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Event for parent to push the new Contact to the list.
+  @Output() clientCreated: EventEmitter<Client> = new EventEmitter();
+  // Event for parent to update the currentContact.
+  @Output() clientUpdated: EventEmitter<Client> = new EventEmitter();
   // Variable to check if the submitForm method finish correctly.
   public success: boolean = false;
   // Initialization of the control form
@@ -69,7 +73,10 @@ export class ClientFormComponent implements OnChanges {
   **/
   public submitUpdatedClient(object: Client, id: number) {
     this.httpService.updateObject('clients/clients/' + id + '/', object).subscribe(result => {
-        console.log(result);
+        if (result.ok) {
+          let updatedClient = new Client(result.text());
+          this.clientUpdated.emit(updatedClient);
+        }
     });
   }
 
@@ -82,7 +89,10 @@ export class ClientFormComponent implements OnChanges {
   **/
   public submitNewClient(object: Client) {
     this.httpService.postObject('clients/clients/', object).subscribe(result => {
-        console.log(result);
+        if (result.ok) {
+          let newClient = new Client(result.text());
+          this.clientCreated.emit(newClient);
+        }
     });
   }
 

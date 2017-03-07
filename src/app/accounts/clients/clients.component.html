@@ -8,11 +8,11 @@
  </div>
 
 <!-- Child component, it contains the table -->
-<!-- [clientList] sends the clients list to the table -->
+<!-- [clientsList] sends the clients list to the table -->
 <!-- (requestShowNewClientModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateClientModal) receives the request to show the update modal -->
 <!-- (currentClient) receives the client who was selected by the user -->
-<clients-list [clientList]="clientList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)"></clients-list>
+<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)"></clients-list>
 
 <!-- Modal New Client -->
 <div bsModal #newClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewClientModal" aria-hidden="true">
@@ -28,7 +28,7 @@
             <!-- Child component, it contains the client form -->
             <!-- [client] sends the client empty to the form to avoid problems if the last client is currently saved -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <client-form [client]="client" (requestCloseModal)="newClientModal.hide()"></client-form>
+            <client-form [client]="client" (requestCloseModal)="newClientModal.hide()" (clientCreated)="onClientCreated($event)"></client-form>
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
             <!-- Child component, it contains the client form -->
             <!-- [client] sends the client object to the form to display the current values -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <client-form [client]="client" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateClientModal.hide()"></client-form>
+            <client-form [client]="client" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateClientModal.hide()" (clientUpdated)="onClientUpdated($event)"></client-form>
         </div>
     </div>
 </div>
