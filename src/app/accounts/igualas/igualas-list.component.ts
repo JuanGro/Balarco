@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 
 @Component({
+  selector: 'igualas-list-table',
   templateUrl: 'igualas-list.component.html'
 })
 export class IgualasListComponent {
