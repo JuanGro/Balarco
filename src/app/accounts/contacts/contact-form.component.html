@@ -241,7 +241,9 @@
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact.id exists because it's used only for update contact modal -->
         <button *ngIf="contact.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hides modal -->
-        <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
+        <!-- The cancel button of new contact modal resets the form -->
+        <button *ngIf="!contact.id" type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="resetForm()">Cancelar</button>
+        <button *ngIf="contact.id" type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
         <!-- Submits updated or new contact -->
         <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
         <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
