@@ -81,7 +81,7 @@ describe('ContactFormComponent tests.', () => {
         fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
 
         // ContactsComponent test instance.
-        componentParent = fixtureParent.componentInstance; // ContactsComponent test instance.
+        componentParent = fixtureParent.componentInstance;
         // ContactsFormComponent test instance.
         component = fixtureChildForm.componentInstance;
         // ContactsListTableComponent test instance.
@@ -117,7 +117,7 @@ describe('ContactFormComponent tests.', () => {
         });
 
         /**
-        * Tests that the Client object received from parent component is not empty.
+        * Tests that the clients object list received from parent component is not empty.
         **/
         it('should load correctly clients list in clientsList Input', () => {
             component.clientsList = testListClients;

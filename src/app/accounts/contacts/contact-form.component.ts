@@ -79,8 +79,6 @@ export class ContactFormComponent implements OnChanges {
   * Requests to the Backend service to update the contact selected by the user.
   * Params:
   *   - object: A Contact object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
@@ -95,8 +93,6 @@ export class ContactFormComponent implements OnChanges {
   * Requests to the Backend service to create the new contact.
   * Params:
   *   - object: A Contact object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
