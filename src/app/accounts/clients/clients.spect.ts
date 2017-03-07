@@ -19,7 +19,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
 import { ClientComponent } from './clients.component';
-import { ClientListTableComponent } from './clients-list-table.component';
+import { ClientListComponent } from './clients-list.component';
 import { ClientFormComponent } from './client-form.component';
 
 // Models
@@ -31,7 +31,7 @@ describe('ClientComponent tests.', () => {
     // Fixture for debugging and testing a ClientFormComponent.
     let fixtureChildForm: ComponentFixture<ClientFormComponent>;
     // Fixture for debugging and testing a ClientListTableComponent.
-    let fixtureChildTable: ComponentFixture<ClientListTableComponent>;
+    let fixtureChildTable: ComponentFixture<ClientListComponent>;
 
     // Save ClientComponent to test it's methods and variables.
     let component: ClientComponent;

@@ -4,8 +4,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Client } from './client';
 
 @Component({
-  selector: 'clients-list-table',
-  templateUrl: 'clients-list-table.component.html'
+  selector: 'clients-list',
+  templateUrl: 'clients-list.component.html'
 })
 /**
 * Component which manage the table which shows the list of clients:
@@ -13,7 +13,7 @@ import { Client } from './client';
 * - Request open a modal depending of which option is selected.
 * - Send the client that is selected by the user.
 **/
-export class ClientListTableComponent {
+export class ClientListComponent {
   // Receives the clients list from parent component.
   @Input('clientList') clientList: Client[];
   // Sends the request to show the new client modal in parent component
