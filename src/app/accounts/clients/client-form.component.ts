@@ -114,12 +114,11 @@ export class ClientFormComponent implements OnChanges {
   * Clears all the values in the form fields.
   **/
   public resetForm() {
-    // this.contactsModalForm.reset();
     this.initializeClient();
   }
 
   /**
-  * Clears the Contact object.
+  * Clears the Client object.
   **/
   public initializeClient() {
     this.client = {
