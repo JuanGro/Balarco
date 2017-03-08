@@ -1,8 +1,11 @@
-import { Component, OnInit }            from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+// Services
+import { HttpService } from '../shared/http-service/http.service';
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './full-layout.component.html'
+    templateUrl: './full-layout.component.html',
+    providers: [ HttpService ]
 })
 
 export class FullLayoutComponent implements OnInit {
@@ -20,7 +23,7 @@ export class FullLayoutComponent implements OnInit {
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
 
-    constructor() {
+    constructor(private httpService: HttpService) {
         this.designDirector = true;
         this.designer = true;
         this.accounts = true;
@@ -38,4 +41,11 @@ export class FullLayoutComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    /**
+    * Calls HttpService logout to delete token and returns user to url Login.
+    **/
+    public logout() {
+      this.httpService.logout();
+    }
 }
