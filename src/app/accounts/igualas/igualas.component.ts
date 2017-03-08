@@ -59,10 +59,22 @@ export class IgualasComponent implements OnInit {
   public loadIgualasList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe(igualasList => this.igualasList = igualasList,
+                    .subscribe(igualasListJSON => {
+                      // Creates Iguala objects from JSON.
+                      this.igualasList = [];
+                      for (let igualaJSON of igualasListJSON) {
+                        this.igualasList.push(new Iguala(igualaJSON));
+                      }
+                    },
                       err => {
 
                       });
 
+  }
+
+  public getIgualaFromTable(object: Iguala) {
+    this.iguala = object;
+    console.log('object received');
+    console.log(object);
   }
 }

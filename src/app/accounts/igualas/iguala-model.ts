@@ -7,8 +7,32 @@ export class Iguala {
   start_date: Date;
   end_date: Date;
   client: number;
-  is_active: boolean;
+  //is_active: boolean;
   // TODO: Add client attribute after merge with develop.
+
+  constructor(json?) {
+    this.id = json && json.id;
+    this.name = json && json.name;
+    this.client = json && json.client;
+    // Convert the start_date string to Date object.
+    let startDateString = json && json.start_date;
+    if (startDateString) {
+      let valuesStart = startDateString.split(' ');
+      let startYear = +valuesStart[0];
+      let startMonth = +valuesStart[1] - 1;
+      let startDay = +valuesStart[2];
+      this.start_date = new Date(startYear, startMonth, startDay);
+    }
+    // Convert the end_date string to Date object.
+    let endDateString = json && json.end_date;
+    if (endDateString) {
+      let valuesEnd = endDateString.split(' ');
+      let endYear = +valuesEnd[0];
+      let endMonth = +valuesEnd[1] - 1;
+      let endDay = +valuesEnd[2];
+      this.end_date = new Date(endYear, endMonth, endDay);
+    }   
+  }
 
   /**
   * Class method to generate a json with date fields in the specific form that
@@ -31,4 +55,5 @@ export class Iguala {
                                 this.end_date.getUTCDate();
     return newIgualaJSON;
   }
+
 }

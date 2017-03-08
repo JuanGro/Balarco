@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import { Iguala } from './iguala-model';
 import { HttpService } from './../../shared/http-service/http.service';
 var IgualasComponent = (function () {
     function IgualasComponent(httpService) {
@@ -25,8 +26,19 @@ var IgualasComponent = (function () {
         var _this = this;
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
-            .subscribe(function (igualasList) { return _this.igualasList = igualasList; }, function (err) {
+            .subscribe(function (igualasListJSON) {
+            _this.igualasList = [];
+            for (var _i = 0, igualasListJSON_1 = igualasListJSON; _i < igualasListJSON_1.length; _i++) {
+                var igualaJSON = igualasListJSON_1[_i];
+                _this.igualasList.push(new Iguala(igualaJSON));
+            }
+        }, function (err) {
         });
+    };
+    IgualasComponent.prototype.getIgualaFromTable = function (object) {
+        this.iguala = object;
+        console.log('object received');
+        console.log(object);
     };
     return IgualasComponent;
 }());
