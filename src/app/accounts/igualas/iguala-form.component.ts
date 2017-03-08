@@ -26,7 +26,7 @@ export class IgualaFormComponent implements OnChanges {
     console.log(this.iguala);
   }
 
-  public submitIgualaForm() {    
+  public submitIgualaForm() {
     this.submitNewIguala();
   }
 

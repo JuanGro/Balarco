@@ -1,6 +1,6 @@
 <div class="modal-body">
   <!-- Start form -->
-  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm(igualasModalForm.value)">
+  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm()">
 
     <!-- First row -->
     <div class="form-group row">
@@ -62,7 +62,7 @@
         <div class="card-block">
           <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
               <datepicker [(ngModel)]="iguala.end_date" [minDate]="iguala.start_date" name="end_date" required></datepicker>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
