@@ -29,7 +29,7 @@ export class IgualasComponent implements OnInit {
 
   public ngOnInit() {
     this.title = 'Lista de Igualas';
-    
+
     this.loadIgualasList('works/igualas/');
   }
 
@@ -45,5 +45,6 @@ export class IgualasComponent implements OnInit {
                       err => {
 
                       });
+
   }
 }

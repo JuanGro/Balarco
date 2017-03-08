@@ -20,12 +20,16 @@
                         <tr>
                         <th>#</th>
                         <th>Nombre</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="largeModal.show()">
+                        <tr data-toggle="modal" *ngFor="let iguala of igualasList">
                         <th scope="row">{{ iguala.id }}</th>
                         <td>{{ iguala.name }}</td>
+                        <td>{{ iguala.start_date }}</td>
+                        <td>{{ iguala.end_date }}</td>
                         </tr>
                     </tbody>
                     </table>

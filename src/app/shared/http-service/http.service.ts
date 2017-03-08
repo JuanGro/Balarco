@@ -103,7 +103,7 @@ export class HttpService extends Http {
     const headers = objectToSetHeadersTo.headers;
     headers.set('Content-Type', 'application/json');
     if (this.token) {
-      headers.set('Authentication', 'Token ' + this.token);
+      headers.set('Authorization', 'Token ' + this.token);
     }
   }
 
