@@ -30,29 +30,21 @@
     <div class="form-group row">
       <div class="col-md-6">
         <!-- StartDate Field -->
-        <div class="card">
-            <div class="card-header">
-                <strong>Datepicker</strong>
-                <small>A lightweight &amp; configurable datepicker component</small>
-            </div>
-            <div class="card-block">
-                <div style="display:inline-block; min-height:290px;">
-                    <datepicker></datepicker>
-                </div>
-                <hr />
-                <button type="button" class="btn btn-info" (click)="today()">Today</button>
-                <button type="button" class="btn btn-danger" (click)="clearDate()">Clear</button>
-                <button type="button" class="btn btn-outline-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
-            </div>
+        <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
+        <div class="card-block">
+          <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
+              <datepicker></datepicker>
+          </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <!-- EndDate Field -->
         <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-calendar-minus-o"></i></span>
-          <input type="text" id="iguala-end-date" placeholder="01/01/2018" class="form-control" minlength="10" maxlength="10" name="name" required>
+        <div class="card-block">
+          <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
+              <datepicker></datepicker>
+          </div>
         </div>
       </div>
     </div>
