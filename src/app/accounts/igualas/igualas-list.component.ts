@@ -17,5 +17,13 @@ export class IgualasListComponent {
   public modalAction: string = '';
 
   constructor() { }
-  
+
+  /**
+  * Requests to parent component to show the new iguala modal.
+  **/
+  public requestNewIgualaModal() {
+    this.modalAction = 'Open new Contact modal';
+    this.requestShowNewIgualaModal.emit(this.modalAction);
+  }
+
 }

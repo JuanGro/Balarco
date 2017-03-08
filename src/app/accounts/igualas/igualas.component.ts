@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 // Models
 import { Iguala } from './iguala-model';
@@ -24,6 +25,8 @@ export class IgualasComponent implements OnInit {
   public igualasList: Iguala[];
   // List of clients received from httpService.
   //TODO: public clientsList: Client[];
+  public iguala: Iguala;
+  public igualasModalForm: FormGroup;
 
   public constructor(public httpService: HttpService) { }
 

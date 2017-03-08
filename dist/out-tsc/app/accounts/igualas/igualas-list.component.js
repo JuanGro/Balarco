@@ -13,6 +13,10 @@ var IgualasListComponent = (function () {
         this.requestShowNewIgualaModal = new EventEmitter();
         this.modalAction = '';
     }
+    IgualasListComponent.prototype.requestNewIgualaModal = function () {
+        this.modalAction = 'Open new Contact modal';
+        this.requestShowNewIgualaModal.emit(this.modalAction);
+    };
     return IgualasListComponent;
 }());
 __decorate([

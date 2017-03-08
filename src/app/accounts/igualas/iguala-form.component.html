@@ -1,6 +1,6 @@
 <div class="modal-body">
   <!-- Start form -->
-  <form>
+  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm(igualasModalForm.value)">
 
     <!-- First row -->
     <div class="form-group row">
@@ -9,7 +9,7 @@
         <label for="iguala-name" class="form-control-label">Nombre:</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-user"></i></span>
-          <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" required>
+          <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="iguala.name" #name="ngModel" required>
         </div>
       </div>
 
@@ -18,8 +18,8 @@
         <label for="iguala-client" class="form-control-label">Compañía:</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-          <select id="client" name="client" class="form-control" size="1" required>
-              <option value="">ClientName</option>
+          <select id="client" name="client" class="form-control" size="1" [(ngModel)]="clientSelected" #client="ngModel" required>
+              <option value="1">1</option>
           </select>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
         <div class="card-block">
           <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-              <datepicker></datepicker>
+              <datepicker ></datepicker>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
         <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
         <div class="card-block">
           <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
-              <datepicker></datepicker>
+              <datepicker ></datepicker>
           </div>
         </div>
       </div>

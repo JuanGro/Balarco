@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
@@ -29,6 +30,7 @@ AccountsModule = __decorate([
     NgModule({
         imports: [
             CommonModule,
+            FormsModule,
             AccountsRoutingModule,
             ChartsModule,
             DropdownModule,
