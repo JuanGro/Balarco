@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -16,6 +17,7 @@ export class IgualaFormComponent implements OnChanges {
   // Receives the clients list from parent component.
   // TODO: @Input('clientsList') clientsList: Client[];
   public clientSelected: number;
+  public igualasModalForm: FormGroup;
 
   public constructor(private httpService: HttpService) { }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 // Models
 import { Iguala } from './iguala-model';
@@ -26,12 +25,28 @@ export class IgualasComponent implements OnInit {
   // List of clients received from httpService.
   //TODO: public clientsList: Client[];
   public iguala: Iguala;
-  public igualasModalForm: FormGroup;
+  // Title for new Iguala modal.
+  public titleNewModal: string;
+  // Title for update Iguala modal.
+  public titleUpdateModal: string;
+  // Title for danger Iguala modal.
+  public titleDangerModal: string;
+  // Description for danger Iguala modal.
+  public descriptionDangerModal: string;
 
   public constructor(public httpService: HttpService) { }
 
+  /**
+  * Builds the component for first time.
+  * - Save the title to show in template.
+  * - Load igualas and clients from HttpService.
+  **/
   public ngOnInit() {
     this.title = 'Lista de Igualas';
+    this.titleNewModal = 'Nueva Iguala';
+    this.titleUpdateModal = 'Modificar Iguala';
+    this.titleDangerModal = 'Eliminar Iguala';
+    this.descriptionDangerModal = '¿Estás seguro que deseas eliminar esta iguala?';
 
     this.loadIgualasList('works/igualas/');
   }

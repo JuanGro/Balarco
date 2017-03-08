@@ -15,6 +15,10 @@ var IgualasComponent = (function () {
     }
     IgualasComponent.prototype.ngOnInit = function () {
         this.title = 'Lista de Igualas';
+        this.titleNewModal = 'Nueva Iguala';
+        this.titleUpdateModal = 'Modificar Iguala';
+        this.titleDangerModal = 'Eliminar Iguala';
+        this.descriptionDangerModal = '¿Estás seguro que deseas eliminar esta iguala?';
         this.loadIgualasList('works/igualas/');
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
