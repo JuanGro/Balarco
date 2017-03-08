@@ -17,7 +17,7 @@ export class Iguala {
     // Convert the start_date string to Date object.
     let startDateString = json && json.start_date;
     if (startDateString) {
-      let valuesStart = startDateString.split(' ');
+      let valuesStart = startDateString.split('-');
       let startYear = +valuesStart[0];
       let startMonth = +valuesStart[1] - 1;
       let startDay = +valuesStart[2];
@@ -26,12 +26,12 @@ export class Iguala {
     // Convert the end_date string to Date object.
     let endDateString = json && json.end_date;
     if (endDateString) {
-      let valuesEnd = endDateString.split(' ');
+      let valuesEnd = endDateString.split('-');
       let endYear = +valuesEnd[0];
       let endMonth = +valuesEnd[1] - 1;
       let endDay = +valuesEnd[2];
       this.end_date = new Date(endYear, endMonth, endDay);
-    }   
+    }
   }
 
   /**

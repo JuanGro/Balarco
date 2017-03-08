@@ -5,7 +5,7 @@ var Iguala = (function () {
         this.client = json && json.client;
         var startDateString = json && json.start_date;
         if (startDateString) {
-            var valuesStart = startDateString.split(' ');
+            var valuesStart = startDateString.split('-');
             var startYear = +valuesStart[0];
             var startMonth = +valuesStart[1] - 1;
             var startDay = +valuesStart[2];
@@ -13,7 +13,7 @@ var Iguala = (function () {
         }
         var endDateString = json && json.end_date;
         if (endDateString) {
-            var valuesEnd = endDateString.split(' ');
+            var valuesEnd = endDateString.split('-');
             var endYear = +valuesEnd[0];
             var endMonth = +valuesEnd[1] - 1;
             var endDay = +valuesEnd[2];
