@@ -18,10 +18,15 @@ var IgualaFormComponent = (function () {
         this.iguala = new Iguala();
         console.log(this.iguala);
     };
-    IgualaFormComponent.prototype.submitIgualaForm = function (value) {
-        console.log("In submit!");
-        console.log(this.iguala);
-        console.log(this.iguala.generateJSONForPOST());
+    IgualaFormComponent.prototype.submitIgualaForm = function () {
+        this.submitNewIguala();
+    };
+    IgualaFormComponent.prototype.submitNewIguala = function () {
+        this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
+            if (result.ok) {
+                console.log('Iguala created');
+            }
+        });
     };
     return IgualaFormComponent;
 }());

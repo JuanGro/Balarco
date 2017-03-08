@@ -26,9 +26,15 @@ export class IgualaFormComponent implements OnChanges {
     console.log(this.iguala);
   }
 
-  public submitIgualaForm(value) {
-    console.log("In submit!");
-    console.log(this.iguala);
-    console.log(this.iguala.generateJSONForPOST());
+  public submitIgualaForm() {    
+    this.submitNewIguala();
+  }
+
+  public submitNewIguala() {
+    this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(result => {
+      if(result.ok) {
+        console.log('Iguala created');
+      }
+    });
   }
 }
