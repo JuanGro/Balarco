@@ -7,7 +7,7 @@
     </div>
  </div>
 
- <igualas-list-table (requestShowNewIgualaModal)="newIgualaModal.show()"></igualas-list-table>
+ <igualas-list-table (igualasList)="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()"></igualas-list-table>
 
  <!-- Modal New Iguala -->
 <div bsModal #newIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewIgualaModal" aria-hidden="true">

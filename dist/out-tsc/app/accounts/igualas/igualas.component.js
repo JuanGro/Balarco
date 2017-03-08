@@ -15,6 +15,7 @@ var IgualasComponent = (function () {
     }
     IgualasComponent.prototype.ngOnInit = function () {
         this.title = 'Lista de Igualas';
+        this.loadIgualasList('works/igualas/');
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
         var _this = this;

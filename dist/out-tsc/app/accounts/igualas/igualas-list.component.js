@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
 var IgualasListComponent = (function () {
     function IgualasListComponent() {
@@ -39,6 +39,10 @@ var IgualasListComponent = (function () {
     };
     return IgualasListComponent;
 }());
+__decorate([
+    Input('igualasList'),
+    __metadata("design:type", Array)
+], IgualasListComponent.prototype, "igualasList", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

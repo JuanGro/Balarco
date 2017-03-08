@@ -19,17 +19,13 @@
                     <thead class="thead-inverse">
                         <tr>
                         <th>#</th>
-                        <th>Compañia</th>
-                        <th>Igualas adquiridas</th>
-                        <th>Igualas disponibles</th>
+                        <th>Nombre</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-toggle="modal" *ngFor="let iguala of igualas" (click)="largeModal.show()">
+                        <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="largeModal.show()">
                         <th scope="row">{{ iguala.id }}</th>
-                        <td>{{ iguala.company }}</td>
-                        <td>{{ iguala.igualas_total }}</td>
-                        <td>{{ iguala.igualas_available }}</td>
+                        <td>{{ iguala.name }}</td>
                         </tr>
                     </tbody>
                     </table>
