@@ -16,15 +16,14 @@ export class IgualaFormComponent implements OnChanges {
   // Receives the clients list from parent component.
   // TODO: @Input('clientsList') clientsList: Client[];
   public clientSelected: number;
-  public startDate: Date;
-  public endDate: Date;
 
   public constructor(private httpService: HttpService) { }
 
   public ngOnChanges() {
     this.iguala = {
-      name: '', client: null, start_date: null, end_date: null, is_active: true
+      name: '', client: null, start_date: new Date(), end_date: new Date(), is_active: true
     };
+    console.log(this.iguala);
   }
 
   public submitIgualaForm(value) {

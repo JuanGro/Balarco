@@ -16,8 +16,9 @@ var IgualaFormComponent = (function () {
     }
     IgualaFormComponent.prototype.ngOnChanges = function () {
         this.iguala = {
-            name: '', client: null, start_date: null, end_date: null, is_active: true
+            name: '', client: null, start_date: new Date(), end_date: new Date(), is_active: true
         };
+        console.log(this.iguala);
     };
     IgualaFormComponent.prototype.submitIgualaForm = function (value) {
         console.log("In submit!");
