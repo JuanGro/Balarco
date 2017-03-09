@@ -81,7 +81,7 @@ export class ContactFormComponent implements OnChanges {
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
         if (result.ok) {
-          let updatedContact = new Contact(result.text());
+          let updatedContact = new Contact(result.json());
           this.contactUpdated.emit(updatedContact);
         }
     });
@@ -95,7 +95,7 @@ export class ContactFormComponent implements OnChanges {
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
         if (result.ok) {
-          let newContact = new Contact(result.text());
+          let newContact = new Contact(result.json());
           this.contactCreated.emit(newContact);
         }
     });
