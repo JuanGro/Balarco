@@ -1,5 +1,5 @@
 // Models
-import { Client } from './../clients/client';
+import { Client } from './../clients/client-model';
 
 /**
 * Model to define all the attributes used in the Contact object.

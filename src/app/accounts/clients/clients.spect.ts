@@ -18,23 +18,23 @@ import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
-import { ClientComponent } from './clients.component';
+import { ClientsComponent } from './clients.component';
 import { ClientsListComponent } from './clients-list.component';
 import { ClientFormComponent } from './client-form.component';
 
 // Models
-import { Client } from './../clients/client';
+import { Client } from './/client-model';
 
-describe('ClientComponent tests.', () => {
-    // Fixture for debugging and testing a ClientComponent.
-    let fixtureParent: ComponentFixture<ClientComponent>;
+describe('ClientsComponent tests.', () => {
+    // Fixture for debugging and testing a ClientsComponent.
+    let fixtureParent: ComponentFixture<ClientsComponent>;
     // Fixture for debugging and testing a ClientFormComponent.
     let fixtureChildForm: ComponentFixture<ClientFormComponent>;
     // Fixture for debugging and testing a ClientListTableComponent.
     let fixtureChildTable: ComponentFixture<ClientsListComponent>;
 
-    // Save ClientComponent to test it's methods and variables.
-    let component: ClientComponent;
+    // Save ClientsComponent to test it's methods and variables.
+    let component: ClientsComponent;
     // Save ClientFormComponent to test it's methods and variables.
     let componentForm: ClientFormComponent;
     // Save ClientListTableComponent to test it's methods and variables.
@@ -58,7 +58,7 @@ describe('ClientComponent tests.', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ ClientComponent, ClientsListComponent, ClientFormComponent ],
+            declarations: [ ClientsComponent, ClientsListComponent, ClientFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
             providers: [
@@ -72,14 +72,14 @@ describe('ClientComponent tests.', () => {
             ]
         });
 
-        // Create an instance of the ClientComponent.
-        fixtureParent = TestBed.createComponent(ClientComponent);
+        // Create an instance of the ClientsComponent.
+        fixtureParent = TestBed.createComponent(ClientsComponent);
         // Create an instance of the ClientFormComponent.
         fixtureChildForm = TestBed.createComponent(ClientFormComponent);
         // Create an instance of the ClientListTableComponent.
         fixtureChildTable = TestBed.createComponent(ClientsListComponent);
 
-        // ClientComponent test instance.
+        // ClientsComponent test instance.
         component = fixtureParent.componentInstance;
         // ClientFormComponent test instance.
         componentForm = fixtureChildForm.componentInstance;
