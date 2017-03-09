@@ -102,7 +102,7 @@ export class ContactsComponent implements OnInit {
   * Clears the contact variable to get an empty modal.
   **/
   public initializeModal() {
-    this.contact = null;
+    this.contact = new Contact();
   }
 
   /**
