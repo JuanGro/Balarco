@@ -40,6 +40,8 @@ export class ContactFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public contactsModalForm: FormGroup;
+  // Variable to return the old contact if cancel the update form
+  public oldContact: Contact;
 
   public constructor(private httpService: HttpService) { }
 
@@ -51,6 +53,9 @@ export class ContactFormComponent implements OnChanges {
   public ngOnChanges() {
     if (!this.contact) {
       this.initializeContact();
+      this.oldContact = new Contact();
+    } else {
+      this.oldContact = new Contact(this.contact);
     }
   }
 
@@ -121,6 +126,14 @@ export class ContactFormComponent implements OnChanges {
   public resetForm() {
     // this.contactsModalForm.reset();
     this.initializeContact();
+  }
+
+  /**
+  * Return to the original object the contact.
+  **/
+  public cancelForm() {
+    this.contact = this.oldContact;
+    this.submitContactForm(this.oldContact);
   }
 
   /**
