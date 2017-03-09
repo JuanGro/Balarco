@@ -53,8 +53,6 @@ export class ContactFormComponent implements OnChanges {
   public ngOnChanges() {
     if (!this.contact) {
       this.initializeContact();
-    } else {
-      this.clientSelected = this.contact.client;
     }
   }
 
@@ -131,9 +129,6 @@ export class ContactFormComponent implements OnChanges {
   * Clears the Contact object.
   **/
   public initializeContact() {
-    this.contact = {
-        name: '', last_name: '', client: null, charge: '', landline: '',
-        extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
-    };
+    this.contact = new Contact();
   }
 }

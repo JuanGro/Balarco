@@ -59,7 +59,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" [(ngModel)]="clientSelected" #client="ngModel" size="1" required>
+                <select id="client" name="client" class="form-control" [(ngModel)]="contact.client" #client="ngModel" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>

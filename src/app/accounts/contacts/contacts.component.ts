@@ -64,11 +64,16 @@ export class ContactsComponent implements OnInit {
   public loadContactsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( contactsList => this.contactsList = contactsList,
-                                err => {
-                                  // console.log(err);
-                                  // Call of toast
-                                }
+                    .subscribe(contactsListJSON => {
+                      // Creates Iguala objects from JSON.
+                      this.contactsList = [];
+                      for (let contactJSON of contactsListJSON) {
+                        this.contactsList.push(new Contact(contactJSON));
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
                     );
   }
 
@@ -80,11 +85,16 @@ export class ContactsComponent implements OnInit {
   public loadClientsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( clientsList => this.clientsList = clientsList,
-                                err => {
-                                  // console.log(err);
-                                  // Call of toast
-                                }
+                    .subscribe(clientsListJSON => {
+                      // Creates Iguala objects from JSON.
+                      this.clientsList = [];
+                      for (let clientJSON of clientsListJSON) {
+                        this.clientsList.push(new Client(clientJSON));
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
                     );
   }
 
