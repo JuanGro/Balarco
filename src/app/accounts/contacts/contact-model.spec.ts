@@ -20,7 +20,6 @@ describe('Contact object model tests.', () => {
         let mobile_phone_2 = '4423331122';
         let email = 'john@gmail.com';
         let alternate_email = 'john@gmail.com';
-        let is_active = true;
 
         contact = {
             id: id, name: name, last_name: last_name, client: client,
