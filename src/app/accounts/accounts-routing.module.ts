@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
-import { ClientComponent } from './clients/clients.component';
+import { ClientsComponent } from './clients/clients.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { IgualasListComponent } from './igualas-list/igualas-list.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: 'clients-list',
-        component: ClientComponent,
+        component: ClientsComponent,
         data: {
           title: 'Clients List'
         }

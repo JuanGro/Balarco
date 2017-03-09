@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Class
-import { Client } from './client';
+import { Client } from './client-model';
 
 @Component({
   selector: 'clients-list',

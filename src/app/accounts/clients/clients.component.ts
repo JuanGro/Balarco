@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Class
-import { Client } from './client';
+import { Client } from './client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -17,7 +17,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 * - Update an specific client.
 * - Remove a client.
 **/
-export class ClientComponent implements OnInit {
+export class ClientsComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
   // Client list

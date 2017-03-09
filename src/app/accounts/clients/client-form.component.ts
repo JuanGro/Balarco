@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup } from '@angular/forms';
 
 // Class
-import { Client } from './client';
+import { Client } from './client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
