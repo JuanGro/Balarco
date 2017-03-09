@@ -74,8 +74,9 @@ export class ClientFormComponent implements OnChanges {
   public submitUpdatedClient(object: Client, id: number) {
     this.httpService.updateObject('clients/clients/' + id + '/', object).subscribe(result => {
         if (result.ok) {
-          let updatedClient = new Client(result.text());
+          let updatedClient = new Client(result.json());
           this.clientUpdated.emit(updatedClient);
+          console.log(updatedClient);
         }
     });
   }
@@ -90,7 +91,7 @@ export class ClientFormComponent implements OnChanges {
   public submitNewClient(object: Client) {
     this.httpService.postObject('clients/clients/', object).subscribe(result => {
         if (result.ok) {
-          let newClient = new Client(result.text());
+          let newClient = new Client(result.json());
           this.clientCreated.emit(newClient);
         }
     });
@@ -121,8 +122,6 @@ export class ClientFormComponent implements OnChanges {
   * Clears the Client object.
   **/
   public initializeClient() {
-    this.client = {
-        name: '', address: ''
-    };
+    this.client = new Client();
   }
 }

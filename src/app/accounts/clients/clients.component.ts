@@ -60,11 +60,16 @@ export class ClientComponent implements OnInit {
   public loadClientsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe( clientsList => this.clientsList = clientsList,
-                                err => {
-                                  // console.log(err);
-                                  // Call of toast
-                                }
+                    .subscribe(clientsListJSON => {
+                      // Creates Iguala objects from JSON.
+                      this.clientsList = [];
+                      for (let clientJSON of clientsListJSON) {
+                        this.clientsList.push(new Client(clientJSON));
+                      }
+                    },
+                    err => {
+                            // Call of toast
+                           }
                     );
   }
 
@@ -72,7 +77,7 @@ export class ClientComponent implements OnInit {
   * Clears the client variable to get an empty modal.
   **/
   public initializeModal() {
-    this.client = null;
+    this.client = new Client();
   }
 
   /**
