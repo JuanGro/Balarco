@@ -58,7 +58,7 @@
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the client exists because it's used only for update client modal -->
             <button *ngIf="client.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
             <!-- Submits updated or new client -->
             <!-- Calls the submitClientForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!clientModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>

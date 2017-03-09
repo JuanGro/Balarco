@@ -37,6 +37,8 @@ export class ClientFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of the control form
   public clientModalForm: FormGroup;
+  // Variable to return the old client if cancel the update form
+  public oldClient: Client;
 
   public constructor(private httpService: HttpService) { }
 
@@ -47,6 +49,9 @@ export class ClientFormComponent implements OnChanges {
   public ngOnChanges() {
     if (!this.client) {
       this.initializeClient();
+      this.oldClient = new Client();
+    } else {
+      this.oldClient = new Client(this.client);
     }
   }
 
@@ -119,6 +124,14 @@ export class ClientFormComponent implements OnChanges {
   **/
   public resetForm() {
     this.initializeClient();
+  }
+
+  /**
+  * Return to the original object the client.
+  **/
+  public cancelForm() {
+    this.client = this.oldClient;
+    this.submitClientForm(this.oldClient);
   }
 
   /**
