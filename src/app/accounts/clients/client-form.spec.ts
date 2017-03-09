@@ -44,11 +44,6 @@ describe('ClientFormComponent tests.', () => {
     // Create a Client object example.
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
 
-    let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
-                                ];
-
     // Base state before each test runs.
     // Handles asynchronous compilation.
     beforeEach(async(() => {
