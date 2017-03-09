@@ -40,8 +40,6 @@ export class ContactFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public contactsModalForm: FormGroup;
-  // Angular can't recognize the selected value for dropdown in ngModel so we make it manual.
-  public clientSelected: number;
 
   public constructor(private httpService: HttpService) { }
 
