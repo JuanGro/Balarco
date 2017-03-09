@@ -65,7 +65,7 @@ export class ContactsComponent implements OnInit {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(contactsListJSON => {
-                      // Creates Iguala objects from JSON.
+                      // Creates Contact objects from JSON.
                       this.contactsList = [];
                       for (let contactJSON of contactsListJSON) {
                         this.contactsList.push(new Contact(contactJSON));
@@ -86,7 +86,7 @@ export class ContactsComponent implements OnInit {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(clientsListJSON => {
-                      // Creates Iguala objects from JSON.
+                      // Creates Contact objects from JSON.
                       this.clientsList = [];
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
