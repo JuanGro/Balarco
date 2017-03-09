@@ -29,8 +29,9 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot()
   ],
-  declarations: [ ClientsComponent, ClientsListComponent, ClientFormComponent, ContactsComponent, IgualasListComponent, DesignsListComponent,
-  ContactsListTableComponent, ContactFormComponent ],
+  declarations: [ ClientsComponent, ClientsListComponent, ClientFormComponent,
+    ContactsComponent, IgualasListComponent, DesignsListComponent,
+    ContactsListTableComponent, ContactFormComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }

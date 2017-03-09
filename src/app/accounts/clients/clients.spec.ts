@@ -186,7 +186,9 @@ describe('ClientsComponent tests.', () => {
         **/
         it('should initialize the modal', () => {
             component.initializeModal();
-            expect(component.client).toBeNull();
+            expect(component.client.id).toBeUndefined();
+            expect(component.client.name).toBeUndefined();
+            expect(component.client.address).toBeUndefined();
         });
 
         /**

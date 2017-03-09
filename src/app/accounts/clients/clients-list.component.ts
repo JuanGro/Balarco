@@ -31,7 +31,7 @@ export class ClientsListComponent {
   * Requests to parent component to show the new client modal.
   **/
   public requestNewClientModal() {
-    this.modalAction = 'Open new Contact modal';
+    this.modalAction = 'Open new Client modal';
     this.requestShowNewClientModal.emit(this.modalAction);
   }
 
@@ -39,7 +39,7 @@ export class ClientsListComponent {
   * Requests to parent component to show the update client modal.
   **/
   public requestUpdateClientModal() {
-    this.modalAction = 'Open update Contact modal';
+    this.modalAction = 'Open update Client modal';
     this.requestShowUpdateClientModal.emit(this.modalAction);
   }
 

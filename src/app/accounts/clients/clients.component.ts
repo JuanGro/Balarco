@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // Class
 import { Client } from './client-model';
@@ -21,9 +21,9 @@ export class ClientsComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
   // Client list
-  public clientsList: Client[]
+  public clientsList: Client[];
   // Current selected client to update or delete
-  public client: Client
+  public client: Client;
   // Title of new client modal.
   public titleNewModal: string;
   // Title of update client modal.
