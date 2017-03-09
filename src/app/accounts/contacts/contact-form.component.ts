@@ -52,7 +52,7 @@ export class ContactFormComponent implements OnChanges {
   **/
   public ngOnChanges() {
     if (!this.contact) {
-      this.initializeContact();
+      this.contact = new Contact();
       this.oldContact = new Contact();
     } else {
       this.oldContact = new Contact(this.contact);
@@ -91,6 +91,17 @@ export class ContactFormComponent implements OnChanges {
   }
 
   /**
+  * Update the Contact object to avoid changes with TWDB.
+  * Params:
+  *   - object: A Contact object.
+  *   - id: Id of contact object.
+  **/
+  public cancelUpdatedContact(object: Contact, id: number) {
+    let updatedContact = new Contact(object);
+    this.contactUpdated.emit(updatedContact);
+  }
+
+  /**
   * Requests to the Backend service to create the new contact.
   * Params:
   *   - object: A Contact object.
@@ -124,8 +135,7 @@ export class ContactFormComponent implements OnChanges {
   * Clears all the values in the form fields.
   **/
   public resetForm() {
-    // this.contactsModalForm.reset();
-    this.initializeContact();
+    this.contact = new Contact();
   }
 
   /**
@@ -133,13 +143,6 @@ export class ContactFormComponent implements OnChanges {
   **/
   public cancelForm() {
     this.contact = this.oldContact;
-    this.submitContactForm(this.oldContact);
-  }
-
-  /**
-  * Clears the Contact object.
-  **/
-  public initializeContact() {
-    this.contact = new Contact();
+    this.cancelUpdatedContact(this.oldContact, this.oldContact.id);
   }
 }
