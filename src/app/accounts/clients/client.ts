@@ -1,5 +1,5 @@
 /**
-* Company class, defines the attributes of a company.
+* Class to define all the attributes used in the Client object.
 **/
 export class Client {
     id?: number;
@@ -11,8 +11,7 @@ export class Client {
     * Params:
     *   - jsonText: The client returned from API in json format string.
     **/
-    constructor(jsonText: string) {
-      let json = JSON.parse(jsonText);
+    constructor(json?) {
       this.id = json && json.id;
       this.name = json && json.name;
       this.address = json && json.address;
