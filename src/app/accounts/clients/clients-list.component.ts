@@ -22,6 +22,8 @@ export class ClientsListComponent {
   @Output() requestShowUpdateClientModal: EventEmitter<string> = new EventEmitter();
   // Sends the client selected by the user to parent component
   @Output() currentClient: EventEmitter<Client> = new EventEmitter<Client>();
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
 
   public constructor() { }
 
@@ -29,14 +31,16 @@ export class ClientsListComponent {
   * Requests to parent component to show the new client modal.
   **/
   public requestNewClientModal() {
-    this.requestShowNewClientModal.emit();
+    this.modalAction = 'Open new Contact modal';
+    this.requestShowNewClientModal.emit(this.modalAction);
   }
 
   /**
   * Requests to parent component to show the update client modal.
   **/
   public requestUpdateClientModal() {
-    this.requestShowUpdateClientModal.emit();
+    this.modalAction = 'Open update Contact modal';
+    this.requestShowUpdateClientModal.emit(this.modalAction);
   }
 
   /**
