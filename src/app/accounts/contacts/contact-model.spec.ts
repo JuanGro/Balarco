@@ -22,11 +22,11 @@ describe('Contact object model tests.', () => {
         let alternate_email = 'john@gmail.com';
         let is_active = true;
 
-        let contact = {
+        contact = {
             id: id, name: name, last_name: last_name, client: client,
             charge: charge, landline: landline, extension: extension,
             mobile_phone_1: mobile_phone_1, mobile_phone_2: mobile_phone_2,
-            email: email, alternate_email: alternate_email, is_active: is_active
+            email: email, alternate_email: alternate_email
         };
 
         // Check each attribute.
@@ -41,6 +41,5 @@ describe('Contact object model tests.', () => {
         expect(contact.mobile_phone_2).toBe(mobile_phone_2);
         expect(contact.email).toBe(email);
         expect(contact.alternate_email).toBe(alternate_email);
-        expect(contact.is_active).toBe(is_active);
     });
 });
