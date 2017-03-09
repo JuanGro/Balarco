@@ -48,7 +48,7 @@ export class ClientFormComponent implements OnChanges {
   **/
   public ngOnChanges() {
     if (!this.client) {
-      this.initializeClient();
+      this.client = new Client();
       this.oldClient = new Client();
     } else {
       this.oldClient = new Client(this.client);
@@ -88,6 +88,17 @@ export class ClientFormComponent implements OnChanges {
   }
 
   /**
+  * Update the Client object to avoid changes with TWDB.
+  * Params:
+  *   - object: A Client object.
+  *   - id: Id of client object.
+  **/
+  public cancelUpdatedClient(object: Client, id: number) {
+    let updatedClient = new Client(object);
+    this.clientUpdated.emit(updatedClient);
+  }
+
+  /**
   * Requests to the Backend service to create the new client.
   * Params:
   *   - object: A Client object.
@@ -123,7 +134,7 @@ export class ClientFormComponent implements OnChanges {
   * Clears all the values in the form fields.
   **/
   public resetForm() {
-    this.initializeClient();
+    this.client = new Client();
   }
 
   /**
@@ -131,13 +142,6 @@ export class ClientFormComponent implements OnChanges {
   **/
   public cancelForm() {
     this.client = this.oldClient;
-    this.submitClientForm(this.oldClient);
-  }
-
-  /**
-  * Clears the Client object.
-  **/
-  public initializeClient() {
-    this.client = new Client();
+    this.cancelUpdatedClient(this.oldClient, this.oldClient.id);
   }
 }
