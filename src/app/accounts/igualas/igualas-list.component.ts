@@ -26,7 +26,7 @@ export class IgualasListComponent {
   * Requests to parent component to show the new iguala modal.
   **/
   public requestNewIgualaModal() {
-    this.modalAction = 'Open new Contact modal';
+    this.modalAction = 'Open new Iguala modal';
     this.requestShowNewIgualaModal.emit(this.modalAction);
   }
 
@@ -34,7 +34,7 @@ export class IgualasListComponent {
   * Requests to parent component to show the current iguala modal.
   **/
   public requestUpdateIgualaModal() {
-    this.modalAction = 'Open update contact modal';
+    this.modalAction = 'Open update Iguala modal';
     this.requestShowUpdateIgualaModal.emit(this.modalAction);
   }
 

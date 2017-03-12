@@ -16,11 +16,11 @@ var IgualasListComponent = (function () {
         this.modalAction = '';
     }
     IgualasListComponent.prototype.requestNewIgualaModal = function () {
-        this.modalAction = 'Open new Contact modal';
+        this.modalAction = 'Open new Iguala modal';
         this.requestShowNewIgualaModal.emit(this.modalAction);
     };
     IgualasListComponent.prototype.requestUpdateIgualaModal = function () {
-        this.modalAction = 'Open update contact modal';
+        this.modalAction = 'Open update Iguala modal';
         this.requestShowUpdateIgualaModal.emit(this.modalAction);
     };
     IgualasListComponent.prototype.sendCurrentIguala = function (object) {
