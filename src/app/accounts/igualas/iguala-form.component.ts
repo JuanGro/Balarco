@@ -111,4 +111,11 @@ export class IgualaFormComponent implements OnChanges {
       this.iguala = new Iguala();
     }
   }
+
+  /**
+  * Clears all the variables in the form.
+  **/
+  public resetForm() {
+    this.iguala = new Iguala();
+  }
 }

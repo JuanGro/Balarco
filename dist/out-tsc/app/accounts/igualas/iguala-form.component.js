@@ -65,6 +65,9 @@ var IgualaFormComponent = (function () {
             this.iguala = new Iguala();
         }
     };
+    IgualaFormComponent.prototype.resetForm = function () {
+        this.iguala = new Iguala();
+    };
     return IgualaFormComponent;
 }());
 __decorate([
