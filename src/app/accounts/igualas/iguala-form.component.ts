@@ -11,6 +11,15 @@ import { Iguala } from './iguala-model';
   selector: 'iguala-form',
   templateUrl: 'iguala-form.component.html'
 })
+/**
+* Component which manage the forms for update and create an Iguala:
+*  - Use OnChanges feature because it's important to know if the user opens a new modal or update modal depending
+* in the iguala object value, the component is listening for each change in that variable.
+* - Initialize form.
+* - Create validations.
+* - Request save the contact.
+* - Request actions in modals to the parent component.
+**/
 export class IgualaFormComponent implements OnChanges {
   // Receives the iguala selected by the user or the empty object to know if is called the update or create iguala form.
   @Input() iguala: Iguala;
@@ -29,6 +38,11 @@ export class IgualaFormComponent implements OnChanges {
 
   public constructor(private httpService: HttpService) { }
 
+  /**
+  * Builds the component for first time each time when it's called.
+  *   - Initialize the form depending if the new or update iguala form is called.
+  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
+  **/
   public ngOnChanges() {
     if(!this.iguala) {
       this.iguala = new Iguala();
@@ -37,10 +51,23 @@ export class IgualaFormComponent implements OnChanges {
     }
   }
 
+  /**
+  * Executes the submitUpdatedIguala or submitNewIguala depending if the iguala
+  * received when the modal was called is empty or not.
+  **/
   public submitIgualaForm() {
-    this.submitNewIguala();
+    if (this.iguala.id) {
+      // Update iguala
+    } else {
+      // Create iguala
+      this.submitNewIguala();
+    }
+
   }
 
+  /**
+  * Requests the API to create a new Iguala.
+  **/
   public submitNewIguala() {
     this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(result => {
       if(result.ok) {
@@ -49,6 +76,9 @@ export class IgualaFormComponent implements OnChanges {
     });
   }
 
+  /**
+  * Requests to parent component to close the current modal.
+  **/
   public requestCloseThisModal() {
     this.modalAction = 'Close modal';
     this.requestCloseModal.emit(this.modalAction);

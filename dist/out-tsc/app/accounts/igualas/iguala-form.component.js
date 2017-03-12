@@ -26,7 +26,11 @@ var IgualaFormComponent = (function () {
         }
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
-        this.submitNewIguala();
+        if (this.iguala.id) {
+        }
+        else {
+            this.submitNewIguala();
+        }
     };
     IgualaFormComponent.prototype.submitNewIguala = function () {
         this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
