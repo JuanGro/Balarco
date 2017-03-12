@@ -10,7 +10,7 @@ describe('Iguala object model tests.', () => {
     let start_date = new Date(2016,11,11);
     let end_date = new Date(2017, 11, 11);
 
-    let iguala = {
+    var iguala: Iguala = {
       id: id,
       name: name,
       client: client,

@@ -49,12 +49,13 @@ describe('Igualas Component tests.', () => {
    let el: HTMLElement;
 
    // Create Iguala object example.
-   let testIguala: Iguala = new Iguala();
-   testIguala.name = 'Starbucks 2018';
-   testIguala.id = 1;
-   testIguala.start_date = new Date();
-   testIguala.end_date = new Date();
-   testIguala.client = 1;
+   let testIguala: Iguala = {
+     id: 1,
+     name: 'Starbucks 2018',
+     client: 2,
+     start_date: new Date(2011, 10, 10),
+     end_date: new Date(2012, 10, 10)
+   };
 
   // Base state before each test runs.
   // Handles asynchronous compilation.
