@@ -19,7 +19,7 @@ var IgualasComponent = (function () {
         this.titleNewModal = 'Nueva Iguala';
         this.titleUpdateModal = 'Modificar Iguala';
         this.titleDangerModal = 'Eliminar Iguala';
-        this.descriptionDangerModal = '¿Estás seguro que deseas eliminar esta iguala?';
+        this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
         this.loadIgualasList('works/igualas/');
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
@@ -60,6 +60,9 @@ var IgualasComponent = (function () {
                 }
             }
         });
+    };
+    IgualasComponent.prototype.initializeModal = function () {
+        this.iguala = new Iguala();
     };
     return IgualasComponent;
 }());

@@ -49,13 +49,12 @@ describe('Igualas Component tests.', () => {
    let el: HTMLElement;
 
    // Create Iguala object example.
-   let testIguala = {
-     id: 1,
-     name: 'Starbucks 2018',
-     client: 2,
-     start_date: new Date(2011, 10, 10),
-     end_date: new Date(2012, 10, 10)
-   };
+   let testIguala: Iguala = new Iguala();
+   testIguala.name = 'Starbucks 2018';
+   testIguala.id = 1;
+   testIguala.start_date = new Date();
+   testIguala.end_date = new Date();
+   testIguala.client = 1;
 
   // Base state before each test runs.
   // Handles asynchronous compilation.
@@ -120,5 +119,79 @@ describe('Igualas Component tests.', () => {
       });
   });
 
+  describe('Initialization of variable for parent contacts component', () => {
+      /**
+      * Tests that the page title is correct.
+      **/
+      it('should show the new iguala modal with correct attributes', () => {
+          fixtureParent.detectChanges();
+          expect(component.title).toContain('Lista de Igualas');
+      });
+
+      /**
+      * Tests that the new iguala modal has correct attributes.
+      **/
+      it('should show the new iguala modal with correct attributes', () => {
+          fixtureParent.detectChanges();
+          expect(component.titleNewModal).toContain('Nueva Iguala');
+      });
+
+      /**
+      * Tests that the update iguala modal has correct attributes.
+      **/
+      it('should show the update iguala modal with correct attributes', () => {
+          fixtureParent.detectChanges();
+          expect(component.titleUpdateModal).toContain('Modificar Iguala');
+      });
+
+      /**
+      * Tests that the danger modal has correct attributes.
+      **/
+      it('should show the danger modal with correct attributes', () => {
+          fixtureParent.detectChanges();
+          expect(component.titleDangerModal).toContain('Eliminar Iguala');
+          expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar esta iguala?');
+      });
+  });
+
+  describe('Load of the variables to the template for parent contacts component', () => {
+      /**
+      * Tests that the title is empty before the use of the title variable.
+      **/
+      it('no title in the DOM until manually call `detectChanges`', () => {
+          expect(el.textContent).toEqual('');
+      });
+
+      /**
+      * Tests that the component have the correct title when everything is loaded.
+      **/
+      it('should display original page title', () => {
+          fixtureParent.detectChanges();
+          expect(el.textContent).toContain(component.title);
+          expect(el.textContent).not.toBe(null);
+      });
+  });
+
+  describe('Use of methods for parent contacts component', () => {
+      /**
+      * Tests that the initialize modal method is working correctly, setting the contact to null.
+      **/
+      it('should initialize the modal', () => {
+          component.initializeModal();
+          expect(component.iguala.id).toBeUndefined();
+          expect(component.iguala.name).toBeUndefined();
+          expect(component.iguala.client).toBeUndefined();
+          expect(component.iguala.start_date).toBeUndefined();
+          expect(component.iguala.end_date).toBeUndefined();
+      });
+
+      /**
+      * Tests that the getContactFromTable method doesn't returns a Contact object empty.
+      **/
+      it('should return a not empty Contact object', () => {
+          component.getIgualaFromTable(testIguala);
+          expect(component.iguala).toEqual(testIguala);
+      });
+  });
 
 });

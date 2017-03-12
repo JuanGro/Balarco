@@ -7,7 +7,7 @@
     </div>
  </div>
 
- <igualas-list-table [igualasList]="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()" (requestShowUpdateIgualaModal)="updateIgualaModal.show()" (currentIguala)="getIgualaFromTable($event)"></igualas-list-table>
+ <igualas-list-table [igualasList]="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()" (requestShowNewIgualaModal)="initializeModal()" (requestShowUpdateIgualaModal)="updateIgualaModal.show()" (currentIguala)="getIgualaFromTable($event)"></igualas-list-table>
 
 <!-- Modal New Iguala -->
 <div bsModal #newIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewIgualaModal" aria-hidden="true">

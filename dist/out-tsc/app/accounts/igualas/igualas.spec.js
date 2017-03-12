@@ -14,6 +14,7 @@ import { SelectModule } from 'ng2-select';
 import { IgualasComponent } from './igualas.component';
 import { IgualasListComponent } from './igualas-list.component';
 import { IgualaFormComponent } from './iguala-form.component';
+import { Iguala } from './iguala-model';
 describe('Igualas Component tests.', function () {
     var fixtureParent;
     var fixtureChildForm;
@@ -23,13 +24,12 @@ describe('Igualas Component tests.', function () {
     var componentTable;
     var de;
     var el;
-    var testIguala = {
-        id: 1,
-        name: 'Starbucks 2018',
-        client: 2,
-        start_date: new Date(2011, 10, 10),
-        end_date: new Date(2012, 10, 10)
-    };
+    var testIguala = new Iguala();
+    testIguala.name = 'Starbucks 2018';
+    testIguala.id = 1;
+    testIguala.start_date = new Date();
+    testIguala.end_date = new Date();
+    testIguala.client = 1;
     beforeEach(async(function () {
         TestBed.configureTestingModule({
             declarations: [IgualasComponent, IgualasListComponent, IgualaFormComponent],
@@ -65,6 +65,49 @@ describe('Igualas Component tests.', function () {
         });
         it('should have a defined child table component', function () {
             expect(componentTable).toBeDefined();
+        });
+    });
+    describe('Initialization of variable for parent contacts component', function () {
+        it('should show the new iguala modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.title).toContain('Lista de Igualas');
+        });
+        it('should show the new iguala modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleNewModal).toContain('Nueva Iguala');
+        });
+        it('should show the update iguala modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleUpdateModal).toContain('Modificar Iguala');
+        });
+        it('should show the danger modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleDangerModal).toContain('Eliminar Iguala');
+            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar esta iguala?');
+        });
+    });
+    describe('Load of the variables to the template for parent contacts component', function () {
+        it('no title in the DOM until manually call `detectChanges`', function () {
+            expect(el.textContent).toEqual('');
+        });
+        it('should display original page title', function () {
+            fixtureParent.detectChanges();
+            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).not.toBe(null);
+        });
+    });
+    describe('Use of methods for parent contacts component', function () {
+        it('should initialize the modal', function () {
+            component.initializeModal();
+            expect(component.iguala.id).toBeUndefined();
+            expect(component.iguala.name).toBeUndefined();
+            expect(component.iguala.client).toBeUndefined();
+            expect(component.iguala.start_date).toBeUndefined();
+            expect(component.iguala.end_date).toBeUndefined();
+        });
+        it('should return a not empty Contact object', function () {
+            component.getIgualaFromTable(testIguala);
+            expect(component.iguala).toEqual(testIguala);
         });
     });
 });

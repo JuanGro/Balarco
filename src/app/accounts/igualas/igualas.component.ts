@@ -46,7 +46,7 @@ export class IgualasComponent implements OnInit {
     this.titleNewModal = 'Nueva Iguala';
     this.titleUpdateModal = 'Modificar Iguala';
     this.titleDangerModal = 'Eliminar Iguala';
-    this.descriptionDangerModal = '¿Estás seguro que deseas eliminar esta iguala?';
+    this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
 
     this.loadIgualasList('works/igualas/');
   }
@@ -114,5 +114,12 @@ export class IgualasComponent implements OnInit {
         }
       }
     });
+  }
+
+  /**
+  * Clears the contact variable to get an empty modal.
+  **/
+  public initializeModal() {
+    this.iguala = new Iguala();
   }
 }
