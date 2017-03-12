@@ -74,7 +74,7 @@
         <button type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <!-- Delete iguala -->
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the iguala.id exists because it's used only for update iguala modal -->
-        <button type="button" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hides modal -->
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
         <!-- Submits updated or new iguala -->

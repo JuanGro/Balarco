@@ -99,4 +99,20 @@ export class IgualasComponent implements OnInit {
       this.igualasList[index] = event;
     }
   }
+
+  /**
+  * Requests to the Backend service to remove the iguala selected by the user.
+  * Params:
+  *   - object: An iguala object.
+  **/
+  public removeIguala(object: Iguala) {
+    this.httpService.deleteObject('works/igualas/' + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.igualasList.indexOf(object);
+        if (index >= 0) {
+          this.igualasList.splice(index, 1);
+        }
+      }
+    });
+  }
 }

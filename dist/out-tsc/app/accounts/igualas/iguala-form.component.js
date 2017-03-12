@@ -14,6 +14,7 @@ var IgualaFormComponent = (function () {
     function IgualaFormComponent(httpService) {
         this.httpService = httpService;
         this.requestCloseModal = new EventEmitter();
+        this.requestWarning = new EventEmitter();
         this.igualaCreated = new EventEmitter();
         this.igualaUpdated = new EventEmitter();
         this.modalAction = '';
@@ -56,6 +57,10 @@ var IgualaFormComponent = (function () {
         this.modalAction = 'Close modal';
         this.requestCloseModal.emit(this.modalAction);
     };
+    IgualaFormComponent.prototype.requestWarningModal = function () {
+        this.modalAction = 'Show warning modal';
+        this.requestWarning.emit(this.modalAction);
+    };
     IgualaFormComponent.prototype.cancelForm = function () {
         if (this.oldIguala) {
             this.iguala = this.oldIguala;
@@ -78,6 +83,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], IgualaFormComponent.prototype, "requestCloseModal", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], IgualaFormComponent.prototype, "requestWarning", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

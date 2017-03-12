@@ -27,6 +27,8 @@ export class IgualaFormComponent implements OnChanges {
   // TODO: @Input('clientsList') clientsList: Client[];
   // Requests close of modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+  // Requests to parent component the show of the danger modal to confirm if the iguala will be removed.
+  @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   // Event for the parent to push a new Iguala to the list.
   @Output() igualaCreated: EventEmitter<Iguala> = new EventEmitter();
   // Event for parent when an Iguala is updated.
@@ -65,7 +67,6 @@ export class IgualaFormComponent implements OnChanges {
       // Create iguala
       this.submitNewIguala();
     }
-
   }
 
   /**
@@ -98,6 +99,14 @@ export class IgualaFormComponent implements OnChanges {
   public requestCloseThisModal() {
     this.modalAction = 'Close modal';
     this.requestCloseModal.emit(this.modalAction);
+  }
+
+  /**
+  * Requests to parent component to show the confirmation to remove the iguala selected.
+  **/
+  public requestWarningModal() {
+    this.modalAction = 'Show warning modal';
+    this.requestWarning.emit(this.modalAction);
   }
 
   /**

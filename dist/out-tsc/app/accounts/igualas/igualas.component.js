@@ -50,6 +50,17 @@ var IgualasComponent = (function () {
             this.igualasList[index] = event;
         }
     };
+    IgualasComponent.prototype.removeIguala = function (object) {
+        var _this = this;
+        this.httpService.deleteObject('works/igualas/' + object.id + '/').subscribe(function (result) {
+            if (result.ok) {
+                var index = _this.igualasList.indexOf(object);
+                if (index >= 0) {
+                    _this.igualasList.splice(index, 1);
+                }
+            }
+        });
+    };
     return IgualasComponent;
 }());
 IgualasComponent = __decorate([

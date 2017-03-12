@@ -44,7 +44,26 @@
            <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
            <!-- [clientsList] sends the clients list to the form -->
            <!-- (requestCloseModal) listens for the close of the modal -->
-           <iguala-form [iguala]="iguala" (requestCloseModal)="updateIgualaModal.hide()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
+           <iguala-form [iguala]="iguala" (requestCloseModal)="updateIgualaModal.hide()" (requestWarning)="dangerModal.show()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
        </div>
    </div>
+</div>
+
+<!-- Danger Modal to delete iguala -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleDangerModal }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ descriptionDangerModal }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <!-- (click)="removeContact(contact)" executes the removeIguala funtion in the component -->
+                <button type="button" class="btn btn-danger" (click)="removeIguala(iguala)" (click)="dangerModal.hide()" (click)="updateIgualaModal.hide()">Eliminar</button>
+            </div>
+        </div>
+    </div>
 </div>
