@@ -91,17 +91,6 @@ export class ContactFormComponent implements OnChanges {
   }
 
   /**
-  * Update the Contact object to avoid changes with TWDB.
-  * Params:
-  *   - object: A Contact object.
-  *   - id: Id of contact object.
-  **/
-  public cancelUpdatedContact(object: Contact, id: number) {
-    let updatedContact = new Contact(object);
-    this.contactUpdated.emit(updatedContact);
-  }
-
-  /**
   * Requests to the Backend service to create the new contact.
   * Params:
   *   - object: A Contact object.
@@ -142,7 +131,10 @@ export class ContactFormComponent implements OnChanges {
   * Return to the original object the contact.
   **/
   public cancelForm() {
-    this.contact = this.oldContact;
-    this.cancelUpdatedContact(this.oldContact, this.oldContact.id);
+    if (this.oldContact.id) {
+      this.contact = this.oldContact;
+      let updatedContact = new Contact(this.oldContact);
+      this.contactUpdated.emit(updatedContact);
+    }
   }
 }
