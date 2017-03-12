@@ -28,6 +28,7 @@ var IgualaFormComponent = (function () {
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
         if (this.iguala.id) {
+            this.submitUpdatedIguala();
         }
         else {
             this.submitNewIguala();
@@ -39,6 +40,15 @@ var IgualaFormComponent = (function () {
             if (result.ok) {
                 var newIguala = new Iguala(result.json());
                 _this.igualaCreated.emit(newIguala);
+            }
+        });
+    };
+    IgualaFormComponent.prototype.submitUpdatedIguala = function () {
+        var _this = this;
+        this.httpService.updateObject('works/igualas/' + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
+            if (result.ok) {
+                var updatedIguala = new Iguala(result.json());
+                _this.igualaUpdated.emit(updatedIguala);
             }
         });
     };

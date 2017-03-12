@@ -60,6 +60,7 @@ export class IgualaFormComponent implements OnChanges {
   public submitIgualaForm() {
     if (this.iguala.id) {
       // Update iguala
+      this.submitUpdatedIguala();
     } else {
       // Create iguala
       this.submitNewIguala();
@@ -75,6 +76,18 @@ export class IgualaFormComponent implements OnChanges {
       if(result.ok) {
         let newIguala = new Iguala(result.json());
         this.igualaCreated.emit(newIguala);
+      }
+    });
+  }
+
+  /**
+  * Requests the API to update an Iguala.
+  **/
+  public submitUpdatedIguala() {
+    this.httpService.updateObject('works/igualas/' + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(result => {
+      if (result.ok) {
+        let updatedIguala = new Iguala(result.json());
+        this.igualaUpdated.emit(updatedIguala);
       }
     });
   }
