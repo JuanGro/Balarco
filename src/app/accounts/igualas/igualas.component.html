@@ -24,7 +24,7 @@
             <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <iguala-form [iguala]="iguala" (requestCloseModal)="newIgualaModal.hide()"></iguala-form>
+            <iguala-form [iguala]="iguala" (requestCloseModal)="newIgualaModal.hide()" (igualaCreated)="onIgualaCreated($event)"></iguala-form>
         </div>
     </div>
 </div>

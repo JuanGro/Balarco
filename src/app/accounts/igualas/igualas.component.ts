@@ -79,6 +79,16 @@ export class IgualasComponent implements OnInit {
   }
 
   /**
+  * Recieves event when a new iguala is created in the form.
+  * It pushes the new iguala to the list.
+  * Params:
+  *   - event: New iguala received from the event.
+  **/
+  public onIgualaCreated(event: Iguala) {
+    this.igualasList.push(event);
+  }
+
+  /**
   * Receives event when an iguala is updated in the form.
   * It updates the iguala selected.
   **/

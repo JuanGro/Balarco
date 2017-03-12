@@ -27,6 +27,8 @@ export class IgualaFormComponent implements OnChanges {
   // TODO: @Input('clientsList') clientsList: Client[];
   // Requests close of modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+  // Event for the parent to push a new Iguala to the list.
+  @Output() igualaCreated: EventEmitter<Iguala> = new EventEmitter();
   // Event for parent when an Iguala is updated.
   @Output() igualaUpdated: EventEmitter<Iguala> = new EventEmitter();
   // Inicialization of form control.
@@ -71,7 +73,8 @@ export class IgualaFormComponent implements OnChanges {
   public submitNewIguala() {
     this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(result => {
       if(result.ok) {
-        console.log('Iguala created');
+        let newIguala = new Iguala(result.json());
+        this.igualaCreated.emit(newIguala);
       }
     });
   }

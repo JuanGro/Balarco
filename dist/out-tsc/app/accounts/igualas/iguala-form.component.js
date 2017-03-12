@@ -14,6 +14,7 @@ var IgualaFormComponent = (function () {
     function IgualaFormComponent(httpService) {
         this.httpService = httpService;
         this.requestCloseModal = new EventEmitter();
+        this.igualaCreated = new EventEmitter();
         this.igualaUpdated = new EventEmitter();
         this.modalAction = '';
     }
@@ -33,9 +34,11 @@ var IgualaFormComponent = (function () {
         }
     };
     IgualaFormComponent.prototype.submitNewIguala = function () {
+        var _this = this;
         this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
-                console.log('Iguala created');
+                var newIguala = new Iguala(result.json());
+                _this.igualaCreated.emit(newIguala);
             }
         });
     };
@@ -62,6 +65,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], IgualaFormComponent.prototype, "requestCloseModal", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], IgualaFormComponent.prototype, "igualaCreated", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

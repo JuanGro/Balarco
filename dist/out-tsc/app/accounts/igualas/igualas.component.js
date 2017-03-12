@@ -40,6 +40,9 @@ var IgualasComponent = (function () {
         console.log('object received');
         console.log(object);
     };
+    IgualasComponent.prototype.onIgualaCreated = function (event) {
+        this.igualasList.push(event);
+    };
     IgualasComponent.prototype.onIgualaUpdated = function (event) {
         var oldIguala = this.igualasList.filter(function (iguala) { return iguala.id === event.id; })[0];
         var index = this.igualasList.indexOf(oldIguala);

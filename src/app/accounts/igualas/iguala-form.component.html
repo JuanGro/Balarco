@@ -79,7 +79,7 @@
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
         <!-- Submits updated or new iguala -->
         <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
-        <button type="submit" [disabled]="!igualasModalForm.form.valid" class="btn btn-primary">Guardar</button>
+        <button type="submit" [disabled]="!igualasModalForm.form.valid" class="btn btn-primary" (click)="requestCloseThisModal($event)">Guardar</button>
     </div>
   </form>
 </div>
