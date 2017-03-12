@@ -76,5 +76,17 @@ export class IgualasComponent implements OnInit {
     this.iguala = object;
     console.log('object received');
     console.log(object);
-  }  
+  }
+
+  /**
+  * Receives event when an iguala is updated in the form.
+  * It updates the iguala selected.
+  **/
+  public onIgualaUpdated(event: Iguala) {
+    let oldIguala = this.igualasList.filter(iguala => iguala.id === event.id)[0];
+    let index = this.igualasList.indexOf(oldIguala);
+    if (index >= 0) {
+      this.igualasList[index] = event;
+    }
+  }
 }

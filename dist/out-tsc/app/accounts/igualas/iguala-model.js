@@ -1,23 +1,33 @@
 var Iguala = (function () {
-    function Iguala(json) {
-        this.id = json && json.id;
-        this.name = json && json.name;
-        this.client = json && json.client;
-        var startDateString = json && json.start_date;
-        if (startDateString) {
-            var valuesStart = startDateString.split('-');
-            var startYear = +valuesStart[0];
-            var startMonth = +valuesStart[1] - 1;
-            var startDay = +valuesStart[2];
-            this.start_date = new Date(startYear, startMonth, startDay);
+    function Iguala(object) {
+        this.id = object && object.id;
+        this.name = object && object.name;
+        this.client = object && object.client;
+        if (object && object.start_date instanceof Date) {
+            this.start_date = object.start_date;
         }
-        var endDateString = json && json.end_date;
-        if (endDateString) {
-            var valuesEnd = endDateString.split('-');
-            var endYear = +valuesEnd[0];
-            var endMonth = +valuesEnd[1] - 1;
-            var endDay = +valuesEnd[2];
-            this.end_date = new Date(endYear, endMonth, endDay);
+        else {
+            var startDateString = object && object.start_date;
+            if (startDateString) {
+                var valuesStart = startDateString.split('-');
+                var startYear = +valuesStart[0];
+                var startMonth = +valuesStart[1] - 1;
+                var startDay = +valuesStart[2];
+                this.start_date = new Date(startYear, startMonth, startDay);
+            }
+        }
+        if (object && object.end_date instanceof Date) {
+            this.end_date = object.end_date;
+        }
+        else {
+            var endDateString = object && object.end_date;
+            if (endDateString) {
+                var valuesEnd = endDateString.split('-');
+                var endYear = +valuesEnd[0];
+                var endMonth = +valuesEnd[1] - 1;
+                var endDay = +valuesEnd[2];
+                this.end_date = new Date(endYear, endMonth, endDay);
+            }
         }
     }
     Iguala.prototype.generateJSONForPOST = function () {

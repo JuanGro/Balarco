@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // Services
@@ -16,8 +16,16 @@ export class IgualaFormComponent implements OnChanges {
   @Input() iguala: Iguala;
   // Receives the clients list from parent component.
   // TODO: @Input('clientsList') clientsList: Client[];
-  public clientSelected: number;
+  // Requests close of modal to parent component.
+  @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+  // Event for parent when an Iguala is updated.
+  @Output() igualaUpdated: EventEmitter<Iguala> = new EventEmitter();
+  // Inicialization of form control.
   public igualasModalForm: FormGroup;
+  // Variable that stores the old iguala if the update is canceled.
+  public oldIguala: Iguala;
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
 
   public constructor(private httpService: HttpService) { }
 
@@ -25,7 +33,7 @@ export class IgualaFormComponent implements OnChanges {
     if(!this.iguala) {
       this.iguala = new Iguala();
     } else {
-      
+      this.oldIguala = new Iguala(this.iguala);
     }
   }
 
@@ -39,5 +47,22 @@ export class IgualaFormComponent implements OnChanges {
         console.log('Iguala created');
       }
     });
+  }
+
+  public requestCloseThisModal() {
+    this.modalAction = 'Close modal';
+    this.requestCloseModal.emit(this.modalAction);
+  }
+
+  /**
+  * Set iguala with TWDB with old values or clear object if it's new.
+  **/
+  public cancelForm() {
+    if(this.oldIguala) {
+      this.iguala = this.oldIguala;
+      this.igualaUpdated.emit(this.iguala);
+    } else {
+      this.iguala = new Iguala();
+    }
   }
 }

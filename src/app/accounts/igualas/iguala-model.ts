@@ -10,27 +10,35 @@ export class Iguala {
   //is_active: boolean;
   // TODO: Add client attribute after merge with develop.
 
-  constructor(json?) {
-    this.id = json && json.id;
-    this.name = json && json.name;
-    this.client = json && json.client;
-    // Convert the start_date string to Date object.
-    let startDateString = json && json.start_date;
-    if (startDateString) {
-      let valuesStart = startDateString.split('-');
-      let startYear = +valuesStart[0];
-      let startMonth = +valuesStart[1] - 1;
-      let startDay = +valuesStart[2];
-      this.start_date = new Date(startYear, startMonth, startDay);
+  constructor(object?: any) {
+    this.id = object && object.id;
+    this.name = object && object.name;
+    this.client = object && object.client;
+    if (object && object.start_date instanceof Date) {
+      this.start_date = object.start_date;
+    } else {
+      // Convert the start_date string to Date object.
+      let startDateString = object && object.start_date;
+      if (startDateString) {
+        let valuesStart = startDateString.split('-');
+        let startYear = +valuesStart[0];
+        let startMonth = +valuesStart[1] - 1;
+        let startDay = +valuesStart[2];
+        this.start_date = new Date(startYear, startMonth, startDay);
+      }
     }
-    // Convert the end_date string to Date object.
-    let endDateString = json && json.end_date;
-    if (endDateString) {
-      let valuesEnd = endDateString.split('-');
-      let endYear = +valuesEnd[0];
-      let endMonth = +valuesEnd[1] - 1;
-      let endDay = +valuesEnd[2];
-      this.end_date = new Date(endYear, endMonth, endDay);
+    if (object && object.end_date instanceof Date) {
+      this.end_date = object.end_date;
+    } else {
+      // Convert the end_date string to Date object.
+      let endDateString = object && object.end_date;
+      if (endDateString) {
+        let valuesEnd = endDateString.split('-');
+        let endYear = +valuesEnd[0];
+        let endMonth = +valuesEnd[1] - 1;
+        let endDay = +valuesEnd[2];
+        this.end_date = new Date(endYear, endMonth, endDay);
+      }
     }
   }
 

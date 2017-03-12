@@ -9,7 +9,7 @@
 
  <igualas-list-table [igualasList]="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()" (requestShowUpdateIgualaModal)="updateIgualaModal.show()" (currentIguala)="getIgualaFromTable($event)"></igualas-list-table>
 
- <!-- Modal New Iguala -->
+<!-- Modal New Iguala -->
 <div bsModal #newIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewIgualaModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -24,7 +24,7 @@
             <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <iguala-form [iguala]="iguala"></iguala-form>
+            <iguala-form [iguala]="iguala" (requestCloseModal)="newIgualaModal.hide()"></iguala-form>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
            <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
            <!-- [clientsList] sends the clients list to the form -->
            <!-- (requestCloseModal) listens for the close of the modal -->
-           <iguala-form [iguala]="iguala"></iguala-form>
+           <iguala-form [iguala]="iguala" (requestCloseModal)="updateIgualaModal.hide()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
        </div>
    </div>
 </div>
