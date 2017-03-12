@@ -22,8 +22,11 @@ export class IgualaFormComponent implements OnChanges {
   public constructor(private httpService: HttpService) { }
 
   public ngOnChanges() {
-    this.iguala = new Iguala();
-    console.log(this.iguala);
+    if(!this.iguala) {
+      this.iguala = new Iguala();
+    } else {
+      
+    }
   }
 
   public submitIgualaForm() {

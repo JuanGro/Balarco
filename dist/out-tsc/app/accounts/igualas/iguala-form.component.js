@@ -15,8 +15,11 @@ var IgualaFormComponent = (function () {
         this.httpService = httpService;
     }
     IgualaFormComponent.prototype.ngOnChanges = function () {
-        this.iguala = new Iguala();
-        console.log(this.iguala);
+        if (!this.iguala) {
+            this.iguala = new Iguala();
+        }
+        else {
+        }
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
         this.submitNewIguala();

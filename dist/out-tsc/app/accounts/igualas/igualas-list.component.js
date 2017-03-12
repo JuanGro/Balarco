@@ -11,11 +11,20 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 var IgualasListComponent = (function () {
     function IgualasListComponent() {
         this.requestShowNewIgualaModal = new EventEmitter();
+        this.requestShowUpdateIgualaModal = new EventEmitter();
+        this.currentIguala = new EventEmitter();
         this.modalAction = '';
     }
     IgualasListComponent.prototype.requestNewIgualaModal = function () {
         this.modalAction = 'Open new Contact modal';
         this.requestShowNewIgualaModal.emit(this.modalAction);
+    };
+    IgualasListComponent.prototype.requestUpdateIgualaModal = function () {
+        this.modalAction = 'Open update contact modal';
+        this.requestShowUpdateIgualaModal.emit(this.modalAction);
+    };
+    IgualasListComponent.prototype.sendCurrentIguala = function (object) {
+        this.currentIguala.emit(object);
     };
     return IgualasListComponent;
 }());
@@ -27,6 +36,14 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], IgualasListComponent.prototype, "requestShowNewIgualaModal", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], IgualasListComponent.prototype, "requestShowUpdateIgualaModal", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], IgualasListComponent.prototype, "currentIguala", void 0);
 IgualasListComponent = __decorate([
     Component({
         selector: 'igualas-list-table',

@@ -76,5 +76,5 @@ export class IgualasComponent implements OnInit {
     this.iguala = object;
     console.log('object received');
     console.log(object);
-  }
+  }  
 }
