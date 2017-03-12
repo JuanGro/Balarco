@@ -31,8 +31,8 @@
                         <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
                         <th scope="row">{{ iguala.id }}</th>
                         <td>{{ iguala.name }}</td>
-                        <td>{{ iguala.start_date }}</td>
-                        <td>{{ iguala.end_date }}</td>
+                        <td>{{ iguala.start_date.toDateString() }}</td>
+                        <td>{{ iguala.end_date.toDateString() }}</td>
                         </tr>
                     </tbody>
                     </table>
