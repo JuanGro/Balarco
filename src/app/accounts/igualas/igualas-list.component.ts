@@ -1,5 +1,4 @@
-import { Component, ViewChild, Output, Input, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 // Models
 import { Iguala } from './iguala-model';

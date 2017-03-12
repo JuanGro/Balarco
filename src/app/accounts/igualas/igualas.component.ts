@@ -23,7 +23,7 @@ export class IgualasComponent implements OnInit {
   // List of igualas received from httpService.
   public igualasList: Iguala[];
   // List of clients received from httpService.
-  //TODO: public clientsList: Client[];
+  // TODO: public clientsList: Client[];
   public iguala: Iguala;
   // Title for new Iguala modal.
   public titleNewModal: string;

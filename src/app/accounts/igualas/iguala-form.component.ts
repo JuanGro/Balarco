@@ -48,7 +48,7 @@ export class IgualaFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    if(!this.iguala) {
+    if (!this.iguala) {
       this.iguala = new Iguala();
     } else {
       this.oldIguala = new Iguala(this.iguala);
@@ -74,7 +74,7 @@ export class IgualaFormComponent implements OnChanges {
   **/
   public submitNewIguala() {
     this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(result => {
-      if(result.ok) {
+      if (result.ok) {
         let newIguala = new Iguala(result.json());
         this.igualaCreated.emit(newIguala);
       }
@@ -113,7 +113,7 @@ export class IgualaFormComponent implements OnChanges {
   * Set iguala with TWDB with old values or clear object if it's new.
   **/
   public cancelForm() {
-    if(this.oldIguala) {
+    if (this.oldIguala) {
       this.iguala = this.oldIguala;
       this.igualaUpdated.emit(this.iguala);
     } else {

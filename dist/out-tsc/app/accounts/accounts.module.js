@@ -38,7 +38,8 @@ AccountsModule = __decorate([
             DatepickerModule.forRoot(),
             SelectModule,
         ],
-        declarations: [CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, IgualaFormComponent, DesignsListComponent],
+        declarations: [CompaniesListComponent, ClientsListComponent, IgualasComponent,
+            IgualasListComponent, IgualaFormComponent, DesignsListComponent],
         providers: [CanActivateAuthGuard, HttpService]
     })
 ], AccountsModule);

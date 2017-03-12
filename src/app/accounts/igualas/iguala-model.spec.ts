@@ -10,7 +10,7 @@ describe('Iguala object model tests.', () => {
     let start_date = new Date(2016,11,11);
     let end_date = new Date(2017, 11, 11);
 
-    var iguala: Iguala = {
+    let iguala: Iguala = {
       id: id,
       name: name,
       client: client,
@@ -34,5 +34,4 @@ describe('Iguala object model tests.', () => {
     expect(iguala.start_date).toBe(undefined);
     expect(iguala.end_date).toBe(undefined);
   });
-
 });

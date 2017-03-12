@@ -30,7 +30,8 @@ import { SelectModule } from 'ng2-select';
     DatepickerModule.forRoot(),
     SelectModule,
   ],
-  declarations: [ CompaniesListComponent, ClientsListComponent, IgualasComponent, IgualasListComponent, IgualaFormComponent, DesignsListComponent ],
+  declarations: [ CompaniesListComponent, ClientsListComponent, IgualasComponent,
+                  IgualasListComponent, IgualaFormComponent, DesignsListComponent ],
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }
