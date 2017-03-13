@@ -97,17 +97,6 @@ export class ClientFormComponent implements OnChanges {
   }
 
   /**
-  * Update the Client object to avoid changes with TWDB.
-  * Params:
-  *   - object: A Client object.
-  *   - id: Id of client object.
-  **/
-  public cancelUpdatedClient(object: Client, id: number) {
-    let updatedClient = new Client(object);
-    this.clientUpdated.emit(updatedClient);
-  }
-
-  /**
   * Requests to the Backend service to create the new client.
   * Params:
   *   - object: A Client object.
