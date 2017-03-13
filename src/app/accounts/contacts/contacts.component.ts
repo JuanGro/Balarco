@@ -37,6 +37,8 @@ export class ContactsComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger contact modal.
   public descriptionDangerModal: string;
+  // Variable to receive the initialize form request.
+  public resetForm: boolean = false;
 
   public constructor(public httpService: HttpService) { }
 
@@ -154,5 +156,12 @@ export class ContactsComponent implements OnInit {
     if (index >= 0) {
       this.contactsList[index] = event;
     }
+  }
+
+  /**
+  * Return to the original object the contact.
+  **/
+  public cancelForm() {
+    this.resetForm = true;
   }
 }

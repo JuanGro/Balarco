@@ -236,7 +236,7 @@
     <div class="modal-footer">
         <!-- Clear form -->
         <!-- Calls the resetForm method, it's only displayed if the contact.id is empty because it's not used for create a new contact modal -->
-        <button *ngIf="!contact.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+        <!-- <button *ngIf="!contact.id" type="reset" class="btn btn-danger" (click)="cancelForm()">Limpiar</button> -->
         <!-- Delete contact -->
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact.id exists because it's used only for update contact modal -->
         <button *ngIf="contact.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>

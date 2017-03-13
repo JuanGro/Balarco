@@ -21,13 +21,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleNewModal }}</h4>
+                <button type="button" class="close" (click)="newContactModal.hide()" (click)="cancelForm()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <!-- Common Form -->
             <!-- Child component, it contains the contact form -->
             <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <contact-form [contact]="" [clientsList]="clientsList" (requestCloseModal)="newContactModal.hide()" (contactCreated)="onContactCreated($event)"></contact-form>
+            <contact-form [resetForm]="resetForm" [contact]="contact" [clientsList]="clientsList" (requestCloseModal)="newContactModal.hide()" (contactCreated)="onContactCreated($event)"></contact-form>
         </div>
     </div>
 </div>
@@ -38,6 +41,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+                <button type="button" class="close" (click)="updateContactModal.hide()" (click)="cancelForm()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <!-- Common Form -->
             <!-- Child component, it contains the contact form -->

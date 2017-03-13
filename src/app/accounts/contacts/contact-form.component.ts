@@ -23,7 +23,9 @@ import { HttpService } from './../../shared/http-service/http.service';
 **/
 export class ContactFormComponent implements OnChanges {
   // Receives the contact selected by the user or the empty object to know if is called the update or create contact form.
-  @Input() contact: Contact;
+  @Input('contact') contact: Contact;
+  // Receives the request to initialize the form from parent component.
+  @Input('resetForm') initializeForm: boolean;
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Requests close of the current modal to parent component.
@@ -58,6 +60,9 @@ export class ContactFormComponent implements OnChanges {
       this.oldContact = new Contact();
     } else {
       this.oldContact = new Contact(this.contact);
+    }
+    if (this.initializeForm) {
+      this.cancelForm();
     }
   }
 
@@ -126,14 +131,7 @@ export class ContactFormComponent implements OnChanges {
   }
 
   /**
-  * Clears all the values in the form fields.
-  **/
-  public resetForm() {
-    this.contact = new Contact();
-  }
-
-  /**
-  * Return to the original object the contact.
+  * Initialize the form and return to the original object the contact.
   **/
   public cancelForm() {
     if (this.oldContact.id) {
@@ -141,7 +139,9 @@ export class ContactFormComponent implements OnChanges {
       let updatedContact = new Contact(this.oldContact);
       this.contactUpdated.emit(updatedContact);
     }
+    this.contact = new Contact();
     setTimeout(() => this.active = false, 1);
     setTimeout(() => this.active = true, 0);
+    this.initializeForm = false;
   }
 }
