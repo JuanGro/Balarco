@@ -40,8 +40,10 @@ export class ContactFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public contactsModalForm: FormGroup;
-  // Variable to return the old contact if cancel the update form
+  // Variable to return the old contact if cancel the update form.
   public oldContact: Contact;
+  // Variable to active the form.
+  public active: boolean = true;
 
   public constructor(private httpService: HttpService) { }
 
@@ -73,6 +75,8 @@ export class ContactFormComponent implements OnChanges {
         // Create contact
         this.submitNewContact(object);
       }
+      this.active = false;
+      setTimeout(() => this.active = true, 0);
       this.success = true;
   }
 
@@ -137,5 +141,7 @@ export class ContactFormComponent implements OnChanges {
       let updatedContact = new Contact(this.oldContact);
       this.contactUpdated.emit(updatedContact);
     }
+    setTimeout(() => this.active = false, 1);
+    setTimeout(() => this.active = true, 0);
   }
 }

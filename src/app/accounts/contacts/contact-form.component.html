@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #contactsModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitContactForm(contactsModalForm.value)" executes the submitContactForm method sending the values of each field -->
-    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)">
+    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)" *ngIf="active">
     
     <!-- First row -->
     <div class="form-group row">
