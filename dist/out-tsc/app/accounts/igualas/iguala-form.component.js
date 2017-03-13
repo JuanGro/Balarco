@@ -18,6 +18,7 @@ var IgualaFormComponent = (function () {
         this.igualaCreated = new EventEmitter();
         this.igualaUpdated = new EventEmitter();
         this.modalAction = '';
+        this.active = true;
     }
     IgualaFormComponent.prototype.ngOnChanges = function () {
         if (!this.iguala) {
@@ -28,12 +29,15 @@ var IgualaFormComponent = (function () {
         }
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
+        var _this = this;
         if (this.iguala.id) {
             this.submitUpdatedIguala();
         }
         else {
             this.submitNewIguala();
         }
+        this.active = false;
+        setTimeout(function () { return _this.active = true; }, 0);
     };
     IgualaFormComponent.prototype.submitNewIguala = function () {
         var _this = this;

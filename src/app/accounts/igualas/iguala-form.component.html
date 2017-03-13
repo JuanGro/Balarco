@@ -1,6 +1,6 @@
 <div class="modal-body">
   <!-- Start form -->
-  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm()">
+  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm()" *ngIf="active">
 
     <!-- First row -->
     <div class="form-group row">

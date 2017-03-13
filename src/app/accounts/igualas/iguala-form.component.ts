@@ -39,6 +39,7 @@ export class IgualaFormComponent implements OnChanges {
   public oldIguala: Iguala;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
+  active: boolean = true;
 
   public constructor(private httpService: HttpService) { }
 
@@ -67,6 +68,8 @@ export class IgualaFormComponent implements OnChanges {
       // Create iguala
       this.submitNewIguala();
     }
+    this.active = false;
+    setTimeout(() => this.active = true, 0);
   }
 
   /**
