@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #clientModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitClientForm(clientModalForm.value)" executes the submitClientForm method sending the values of each field -->
-    <form #clientModalForm="ngForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value)">
+    <form #clientModalForm="ngForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value)" *ngIf="active">
         <!-- First row -->
         <div class="form-group row">
             <div class="col-md-6">
@@ -53,7 +53,7 @@
         <div class="modal-footer">
             <!-- Clear form -->
             <!-- Calls the resetForm method, it's only displayed if the client is empty because it's used only for Create new client modal -->
-            <button *ngIf="!client.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+            <!-- <button *ngIf="!client.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button> -->
             <!-- Delete client -->
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the client exists because it's used only for update client modal -->
             <button *ngIf="client.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>

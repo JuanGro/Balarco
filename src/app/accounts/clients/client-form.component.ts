@@ -23,6 +23,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 export class ClientFormComponent implements OnChanges {
   // Receives the client selected by the user or the empty object to know if is called the update or create client form.
   @Input() client: Client;
+  // Receives the request to initialize the form from parent component.
+  @Input('resetForm') resetForm: boolean;
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the client is permanent removed.
@@ -39,6 +41,8 @@ export class ClientFormComponent implements OnChanges {
   public clientModalForm: FormGroup;
   // Variable to return the old client if cancel the update form
   public oldClient: Client;
+  // Variable to active the form.
+  public active: boolean = true;
 
   public constructor(private httpService: HttpService) { }
 
@@ -52,6 +56,9 @@ export class ClientFormComponent implements OnChanges {
       this.oldClient = new Client();
     } else {
       this.oldClient = new Client(this.client);
+    }
+    if (this.resetForm) {
+      this.cancelForm();
     }
   }
 
@@ -68,6 +75,8 @@ export class ClientFormComponent implements OnChanges {
         // Create client
         this.submitNewClient(object);
       }
+      this.active = false;
+      setTimeout(() => this.active = true, 0);
       this.success = true;
   }
 
@@ -130,18 +139,18 @@ export class ClientFormComponent implements OnChanges {
     this.requestCloseModal.emit(this.modalAction);
   }
 
-   /**
-  * Clears all the values in the form fields.
-  **/
-  public resetForm() {
-    this.client = new Client();
-  }
-
   /**
-  * Return to the original object the client.
+  * Initialize the form and return to the original object the client.
   **/
   public cancelForm() {
-    this.client = this.oldClient;
-    this.cancelUpdatedClient(this.oldClient, this.oldClient.id);
+    if (this.oldClient.id) {
+      this.client = this.oldClient;
+      let updatedContact = new Client(this.oldClient);
+      this.clientUpdated.emit(updatedContact);
+    }
+    this.client = new Client();
+    setTimeout(() => this.active = false, 1);
+    setTimeout(() => this.active = true, 0);
+    this.resetForm = false;
   }
 }
