@@ -61,7 +61,7 @@ export class ClientsComponent implements OnInit {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(clientsListJSON => {
-                      // Creates Iguala objects from JSON.
+                      // Creates Client objects from JSON.
                       this.clientsList = [];
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));

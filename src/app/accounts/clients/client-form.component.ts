@@ -27,9 +27,9 @@ export class ClientFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the client is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
-  // Event for parent to push the new Contact to the list.
+  // Event for parent to push the new Client to the list.
   @Output() clientCreated: EventEmitter<Client> = new EventEmitter();
-  // Event for parent to update the currentContact.
+  // Event for parent to update the currentClient.
   @Output() clientUpdated: EventEmitter<Client> = new EventEmitter();
   // Variable to check if the submitForm method finish correctly.
   public success: boolean = false;

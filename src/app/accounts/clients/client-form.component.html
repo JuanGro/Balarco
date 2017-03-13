@@ -33,18 +33,18 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-map-marker"></i>
                     </span>
-                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
+                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
                 </div>
                 <!-- Feedback address -->
                 <div *ngIf="address.errors && address.touched" class="alert alert-danger">
                     <div [hidden]="!address.errors.required">
-                        El nombre es obligatorio.
+                        La dirección es obligatoria.
                     </div>
                     <div [hidden]="!address.errors.minlength">
-                        El nombre debe ser mayor o igual a 3 caracteres.
+                        La dirección debe ser mayor o igual a 3 caracteres.
                     </div>
                     <div [hidden]="!address.errors.maxlength">
-                        El nombre debe ser menor a 25 caracteres.
+                        La dirección debe ser menor a 25 caracteres.
                     </div>
                 </div>
             </div>
