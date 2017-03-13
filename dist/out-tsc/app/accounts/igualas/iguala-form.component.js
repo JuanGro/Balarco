@@ -66,6 +66,7 @@ var IgualaFormComponent = (function () {
         this.requestWarning.emit(this.modalAction);
     };
     IgualaFormComponent.prototype.cancelForm = function () {
+        var _this = this;
         if (this.oldIguala) {
             this.iguala = this.oldIguala;
             this.igualaUpdated.emit(this.iguala);
@@ -73,6 +74,8 @@ var IgualaFormComponent = (function () {
         else {
             this.iguala = new Iguala();
         }
+        setTimeout(function () { return _this.active = false; }, 1);
+        setTimeout(function () { return _this.active = true; }, 0);
     };
     IgualaFormComponent.prototype.resetForm = function () {
         this.iguala = new Iguala();

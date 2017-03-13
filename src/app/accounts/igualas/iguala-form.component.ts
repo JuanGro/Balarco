@@ -122,6 +122,8 @@ export class IgualaFormComponent implements OnChanges {
     } else {
       this.iguala = new Iguala();
     }
+    setTimeout(() => this.active = false, 1);
+    setTimeout(() => this.active = true, 0);
   }
 
   /**
