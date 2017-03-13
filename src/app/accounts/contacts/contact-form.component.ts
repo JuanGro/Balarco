@@ -102,6 +102,7 @@ export class ContactFormComponent implements OnChanges {
           this.contactCreated.emit(newContact);
         }
     });
+    this.contact = new Contact();
   }
 
   /**
