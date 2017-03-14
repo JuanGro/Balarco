@@ -6,7 +6,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Models
 import { Iguala } from './iguala-model';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 
 @Component({
   selector: 'iguala-form',

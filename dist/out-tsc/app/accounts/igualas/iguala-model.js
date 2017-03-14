@@ -1,4 +1,4 @@
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 var Iguala = (function () {
     function Iguala(object) {
         this.id = object && object.id;

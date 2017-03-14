@@ -24,7 +24,7 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 
 describe('ContactsListComponent  tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 // Models
 import { Contact } from './contact-model';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';

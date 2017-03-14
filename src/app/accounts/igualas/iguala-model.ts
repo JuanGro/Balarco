@@ -1,5 +1,5 @@
 // Models
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 
 /**
 * Model that defines an Iguala.

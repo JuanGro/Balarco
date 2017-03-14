@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Models
 import { Iguala } from './iguala-model';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';

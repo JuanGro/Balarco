@@ -6,17 +6,17 @@ import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Components
-import { CompaniesListComponent } from './companies-list/companies-list.component';
-import { IgualasComponent } from './igualas/igualas.component';
-import { IgualasListComponent } from './igualas/igualas-list.component';
-import { IgualaFormComponent } from './igualas/iguala-form.component';
+import { AccountsRoutingModule } from './accounts-routing.module';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactsListComponent } from './contacts/contacts-list.component';
 import { ContactFormComponent } from './contacts/contact-form.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ClientsListComponent } from './clients/clients-list.component';
+import { ClientFormComponent } from './clients/client-form.component';
+import { IgualasListComponent } from './igualas/igualas-list.component';
+import { IgualasComponent } from './igualas/igualas.component';
+import { IgualaFormComponent } from './igualas/iguala-form.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
-
-// Contacts
-import { AccountsRoutingModule } from './accounts-routing.module';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
@@ -35,12 +35,12 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
-    SelectModule,
+    SelectModule
   ],
-  declarations: [ CompaniesListComponent, IgualasComponent,
-                  IgualasListComponent, IgualaFormComponent, DesignsListComponent,
-                  ContactsComponent, ContactsListComponent, ContactFormComponent
-                ],
+  declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent,
+                  DesignsListComponent, ContactsListComponent, ContactFormComponent, ClientsComponent,
+                  ClientsListComponent, ClientFormComponent ],
+
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }

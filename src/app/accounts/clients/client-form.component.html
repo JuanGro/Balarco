@@ -1,0 +1,67 @@
+<div class="modal-body">
+    <!-- Start form -->
+    <!-- #clientModalForm="ngForm" calls the form methods to the component -->
+    <!-- (ngSubmit)="submitClientForm(clientModalForm.value)" executes the submitClientForm method sending the values of each field -->
+    <form #clientModalForm="ngForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value)" *ngIf="active">
+        <!-- First row -->
+        <div class="form-group row">
+            <div class="col-md-6">
+                <!-- Name field -->
+                <label for="recipient-name" class="form-control-label">Nombre:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                    </span>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" required>
+                </div>
+                <!-- Feedback name -->
+                <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                    <div [hidden]="!name.errors.required">
+                        El nombre es obligatorio.
+                    </div>
+                    <div [hidden]="!name.errors.minlength">
+                        El nombre debe ser mayor o igual a 2 caracteres.
+                    </div>
+                    <div [hidden]="!name.errors.maxlength">
+                        El nombre debe ser menor a 25 caracteres.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- Name field -->
+                <label for="recipient-address" class="form-control-label">Dirección:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-map-marker"></i>
+                    </span>
+                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
+                </div>
+                <!-- Feedback address -->
+                <div *ngIf="address.errors && address.touched" class="alert alert-danger">
+                    <div [hidden]="!address.errors.required">
+                        La dirección es obligatoria.
+                    </div>
+                    <div [hidden]="!address.errors.minlength">
+                        La dirección debe ser mayor o igual a 3 caracteres.
+                    </div>
+                    <div [hidden]="!address.errors.maxlength">
+                        La dirección debe ser menor a 25 caracteres.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Buttons -->
+        <div class="modal-footer">
+            <!-- Clear form -->
+            <!-- Calls the resetForm method, it's only displayed if the client is empty because it's used only for Create new client modal -->
+            <!-- <button *ngIf="!client.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button> -->
+            <!-- Delete client -->
+            <!-- Calls the requestWarningModal method, the confirmation is only displayed if the client exists because it's used only for update client modal -->
+            <button *ngIf="client.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+            <!-- Hides modal -->
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <!-- Submits updated or new client -->
+            <!-- Calls the submitClientForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+            <button type="submit" class="btn btn-primary" [disabled]="!clientModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+        </div>
+    </form>
+</div>

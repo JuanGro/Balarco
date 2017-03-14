@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
-import { Client } from './../companies-list/client';
+import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
 var IgualasComponent = (function () {
     function IgualasComponent(httpService) {
