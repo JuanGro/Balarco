@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
-import { CompaniesListComponent } from './companies-list.component';
-import { ClientsListComponent } from './clients-list.component';
+import { CompaniesListComponent } from './companies-list/companies-list.component';
 import { IgualasComponent } from './igualas/igualas.component';
-import { DesignsListComponent } from './designs-list.component';
+import { DesignsListComponent } from './designs-list/designs-list.component';
+import { ContactsComponent } from './contacts/contacts.component';
 var routes = [
     {
         path: '',
@@ -27,10 +27,10 @@ var routes = [
                 }
             },
             {
-                path: 'clients-list',
-                component: ClientsListComponent,
+                path: 'contacts-list',
+                component: ContactsComponent,
                 data: {
-                    title: 'Clients List'
+                    title: 'Contacts List'
                 }
             },
             {

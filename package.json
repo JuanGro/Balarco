@@ -52,6 +52,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-remap-istanbul": "^0.4.0",
+    "karma-safari-launcher": "^1.0.0",
     "protractor": "5.0.0",
     "ts-node": "2.0.0",
     "tslint": "4.3.1",

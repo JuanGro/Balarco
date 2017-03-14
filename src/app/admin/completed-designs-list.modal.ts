@@ -1,11 +1,7 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-// Components
-// import { CompletedDesignsListComponent } from './completed-designs-list.component';
-
-// Services
-// import { CompletedDesignsListService } from './completed-designs-list.service';
+// Interface
+import { CompletedDesignsList } from './completed-designs-list';
 
 @Component({
   selector: 'completed-designs-list-modal',
@@ -13,10 +9,22 @@ import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
   moduleId: module.id,
 })
 export class CompletedDesignsListModalComponent implements OnInit {
-  @ViewChild('childModal') public childModal: ModalDirective;
-  // @Input() id: number;
+  // Send to the child the data
+  @Input('docs') docs: CompletedDesignsList;
+  // Receive the request to show the modal
+  @Output() uploaded: EventEmitter<string> = new EventEmitter();
+  @Output() notify: EventEmitter<CompletedDesignsList> = new EventEmitter<CompletedDesignsList>();
 
-  constructor() {}
+  public constructor() { }
+
+  uploadComplete() {
+    this.uploaded.emit('complete');
+  }
+
+  onClick(object) {
+    this.notify.emit(object);
+  }
 
   ngOnInit() {}
+
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   Http,
   XHRBackend,
@@ -31,9 +32,9 @@ export class HttpService extends Http {
   public token: string;
 
   constructor(
-    backend: XHRBackend,
-    defaultOptions: RequestOptions,
-
+    private backend: XHRBackend,
+    private defaultOptions: RequestOptions,
+    private router: Router
   ) {
     super(backend, defaultOptions);
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -47,6 +48,7 @@ export class HttpService extends Http {
     request: string | Request,
     options: RequestOptionsArgs = { headers: new Headers()}): Observable<Response> {
     this.configureRequest(request, options);
+    // console.log('REQUEST: ' + request);
     return this.interceptResponse(request, options);
   }
 
@@ -162,7 +164,7 @@ export class HttpService extends Http {
   public logout() {
     this.token = null;
     localStorage.removeItem('currentUser');
-    // TODO: Redirect to login page.
+    this.router.navigate(['/login/login']);
   }
 
   /**
