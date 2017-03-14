@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
-import { CompaniesListComponent } from './companies-list.component';
-import { ClientsListComponent } from './clients-list.component';
-import { IgualasListComponent } from './igualas-list.component';
-import { DesignsListComponent } from './designs-list.component';
+import { CompaniesListComponent } from './companies-list/companies-list.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { IgualasListComponent } from './igualas-list/igualas-list.component';
+import { DesignsListComponent } from './designs-list/designs-list.component';
 
 const routes: Routes = [
   {
@@ -23,10 +23,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'clients-list',
-        component: ClientsListComponent,
+        path: 'contacts-list',
+        component: ContactsComponent,
         data: {
-          title: 'Clients List'
+          title: 'Contacts List'
         }
       },
       {

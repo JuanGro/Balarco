@@ -1,11 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: 'companies-list.component.html'
 })
 export class CompaniesListComponent {
-  @ViewChild('childModal') public childModal: ModalDirective;
   public companies: any; // This should not happen, because assign "any" is not a good practice but it's just an example
 
   constructor() {
@@ -21,13 +19,5 @@ export class CompaniesListComponent {
       {'id' : '9', 'company' : 'Comex', 'mail' : 'mail@gmail.com'},
       {'id' : '10', 'company' : 'Starbucks', 'mail' : 'mail@gmail.com'}
     ];
-  }
-
-  public showChildModal(): void {
-    this.childModal.show();
-  }
-
-  public hideChildModal(): void {
-    this.childModal.hide();
   }
 }
