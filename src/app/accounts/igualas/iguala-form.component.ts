@@ -6,6 +6,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Models
 import { Iguala } from './iguala-model';
+import { Client } from './../companies-list/client';
 
 @Component({
   selector: 'iguala-form',
@@ -24,7 +25,7 @@ export class IgualaFormComponent implements OnChanges {
   // Receives the iguala selected by the user or the empty object to know if is called the update or create iguala form.
   @Input() iguala: Iguala;
   // Receives the clients list from parent component.
-  // TODO: @Input('clientsList') clientsList: Client[];
+  @Input('clientsList') clientsList: Client[];
   // Requests close of modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the iguala will be removed.

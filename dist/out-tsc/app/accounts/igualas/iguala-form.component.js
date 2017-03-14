@@ -87,6 +87,10 @@ __decorate([
     __metadata("design:type", Iguala)
 ], IgualaFormComponent.prototype, "iguala", void 0);
 __decorate([
+    Input('clientsList'),
+    __metadata("design:type", Array)
+], IgualaFormComponent.prototype, "clientsList", void 0);
+__decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], IgualaFormComponent.prototype, "requestCloseModal", void 0);
