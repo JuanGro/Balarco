@@ -5,7 +5,7 @@ import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
-// Contacts
+// Components
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactsListComponent } from './contacts/contacts-list.component';
@@ -37,8 +37,9 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DatepickerModule.forRoot(),
     SelectModule
   ],
-  declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent, DesignsListComponent, ContactsListComponent,
-                  ContactFormComponent, ClientsComponent, ClientsListComponent, ClientFormComponent ],
+  declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent,
+                  DesignsListComponent, ContactsListComponent, ContactFormComponent, ClientsComponent,
+                  ClientsListComponent, ClientFormComponent ],
 
   providers: [ CanActivateAuthGuard, HttpService ]
 })

@@ -7,8 +7,8 @@ describe('Iguala object model tests.', () => {
     let id = 1;
     let name = 'Starbucks 2018';
     let client = 2;
-    let start_date = new Date(2016,11,11);
-    let end_date = new Date(2017, 11, 11);
+    let start_date = new Date (2016,11,11);
+    let end_date = new Date (2017, 11, 11);
 
     let iguala: Iguala = {
       id: id,
