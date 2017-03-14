@@ -40,6 +40,7 @@ export class IgualaFormComponent implements OnChanges {
   public oldIguala: Iguala;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
+  // Variable to reset the HTML of the form when it is closed.
   active: boolean = true;
 
   public constructor(private httpService: HttpService) { }

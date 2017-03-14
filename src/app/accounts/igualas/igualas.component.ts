@@ -96,6 +96,11 @@ export class IgualasComponent implements OnInit {
                     );
   }
 
+  /**
+  * Saves which iguala was selected by the user.
+  * Params:
+  *   - object: An Iguala object.
+  **/
   public getIgualaFromTable(object: Iguala) {
     this.iguala = object;
     console.log('object received');
