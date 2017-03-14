@@ -126,11 +126,4 @@ export class IgualaFormComponent implements OnChanges {
     setTimeout(() => this.active = false, 1);
     setTimeout(() => this.active = true, 1);
   }
-
-  /**
-  * Clears all the variables in the form.
-  **/
-  public resetForm() {
-    this.iguala = new Iguala();
-  }
 }

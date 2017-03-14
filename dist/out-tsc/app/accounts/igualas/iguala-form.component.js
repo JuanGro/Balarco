@@ -75,9 +75,6 @@ var IgualaFormComponent = (function () {
         setTimeout(function () { return _this.active = false; }, 1);
         setTimeout(function () { return _this.active = true; }, 1);
     };
-    IgualaFormComponent.prototype.resetForm = function () {
-        this.iguala = new Iguala();
-    };
     return IgualaFormComponent;
 }());
 __decorate([
