@@ -52,8 +52,6 @@ var IgualasComponent = (function () {
     };
     IgualasComponent.prototype.getIgualaFromTable = function (object) {
         this.iguala = object;
-        console.log('object received');
-        console.log(object);
     };
     IgualasComponent.prototype.onIgualaCreated = function (event) {
         this.igualasList.push(event);

@@ -103,8 +103,6 @@ export class IgualasComponent implements OnInit {
   **/
   public getIgualaFromTable(object: Iguala) {
     this.iguala = object;
-    console.log('object received');
-    console.log(object);
   }
 
   /**
