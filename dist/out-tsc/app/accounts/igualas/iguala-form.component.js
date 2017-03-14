@@ -71,11 +71,9 @@ var IgualaFormComponent = (function () {
             this.iguala = this.oldIguala;
             this.igualaUpdated.emit(this.iguala);
         }
-        else {
-            this.iguala = new Iguala();
-        }
+        this.iguala = new Iguala();
         setTimeout(function () { return _this.active = false; }, 1);
-        setTimeout(function () { return _this.active = true; }, 0);
+        setTimeout(function () { return _this.active = true; }, 1);
     };
     IgualaFormComponent.prototype.resetForm = function () {
         this.iguala = new Iguala();
