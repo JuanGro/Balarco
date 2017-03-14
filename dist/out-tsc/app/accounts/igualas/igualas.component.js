@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
+import { Client } from './../companies-list/client';
 import { HttpService } from './../../shared/http-service/http.service';
 var IgualasComponent = (function () {
     function IgualasComponent(httpService) {
@@ -21,6 +22,7 @@ var IgualasComponent = (function () {
         this.titleDangerModal = 'Eliminar Iguala';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
         this.loadIgualasList('works/igualas/');
+        this.loadClientsList('clients/clients/');
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
         var _this = this;
@@ -31,6 +33,19 @@ var IgualasComponent = (function () {
             for (var _i = 0, igualasListJSON_1 = igualasListJSON; _i < igualasListJSON_1.length; _i++) {
                 var igualaJSON = igualasListJSON_1[_i];
                 _this.igualasList.push(new Iguala(igualaJSON));
+            }
+        }, function (err) {
+        });
+    };
+    IgualasComponent.prototype.loadClientsList = function (url) {
+        var _this = this;
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (clientsListJSON) {
+            _this.clientsList = [];
+            for (var _i = 0, clientsListJSON_1 = clientsListJSON; _i < clientsListJSON_1.length; _i++) {
+                var clientJSON = clientsListJSON_1[_i];
+                _this.clientsList.push(new Client(clientJSON));
             }
         }, function (err) {
         });

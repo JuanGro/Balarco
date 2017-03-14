@@ -20,6 +20,7 @@
                         <tr>
                         <th>#</th>
                         <th>Nombre</th>
+                        <th>Cliente</th>
                         <th>Inicio</th>
                         <th>Fin</th>
                         </tr>
@@ -31,6 +32,7 @@
                         <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
                         <th scope="row">{{ iguala.id }}</th>
                         <td>{{ iguala.name }}</td>
+                        <td>{{ iguala.client_complete.name }}</td>
                         <td>{{ iguala.start_date.toDateString() }}</td>
                         <td>{{ iguala.end_date.toDateString() }}</td>
                         </tr>

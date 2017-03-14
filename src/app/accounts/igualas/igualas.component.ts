@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Models
 import { Iguala } from './iguala-model';
+import { Client } from './../companies-list/client';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -23,7 +24,8 @@ export class IgualasComponent implements OnInit {
   // List of igualas received from httpService.
   public igualasList: Iguala[];
   // List of clients received from httpService.
-  // TODO: public clientsList: Client[];
+  public clientsList: Client[];
+  // Variable to store the Iguala received from parent.
   public iguala: Iguala;
   // Title for new Iguala modal.
   public titleNewModal: string;
@@ -49,6 +51,7 @@ export class IgualasComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
 
     this.loadIgualasList('works/igualas/');
+    this.loadClientsList('clients/clients/');
   }
 
   /**
@@ -70,6 +73,27 @@ export class IgualasComponent implements OnInit {
 
                       });
 
+  }
+
+  /**
+  * Loads all the clients from the get method in httpService to use it the client attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the Client object.
+  **/
+  public loadClientsList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(clientsListJSON => {
+                      // Creates clients objects from JSON.
+                      this.clientsList = [];
+                      for (let clientJSON of clientsListJSON) {
+                        this.clientsList.push(new Client(clientJSON));
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
+                    );
   }
 
   public getIgualaFromTable(object: Iguala) {

@@ -1,8 +1,10 @@
+import { Client } from './../companies-list/client';
 var Iguala = (function () {
     function Iguala(object) {
         this.id = object && object.id;
         this.name = object && object.name;
         this.client = object && object.client;
+        this.client_complete = object && new Client(object.client_complete);
         if (object && object.start_date instanceof Date) {
             this.start_date = object.start_date;
         }

@@ -1,19 +1,22 @@
+// Models
+import { Client } from './../companies-list/client';
+
 /**
 * Model that defines an Iguala.
 **/
 export class Iguala {
   id?: number;
-  name: string;
-  start_date: Date;
-  end_date: Date;
-  client: number;
-  // is_active: boolean;
-  // TODO: Add client attribute after merge with develop.
+  name?: string;
+  start_date?: Date;
+  end_date?: Date;
+  client?: number;
+  client_complete?: Client;
 
   constructor(object?: any) {
     this.id = object && object.id;
     this.name = object && object.name;
     this.client = object && object.client;
+    this.client_complete = object && new Client(object.client_complete);
     if (object && object.start_date instanceof Date) {
       this.start_date = object.start_date;
     } else {
