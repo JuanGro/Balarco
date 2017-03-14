@@ -1,5 +1,7 @@
 <div class="modal-body">
   <!-- Start form -->
+  <!-- #igualasModalForm="ngForm" calls the form methods to the component -->
+  <!-- (ngSubmit)="submitIgualaForm()" executes the submitIgualaForm method sending the values of each field -->
   <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm()" *ngIf="active">
 
     <!-- First row -->
@@ -70,8 +72,6 @@
     <!-- Buttons -->
     <div class="modal-footer">
       <!-- Clear form -->
-        <!-- Calls the resetForm method, it's only displayed if the iguala.id is empty because it's not used for create a new iguala modal -->
-        <button type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
         <!-- Delete iguala -->
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the iguala.id exists because it's used only for update iguala modal -->
         <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
