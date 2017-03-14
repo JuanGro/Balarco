@@ -32,8 +32,6 @@ export class ClientsComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger client modal.
   public descriptionDangerModal: string;
-  // Variable to receive the initialize form request.
-  public resetForm: boolean = false;
 
   public constructor(public httpService: HttpService) { }
 
@@ -133,12 +131,5 @@ export class ClientsComponent implements OnInit {
     if (index >= 0) {
       this.clientsList[index] = event;
     }
-  }
-
-  /**
-  * Return to the original object the client.
-  **/
-  public cancelForm() {
-    this.resetForm = true;
   }
 }

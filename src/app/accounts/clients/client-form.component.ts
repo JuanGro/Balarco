@@ -23,8 +23,6 @@ import { HttpService } from './../../shared/http-service/http.service';
 export class ClientFormComponent implements OnChanges {
   // Receives the client selected by the user or the empty object to know if is called the update or create client form.
   @Input() client: Client;
-  // Receives the request to initialize the form from parent component.
-  @Input('resetForm') resetForm: boolean;
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the client is permanent removed.
@@ -56,9 +54,6 @@ export class ClientFormComponent implements OnChanges {
       this.oldClient = new Client();
     } else {
       this.oldClient = new Client(this.client);
-    }
-    if (this.resetForm) {
-      this.cancelForm();
     }
   }
 
@@ -140,6 +135,5 @@ export class ClientFormComponent implements OnChanges {
     this.client = new Client();
     setTimeout(() => this.active = false, 1);
     setTimeout(() => this.active = true, 0);
-    this.resetForm = false;
   }
 }
