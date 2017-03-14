@@ -19,27 +19,27 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
 import { ContactsComponent } from './contacts.component';
-import { ContactsListTableComponent } from './contacts-list-table.component';
+import { ContactsListComponent } from './contacts-list.component';
 import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
 
-describe('ContactsListTableComponent tests.', () => {
+describe('ContactsListComponent  tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
     let fixtureChildForm: ComponentFixture<ContactFormComponent>;
-    // Fixture for debugging and testing a ContactsListTableComponent.
-    let fixtureChildTable: ComponentFixture<ContactsListTableComponent>;
+    // Fixture for debugging and testing a ContactsListComponent .
+    let fixtureChildTable: ComponentFixture<ContactsListComponent>;
 
     // Save ContactsComponent to test it's methods and variables.
     let componentParent: ContactsComponent;
     // Save ContactsFormComponent to test it's methods and variables.
     let componentForm: ContactFormComponent;
-    // Save ContactsListTableComponent to test it's methods and variables.
-    let component: ContactsListTableComponent;
+    // Save ContactsListComponent  to test it's methods and variables.
+    let component: ContactsListComponent;
 
     // let httpServiceStub;
     // Handles on the component's DOM element.
@@ -80,10 +80,10 @@ describe('ContactsListTableComponent tests.', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
+            declarations: [ ContactsComponent, ContactsListComponent , ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
-            providers: [ ContactsListTableComponent,
+            providers: [ ContactsListComponent ,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
@@ -98,14 +98,14 @@ describe('ContactsListTableComponent tests.', () => {
         fixtureParent = TestBed.createComponent(ContactsComponent);
         // Create an instance of the ContactsFormComponent.
         fixtureChildForm = TestBed.createComponent(ContactFormComponent);
-        // Create an instance of the ContactsListTableComponent.
-        fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
+        // Create an instance of the ContactsListComponent.
+        fixtureChildTable = TestBed.createComponent(ContactsListComponent);
 
         // ContactsComponent test instance.
         componentParent = fixtureParent.componentInstance;
         // ContactsFormComponent test instance.
         componentForm = fixtureChildForm.componentInstance;
-        // ContactsListTableComponent test instance.
+        // ContactsListComponent  test instance.
         component = fixtureChildTable.componentInstance;
 
         // Query for the title <h1> by CSS element selector.
@@ -154,7 +154,7 @@ describe('ContactsListTableComponent tests.', () => {
         /**
         * Get the current component to use it in observables.
         **/
-        beforeEach(inject([ContactsListTableComponent], result => {
+        beforeEach(inject([ ContactsListComponent ], result => {
             modalAction = result;
         }));
 
@@ -183,7 +183,7 @@ describe('ContactsListTableComponent tests.', () => {
         /**
         * Get the current component to use it in observables.
         **/
-        beforeEach(inject([ContactsListTableComponent], result => {
+        beforeEach(inject([ ContactsListComponent ], result => {
             modalAction = result;
         }));
 

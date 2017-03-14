@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #contactsModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitContactForm(contactsModalForm.value)" executes the submitContactForm method sending the values of each field -->
-    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)">
+    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)" *ngIf="active">
     
     <!-- First row -->
     <div class="form-group row">
@@ -20,10 +20,10 @@
                     El nombre es obligatorio.
                 </div>
                 <div [hidden]="!name.errors.minlength">
-                    El nombre debe ser mayor a 3 caracteres.
+                    El nombre debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!name.errors.maxlength">
-                    El nombre debe ser menor a 24 caracteres.
+                    El nombre debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -42,10 +42,10 @@
                     El apellido es obligatorio.
                 </div>
                 <div [hidden]="!last_name.errors.minlength">
-                    El apellido debe ser mayor a 3 caracteres.
+                    El apellido debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!last_name.errors.maxlength">
-                    El apellido debe ser menor a 24 caracteres.
+                    El apellido debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" [(ngModel)]="clientSelected" #client="ngModel" size="1" required>
+                <select id="client" name="client" class="form-control" [(ngModel)]="contact.client" #client="ngModel" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
@@ -85,10 +85,10 @@
                     El puesto o departamento es obligatorio.
                 </div>
                 <div [hidden]="!charge.errors.minlength">
-                    El puesto o departamento debe ser mayor a 3 caracteres.
+                    El puesto o departamento debe ser mayor o igual a 3 caracteres.
                 </div>
                 <div [hidden]="!charge.errors.maxlength">
-                    El puesto o departamento debe ser menor a 24 caracteres.
+                    El puesto o departamento debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -110,10 +110,10 @@
                     El teléfono es requerido.
                 </div>
                 <div [hidden]="!landline.errors.minlength">
-                    El teléfono debe ser mayor a 7 caracteres.
+                    El teléfono debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!landline.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
                     La extensión es requerida.
                 </div>
                 <div [hidden]="!extension.errors.maxlength">
-                    La extensión debe ser menor a 24 caracteres.
+                    La extensión debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -154,10 +154,10 @@
                     El teléfono es requerido.
                 </div>
                 <div [hidden]="!mobile_phone_1.errors.minlength">
-                    El teléfono debe ser mayor a 10 caracteres.
+                    El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_1.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -173,10 +173,10 @@
             <!-- Feedback mobile phone 2 -->
             <div *ngIf="mobile_phone_2.errors && mobile_phone_2.touched" class="alert alert-danger">
                 <div [hidden]="!mobile_phone_2.errors.minlength">
-                    El teléfono debe ser mayor a 10 caracteres.
+                    El teléfono debe ser mayor o igual a 10 caracteres.
                 </div>
                 <div [hidden]="!mobile_phone_2.errors.maxlength">
-                    El teléfono debe ser menor a 24 caracteres.
+                    El teléfono debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -201,10 +201,10 @@
                     El correo electrónico no es válido.
                 </div>
                 <div [hidden]="!email.errors.minlength">
-                    El correo electrónico debe ser mayor a 7 caracteres.
+                    El correo electrónico debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!email.errors.maxlength">
-                    El correo electrónico debe ser menor a 24 caracteres.
+                    El correo electrónico debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -223,10 +223,10 @@
                     El correo electrónico no es válido.
                 </div>
                 <div [hidden]="!alternate_email.errors.minlength">
-                    El correo electrónico debe ser mayor a 7 caracteres.
+                    El correo electrónico debe ser mayor o igual a 7 caracteres.
                 </div>
                 <div [hidden]="!alternate_email.errors.maxlength">
-                    El correo electrónico debe ser menor a 24 caracteres.
+                    El correo electrónico debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
@@ -236,12 +236,12 @@
     <div class="modal-footer">
         <!-- Clear form -->
         <!-- Calls the resetForm method, it's only displayed if the contact.id is empty because it's not used for create a new contact modal -->
-        <button *ngIf="!contact.id" type="reset" class="btn btn-danger" (click)="resetForm()">Limpiar</button>
+        <!-- <button *ngIf="!contact.id" type="reset" class="btn btn-danger" (click)="cancelForm()">Limpiar</button> -->
         <!-- Delete contact -->
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact.id exists because it's used only for update contact modal -->
         <button *ngIf="contact.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hides modal -->
-        <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)">Cancelar</button>
+        <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
         <!-- Submits updated or new contact -->
         <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
         <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>

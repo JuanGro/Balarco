@@ -1,0 +1,85 @@
+<div class="modal-body">
+  <!-- Start form -->
+  <!-- #igualasModalForm="ngForm" calls the form methods to the component -->
+  <!-- (ngSubmit)="submitIgualaForm()" executes the submitIgualaForm method sending the values of each field -->
+  <form #igualasModalForm="ngForm" novalidate (ngSubmit)="submitIgualaForm()" *ngIf="active">
+
+    <!-- First row -->
+    <div class="form-group row">
+      <div class="col-md-6">
+        <!-- Name Field -->
+        <label for="iguala-name" class="form-control-label">Nombre:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user"></i></span>
+          <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="iguala.name" #name="ngModel" required>
+        </div>
+        <!-- Feedback name -->
+        <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+          <div [hidden]="!name.errors.required">
+            El nombre es obligatorio.
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            El nombre debe ser mayor o igual a 3 caracteres.
+          </div>
+          <div [hidden]="!name.errors.maxlength">
+            El nombre debe ser menor a 25 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- Client field -->
+        <label for="iguala-client" class="form-control-label">Compañía:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+          <select id="client" name="client" class="form-control" size="1" [(ngModel)]="iguala.client" #client="ngModel" required>
+              <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+          </select>
+        </div>
+        <!-- Feedback client -->
+        <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+          <div [hidden]="!client.errors.required">
+            La compañía es obligatoria
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Second row -->
+    <div class="form-group row">
+      <div class="col-md-6">
+        <!-- StartDate Field -->
+        <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
+        <div class="card-block">
+          <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
+              <datepicker [(ngModel)]="iguala.start_date" name="start_date" required></datepicker>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- EndDate Field -->
+        <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
+        <div class="card-block">
+          <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
+              <datepicker [(ngModel)]="iguala.end_date" [minDate]="iguala.start_date" name="end_date" required></datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="modal-footer">
+      <!-- Clear form -->
+        <!-- Delete iguala -->
+        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the iguala.id exists because it's used only for update iguala modal -->
+        <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+        <!-- Hides modal -->
+        <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+        <!-- Submits updated or new iguala -->
+        <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+        <button type="submit" [disabled]="!igualasModalForm.form.valid" class="btn btn-primary" (click)="requestCloseThisModal($event)">Guardar</button>
+    </div>
+  </form>
+</div>

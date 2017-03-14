@@ -16,7 +16,6 @@ export class Contact {
     mobile_phone_2?: string;
     email: string;
     alternate_email?: string;
-    is_active?: boolean;
     client_complete?: Client;
 
     /**
@@ -24,8 +23,7 @@ export class Contact {
     * Params:
     *   - jsonText: The contact returned from API in json format string.
     **/
-    constructor(jsonText: string) {
-      let json = JSON.parse(jsonText);
+    constructor(json?) {
       this.id = json && json.id;
       this.name = json && json.name;
       this.last_name = json && json.last_name;
@@ -37,7 +35,6 @@ export class Contact {
       this.mobile_phone_2 = json && json.mobile_phone_2;
       this.email = json && json.email;
       this.alternate_email = json && json.alternate_email;
-      this.is_active = json && json.is_active;
-      this.client_complete = json && new Client(JSON.stringify(json.client_complete));
+      this.client_complete = json && new Client(json.client_complete);
     }
 }

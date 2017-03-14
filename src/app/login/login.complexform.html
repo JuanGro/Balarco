@@ -1,24 +1,54 @@
-<form [formGroup]="loginForm" novalidate (ngSubmit)="submitForm(loginForm.value, loginForm.valid)">
-    <div class="form-group input-group mb-1">
+<!-- Start form -->
+<!-- (ngSubmit)="submitLoginForm(loginForm.value)" executes the submitLoginForm method sending the values of each field -->
+<form #loginForm="ngForm" novalidate (ngSubmit)="submitLoginForm(loginForm.value)" *ngIf="active">
+    <!-- Username field -->
+    <div class="input-group mb-1">
         <span class="input-group-addon"><i class="icon-user"></i>
         </span>
-        <input type="email" class="form-control" placeholder="name@example.com" formControlName="username" required>
+        <input type="email" id="recipient-username" class="form-control" placeholder="name@example.com" minlength="6" maxlength="24" name="username" [(ngModel)]="login.username" #username="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required>
     </div>
 
-    <div class="form-group input-group mb-2">
+    <!-- Feedback username -->
+    <div *ngIf="username.errors && username.touched" class="alert alert-danger">
+        <div [hidden]="!username.errors.required">
+            El usuario es obligatorio.
+        </div>
+        <div [hidden]="!username.errors.pattern">
+            El usuario no es válido.
+        </div>
+        <div [hidden]="!username.errors.minlength">
+            El usuario debe ser mayor o igual a 6 caracteres.
+        </div>
+        <div [hidden]="!username.errors.maxlength">
+            El usuario debe ser menor a 25 caracteres.
+        </div>
+    </div>
+
+    <!-- Password field -->
+    <div class="input-group mb-2">
         <span class="input-group-addon"><i class="icon-lock"></i>
         </span>
-        <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
+        <input type="password" id="recipient-password" class="form-control" placeholder="Password" minlength="6" maxlength="24" name="password" [(ngModel)]="login.password" #password="ngModel" required>
     </div>
 
-    <!-- Feedback email-->
-    <div [hidden]="loginForm.controls.username.valid || (loginForm.controls.username.pristine && !submitted)" class="alert alert-danger">Ingrese un correo válido</div>
-    <!-- Feedback password-->
-    <div [hidden]="loginForm.controls.password.valid || (loginForm.controls.password.pristine && !submitted)" class="alert alert-danger">Ingrese su contraseña</div>
+    <!-- Feedback password -->
+    <div *ngIf="password.errors && password.touched" class="alert alert-danger">
+        <div [hidden]="!password.errors.required">
+            La contraseña es obligatoria.
+        </div>
+        <div [hidden]="!password.errors.minlength">
+            La contraseña debe ser mayor o igual a 6 caracteres.
+        </div>
+        <div [hidden]="!password.errors.maxlength">
+            La contraseña debe ser menor a 25 caracteres.
+        </div>
+    </div>
 
     <div class="row">
+        <!-- Submits login data -->
+        <!-- Calls the submitLoginForm method, the submit button is only displayed if all the fields are valid -->
         <div class="col-6">
-            <button type="submit" class="btn btn-primary px-2" [disabled]="!loginForm.valid">Login</button>
+            <button type="submit" class="btn btn-primary px-2" [disabled]="!loginForm.form.valid">Login</button>
         </div>
         <!-- Recover password -->
         <div class="col-6 text-right">

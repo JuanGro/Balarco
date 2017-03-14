@@ -106,7 +106,6 @@ export class HttpService extends Http {
     headers.set('Content-Type', 'application/json');
     if (this.token) {
       headers.set('Authorization', 'Token ' + this.token);
-      // console.log(headers);
     }
   }
 
@@ -144,7 +143,7 @@ export class HttpService extends Http {
   **/
   public login(username: string, password: string): Observable<boolean> {
     let user = JSON.stringify({ username: username, password: password });
-    return this.post('users/api-login/', user)
+    return this.post('users/auth/login/', user)
       .map((response: Response) => {
         let token = response.json() && response.json().token;
         if (token) {

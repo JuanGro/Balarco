@@ -8,13 +8,19 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Contacts
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { ContactsComponent } from './contacts/contacts.component';
-import { ContactsListTableComponent } from './contacts/contacts-list-table.component';
+import { ContactsListComponent } from './contacts/contacts-list.component';
 import { ContactFormComponent } from './contacts/contact-form.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientsListComponent } from './clients/clients-list.component';
 import { ClientFormComponent } from './clients/client-form.component';
-import { IgualasListComponent } from './igualas-list/igualas-list.component';
+import { IgualasListComponent } from './igualas/igualas-list.component';
+import { IgualasComponent } from './igualas/igualas.component';
+import { IgualaFormComponent } from './igualas/iguala-form.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
+
+// Datepicker
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { SelectModule } from 'ng2-select';
 
 // Services
 import { HttpService } from '../shared/http-service/http.service';
@@ -27,11 +33,13 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     AccountsRoutingModule,
     ChartsModule,
     DropdownModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DatepickerModule.forRoot(),
+    SelectModule
   ],
-  declarations: [ ClientsComponent, ClientsListComponent, ClientFormComponent,
-    ContactsComponent, IgualasListComponent, DesignsListComponent,
-    ContactsListTableComponent, ContactFormComponent ],
+  declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent, DesignsListComponent, ContactsListComponent,
+                  ContactFormComponent, ClientsComponent, ClientsListComponent, ClientFormComponent ],
+
   providers: [ CanActivateAuthGuard, HttpService ]
 })
 export class AccountsModule { }

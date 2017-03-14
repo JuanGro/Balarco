@@ -13,7 +13,7 @@
 <!-- (requestShowNewContactModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
 <!-- (currentContact) receives the contact who was selected by the user -->
-<contacts-list-table [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list-table>
+<contacts-list [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list>
 
 <!-- Modal New Contact -->
 <div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">
@@ -21,9 +21,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleNewModal }}</h4>
-                <button type="button" class="close" (click)="newContactModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <!-- Common Form -->
             <!-- Child component, it contains the contact form -->
@@ -41,9 +38,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleUpdateModal }}</h4>
-                <button type="button" class="close" (click)="updateContactModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <!-- Common Form -->
             <!-- Child component, it contains the contact form -->
@@ -61,9 +55,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleDangerModal }}</h4>
-                <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <p>{{ descriptionDangerModal }}</p>

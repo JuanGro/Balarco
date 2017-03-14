@@ -17,7 +17,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 
 // Components
 import { ContactsComponent } from './contacts.component';
-import { ContactsListTableComponent } from './contacts-list-table.component';
+import { ContactsListComponent  } from './contacts-list.component';
 import { ContactFormComponent } from './contact-form.component';
 
 // Models
@@ -29,14 +29,14 @@ describe('ContactFormComponent tests.', () => {
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
     let fixtureChildForm: ComponentFixture<ContactFormComponent>;
-    // Fixture for debugging and testing a ContactsListTableComponent.
-    let fixtureChildTable: ComponentFixture<ContactsListTableComponent>;
+    // Fixture for debugging and testing a ContactsListComponent .
+    let fixtureChildTable: ComponentFixture<ContactsListComponent >;
 
     // Save ContactsComponent to test it's methods and variables.
     let componentParent: ContactsComponent;
     // Save ContactsFormComponent to test it's methods and variables.
-    let componentTable: ContactsListTableComponent;
-    // Save ContactsListTableComponent to test it's methods and variables.
+    let componentTable: ContactsListComponent ;
+    // Save ContactsListComponent  to test it's methods and variables.
     let component: ContactFormComponent;
 
     // Variable to test which action is executing in modal.
@@ -59,7 +59,7 @@ describe('ContactFormComponent tests.', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ ContactsComponent, ContactsListTableComponent, ContactFormComponent ],
+            declarations: [ ContactsComponent, ContactsListComponent , ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot() ],
             providers: [ ContactFormComponent,
@@ -77,14 +77,14 @@ describe('ContactFormComponent tests.', () => {
         fixtureParent = TestBed.createComponent(ContactsComponent);
         // Create an instance of the ContactsFormComponent.
         fixtureChildForm = TestBed.createComponent(ContactFormComponent);
-        // Create an instance of the ContactsListTableComponent.
-        fixtureChildTable = TestBed.createComponent(ContactsListTableComponent);
+        // Create an instance of the ContactsListComponent .
+        fixtureChildTable = TestBed.createComponent(ContactsListComponent );
 
         // ContactsComponent test instance.
-        componentParent = fixtureParent.componentInstance; // ContactsComponent test instance.
+        componentParent = fixtureParent.componentInstance;
         // ContactsFormComponent test instance.
         component = fixtureChildForm.componentInstance;
-        // ContactsListTableComponent test instance.
+        // ContactsListComponent  test instance.
         componentTable = fixtureChildTable.componentInstance;
     }));
 
@@ -117,7 +117,7 @@ describe('ContactFormComponent tests.', () => {
         });
 
         /**
-        * Tests that the Client object received from parent component is not empty.
+        * Tests that the clients object list received from parent component is not empty.
         **/
         it('should load correctly clients list in clientsList Input', () => {
             component.clientsList = testListClients;

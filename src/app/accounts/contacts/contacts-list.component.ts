@@ -5,8 +5,8 @@ import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
 
 @Component({
-  selector: 'contacts-list-table',
-  templateUrl: 'contacts-list-table.component.html'
+  selector: 'contacts-list',
+  templateUrl: 'contacts-list.component.html'
 })
 /**
 * Component which manage the table which shows the list of contacts:
@@ -14,7 +14,7 @@ import { Client } from './../clients/client-model';
 * - Request open a modal depending of which option is selected.
 * - Send the contact that is selected by the user.
 **/
-export class ContactsListTableComponent {
+export class ContactsListComponent {
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.

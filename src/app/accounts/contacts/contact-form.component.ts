@@ -23,7 +23,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 **/
 export class ContactFormComponent implements OnChanges {
   // Receives the contact selected by the user or the empty object to know if is called the update or create contact form.
-  @Input() contact: Contact;
+  @Input('contact') contact: Contact;
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Requests close of the current modal to parent component.
@@ -40,8 +40,10 @@ export class ContactFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public contactsModalForm: FormGroup;
-  // Angular can't recognize the selected value for dropdown in ngModel so we make it manual.
-  public clientSelected: number;
+  // Variable to return the old contact if cancel the update form.
+  public oldContact: Contact;
+  // Variable to active the form.
+  public active: boolean = true;
 
   public constructor(private httpService: HttpService) { }
 
@@ -52,9 +54,10 @@ export class ContactFormComponent implements OnChanges {
   **/
   public ngOnChanges() {
     if (!this.contact) {
-      this.initializeContact();
+      this.contact = new Contact();
+      this.oldContact = new Contact();
     } else {
-      this.clientSelected = this.contact.client;
+      this.oldContact = new Contact(this.contact);
     }
   }
 
@@ -65,16 +68,15 @@ export class ContactFormComponent implements OnChanges {
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
   public submitContactForm(object: Contact) {
-    console.log(object);
       if (this.contact.id) {
-        console.log('updated');
         // Update contact
         this.submitUpdatedContact(object, this.contact.id);
       } else {
-        console.log('New');
         // Create contact
         this.submitNewContact(object);
       }
+      this.active = false;
+      setTimeout(() => this.active = true, 0);
       this.success = true;
   }
 
@@ -82,13 +84,11 @@ export class ContactFormComponent implements OnChanges {
   * Requests to the Backend service to update the contact selected by the user.
   * Params:
   *   - object: A Contact object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
     this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
         if (result.ok) {
-          let updatedContact = new Contact(result.text());
+          let updatedContact = new Contact(result.json());
           this.contactUpdated.emit(updatedContact);
         }
     });
@@ -98,16 +98,15 @@ export class ContactFormComponent implements OnChanges {
   * Requests to the Backend service to create the new contact.
   * Params:
   *   - object: A Contact object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitNewContact(object: Contact) {
     this.httpService.postObject('clients/contacts/', object).subscribe(result => {
         if (result.ok) {
-          let newContact = new Contact(result.text());
+          let newContact = new Contact(result.json());
           this.contactCreated.emit(newContact);
         }
     });
+    this.contact = new Contact();
   }
 
   /**
@@ -127,20 +126,16 @@ export class ContactFormComponent implements OnChanges {
   }
 
   /**
-  * Clears all the values in the form fields.
+  * Initialize the form and return to the original object the contact.
   **/
-  public resetForm() {
-    // this.contactsModalForm.reset();
-    this.initializeContact();
-  }
-
-  /**
-  * Clears the Contact object.
-  **/
-  public initializeContact() {
-    this.contact = {
-        name: '', last_name: '', client: null, charge: '', landline: '',
-        extension: '', mobile_phone_1: '', mobile_phone_2: '', email: '', alternate_email: ''
-    };
+  public cancelForm() {
+    if (this.oldContact.id) {
+      this.contact = this.oldContact;
+      let updatedContact = new Contact(this.oldContact);
+      this.contactUpdated.emit(updatedContact);
+    }
+    this.contact = new Contact();
+    setTimeout(() => this.active = false, 1);
+    setTimeout(() => this.active = true, 0);
   }
 }
