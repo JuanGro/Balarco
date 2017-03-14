@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 // Modules
 import { LoginRoutingModule } from './login-routing.module';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
@@ -12,8 +13,9 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
 
 @NgModule({
   imports: [
+    CommonModule,
     LoginRoutingModule,
-    ReactiveFormsModule,
+    FormsModule,
     ToasterModule
   ],
   declarations: [ LoginComponent, LoginComplexFormComponent ],
