@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
+
 // Class
 import { Login } from './login';
 
@@ -12,21 +14,21 @@ import { Login } from './login';
   templateUrl: 'login.complexform.html'
 })
 export class LoginComplexFormComponent implements OnInit {
+  // Initialization of control form.
   public loginForm: FormGroup;
-  public loginObject: Login[];
-  // Forms
-  public submitted: boolean; // keep track on whether form is submitted
-  public events: any[] = []; // use later to display form changes
+  // Variable to active the form.
+  public active: boolean = true;
+  // Login object for the ngForm handle.
+  public login: Login;
 
   constructor(private loginService: HttpService, private router: Router, private toaster: CustomToastService) { }
 
+  /**
+  * Builds the component for first time each time when it's called.
+  *   - Initialize the login object for the form.
+  **/
   ngOnInit() {
-    let emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
-                      {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-    this.loginForm = new FormGroup({
-      username: new FormControl('', [<any>Validators.required, <any>Validators.pattern(emailRegex)]),
-      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)])
-    });
+    this.login = new Login();
   }
 
   /**
@@ -36,7 +38,7 @@ export class LoginComplexFormComponent implements OnInit {
   * Params:
   *   - model: Login object for login.
   **/
-  submitForm(model: Login) {
+  submitLoginForm(model: Login) {
     this.loginService.login(model.username, model.password).subscribe(
       result => {
         if (result === true) {
