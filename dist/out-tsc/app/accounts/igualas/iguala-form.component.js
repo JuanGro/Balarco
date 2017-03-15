@@ -9,10 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { Iguala } from './iguala-model';
 var IgualaFormComponent = (function () {
-    function IgualaFormComponent(httpService) {
+    function IgualaFormComponent(httpService, toaster) {
         this.httpService = httpService;
+        this.toaster = toaster;
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
         this.igualaCreated = new EventEmitter();
@@ -46,6 +48,9 @@ var IgualaFormComponent = (function () {
                 var newIguala = new Iguala(result.json());
                 _this.igualaCreated.emit(newIguala);
             }
+            _this.toaster.show(result, 'Iguala creada', 'La iguala se creó con éxito');
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al guardar la iguala');
         });
     };
     IgualaFormComponent.prototype.submitUpdatedIguala = function () {
@@ -55,6 +60,9 @@ var IgualaFormComponent = (function () {
                 var updatedIguala = new Iguala(result.json());
                 _this.igualaUpdated.emit(updatedIguala);
             }
+            _this.toaster.show(result, 'Iguala actualizada', 'La iguala se actualizó con éxito');
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar la iguala');
         });
     };
     IgualaFormComponent.prototype.requestCloseThisModal = function () {
@@ -106,7 +114,7 @@ IgualaFormComponent = __decorate([
         selector: 'iguala-form',
         templateUrl: 'iguala-form.component.html'
     }),
-    __metadata("design:paramtypes", [HttpService])
+    __metadata("design:paramtypes", [HttpService, CustomToastService])
 ], IgualaFormComponent);
 export { IgualaFormComponent };
 //# sourceMappingURL=../../../../../src/app/accounts/igualas/iguala-form.component.js.map

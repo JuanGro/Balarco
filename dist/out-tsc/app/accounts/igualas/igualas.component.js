@@ -11,9 +11,11 @@ import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 var IgualasComponent = (function () {
-    function IgualasComponent(httpService) {
+    function IgualasComponent(httpService, toaster) {
         this.httpService = httpService;
+        this.toaster = toaster;
     }
     IgualasComponent.prototype.ngOnInit = function () {
         this.title = 'Lista de Igualas';
@@ -71,7 +73,10 @@ var IgualasComponent = (function () {
                 if (index >= 0) {
                     _this.igualasList.splice(index, 1);
                 }
+                _this.toaster.show(result, 'Iguala eliminada', 'La iguala se eliminó con éxito');
             }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar iguala');
         });
     };
     IgualasComponent.prototype.initializeModal = function () {
@@ -84,7 +89,7 @@ IgualasComponent = __decorate([
         selector: 'igualas',
         templateUrl: 'igualas.component.html'
     }),
-    __metadata("design:paramtypes", [HttpService])
+    __metadata("design:paramtypes", [HttpService, CustomToastService])
 ], IgualasComponent);
 export { IgualasComponent };
 //# sourceMappingURL=../../../../../src/app/accounts/igualas/igualas.component.js.map

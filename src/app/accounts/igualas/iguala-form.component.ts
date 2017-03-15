@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Models
 import { Iguala } from './iguala-model';
@@ -43,7 +44,7 @@ export class IgualaFormComponent implements OnChanges {
   // Variable to reset the HTML of the form when it is closed.
   active: boolean = true;
 
-  public constructor(private httpService: HttpService) { }
+  public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time each time when it's called.
@@ -83,6 +84,10 @@ export class IgualaFormComponent implements OnChanges {
         let newIguala = new Iguala(result.json());
         this.igualaCreated.emit(newIguala);
       }
+      this.toaster.show(result, 'Iguala creada', 'La iguala se creó con éxito');
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar la iguala');
     });
   }
 
@@ -95,6 +100,10 @@ export class IgualaFormComponent implements OnChanges {
         let updatedIguala = new Iguala(result.json());
         this.igualaUpdated.emit(updatedIguala);
       }
+      this.toaster.show(result, 'Iguala actualizada', 'La iguala se actualizó con éxito');
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar la iguala');
     });
   }
 

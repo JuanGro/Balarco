@@ -6,6 +6,7 @@ import { Client } from './../clients/client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 @Component({
   selector: 'igualas',
@@ -36,7 +37,7 @@ export class IgualasComponent implements OnInit {
   // Description for danger Iguala modal.
   public descriptionDangerModal: string;
 
-  public constructor(public httpService: HttpService) { }
+  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time.
@@ -139,8 +140,12 @@ export class IgualasComponent implements OnInit {
         if (index >= 0) {
           this.igualasList.splice(index, 1);
         }
+        this.toaster.show(result, 'Iguala eliminada', 'La iguala se eliminó con éxito');
       }
-    });
+    },
+  error => {
+    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar iguala');
+  });
   }
 
   /**
