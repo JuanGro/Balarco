@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Client } from './client-model';
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 var ClientsComponent = (function () {
-    function ClientsComponent(httpService) {
+    function ClientsComponent(httpService, toaster) {
         this.httpService = httpService;
+        this.toaster = toaster;
     }
     ClientsComponent.prototype.ngOnInit = function () {
         this.title = 'Lista de compañías';
@@ -46,7 +48,10 @@ var ClientsComponent = (function () {
                 if (index >= 0) {
                     _this.clientsList.splice(index, 1);
                 }
+                _this.toaster.show(result, 'Cliente eliminado', 'El cliente se eliminó con éxito');
             }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar cliente');
         });
     };
     ClientsComponent.prototype.getClientFromTable = function (object) {
@@ -69,7 +74,7 @@ ClientsComponent = __decorate([
         selector: 'clients',
         templateUrl: 'clients.component.html'
     }),
-    __metadata("design:paramtypes", [HttpService])
+    __metadata("design:paramtypes", [HttpService, CustomToastService])
 ], ClientsComponent);
 export { ClientsComponent };
 //# sourceMappingURL=../../../../../src/app/accounts/clients/clients.component.js.map
