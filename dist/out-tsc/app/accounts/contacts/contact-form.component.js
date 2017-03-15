@@ -8,12 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Contact } from './contact-model';
 import { HttpService } from './../../shared/http-service/http.service';
+import { environment } from '../../../environments/environment';
 var ContactFormComponent = (function () {
-    function ContactFormComponent(fb, httpService) {
-        this.fb = fb;
+    function ContactFormComponent(httpService) {
         this.httpService = httpService;
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
@@ -21,73 +20,47 @@ var ContactFormComponent = (function () {
         this.contactUpdated = new EventEmitter();
         this.success = false;
         this.modalAction = '';
+        this.active = true;
     }
     ContactFormComponent.prototype.ngOnChanges = function () {
-        var emailRegex = '[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\
-                          {|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
-        if (this.contact) {
-            this.contactsModalForm = this.fb.group({
-                name: [this.contact.name, [Validators.required, Validators.minLength(2)]],
-                last_name: [this.contact.last_name, [Validators.required, Validators.minLength(4)]],
-                client: [this.contact.client, [Validators.required]],
-                charge: [this.contact.charge, [Validators.required, Validators.minLength(3)]],
-                landline: [this.contact.landline, [Validators.required, Validators.minLength(6)]],
-                extension: [this.contact.extension],
-                mobile_phone_1: [this.contact.mobile_phone_1, [Validators.required, Validators.minLength(6)]],
-                mobile_phone_2: [this.contact.mobile_phone_2],
-                email: [this.contact.email, [Validators.required, Validators.pattern(emailRegex)]],
-                alternate_email: [this.contact.alternate_email, [Validators.pattern(emailRegex)]],
-                is_active: [this.contact.is_active, [Validators.required]]
-            });
+        if (!this.contact) {
+            this.contact = new Contact();
+            this.oldContact = new Contact();
         }
         else {
-            this.contactsModalForm = this.fb.group({
-                name: ['', [Validators.required, Validators.minLength(2)]],
-                last_name: ['', [Validators.required, Validators.minLength(4)]],
-                client: ['', [Validators.required]],
-                charge: ['', [Validators.required, Validators.minLength(3)]],
-                landline: ['', [Validators.required, Validators.minLength(6)]],
-                extension: [''],
-                mobile_phone_1: ['', [Validators.required, Validators.minLength(6)]],
-                mobile_phone_2: [''],
-                email: ['', [Validators.required, Validators.pattern(emailRegex)]],
-                alternate_email: ['', [Validators.pattern(emailRegex)]],
-                is_active: [true, [Validators.required]]
-            });
+            this.oldContact = new Contact(this.contact);
         }
     };
-    ContactFormComponent.prototype.submitContactForm = function (object, isValid) {
-        if (isValid === true) {
-            if (this.contact) {
-                this.submitUpdatedContact(object, this.contact.id);
-            }
-            else {
-                this.submitNewContact(object);
-            }
-            this.success = true;
+    ContactFormComponent.prototype.submitContactForm = function (object) {
+        var _this = this;
+        if (this.contact.id) {
+            this.submitUpdatedContact(object, this.contact.id);
         }
         else {
-            console.log('Error sending the contact from internal methods');
-            this.success = false;
+            this.submitNewContact(object);
         }
+        this.active = false;
+        setTimeout(function () { return _this.active = true; }, 0);
+        this.success = true;
     };
     ContactFormComponent.prototype.submitUpdatedContact = function (object, id) {
         var _this = this;
-        this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(function (result) {
+        this.httpService.updateObject(environment.CONTACTS_URL + id + '/', object).subscribe(function (result) {
             if (result.ok) {
-                var updatedContact = new Contact(result.text());
+                var updatedContact = new Contact(result.json());
                 _this.contactUpdated.emit(updatedContact);
             }
         });
     };
     ContactFormComponent.prototype.submitNewContact = function (object) {
         var _this = this;
-        this.httpService.postObject('clients/contacts/', object).subscribe(function (result) {
+        this.httpService.postObject(environment.CONTACTS_URL, object).subscribe(function (result) {
             if (result.ok) {
-                var newContact = new Contact(result.text());
+                var newContact = new Contact(result.json());
                 _this.contactCreated.emit(newContact);
             }
         });
+        this.contact = new Contact();
     };
     ContactFormComponent.prototype.requestWarningModal = function () {
         this.modalAction = 'Show warning modal';
@@ -97,13 +70,21 @@ var ContactFormComponent = (function () {
         this.modalAction = 'Close modal';
         this.requestCloseModal.emit(this.modalAction);
     };
-    ContactFormComponent.prototype.resetForm = function () {
-        this.contactsModalForm.reset();
+    ContactFormComponent.prototype.cancelForm = function () {
+        var _this = this;
+        if (this.oldContact.id) {
+            this.contact = this.oldContact;
+            var updatedContact = new Contact(this.oldContact);
+            this.contactUpdated.emit(updatedContact);
+        }
+        this.contact = new Contact();
+        setTimeout(function () { return _this.active = false; }, 1);
+        setTimeout(function () { return _this.active = true; }, 0);
     };
     return ContactFormComponent;
 }());
 __decorate([
-    Input(),
+    Input('contact'),
     __metadata("design:type", Contact)
 ], ContactFormComponent.prototype, "contact", void 0);
 __decorate([
@@ -131,7 +112,7 @@ ContactFormComponent = __decorate([
         selector: 'contact-form',
         templateUrl: 'contact-form.component.html'
     }),
-    __metadata("design:paramtypes", [FormBuilder, HttpService])
+    __metadata("design:paramtypes", [HttpService])
 ], ContactFormComponent);
 export { ContactFormComponent };
 //# sourceMappingURL=../../../../../src/app/accounts/contacts/contact-form.component.js.map

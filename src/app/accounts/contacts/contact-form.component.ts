@@ -8,6 +8,9 @@ import { Client } from './../clients/client-model';
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'contact-form',
   templateUrl: 'contact-form.component.html'
@@ -86,7 +89,7 @@ export class ContactFormComponent implements OnChanges {
   *   - object: A Contact object.
   **/
   public submitUpdatedContact(object: Contact, id: number) {
-    this.httpService.updateObject('clients/contacts/' + id + '/', object).subscribe(result => {
+    this.httpService.updateObject(environment.CONTACTS_URL + id + '/', object).subscribe(result => {
         if (result.ok) {
           let updatedContact = new Contact(result.json());
           this.contactUpdated.emit(updatedContact);
@@ -100,7 +103,7 @@ export class ContactFormComponent implements OnChanges {
   *   - object: A Contact object.
   **/
   public submitNewContact(object: Contact) {
-    this.httpService.postObject('clients/contacts/', object).subscribe(result => {
+    this.httpService.postObject(environment.CONTACTS_URL, object).subscribe(result => {
         if (result.ok) {
           let newContact = new Contact(result.json());
           this.contactCreated.emit(newContact);

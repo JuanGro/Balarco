@@ -9,7 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input } from '@angular/core';
 import { Contact } from './contact-model';
+import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
+import { environment } from '../../../environments/environment';
 var ContactsComponent = (function () {
     function ContactsComponent(httpService) {
         this.httpService = httpService;
@@ -20,29 +22,41 @@ var ContactsComponent = (function () {
         this.titleUpdateModal = 'Modificar Contacto';
         this.titleDangerModal = 'Eliminar contacto';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este contacto?';
-        this.loadClientsList('clients/clients/');
-        this.loadContactsList('clients/contacts/');
+        this.loadClientsList(environment.CLIENTS_URL);
+        this.loadContactsList(environment.CONTACTS_URL);
     };
     ContactsComponent.prototype.loadContactsList = function (url) {
         var _this = this;
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
-            .subscribe(function (contactsList) { return _this.contactsList = contactsList; }, function (err) {
+            .subscribe(function (contactsListJSON) {
+            _this.contactsList = [];
+            for (var _i = 0, contactsListJSON_1 = contactsListJSON; _i < contactsListJSON_1.length; _i++) {
+                var contactJSON = contactsListJSON_1[_i];
+                _this.contactsList.push(new Contact(contactJSON));
+            }
+        }, function (err) {
         });
     };
     ContactsComponent.prototype.loadClientsList = function (url) {
         var _this = this;
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
-            .subscribe(function (clientsList) { return _this.clientsList = clientsList; }, function (err) {
+            .subscribe(function (clientsListJSON) {
+            _this.clientsList = [];
+            for (var _i = 0, clientsListJSON_1 = clientsListJSON; _i < clientsListJSON_1.length; _i++) {
+                var clientJSON = clientsListJSON_1[_i];
+                _this.clientsList.push(new Client(clientJSON));
+            }
+        }, function (err) {
         });
     };
     ContactsComponent.prototype.initializeModal = function () {
-        this.contact = null;
+        this.contact = new Contact();
     };
     ContactsComponent.prototype.removeContact = function (object) {
         var _this = this;
-        this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(function (result) {
+        this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(function (result) {
             if (result.ok) {
                 var index = _this.contactsList.indexOf(object);
                 if (index >= 0) {
@@ -58,7 +72,7 @@ var ContactsComponent = (function () {
         this.contactsList.push(event);
     };
     ContactsComponent.prototype.onContactUpdated = function (event) {
-        var oldContact = this.contactsList.filter(function (contact) { return contact.id == event.id; })[0];
+        var oldContact = this.contactsList.filter(function (contact) { return contact.id === event.id; })[0];
         var index = this.contactsList.indexOf(oldContact);
         if (index >= 0) {
             this.contactsList[index] = event;
