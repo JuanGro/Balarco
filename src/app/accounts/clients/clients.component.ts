@@ -5,6 +5,7 @@ import { Client } from './client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Environment
 import { environment } from '../../../environments/environment';
@@ -36,7 +37,7 @@ export class ClientsComponent implements OnInit {
   // Description for danger client modal.
   public descriptionDangerModal: string;
 
-  public constructor(public httpService: HttpService) { }
+  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time.
@@ -97,7 +98,11 @@ export class ClientsComponent implements OnInit {
         if (index >= 0) {
           this.clientsList.splice(index, 1);
         }
+        this.toaster.show(result, 'Cliente eliminado', 'El cliente se eliminó con éxito');
       }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar cliente');
     });
   }
 

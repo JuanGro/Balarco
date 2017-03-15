@@ -4,6 +4,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ng2-bootstrap/modal';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 
 // Components
 import { AccountsRoutingModule } from './accounts-routing.module';
@@ -25,6 +26,7 @@ import { SelectModule } from 'ng2-select';
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
+import { CustomToastService } from '../shared/toast/custom-toast.service';
 
 @NgModule({
   imports: [
@@ -35,12 +37,13 @@ import { CanActivateAuthGuard } from '../shared/auth/auth.service';
     DropdownModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
-    SelectModule
+    SelectModule,
+    ToasterModule
   ],
   declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent,
                   DesignsListComponent, ContactsListComponent, ContactFormComponent, ClientsComponent,
                   ClientsListComponent, ClientFormComponent ],
 
-  providers: [ CanActivateAuthGuard, HttpService ]
+  providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
 })
 export class AccountsModule { }

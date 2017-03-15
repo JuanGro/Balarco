@@ -38,22 +38,17 @@ export class CustomToastService {
           title = this.DefaultTitles.title_200;
         }
         type = 'success';
-        message = response.statusText;
         break;
       case 201:
         if (!title) {
           title = this.DefaultTitles.title_201;
         }
         type = 'success';
-        message = response.statusText;
         break;
       case 400:
       case 401:
         if (!title) {
           title = this.DefaultTitles.title_400_401;
-        }
-        if (!message) {
-          message = response.statusText;
         }
         type = 'error';
         break;
@@ -66,6 +61,9 @@ export class CustomToastService {
         title = message = type = '';
         console.log('No status supported for toast: STATUS ' + response.status);
         break;
+    }
+    if (!message) {
+      message = response.statusText;
     }
     let toast: Toast = {
         type: type,

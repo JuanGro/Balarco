@@ -6,6 +6,7 @@ import { Client } from './client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Environment
 import { environment } from '../../../environments/environment';
@@ -45,7 +46,7 @@ export class ClientFormComponent implements OnChanges {
   // Variable to active the form.
   public active: boolean = true;
 
-  public constructor(private httpService: HttpService) { }
+  public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time each time when it's called.
@@ -90,7 +91,11 @@ export class ClientFormComponent implements OnChanges {
         if (result.ok) {
           let updatedClient = new Client(result.json());
           this.clientUpdated.emit(updatedClient);
+          this.toaster.show(result, 'Cliente actualizado', 'El cliente se actualizó con éxito');
         }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el cliente');
     });
   }
 
@@ -106,7 +111,11 @@ export class ClientFormComponent implements OnChanges {
         if (result.ok) {
           let newClient = new Client(result.json());
           this.clientCreated.emit(newClient);
+          this.toaster.show(result, 'Cliente guardado', 'El cliente se guardó con éxito');
         }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el cliente');
     });
   }
 
