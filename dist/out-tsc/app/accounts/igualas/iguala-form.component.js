@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
+import { environment } from '../../../environments/environment';
 import { Iguala } from './iguala-model';
 var IgualaFormComponent = (function () {
     function IgualaFormComponent(httpService) {
@@ -41,7 +42,7 @@ var IgualaFormComponent = (function () {
     };
     IgualaFormComponent.prototype.submitNewIguala = function () {
         var _this = this;
-        this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
+        this.httpService.postObject(environment.IGUALAS_URL, this.iguala.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 var newIguala = new Iguala(result.json());
                 _this.igualaCreated.emit(newIguala);
@@ -50,7 +51,7 @@ var IgualaFormComponent = (function () {
     };
     IgualaFormComponent.prototype.submitUpdatedIguala = function () {
         var _this = this;
-        this.httpService.updateObject('works/igualas/' + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
+        this.httpService.updateObject(environment.IGUALAS_URL + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 var updatedIguala = new Iguala(result.json());
                 _this.igualaUpdated.emit(updatedIguala);

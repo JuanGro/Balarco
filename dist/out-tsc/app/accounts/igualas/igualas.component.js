@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
+import { environment } from '../../../environments/environment';
 var IgualasComponent = (function () {
     function IgualasComponent(httpService) {
         this.httpService = httpService;
@@ -21,8 +22,8 @@ var IgualasComponent = (function () {
         this.titleUpdateModal = 'Modificar Iguala';
         this.titleDangerModal = 'Eliminar Iguala';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
-        this.loadIgualasList('works/igualas/');
-        this.loadClientsList('clients/clients/');
+        this.loadIgualasList(environment.IGUALAS_URL);
+        this.loadClientsList(environment.CLIENTS_URL);
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
         var _this = this;
@@ -65,7 +66,7 @@ var IgualasComponent = (function () {
     };
     IgualasComponent.prototype.removeIguala = function (object) {
         var _this = this;
-        this.httpService.deleteObject('works/igualas/' + object.id + '/').subscribe(function (result) {
+        this.httpService.deleteObject(environment.IGUALAS_URL + object.id + '/').subscribe(function (result) {
             if (result.ok) {
                 var index = _this.igualasList.indexOf(object);
                 if (index >= 0) {

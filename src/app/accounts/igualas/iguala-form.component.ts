@@ -4,6 +4,9 @@ import { FormGroup } from '@angular/forms';
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
@@ -78,7 +81,7 @@ export class IgualaFormComponent implements OnChanges {
   * Requests the API to create a new Iguala.
   **/
   public submitNewIguala() {
-    this.httpService.postObject('works/igualas/', this.iguala.generateJSONForPOST()).subscribe(result => {
+    this.httpService.postObject(environment.IGUALAS_URL, this.iguala.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         let newIguala = new Iguala(result.json());
         this.igualaCreated.emit(newIguala);
@@ -90,7 +93,7 @@ export class IgualaFormComponent implements OnChanges {
   * Requests the API to update an Iguala.
   **/
   public submitUpdatedIguala() {
-    this.httpService.updateObject('works/igualas/' + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(result => {
+    this.httpService.updateObject(environment.IGUALAS_URL + this.iguala.id + '/', this.iguala.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         let updatedIguala = new Iguala(result.json());
         this.igualaUpdated.emit(updatedIguala);
