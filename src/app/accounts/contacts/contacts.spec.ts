@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CommonModule } from '@angular/common';
 
 // Modals
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Components
 import { ContactsComponent } from './contacts.component';
@@ -58,7 +60,7 @@ describe('ContactsComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ ContactsComponent, ContactsListComponent , ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot() ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
             providers: [
                 {
                   provide: HttpService, useFactory: (backend, options) => {
@@ -66,7 +68,7 @@ describe('ContactsComponent tests.', () => {
                   },
                   deps: [MockBackend, BaseRequestOptions]
                 },
-                MockBackend, BaseRequestOptions
+                MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
 

@@ -6,6 +6,7 @@ import { Client } from './../clients/client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 @Component({
   selector: 'contacts',
@@ -38,7 +39,7 @@ export class ContactsComponent implements OnInit {
   // Description for danger contact modal.
   public descriptionDangerModal: string;
 
-  public constructor(public httpService: HttpService) { }
+  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time.
@@ -118,8 +119,12 @@ export class ContactsComponent implements OnInit {
         let index = this.contactsList.indexOf(object);
         if (index >= 0) {
           this.contactsList.splice(index, 1);
+          this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
         }
       }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar contacto');
     });
   }
 

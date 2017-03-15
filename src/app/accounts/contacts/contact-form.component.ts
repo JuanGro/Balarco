@@ -7,6 +7,7 @@ import { Client } from './../clients/client-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 @Component({
   selector: 'contact-form',
@@ -45,7 +46,7 @@ export class ContactFormComponent implements OnChanges {
   // Variable to active the form.
   public active: boolean = true;
 
-  public constructor(private httpService: HttpService) { }
+  public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time each time when it's called.
@@ -90,7 +91,11 @@ export class ContactFormComponent implements OnChanges {
         if (result.ok) {
           let updatedContact = new Contact(result.json());
           this.contactUpdated.emit(updatedContact);
+          this.toaster.show(result, 'Contacto actualizado', 'El contacto se actualizó con éxito');
         }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el conacto');
     });
   }
 
@@ -104,7 +109,11 @@ export class ContactFormComponent implements OnChanges {
         if (result.ok) {
           let newContact = new Contact(result.json());
           this.contactCreated.emit(newContact);
+          this.toaster.show(result, 'Contacto guardado', 'El contacto se guardó con éxito');
         }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el conacto');
     });
     this.contact = new Contact();
   }

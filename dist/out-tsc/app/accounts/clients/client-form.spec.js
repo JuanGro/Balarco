@@ -10,12 +10,10 @@ import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
-import { SelectModule } from 'ng2-select';
-import { IgualasComponent } from './igualas.component';
-import { IgualasListComponent } from './igualas-list.component';
-import { IgualaFormComponent } from './iguala-form.component';
-describe('IgualaFormComponent tests.', function () {
+import { ClientsComponent } from './clients.component';
+import { ClientsListComponent } from './clients-list.component';
+import { ClientFormComponent } from './client-form.component';
+describe('ClientFormComponent tests.', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
@@ -23,19 +21,13 @@ describe('IgualaFormComponent tests.', function () {
     var componentTable;
     var component;
     var modalAction;
-    var testIguala = {
-        id: 1,
-        name: 'Starbucks 2018',
-        client: 2,
-        start_date: new Date(2011, 10, 10),
-        end_date: new Date(2012, 10, 10)
-    };
+    var testClient = { id: 1, name: 'Starbucks', address: 'Example' };
     beforeEach(async(function () {
         TestBed.configureTestingModule({
-            declarations: [IgualasComponent, IgualasListComponent, IgualaFormComponent],
-            imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule, ToasterModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule],
-            providers: [IgualaFormComponent,
+            declarations: [ClientsComponent, ClientsListComponent, ClientFormComponent],
+            imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
+                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule],
+            providers: [ClientFormComponent,
                 {
                     provide: HttpService, useFactory: function (backend, options) {
                         return new HttpService(backend, options);
@@ -45,14 +37,14 @@ describe('IgualaFormComponent tests.', function () {
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
-        fixtureParent = TestBed.createComponent(IgualasComponent);
-        fixtureChildForm = TestBed.createComponent(IgualaFormComponent);
-        fixtureChildTable = TestBed.createComponent(IgualasListComponent);
+        fixtureParent = TestBed.createComponent(ClientsComponent);
+        fixtureChildForm = TestBed.createComponent(ClientFormComponent);
+        fixtureChildTable = TestBed.createComponent(ClientsListComponent);
         componentParent = fixtureParent.componentInstance;
         component = fixtureChildForm.componentInstance;
         componentTable = fixtureChildTable.componentInstance;
     }));
-    describe('Components defined for the child Igualas form component', function () {
+    describe('Components defined for the child clients form component', function () {
         it('should have a defined current component', function () {
             component.ngOnChanges();
             expect(component).toBeDefined();
@@ -62,15 +54,15 @@ describe('IgualaFormComponent tests.', function () {
             expect(componentParent).toBeDefined();
         });
     });
-    describe('Initialization of variable for child Igualas form component', function () {
-        it('should load correctly a Iguala in Iguala Input', function () {
-            component.Iguala = testIguala;
+    describe('Initialization of variable for child clients form component', function () {
+        it('should load correctly a client in client Input', function () {
+            component.client = testClient;
             fixtureParent.detectChanges();
-            expect(component.Iguala).toEqual(testIguala);
+            expect(component.client).toEqual(testClient);
         });
     });
-    describe('EventEmitter of modal requests for child Igualas form component', function () {
-        beforeEach(inject([IgualaFormComponent], function (result) {
+    describe('EventEmitter of modal requests for child clients form component', function () {
+        beforeEach(inject([ClientFormComponent], function (result) {
             modalAction = result;
         }));
         it('should request to close the current modal', async(function () {
@@ -87,4 +79,4 @@ describe('IgualaFormComponent tests.', function () {
         }));
     });
 });
-//# sourceMappingURL=../../../../../src/app/accounts/igualas/iguala-form.spec.js.map
+//# sourceMappingURL=../../../../../src/app/accounts/clients/client-form.spec.js.map

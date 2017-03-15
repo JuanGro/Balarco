@@ -11,12 +11,10 @@ import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
-import { DatepickerModule } from 'ng2-bootstrap/datepicker';
-import { SelectModule } from 'ng2-select';
-import { IgualasComponent } from './igualas.component';
-import { IgualasListComponent } from './igualas-list.component';
-import { IgualaFormComponent } from './iguala-form.component';
-describe('Igualas Component tests.', function () {
+import { ClientsComponent } from './clients.component';
+import { ClientsListComponent } from './clients-list.component';
+import { ClientFormComponent } from './client-form.component';
+describe('ClientsComponent tests.', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
@@ -25,18 +23,16 @@ describe('Igualas Component tests.', function () {
     var componentTable;
     var de;
     var el;
-    var testIguala = {
-        id: 1,
-        name: 'Starbucks 2018',
-        client: 2,
-        start_date: new Date(2011, 10, 10),
-        end_date: new Date(2012, 10, 10)
-    };
+    var testClient = { id: 1, name: 'Starbucks', address: 'Example' };
+    var testListClients = [
+        { id: 1, name: 'Starbucks', address: 'Example' },
+        { id: 2, name: 'General Electric', address: 'Example' }
+    ];
     beforeEach(async(function () {
         TestBed.configureTestingModule({
-            declarations: [IgualasComponent, IgualasListComponent, IgualaFormComponent],
+            declarations: [ClientsComponent, ClientsListComponent, ClientFormComponent],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule, ToasterModule],
+                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule],
             providers: [
                 {
                     provide: HttpService, useFactory: function (backend, options) {
@@ -47,16 +43,16 @@ describe('Igualas Component tests.', function () {
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
-        fixtureParent = TestBed.createComponent(IgualasComponent);
-        fixtureChildForm = TestBed.createComponent(IgualaFormComponent);
-        fixtureChildTable = TestBed.createComponent(IgualasListComponent);
+        fixtureParent = TestBed.createComponent(ClientsComponent);
+        fixtureChildForm = TestBed.createComponent(ClientFormComponent);
+        fixtureChildTable = TestBed.createComponent(ClientsListComponent);
         component = fixtureParent.componentInstance;
         componentForm = fixtureChildForm.componentInstance;
         componentTable = fixtureChildTable.componentInstance;
         de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
     }));
-    describe('Components defined for the parent contacts component', function () {
+    describe('Components defined for the parent client component', function () {
         it('should have a defined current component', function () {
             component.ngOnInit();
             expect(component).toBeDefined();
@@ -69,26 +65,26 @@ describe('Igualas Component tests.', function () {
             expect(componentTable).toBeDefined();
         });
     });
-    describe('Initialization of variable for parent contacts component', function () {
-        it('should show the new iguala modal with correct attributes', function () {
+    describe('Initialization of variable for parent client component', function () {
+        it('should show the new client modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.title).toContain('Lista de Igualas');
+            expect(component.title).toContain('Lista de compañías');
         });
-        it('should show the new iguala modal with correct attributes', function () {
+        it('should show the new client modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleNewModal).toContain('Nueva Iguala');
+            expect(component.titleNewModal).toContain('Nueva compañía');
         });
-        it('should show the update iguala modal with correct attributes', function () {
+        it('should show the update client modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleUpdateModal).toContain('Modificar Iguala');
+            expect(component.titleUpdateModal).toContain('Modificar compañía');
         });
         it('should show the danger modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleDangerModal).toContain('Eliminar Iguala');
-            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar esta iguala?');
+            expect(component.titleDangerModal).toContain('Eliminar compañía');
+            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar esta compañía?');
         });
     });
-    describe('Load of the variables to the template for parent contacts component', function () {
+    describe('Load of the variables to the template for parent client component', function () {
         it('no title in the DOM until manually call `detectChanges`', function () {
             expect(el.textContent).toEqual('');
         });
@@ -98,19 +94,24 @@ describe('Igualas Component tests.', function () {
             expect(el.textContent).not.toBe(null);
         });
     });
-    describe('Use of methods for parent contacts component', function () {
+    describe('Load of example data to simulate that Input variables are correctly assigned for parent client component', function () {
+        it('should load correctly clients list in clientsList Input', function () {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
+        });
+    });
+    describe('Use of methods for parent client component', function () {
         it('should initialize the modal', function () {
             component.initializeModal();
-            expect(component.iguala.id).toBeUndefined();
-            expect(component.iguala.name).toBeUndefined();
-            expect(component.iguala.client).toBeUndefined();
-            expect(component.iguala.start_date).toBeUndefined();
-            expect(component.iguala.end_date).toBeUndefined();
+            expect(component.client.id).toBeUndefined();
+            expect(component.client.name).toBeUndefined();
+            expect(component.client.address).toBeUndefined();
         });
-        it('should return a not empty Contact object', function () {
-            component.getIgualaFromTable(testIguala);
-            expect(component.iguala).toEqual(testIguala);
+        it('should return a not empty client object', function () {
+            component.getClientFromTable(testClient);
+            expect(component.client).toEqual(testClient);
         });
     });
 });
-//# sourceMappingURL=../../../../../src/app/accounts/igualas/igualas.spec.js.map
+//# sourceMappingURL=../../../../../src/app/accounts/clients/clients.spec.js.map
