@@ -8,6 +8,9 @@ import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'igualas',
   templateUrl: 'igualas.component.html'
@@ -51,8 +54,8 @@ export class IgualasComponent implements OnInit {
     this.titleDangerModal = 'Eliminar Iguala';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
 
-    this.loadIgualasList('works/igualas/');
-    this.loadClientsList('clients/clients/');
+    this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadClientsList(environment.CLIENTS_URL);
   }
 
   /**
@@ -134,7 +137,7 @@ export class IgualasComponent implements OnInit {
   *   - object: An iguala object.
   **/
   public removeIguala(object: Iguala) {
-    this.httpService.deleteObject('works/igualas/' + object.id + '/').subscribe(result => {
+    this.httpService.deleteObject(environment.IGUALAS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
         let index = this.igualasList.indexOf(object);
         if (index >= 0) {

@@ -8,6 +8,9 @@ import { Client } from './client-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'client-form',
   templateUrl: 'client-form.component.html'
@@ -84,7 +87,7 @@ export class ClientFormComponent implements OnChanges {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitUpdatedClient(object: Client, id: number) {
-    this.httpService.updateObject('clients/clients/' + id + '/', object).subscribe(result => {
+    this.httpService.updateObject(environment.CLIENTS_URL + id + '/', object).subscribe(result => {
         if (result.ok) {
           let updatedClient = new Client(result.json());
           this.clientUpdated.emit(updatedClient);
@@ -104,7 +107,7 @@ export class ClientFormComponent implements OnChanges {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public submitNewClient(object: Client) {
-    this.httpService.postObject('clients/clients/', object).subscribe(result => {
+    this.httpService.postObject(environment.CLIENTS_URL, object).subscribe(result => {
         if (result.ok) {
           let newClient = new Client(result.json());
           this.clientCreated.emit(newClient);

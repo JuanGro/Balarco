@@ -8,6 +8,9 @@ import { Client } from './../clients/client-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'contacts',
   templateUrl: 'contacts.component.html'
@@ -53,8 +56,8 @@ export class ContactsComponent implements OnInit {
     this.titleDangerModal = 'Eliminar contacto';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este contacto?';
 
-    this.loadClientsList('clients/clients/');
-    this.loadContactsList('clients/contacts/');
+    this.loadClientsList(environment.CLIENTS_URL);
+    this.loadContactsList(environment.CONTACTS_URL);
   }
 
   /**
@@ -114,7 +117,7 @@ export class ContactsComponent implements OnInit {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public removeContact(object: Contact) {
-    this.httpService.deleteObject('clients/contacts/' + object.id + '/').subscribe(result => {
+    this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
         let index = this.contactsList.indexOf(object);
         if (index >= 0) {

@@ -7,6 +7,9 @@ import { Client } from './client-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'clients',
   templateUrl: 'clients.component.html'
@@ -48,7 +51,7 @@ export class ClientsComponent implements OnInit {
     this.titleDangerModal = 'Eliminar compañía';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar esta compañía?';
 
-    this.loadClientsList('clients/clients/');
+    this.loadClientsList(environment.CLIENTS_URL);
   }
 
   /**
@@ -89,7 +92,7 @@ export class ClientsComponent implements OnInit {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public removeClient(object: Client) {
-    this.httpService.deleteObject('clients/clients/' + object.id + '/').subscribe(result => {
+    this.httpService.deleteObject(environment.CLIENTS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
         let index = this.clientsList.indexOf(object);
         if (index >= 0) {
