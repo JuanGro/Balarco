@@ -57,8 +57,10 @@ export class Work {
       this.contact = new Contact(object.contact);
       this.work_type = new WorkType(object.work_type);
       this.status = new Status(object.status);
+      this.iguala = new Iguala(object.iguala);
 
       // Add ArtWorks collection to the Work.
+      this.art_works = [];
       if (object.art_works) {
         for (let artWork of object.art_works) {
           this.art_works.push(new ArtWork(artWork));

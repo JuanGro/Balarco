@@ -1,3 +1,4 @@
+import { Iguala } from '../accounts/igualas/iguala-model';
 import { Contact } from '../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work.model';
 import { WorkType } from './work-type/work-type.model';
@@ -38,6 +39,8 @@ var Work = (function () {
             this.contact = new Contact(object.contact);
             this.work_type = new WorkType(object.work_type);
             this.status = new Status(object.status);
+            this.iguala = new Iguala(object.iguala);
+            this.art_works = [];
             if (object.art_works) {
                 for (var _i = 0, _a = object.art_works; _i < _a.length; _i++) {
                     var artWork = _a[_i];
