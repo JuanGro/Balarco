@@ -1,5 +1,5 @@
 // Models
-import { ArtWork } from './art-work.model';
+import { ArtWork } from './art-work-model';
 
 describe('ArtWork object model tests.', () => {
 

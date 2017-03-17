@@ -1,5 +1,5 @@
 // Models
-import { WorkType } from './work-type.model';
+import { WorkType } from './work-type-model';
 
 describe('WorkType object model tests.', () => {
 

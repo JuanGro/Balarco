@@ -1,8 +1,8 @@
 import { Iguala } from '../accounts/igualas/iguala-model';
 import { Contact } from '../accounts/contacts/contact-model';
-import { ArtWork } from './art-works/art-work.model';
-import { WorkType } from './work-type/work-type.model';
-import { Status } from './status/status.model';
+import { ArtWork } from './art-works/art-work-model';
+import { WorkType } from './work-type/work-type-model';
+import { Status } from './status/status-model';
 var Work = (function () {
     function Work(object) {
         if (object) {

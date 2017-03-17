@@ -1,5 +1,5 @@
 // Models
-import { Status } from './status.model';
+import { Status } from './status-model';
 
 describe('Status object model tests.', () => {
 
