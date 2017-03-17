@@ -3,7 +3,7 @@
 **/
 export class Status {
   id?: number;
-  name?: string;
+  name: string;
 
   constructor(object?: any) {
     this.id = object && object.id;

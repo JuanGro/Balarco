@@ -7,16 +7,16 @@ import { Status } from './status/status-model';
 
 export class Work {
   id?: number;
-  name?: string;
-  creation_date?: Date;
-  expected_delivery_date?: Date;
+  name: string;
+  creation_date: Date;
+  expected_delivery_date: Date;
   brief?: string;
   final_link?: string;
-  contact?: Contact;
-  work_type?: WorkType;
+  contact: Contact;
+  work_type: WorkType;
   iguala?: Iguala;
   art_works?: ArtWork[];
-  status?: Status;
+  status: Status;
   // TODO: Executive.
 
   constructor(object?: any) {
