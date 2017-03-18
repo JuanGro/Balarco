@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  'API_URL': 'http://198.199.95.61/api/',
+  'API_URL': 'http://127.0.0.1:8000/',
   'CLIENTS_URL': 'clients/clients/',
   'CONTACTS_URL': 'clients/contacts/',
   'IGUALAS_URL': 'works/igualas/',
