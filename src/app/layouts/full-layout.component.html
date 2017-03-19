@@ -317,6 +317,10 @@
                 </li>
 
                 <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i> Trabajos</a>
+                </li>
+
+                <li *ngIf="accounts == true" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/contacts-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Contactos</a>
                 </li>
 
