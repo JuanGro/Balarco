@@ -1,12 +1,9 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
-
-// Environment
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'work-form',
@@ -41,5 +38,6 @@ export class WorkFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update work form is called.
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
-  public ngOnChanges() { }
+  public ngOnChanges() {
+  }
 }
