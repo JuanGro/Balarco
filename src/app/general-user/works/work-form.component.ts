@@ -22,6 +22,20 @@ import { environment } from '../../../environments/environment';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
+  // Requests close of the current modal to parent component.
+  @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+  // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
+  @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Variable to check if the submitForm method finish correctly.
+  public success: boolean = false;
+  // Variable to check in test what action is executed between components.
+  public modalAction: string = '';
+  // Initialization of control form.
+  public worksModalForm: FormGroup;
+  // Variable to active the form.
+  public active: boolean = true;
+
+  public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
   /**
   * Builds the component for first time each time when it's called.
   *   - Initialize the form depending if the new or update work form is called.

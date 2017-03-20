@@ -12,10 +12,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" required>
+                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" required>
             </div>
             <!-- Feedback name -->
-            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+            <!-- <div *ngIf="name.errors && name.touched" class="alert alert-danger">
                 <div [hidden]="!name.errors.required">
                     El nombre es obligatorio.
                 </div>
@@ -25,7 +25,7 @@
                 <div [hidden]="!name.errors.maxlength">
                     El nombre debe ser menor a 25 caracteres.
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="col-md-6">
@@ -34,16 +34,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" [(ngModel)]="work.client" #client="ngModel" size="1" required>
+                <select id="client" name="client" class="form-control" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
             <!-- Feedback client -->
-            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+            <!-- <div *ngIf="client.errors && client.touched" class="alert alert-danger">
                 <div [hidden]="!client.errors.required">
                     La compañía es obligatoria.
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -55,16 +55,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="contact" name="contact" class="form-control" [(ngModel)]="work.contact" #client="ngModel" size="1" required>
+                <select id="contact" name="contact" class="form-control" size="1" required>
                     <option *ngFor="let contact of contactsList" value="{{ contact.id }}">{{ contact.name }}</option>
                 </select>
             </div>
             <!-- Feedback contact -->
-            <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
+            <!-- <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
                 <div [hidden]="!contact.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="col-md-6">
@@ -73,16 +73,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="executive" name="executive" class="form-control" [(ngModel)]="work.executive" #client="ngModel" size="1" required>
+                <select id="executive" name="executive" class="form-control" size="1" required>
                     <option *ngFor="let executive of executivesList" value="{{ executive.id }}">{{ executive.name }}</option>
                 </select>
             </div>
             <!-- Feedback executive -->
-            <div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
+            <!-- <div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
                 <div [hidden]="!executive.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     
@@ -98,10 +98,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum" class="form-control" minlength="3" maxlength="24" rows="3" name="description" [(ngModel)]="work.description" #description="ngModel" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum" class="form-control" minlength="3" maxlength="24" rows="3" name="description" required></textarea>
             </div>
             <!-- Feedback description -->
-            <div *ngIf="description.errors && description.touched" class="alert alert-danger">
+            <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">
                 <div [hidden]="!description.errors.required">
                     La descripción es obligatorio.
                 </div>
@@ -111,7 +111,7 @@
                 <div [hidden]="!description.errors.maxlength">
                     La descripción debe ser menor a 25 caracteres.
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     
@@ -144,7 +144,7 @@
         <!-- <button *ngIf="!work.id" type="reset" class="btn btn-danger" (click)="cancelForm()">Limpiar</button> -->
         <!-- Delete work -->
         <!-- Calls the requestWarningModal method, the confirmation is only displayed if the work.id exists because it's used only for update work modal -->
-        <button *ngIf="work.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+        <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
         <!-- Hides modal -->
         <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
         <!-- Submits updated or new work -->
