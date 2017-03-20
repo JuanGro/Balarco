@@ -34,7 +34,6 @@ var IgualasComponent = (function () {
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
             .subscribe(function (igualasListJSON) {
-            console.log(igualasListJSON);
             _this.igualasList = [];
             for (var _i = 0, igualasListJSON_1 = igualasListJSON; _i < igualasListJSON_1.length; _i++) {
                 var igualaJSON = igualasListJSON_1[_i];
@@ -73,8 +72,6 @@ var IgualasComponent = (function () {
     IgualasComponent.prototype.getIgualaFromTable = function (object) {
         this.iguala = object;
         this.currentArtWorkList = this.iguala.art_iguala;
-        console.log('CURRENT');
-        console.log(this.currentArtWorkList);
     };
     IgualasComponent.prototype.onIgualaCreated = function (event) {
         this.igualasList.push(event);

@@ -74,11 +74,10 @@ export class IgualasComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(igualasListJSON => {
                       // Creates Iguala objects from JSON.
-                      console.log(igualasListJSON);
                       this.igualasList = [];
                       for (let igualaJSON of igualasListJSON) {
                         this.igualasList.push(new Iguala(igualaJSON));
-                      }                      
+                      }
                     },
                       err => {
 
@@ -136,8 +135,6 @@ export class IgualasComponent implements OnInit {
   public getIgualaFromTable(object: Iguala) {
     this.iguala = object;
     this.currentArtWorkList = this.iguala.art_iguala;
-    console.log('CURRENT');
-    console.log(this.currentArtWorkList);
   }
 
   /**

@@ -29,8 +29,6 @@ var IgualaFormComponent = (function () {
         }
         else {
             this.oldIguala = new Iguala(this.iguala);
-            console.log('RECEIVED');
-            console.log(this.artWorkList);
         }
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
