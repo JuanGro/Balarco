@@ -3,7 +3,7 @@
     <!-- #worksModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitWorkForm(worksModalForm.value)" executes the submitWorkForm method sending the values of each field -->
     <form #worksModalForm="ngForm" novalidate (ngSubmit)="submitWorkForm(worksModalForm.value)" *ngIf="active">
-    
+
     <!-- First row -->
     <div class="form-group row">
         <div class="col-md-6">
@@ -74,7 +74,7 @@
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                 <select id="contact" name="contact" class="form-control" size="1" required>
-                    <option *ngFor="let contact of contactsList" value="{{ contact.id }}">{{ contact.name }}</option>
+                    <option *ngFor="let contact of contactsList" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
             </div>
             <!-- Feedback contact -->
@@ -85,7 +85,7 @@
             </div> -->
         </div>
     </div>
-    
+
     <!-- Third row -->
     <div class="form-group row">
         <div class="col-md-6">
@@ -162,7 +162,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Sixth row -->
     <div class="form-group row">
         <div class="col-md-6">
@@ -186,7 +186,7 @@
                 </div>
             </div> -->
         </div>
-        
+
         <div class="col-md-6">
             <!-- Final link field -->
             <label for="recipient-final-link" class="form-control-label">Link trabajo final:</label>

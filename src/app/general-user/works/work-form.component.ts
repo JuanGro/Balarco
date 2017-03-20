@@ -1,9 +1,13 @@
-import { Component, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+
+// Models
+import { Client } from '../../accounts/clients/client-model';
+import { Contact } from '../../accounts/contacts/contact-model';
 
 @Component({
   selector: 'work-form',
@@ -19,6 +23,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
+  // Receives the contacts list from parent component.
+  @Input('contactsList') contactsList: Contact[];
+  // Receives the clients list from parent component.
+  @Input('clientsList') clientsList: Client[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
