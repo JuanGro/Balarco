@@ -9,4 +9,5 @@ export const environment = {
   'CLIENTS_URL': 'clients/clients/',
   'CONTACTS_URL': 'clients/contacts/',
   'IGUALAS_URL': 'works/igualas/',
+  'ART_TYPES_URL': 'works/art_types/',
 };

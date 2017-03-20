@@ -59,7 +59,7 @@ export class IgualasComponent implements OnInit {
 
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
-    this.loadArtTypeList();
+    this.loadArtTypeList(environment.ART_TYPES_URL);
   }
 
   /**
@@ -108,19 +108,22 @@ export class IgualasComponent implements OnInit {
   * Loads all Art types from the get method of ArtType API
   * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
   **/
-  public loadArtTypeList() {
-    // MOCK VERSION
-    let jsonArray = [
-      {id: 1, name: 'Arte Nuevo', quantity: 0},
-      {id: 2, name: 'Slogans y logos', quantity: 0},
-      {id: 3, name: 'Campaña publicitaria', quantity: 0},
-    ];
-    
-    this.artWorkList = [];
-    for (var i = 0; i < jsonArray.length; i++) {
-      this.artWorkList.push(new ArtWork(jsonArray[i]));
-    }
-    console.log(this.artWorkList);
+  public loadArtTypeList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(artTypesJSON => {
+                      // Creates ArtWorks objects from JSON.
+                      this.artWorkList = [];
+                      console.log(artTypesJSON);
+                      for (let artJSON of artTypesJSON) {
+                        this.artWorkList.push(new ArtWork(artJSON));
+                      }
+                      console.log(this.artWorkList);
+                    },
+                      err => {
+                        // Call of toast
+                      }
+                    );    
   }
 
   /**

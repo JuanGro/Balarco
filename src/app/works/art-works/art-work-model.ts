@@ -9,6 +9,10 @@ export class ArtWork {
   constructor(object?: any) {
     this.id = object && object.id;
     this.name = object && object.name;
-    this.quantity = object && object.quantity;
+    if(object && object.quantity) {
+      this.quantity = object && object.quantity;
+    }else {
+      this.quantity = 0;
+    }    
   }
 }

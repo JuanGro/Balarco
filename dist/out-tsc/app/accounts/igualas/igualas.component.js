@@ -27,7 +27,7 @@ var IgualasComponent = (function () {
         this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
         this.loadIgualasList(environment.IGUALAS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
-        this.loadArtTypeList();
+        this.loadArtTypeList(environment.ART_TYPES_URL);
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
         var _this = this;
@@ -55,17 +55,20 @@ var IgualasComponent = (function () {
         }, function (err) {
         });
     };
-    IgualasComponent.prototype.loadArtTypeList = function () {
-        var jsonArray = [
-            { id: 1, name: 'Arte Nuevo', quantity: 0 },
-            { id: 2, name: 'Slogans y logos', quantity: 0 },
-            { id: 3, name: 'Campaña publicitaria', quantity: 0 },
-        ];
-        this.artWorkList = [];
-        for (var i = 0; i < jsonArray.length; i++) {
-            this.artWorkList.push(new ArtWork(jsonArray[i]));
-        }
-        console.log(this.artWorkList);
+    IgualasComponent.prototype.loadArtTypeList = function (url) {
+        var _this = this;
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (artTypesJSON) {
+            _this.artWorkList = [];
+            console.log(artTypesJSON);
+            for (var _i = 0, artTypesJSON_1 = artTypesJSON; _i < artTypesJSON_1.length; _i++) {
+                var artJSON = artTypesJSON_1[_i];
+                _this.artWorkList.push(new ArtWork(artJSON));
+            }
+            console.log(_this.artWorkList);
+        }, function (err) {
+        });
     };
     IgualasComponent.prototype.getIgualaFromTable = function (object) {
         this.iguala = object;
