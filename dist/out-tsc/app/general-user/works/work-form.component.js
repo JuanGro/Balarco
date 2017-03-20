@@ -20,6 +20,15 @@ var WorkFormComponent = (function () {
         this.active = true;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
+        if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
+            this.filterContactsByClientId(this.clientsList[0].id);
+        }
+    };
+    WorkFormComponent.prototype.onClientChange = function (id) {
+        this.filterContactsByClientId(id);
+    };
+    WorkFormComponent.prototype.filterContactsByClientId = function (id) {
+        this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
     };
     return WorkFormComponent;
 }());

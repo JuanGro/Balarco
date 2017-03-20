@@ -37,13 +37,37 @@ export class WorkFormComponent implements OnChanges {
   public worksModalForm: FormGroup;
   // Variable to active the form.
   public active: boolean = true;
+  // variable for filtering contacts by client.
+  private currentContacts: Contact[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
+
   /**
   * Builds the component for first time each time when it's called.
   *   - Initialize the form depending if the new or update work form is called.
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
+      this.filterContactsByClientId(this.clientsList[0].id);
+    }
+  }
+
+  /**
+  * Method that listens to event of change in the Clients dropdown.
+  * Params:
+  *   - id: Id of the new client selected.
+  **/
+  private onClientChange(id: number) {
+    this.filterContactsByClientId(id);
+  }
+
+  /**
+  * Method that filters the contacts by the client id.
+  * Params:
+  *   - id: Id of the client from which the contacts will be filtered.
+  **/
+  private filterContactsByClientId(id: number) {
+    this.currentContacts = this.contactsList.filter(x => x.client == id);
   }
 }
