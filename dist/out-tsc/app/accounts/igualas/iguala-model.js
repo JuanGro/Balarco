@@ -45,7 +45,15 @@ var Iguala = (function () {
         newIgualaJSON['end_date'] = this.end_date.getUTCFullYear() + '-' +
             (this.end_date.getUTCMonth() + 1) + '-' +
             this.end_date.getUTCDate();
-        return newIgualaJSON;
+        var artIgualaArray = [];
+        for (var _i = 0, _a = this.art_iguala; _i < _a.length; _i++) {
+            var artWork = _a[_i];
+            artIgualaArray.push({ art_type: artWork.id, quantity: artWork.quantity });
+        }
+        newIgualaJSON['art_iguala'] = artIgualaArray;
+        console.log('newIgualaJSON');
+        console.log(newIgualaJSON);
+        return JSON.stringify(newIgualaJSON);
     };
     return Iguala;
 }());
