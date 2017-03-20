@@ -32,7 +32,7 @@
             <!-- Executive field -->
             <label for="recipient-executive" class="form-control-label">Ejecutivo:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                 <select id="executive" name="executive" class="form-control" size="1" required>
                     <option *ngFor="let executive of executivesList" value="{{ executive.id }}">{{ executive.name }}</option>
@@ -92,7 +92,7 @@
             <!-- Type field -->
             <label for="recipient-type" class="form-control-label">Tipo:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
                 <select id="type" name="type" class="form-control" size="1" required>
                     <option *ngFor="let type of typesList" value="{{ type.id }}">{{ type.name }}</option>
@@ -110,7 +110,7 @@
             <!-- Iguala field -->
             <label for="recipient-iguala" class="form-control-label">Iguala:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
                 <select id="iguala" name="iguala" class="form-control" size="1" required>
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
@@ -169,7 +169,7 @@
             <!-- Status field -->
             <label for="recipient-status" class="form-control-label">Estado:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i>
+                <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
                 <input type="text" id="recipient-status" placeholder="Activo" class="form-control" minlength="3" maxlength="24" name="status" required>
             </div>
