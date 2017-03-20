@@ -47,13 +47,12 @@
 
 
     <!--Second row -->
-    <div class="form-group row">
-        <!-- Here you can use the ngFor -->
+    <div class="form-group row" *ngFor="let artWork of artWorkList">        
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="example-number-input" class="col-4 col-form-label">Tipo de arte 1</label>
+                <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
                 <div class="col-2">
-                    <input class="form-control" type="number" value="0" id="example-number-input">
+                    <input class="form-control" type="number" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}">
                 </div>
             </div>
         </div>

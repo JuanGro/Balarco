@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
 
 @Component({
   selector: 'iguala-form',
@@ -30,6 +31,8 @@ export class IgualaFormComponent implements OnChanges {
   @Input() iguala: Iguala;
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
+  // Receives the ArtWork list from parent component.
+  @Input('artWorkList') artWorkList: ArtWork[];
   // Requests close of modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the iguala will be removed.
