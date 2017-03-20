@@ -62,6 +62,8 @@ export class IgualaFormComponent implements OnChanges {
       this.iguala = new Iguala();
     } else {
       this.oldIguala = new Iguala(this.iguala);
+      console.log('RECEIVED');
+      console.log(this.artWorkList);
     }
   }
 

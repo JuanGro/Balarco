@@ -32,6 +32,8 @@ export class IgualasComponent implements OnInit {
   public clientsList: Client[];
   // List of art works that could be associated with the Iguala.
   public artWorkList: ArtWork[];
+  // List of current art works from Iguala object.
+  public currentArtWorkList: ArtWork[];
   // Variable to store the Iguala received from parent.
   public iguala: Iguala;
   // Title for new Iguala modal.
@@ -76,7 +78,7 @@ export class IgualasComponent implements OnInit {
                       this.igualasList = [];
                       for (let igualaJSON of igualasListJSON) {
                         this.igualasList.push(new Iguala(igualaJSON));
-                      }
+                      }                      
                     },
                       err => {
 
@@ -133,6 +135,9 @@ export class IgualasComponent implements OnInit {
   **/
   public getIgualaFromTable(object: Iguala) {
     this.iguala = object;
+    this.currentArtWorkList = this.iguala.art_iguala;
+    console.log('CURRENT');
+    console.log(this.currentArtWorkList);
   }
 
   /**

@@ -44,7 +44,7 @@
            <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
            <!-- [clientsList] sends the clients list to the form -->
            <!-- (requestCloseModal) listens for the close of the modal -->
-           <iguala-form [iguala]="iguala" [clientsList]="clientsList" (requestCloseModal)="updateIgualaModal.hide()" (requestWarning)="dangerModal.show()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
+           <iguala-form [iguala]="iguala" [clientsList]="clientsList" [artWorkList]="currentArtWorkList" (requestCloseModal)="updateIgualaModal.hide()" (requestWarning)="dangerModal.show()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
        </div>
    </div>
 </div>

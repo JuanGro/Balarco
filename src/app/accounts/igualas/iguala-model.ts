@@ -45,6 +45,14 @@ export class Iguala {
         this.end_date = new Date(endYear, endMonth, endDay);
       }
     }
+
+    // Get Artworks from art_iguala array.
+    this.art_iguala = [];
+    if (object && object.art_iguala) {
+      for(let art of object.art_iguala) {
+        this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity}));
+      }
+    }
   }
 
   /**
@@ -76,6 +84,6 @@ export class Iguala {
     console.log('newIgualaJSON');
     console.log(newIgualaJSON);
 
-    return JSON.stringify(newIgualaJSON);
+    return newIgualaJSON;
   }
 }

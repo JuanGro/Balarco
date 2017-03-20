@@ -72,6 +72,9 @@ var IgualasComponent = (function () {
     };
     IgualasComponent.prototype.getIgualaFromTable = function (object) {
         this.iguala = object;
+        this.currentArtWorkList = this.iguala.art_iguala;
+        console.log('CURRENT');
+        console.log(this.currentArtWorkList);
     };
     IgualasComponent.prototype.onIgualaCreated = function (event) {
         this.igualasList.push(event);

@@ -1,4 +1,5 @@
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
 var Iguala = (function () {
     function Iguala(object) {
         this.id = object && object.id;
@@ -31,6 +32,13 @@ var Iguala = (function () {
                 this.end_date = new Date(endYear, endMonth, endDay);
             }
         }
+        this.art_iguala = [];
+        if (object && object.art_iguala) {
+            for (var _i = 0, _a = object.art_iguala; _i < _a.length; _i++) {
+                var art = _a[_i];
+                this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
+            }
+        }
     }
     Iguala.prototype.generateJSONForPOST = function () {
         var newIgualaJSON = {};
@@ -53,7 +61,7 @@ var Iguala = (function () {
         newIgualaJSON['art_iguala'] = artIgualaArray;
         console.log('newIgualaJSON');
         console.log(newIgualaJSON);
-        return JSON.stringify(newIgualaJSON);
+        return newIgualaJSON;
     };
     return Iguala;
 }());
