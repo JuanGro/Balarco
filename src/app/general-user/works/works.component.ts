@@ -12,7 +12,5 @@ import { Component } from '@angular/core';
 * - Remove a work.
 **/
 export class WorksComponent {
-    public constructor() {
-
-    }
+    public constructor() { }
 }
