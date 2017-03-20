@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -29,6 +30,8 @@ export class IgualasComponent implements OnInit {
   public igualasList: Iguala[];
   // List of clients received from httpService.
   public clientsList: Client[];
+  // List of art works that could be associated with the Iguala.
+  public artWorkList: ArtWork[];
   // Variable to store the Iguala received from parent.
   public iguala: Iguala;
   // Title for new Iguala modal.
@@ -56,6 +59,7 @@ export class IgualasComponent implements OnInit {
 
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
+    this.loadArtTypeList();
   }
 
   /**
@@ -98,6 +102,25 @@ export class IgualasComponent implements OnInit {
                         // Call of toast
                       }
                     );
+  }
+
+  /**
+  * Loads all Art types from the get method of ArtType API
+  * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
+  **/
+  public loadArtTypeList() {
+    // MOCK VERSION
+    let jsonArray = [
+      {id: 1, name: 'Arte Nuevo', quantity: 0},
+      {id: 2, name: 'Slogans y logos', quantity: 0},
+      {id: 3, name: 'Campaña publicitaria', quantity: 0},
+    ];
+    
+    this.artWorkList = [];
+    for (var i = 0; i < jsonArray.length; i++) {
+      this.artWorkList.push(new ArtWork(jsonArray[i]));
+    }
+    console.log(this.artWorkList);
   }
 
   /**

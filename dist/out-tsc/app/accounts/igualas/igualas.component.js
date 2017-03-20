@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
@@ -26,13 +27,13 @@ var IgualasComponent = (function () {
         this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
         this.loadIgualasList(environment.IGUALAS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
+        this.loadArtTypeList();
     };
     IgualasComponent.prototype.loadIgualasList = function (url) {
         var _this = this;
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
             .subscribe(function (igualasListJSON) {
-            console.log(igualasListJSON);
             _this.igualasList = [];
             for (var _i = 0, igualasListJSON_1 = igualasListJSON; _i < igualasListJSON_1.length; _i++) {
                 var igualaJSON = igualasListJSON_1[_i];
@@ -53,6 +54,18 @@ var IgualasComponent = (function () {
             }
         }, function (err) {
         });
+    };
+    IgualasComponent.prototype.loadArtTypeList = function () {
+        var jsonArray = [
+            { id: 1, name: 'Arte Nuevo', quantity: 0 },
+            { id: 2, name: 'Slogans y logos', quantity: 0 },
+            { id: 3, name: 'Campaña publicitaria', quantity: 0 },
+        ];
+        this.artWorkList = [];
+        for (var i = 0; i < jsonArray.length; i++) {
+            this.artWorkList.push(new ArtWork(jsonArray[i]));
+        }
+        console.log(this.artWorkList);
     };
     IgualasComponent.prototype.getIgualaFromTable = function (object) {
         this.iguala = object;
