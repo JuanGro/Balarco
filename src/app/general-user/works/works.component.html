@@ -1,77 +1,70 @@
-<div class="animated fadeIn">
+<!-- Title -->
+<div class="card card-inverse card-primary text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+ </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <!-- Header -->
-                <div class="card-header">
-                    <div class="row">
-                        <!-- Add work -->
-                        <!-- Calls the requestNewWorkModal method, it requests the new work modal -->
-                        <div class="col align-self-start" (click)="requestNewWorkModal($event)">
-                            <i class="icon-plus icons font-2xl d-block"></i>
-                        </div>
-                        <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
-                            <span class="input-group-addon"><i class="fa fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
-                    </div>
-                </div>
+<!-- Child component, it contains the table -->
+<!-- [worksList] sends the works list to the table -->
+<!-- [clientsList] sends the clients list to the table -->
+<!-- (requestShowNewWorkModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
+<!-- (currentWork) receives the work who was selected by the user -->
+<works-list (requestShowNewWorkModal)="newWorkModal.show()" (requestShowNewWorkModal)="initializeModal()" (requestShowUpdateWorkModal)="updateWorkModal.show()"></works-list>
 
-                <!-- Start table -->
-                <div class="card-block">
-                    <table class="table table-inverse">
-                        <thead class="thead-inverse">
-                            <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Contacto</th>
-                                <th>Ejecutivo</th>
-                                <th>Iguala</th>
-                                <th>Descripción</th>
-                                <th>Link trabajo terminado</th>
-                                <th>Fecha de creación</th>
-                                <th>Fecha de entrega</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Select work to update -->
-                            <!-- Calls the requestUpdateWorkModal method, it requests the update work modal -->
-                            <!-- Sends the work selected by the user to the function sendCurrentWork -->
-                            <tr data-toggle="modal" *ngFor="let work of worksList" (click)="requestUpdateWorkModal($event)" (click)="sendCurrentWork(work)">
-                                <th scope="row">{{ work.id }}</th>
-                                <td>{{ work.name }}</td>
-                                <td>{{ work.last_name }}</td>
-                                <td>{{ work.client_complete.name }}</td>
-                                <td>{{ work.charge }}</td>
-                                <td>{{ work.landline }}</td>
-                                <td>{{ work.extension }}</td>
-                                <td>{{ work.mobile_phone_1 }}</td>
-                                <td>{{ work.mobile_phone_2 }}</td>
-                                <td>{{ work.email }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+<!-- Modal New Work -->
+<div bsModal #newWorkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewWorkModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleNewModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the work form -->
+            <!-- [work] sends the work empty to the form to avoid problems if the last work is currently saved -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <work-form (requestCloseModal)="newWorkModal.hide()"></work-form>
+        </div>
+    </div>
+</div>
 
-                    <!-- Pagination -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Prev</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+<!-- Modal Update Work -->
+<div bsModal #updateWorkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateWorkModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the work form -->
+            <!-- [work] sends the work object to the form to display the current values -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <work-form (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"></work-form>
+        </div>
+    </div>
+</div>
+
+<!-- Danger Modal to delete work -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleDangerModal }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ descriptionDangerModal }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <!-- (click)="removeWork(work)" executes the removeWork funtion in the component -->
+                <button type="button" class="btn btn-danger" (click)="removeWork(work)" (click)="dangerModal.hide()" (click)="updateWorkModal.hide()">Eliminar</button>
             </div>
         </div>
     </div>
 </div>
+<toaster-container></toaster-container>

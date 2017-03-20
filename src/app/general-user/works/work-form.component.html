@@ -1,0 +1,156 @@
+<div class="modal-body">
+    <!-- Start form -->
+    <!-- #worksModalForm="ngForm" calls the form methods to the component -->
+    <!-- (ngSubmit)="submitWorkForm(worksModalForm.value)" executes the submitWorkForm method sending the values of each field -->
+    <form #worksModalForm="ngForm" novalidate (ngSubmit)="submitWorkForm(worksModalForm.value)" *ngIf="active">
+    
+    <!-- First row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            <!-- Name field -->
+            <label for="recipient-name" class="form-control-label">Nombre:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i>
+                </span>
+                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" required>
+            </div>
+            <!-- Feedback name -->
+            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div [hidden]="!name.errors.required">
+                    El nombre es obligatorio.
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                    El nombre debe ser mayor o igual a 3 caracteres.
+                </div>
+                <div [hidden]="!name.errors.maxlength">
+                    El nombre debe ser menor a 25 caracteres.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Client field -->
+            <label for="recipient-client" class="form-control-label">Compañía:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
+                <select id="client" name="client" class="form-control" [(ngModel)]="work.client" #client="ngModel" size="1" required>
+                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                </select>
+            </div>
+            <!-- Feedback client -->
+            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+                <div [hidden]="!client.errors.required">
+                    La compañía es obligatoria.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            <!-- Contact field -->
+            <label for="recipient-contact" class="form-control-label">Contacto:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
+                <select id="contact" name="contact" class="form-control" [(ngModel)]="work.contact" #client="ngModel" size="1" required>
+                    <option *ngFor="let contact of contactsList" value="{{ contact.id }}">{{ contact.name }}</option>
+                </select>
+            </div>
+            <!-- Feedback contact -->
+            <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
+                <div [hidden]="!contact.errors.required">
+                    El contacto es obligatorio.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Executive field -->
+            <label for="recipient-executive" class="form-control-label">Ejecutivo:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
+                <select id="executive" name="executive" class="form-control" [(ngModel)]="work.executive" #client="ngModel" size="1" required>
+                    <option *ngFor="let executive of executivesList" value="{{ executive.id }}">{{ executive.name }}</option>
+                </select>
+            </div>
+            <!-- Feedback executive -->
+            <div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
+                <div [hidden]="!executive.errors.required">
+                    El contacto es obligatorio.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Third row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            <!-- Works -->
+        </div>
+
+        <div class="col-md-6">
+            <!-- Description field -->
+            <label for="recipient-description" class="form-control-label">Descripción:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i>
+                </span>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum" class="form-control" minlength="3" maxlength="24" rows="3" name="description" [(ngModel)]="work.description" #description="ngModel" required></textarea>
+            </div>
+            <!-- Feedback description -->
+            <div *ngIf="description.errors && description.touched" class="alert alert-danger">
+                <div [hidden]="!description.errors.required">
+                    La descripción es obligatorio.
+                </div>
+                <div [hidden]="!description.errors.minlength">
+                    La descripción debe ser mayor o igual a 3 caracteres.
+                </div>
+                <div [hidden]="!description.errors.maxlength">
+                    La descripción debe ser menor a 25 caracteres.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fourth row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            
+        </div>
+
+        <div class="col-md-6">
+            
+        </div>
+    </div>
+
+    <!-- Fifth row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            
+        </div>
+        
+        <div class="col-md-6">
+            
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="modal-footer">
+        <!-- Clear form -->
+        <!-- Calls the resetForm method, it's only displayed if the work.id is empty because it's not used for create a new work modal -->
+        <!-- <button *ngIf="!work.id" type="reset" class="btn btn-danger" (click)="cancelForm()">Limpiar</button> -->
+        <!-- Delete work -->
+        <!-- Calls the requestWarningModal method, the confirmation is only displayed if the work.id exists because it's used only for update work modal -->
+        <button *ngIf="work.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+        <!-- Hides modal -->
+        <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+        <!-- Submits updated or new work -->
+        <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+        <button type="submit" class="btn btn-primary" [disabled]="!worksModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+    </div>
+
+    </form>
+</div>

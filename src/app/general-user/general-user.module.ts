@@ -9,6 +9,8 @@ import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 // Components
 import { GeneralUserRoutingModule } from './general-user-routing.module';
 import { WorksComponent } from './works/works.component';
+import { WorksListComponent } from './works/works-list.component';
+import { WorkFormComponent } from './works/work-form.component';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
@@ -31,7 +33,7 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     SelectModule,
     ToasterModule
   ],
-  declarations: [ WorksComponent ],
+  declarations: [ WorksComponent, WorksListComponent, WorkFormComponent ],
 
   providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
 })
