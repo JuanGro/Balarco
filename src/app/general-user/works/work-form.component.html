@@ -89,16 +89,28 @@
     <!-- Third row -->
     <div class="form-group row">
         <div class="col-md-6">
-            <!-- Works -->
-        </div>
+            <!-- Iguala field -->
+            <label for="recipient-iguala" class="form-control-label">Iguala:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
+                <select id="iguala" name="iguala" class="form-control" size="1" required>
+                    <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
+                </select>
+            </div>
+            <!-- Feedback iguala -->
+            <!-- <div *ngIf="iguala.errors && iguala.touched" class="alert alert-danger">
+                <div [hidden]="!iguala.errors.required">
+                    La iguala es obligatoria.
+                </div>
+            </div> -->
 
-        <div class="col-md-6">
             <!-- Description field -->
             <label for="recipient-description" class="form-control-label">Descripción:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum" class="form-control" minlength="3" maxlength="24" rows="3" name="description" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="24" rows="3" name="description" required></textarea>
             </div>
             <!-- Feedback description -->
             <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">
@@ -113,27 +125,79 @@
                 </div>
             </div> -->
         </div>
+
+        <div class="col-md-6">
+            
+        </div>
     </div>
     
     <!-- Fourth row -->
     <div class="form-group row">
         <div class="col-md-6">
-            
+            <!-- Status field -->
+            <label for="recipient-status" class="form-control-label">Estado:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i>
+                </span>
+                <input type="text" id="recipient-status" placeholder="Activo" class="form-control" minlength="3" maxlength="24" name="status" required>
+            </div>
+            <!-- Feedback status -->
+            <!-- <div *ngIf="status.errors && status.touched" class="alert alert-danger">
+                <div [hidden]="!status.errors.required">
+                    El estado es obligatorio.
+                </div>
+                <div [hidden]="!status.errors.minlength">
+                    El estado debe ser mayor o igual a 3 caracteres.
+                </div>
+                <div [hidden]="!status.errors.maxlength">
+                    El estado debe ser menor a 25 caracteres.
+                </div>
+            </div> -->
         </div>
-
+        
         <div class="col-md-6">
-            
+            <!-- Final link field -->
+            <label for="recipient-final-link" class="form-control-label">Link trabajo final:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i>
+                </span>
+                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" required>
+            </div>
+            <!-- Feedback final link -->
+            <!-- <div *ngIf="final-link.errors && final-link.touched" class="alert alert-danger">
+                <div [hidden]="!final-link.errors.required">
+                    El nombre es obligatorio.
+                </div>
+                <div [hidden]="!final-link.errors.minlength">
+                    El nombre debe ser mayor o igual a 3 caracteres.
+                </div>
+                <div [hidden]="!final-link.errors.maxlength">
+                    El nombre debe ser menor a 25 caracteres.
+                </div>
+            </div> -->
         </div>
     </div>
 
     <!-- Fifth row -->
     <div class="form-group row">
         <div class="col-md-6">
-            
+            <!-- StartDate Field -->
+            <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
+            <div class="card-block">
+                <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
+                    <datepicker name="start_date" required></datepicker>
+                </div>
+            </div>
         </div>
-        
+
         <div class="col-md-6">
-            
+            <!-- EndDate Field -->
+            <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
+            <div class="card-block">
+                <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
+                    <datepicker name="end_date" required></datepicker>
+                </div>
+            </div>
         </div>
     </div>
 
