@@ -1,5 +1,6 @@
 // Models
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
 
 /**
 * Model that defines an Iguala.
@@ -11,6 +12,7 @@ export class Iguala {
   end_date?: Date;
   client?: number;
   client_complete?: Client;
+  art_works?: ArtWork[];
 
   constructor(object?: any) {
     this.id = object && object.id;
