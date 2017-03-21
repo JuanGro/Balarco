@@ -113,7 +113,7 @@ export class UserFormComponent implements OnChanges {
         }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el conacto');
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el usuario');
     });
     this.user = new User();
   }
