@@ -78,8 +78,7 @@ var IgualaFormComponent = (function () {
     IgualaFormComponent.prototype.cancelForm = function () {
         var _this = this;
         if (this.oldIguala) {
-            this.iguala = this.oldIguala;
-            this.igualaUpdated.emit(this.iguala);
+            this.igualaUpdated.emit(this.oldIguala);
         }
         this.iguala = new Iguala();
         setTimeout(function () { return _this.active = false; }, 1);

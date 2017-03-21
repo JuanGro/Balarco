@@ -39,11 +39,6 @@ describe('IgualasListComponent  tests.', function () {
         { id: 2, name: 'Oxxo 2018', client: 1,
             start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10) }
     ];
-    var testListArtWorks = [
-        { id: 1, name: 'Test diseño', quantity: 100 },
-        { id: 2, name: 'Test diseño 2', quantity: 50 },
-        { id: 3, name: 'Test diseño 3', quantity: 100 },
-    ];
     var testListClients = [
         { id: 1, name: 'Starbucks', address: 'Example' },
         { id: 2, name: 'General Electric', address: 'Example' }
@@ -86,6 +81,11 @@ describe('IgualasListComponent  tests.', function () {
             component.igualasList = testListigualas;
             fixtureParent.detectChanges();
             expect(component.igualasList).toEqual(testListigualas);
+        });
+        it('should load correctly clients list in clientsList Input', function () {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
         });
     });
     describe('EventEmitter of modal requests for child igualas list table component', function () {

@@ -135,8 +135,7 @@ export class IgualaFormComponent implements OnChanges {
   **/
   public cancelForm() {
     if (this.oldIguala) {
-      this.iguala = this.oldIguala;
-      this.igualaUpdated.emit(this.iguala);
+      this.igualaUpdated.emit(this.oldIguala);
     }
     this.iguala = new Iguala();
     setTimeout(() => this.active = false, 1);

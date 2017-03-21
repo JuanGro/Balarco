@@ -36,7 +36,13 @@ var Iguala = (function () {
         if (object && object.art_iguala) {
             for (var _i = 0, _a = object.art_iguala; _i < _a.length; _i++) {
                 var art = _a[_i];
-                this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
+                if (art.art_type && art.art_type_name) {
+                    this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
+                }
+                else {
+                    this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));
+                    console.log('HERE');
+                }
             }
         }
     }

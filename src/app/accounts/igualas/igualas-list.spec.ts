@@ -30,6 +30,8 @@ import { IgualaFormComponent } from './iguala-form.component';
 
 // Models
 import { Iguala } from './iguala-model';
+import { ArtWork } from './../../works/art-works/art-work-model';
+import { Client } from './../clients/client-model';
 
 describe('IgualasListComponent  tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -69,6 +71,11 @@ describe('IgualasListComponent  tests.', () => {
                                 start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10)},
                                 { id: 2, name: 'Oxxo 2018', client: 1,
                                 start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10)}
+                                ];
+
+    let testListClients: Client[] = [
+                                { id: 1, name: 'Starbucks', address: 'Example' },
+                                { id: 2, name: 'General Electric', address: 'Example' }
                                 ];
 
     // Base state before each test runs.
@@ -134,6 +141,15 @@ describe('IgualasListComponent  tests.', () => {
             component.igualasList = testListigualas;
             fixtureParent.detectChanges();
             expect(component.igualasList).toEqual(testListigualas);
+        });
+
+        /**
+        * Tests that the Client object received from parent component is not empty.
+        **/
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
         });
 
     });
