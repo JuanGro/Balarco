@@ -33,6 +33,10 @@ export const routes: Routes = [
       {
         path: 'designer',
         loadChildren: './designer/designer.module#DesignerModule'
+      },
+      {
+        path: 'general-user',
+        loadChildren: './general-user/general-user.module#GeneralUserModule'
       }
     ]
   },

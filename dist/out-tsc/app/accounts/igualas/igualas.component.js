@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';

@@ -1,6 +1,6 @@
 // Models
 import { Client } from './../clients/client-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 /**
 * Model that defines an Iguala.

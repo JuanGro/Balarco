@@ -1,5 +1,5 @@
 import { Client } from './../clients/client-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 var Iguala = (function () {
     function Iguala(object) {
         this.id = object && object.id;
