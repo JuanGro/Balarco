@@ -1,0 +1,15 @@
+<!-- Title -->
+<div class="card card-inverse card-primary text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+ </div>
+
+<!-- Child component, it contains the table -->
+<!-- [userList] sends the user list to the table -->
+<!-- (requestShowNewUserModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateUserModal) receives the request to show the update modal -->
+<!-- (currentUser) receives the user that was selected -->
+<user-list [userList]="userList" (requestShowNewUserModal)="newUserModal.show()" (requestShowNewUserModal)="initializeModal()" (requestShowUpdateUserModal)="updateUserModal.show()" (currentUser)="getUserFromTable($event)" ></user-list>
