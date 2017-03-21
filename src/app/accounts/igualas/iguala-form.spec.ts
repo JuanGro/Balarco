@@ -67,7 +67,7 @@ describe('IgualaFormComponent tests.', () => {
                                 { id: 1, name: 'Test Diseño 1', quantity: 100},
                                 { id: 2, name: 'Test Diseño 2', quantity: 200},
                                 { id: 3, name: 'Test Diseño 3', quantity: 300},
-    ]
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.

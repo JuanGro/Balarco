@@ -70,7 +70,7 @@ export class IgualaFormComponent implements OnChanges {
   * received when the modal was called is empty or not.
   **/
   public submitIgualaForm() {
-    this.iguala.art_iguala = this.artWorkList;    
+    this.iguala.art_iguala = this.artWorkList;
     if (this.iguala.id) {
       // Update iguala
       this.submitUpdatedIguala();

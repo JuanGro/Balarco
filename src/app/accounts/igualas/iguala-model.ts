@@ -49,7 +49,7 @@ export class Iguala {
     // Get Artworks from art_iguala array.
     this.art_iguala = [];
     if (object && object.art_iguala) {
-      for(let art of object.art_iguala) {
+      for (let art of object.art_iguala) {
         this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity}));
       }
     }
