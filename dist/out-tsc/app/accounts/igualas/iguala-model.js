@@ -41,7 +41,6 @@ var Iguala = (function () {
                 }
                 else {
                     this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));
-                    console.log('HERE');
                 }
             }
         }

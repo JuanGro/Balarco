@@ -53,8 +53,7 @@ export class Iguala {
         if (art.art_type && art.art_type_name) {
           this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
         } else {
-          this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));
-          console.log('HERE');
+          this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));          
         }
       }
     }
