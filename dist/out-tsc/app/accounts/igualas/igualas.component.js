@@ -61,7 +61,6 @@ var IgualasComponent = (function () {
             .map(function (data) { return data.json(); })
             .subscribe(function (artTypesJSON) {
             _this.artWorkList = [];
-            console.log(artTypesJSON);
             for (var _i = 0, artTypesJSON_1 = artTypesJSON; _i < artTypesJSON_1.length; _i++) {
                 var artJSON = artTypesJSON_1[_i];
                 _this.artWorkList.push(new ArtWork(artJSON));

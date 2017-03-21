@@ -115,8 +115,7 @@ export class IgualasComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(artTypesJSON => {
                       // Creates ArtWorks objects from JSON.
-                      this.artWorkList = [];
-                      console.log(artTypesJSON);
+                      this.artWorkList = [];                      
                       for (let artJSON of artTypesJSON) {
                         this.artWorkList.push(new ArtWork(artJSON));
                       }

@@ -34,7 +34,6 @@ var IgualaFormComponent = (function () {
     IgualaFormComponent.prototype.submitIgualaForm = function () {
         var _this = this;
         this.iguala.art_iguala = this.artWorkList;
-        console.log(this.iguala);
         if (this.iguala.id) {
             this.submitUpdatedIguala();
         }
