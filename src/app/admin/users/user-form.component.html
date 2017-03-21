@@ -10,7 +10,7 @@
             <!-- Username field -->
             <label for="recipient-name" class="form-control-label">Correo:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i>
+                <span class="input-group-addon"><i class="icon-user"></i>
                 </span>
                 <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="24" name="username" [(ngModel)]="user.username" #username="ngModel" required>
             </div>
@@ -79,23 +79,23 @@
     <!-- Third row -->
     <div *ngIf="!user.id" class="form-group row">
         <div class="col-md-12">
-            <!-- Landline field -->
+            <!-- Password field -->
             <label for="recipient-landline" class="form-control-label">Password:</label>
             <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i>
+                <span class="input-group-addon"><i class="icon-lock"></i>
                 </span>
-                <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="user.password" #landline="ngModel" required>
+                <input type="password" class="form-control" id="recipient-password" minlength="7" maxlength="24" name="password" [(ngModel)]="user.password" #password="ngModel" required>
             </div>
-            <!-- Feedback landline -->
-            <div *ngIf="landline.errors && landline.touched" class="alert alert-danger">
-                <div [hidden]="!landline.errors.required">
-                    El teléfono es requerido.
+            <!-- Feedback password -->
+            <div *ngIf="password.errors && password.touched" class="alert alert-danger">
+                <div [hidden]="!password.errors.required">
+                    La contraseña es obligatoria.
                 </div>
-                <div [hidden]="!landline.errors.minlength">
-                    El teléfono debe ser mayor o igual a 7 caracteres.
+                <div [hidden]="!password.errors.minlength">
+                    La contraseña debe ser mayor o igual a 6 caracteres.
                 </div>
-                <div [hidden]="!landline.errors.maxlength">
-                    El teléfono debe ser menor a 25 caracteres.
+                <div [hidden]="!password.errors.maxlength">
+                    La contraseña debe ser menor a 25 caracteres.
                 </div>
             </div>
         </div>
