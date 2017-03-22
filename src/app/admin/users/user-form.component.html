@@ -12,7 +12,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon-user"></i>
                 </span>
-                <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="24" name="username" [(ngModel)]="user.username" #username="ngModel" required>
+                <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="24" name="username" [(ngModel)]="user.username" #username="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required>
             </div>
             <!-- Feedback name -->
             <div *ngIf="username.errors && username.touched" class="alert alert-danger">
@@ -24,6 +24,9 @@
                 </div>
                 <div [hidden]="!username.errors.maxlength">
                     El correo debe ser menor a 25 caracteres.
+                </div>
+                <div [hidden]="!username.errors.pattern">
+                    El correo no es válido.
                 </div>
             </div>
         </div>
