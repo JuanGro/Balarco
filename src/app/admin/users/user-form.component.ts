@@ -95,6 +95,7 @@ export class UserFormComponent implements OnChanges {
         }
     },
     error => {
+      console.log(error)
       this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el usuario');
     });
   }

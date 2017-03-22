@@ -40,7 +40,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="first_name" [(ngModel)]="user.first_name" #first_name="ngModel" required>
+                <input type="text" id="recipient-first_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="first_name" [(ngModel)]="user.first_name" #first_name="ngModel" required>
             </div>
             <!-- Feedback lastname -->
             <div *ngIf="first_name.errors && first_name.touched" class="alert alert-danger">
