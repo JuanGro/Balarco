@@ -12,6 +12,7 @@ export class Iguala {
   end_date?: Date;
   client?: number;
   client_complete?: Client;
+  // Array to store the art works that a certain Iguala includes.
   art_iguala?: ArtWork[];
 
   constructor(object?: any) {
@@ -53,7 +54,7 @@ export class Iguala {
         if (art.art_type && art.art_type_name) {
           this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
         } else {
-          this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));          
+          this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));
         }
       }
     }
@@ -84,9 +85,6 @@ export class Iguala {
       artIgualaArray.push({ art_type: artWork.id, quantity: artWork.quantity });
     }
     newIgualaJSON['art_iguala'] = artIgualaArray;
-
-    console.log('newIgualaJSON');
-    console.log(newIgualaJSON);
 
     return newIgualaJSON;
   }

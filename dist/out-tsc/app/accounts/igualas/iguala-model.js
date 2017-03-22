@@ -64,8 +64,6 @@ var Iguala = (function () {
             artIgualaArray.push({ art_type: artWork.id, quantity: artWork.quantity });
         }
         newIgualaJSON['art_iguala'] = artIgualaArray;
-        console.log('newIgualaJSON');
-        console.log(newIgualaJSON);
         return newIgualaJSON;
     };
     return Iguala;
