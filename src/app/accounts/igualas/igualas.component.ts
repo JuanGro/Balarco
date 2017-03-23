@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -29,6 +30,10 @@ export class IgualasComponent implements OnInit {
   public igualasList: Iguala[];
   // List of clients received from httpService.
   public clientsList: Client[];
+  // List of art works that could be associated with the Iguala.
+  public artWorkList: ArtWork[];
+  // List of current art works from Iguala object.
+  public currentArtWorkList: ArtWork[];
   // Variable to store the Iguala received from parent.
   public iguala: Iguala;
   // Title for new Iguala modal.
@@ -56,6 +61,7 @@ export class IgualasComponent implements OnInit {
 
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
+    this.loadArtTypeList(environment.ART_TYPES_URL);
   }
 
   /**
@@ -101,12 +107,33 @@ export class IgualasComponent implements OnInit {
   }
 
   /**
+  * Loads all Art types from the get method of ArtType API
+  * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
+  **/
+  public loadArtTypeList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(artTypesJSON => {
+                      // Creates ArtWorks objects from JSON.
+                      this.artWorkList = [];
+                      for (let artJSON of artTypesJSON) {
+                        this.artWorkList.push(new ArtWork(artJSON));
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
+                    );
+  }
+
+  /**
   * Saves which iguala was selected by the user.
   * Params:
   *   - object: An Iguala object.
   **/
   public getIgualaFromTable(object: Iguala) {
     this.iguala = object;
+    this.currentArtWorkList = this.iguala.art_iguala;
   }
 
   /**

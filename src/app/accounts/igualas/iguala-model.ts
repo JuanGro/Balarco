@@ -1,5 +1,6 @@
 // Models
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 /**
 * Model that defines an Iguala.
@@ -11,6 +12,8 @@ export class Iguala {
   end_date?: Date;
   client?: number;
   client_complete?: Client;
+  // Array to store the art works that a certain Iguala includes.
+  art_iguala?: ArtWork[];
 
   constructor(object?: any) {
     this.id = object && object.id;
@@ -43,6 +46,18 @@ export class Iguala {
         this.end_date = new Date(endYear, endMonth, endDay);
       }
     }
+
+    // Get Artworks from art_iguala array.
+    this.art_iguala = [];
+    if (object && object.art_iguala) {
+      for (let art of object.art_iguala) {
+        if (art.art_type && art.art_type_name) {
+          this.art_iguala.push(new ArtWork({ id: art.art_type, name: art.art_type_name, quantity: art.quantity }));
+        } else {
+          this.art_iguala.push(new ArtWork({ id: art.id, name: art.name, quantity: art.quantity }));
+        }
+      }
+    }
   }
 
   /**
@@ -64,9 +79,13 @@ export class Iguala {
     newIgualaJSON['end_date'] = this.end_date.getUTCFullYear() + '-' +
                                 (this.end_date.getUTCMonth() + 1) + '-' +
                                 this.end_date.getUTCDate();
+
+    let artIgualaArray = [];
+    for (let artWork of this.art_iguala) {
+      artIgualaArray.push({ art_type: artWork.id, quantity: artWork.quantity });
+    }
+    newIgualaJSON['art_iguala'] = artIgualaArray;
+
     return newIgualaJSON;
   }
-
-
-
 }
