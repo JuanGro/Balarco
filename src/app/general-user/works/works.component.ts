@@ -127,7 +127,11 @@ export class WorksComponent implements OnInit {
 
   }
 
-
+  /**
+  * Loads all the workTypes with httpService.
+  * Params:
+  *   - url: Url to work types API methods.
+  **/
   public loadWorkTypesList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
@@ -138,7 +142,6 @@ export class WorksComponent implements OnInit {
                       for (let workTypeJSON of workTypesListJSON) {
                         this.workTypesList.push(new WorkType(workTypeJSON));
                       }
-                      console.log(this.workTypesList);
                     });
   }
 

@@ -10,6 +10,7 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { WorkType } from './work-type/work-type-model';
 
 @Component({
   selector: 'work-form',
@@ -31,6 +32,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('clientsList') clientsList: Client[];
   // Receives the igualas list from parent component.
   @Input('igualasList') igualasList: Iguala[];
+  // Receives the workTypes list from parent component.
+  @Input('workTypesList') workTypesList: WorkType[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.

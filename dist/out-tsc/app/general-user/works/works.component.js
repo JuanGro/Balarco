@@ -81,7 +81,6 @@ var WorksComponent = (function () {
                 var workTypeJSON = workTypesListJSON_1[_i];
                 _this.workTypesList.push(new WorkType(workTypeJSON));
             }
-            console.log(_this.workTypesList);
         });
     };
     WorksComponent.prototype.initializeModal = function () { };
