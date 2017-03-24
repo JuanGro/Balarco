@@ -23,6 +23,9 @@ var WorkFormComponent = (function () {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
             this.filterContactsByClientId(this.clientsList[0].id);
         }
+        if (this.igualasList && this.igualasList.length > 0) {
+            this.filterArtWorksByIgualaId(this.igualasList[0].id);
+        }
     };
     WorkFormComponent.prototype.onClientChange = function (id) {
         this.filterContactsByClientId(id);
@@ -31,6 +34,9 @@ var WorkFormComponent = (function () {
         this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
     };
     WorkFormComponent.prototype.onIgualaChange = function (id) {
+        this.filterArtWorksByIgualaId(id);
+    };
+    WorkFormComponent.prototype.filterArtWorksByIgualaId = function (id) {
         this.currentArtWorkList = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala;
     };
     return WorkFormComponent;

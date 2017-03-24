@@ -41,8 +41,9 @@ export class WorkFormComponent implements OnChanges {
   public worksModalForm: FormGroup;
   // Variable to active the form.
   public active: boolean = true;
-  // variable for filtering contacts by client.
+  // Variable for filtering Contacts by Client selected in dropown..
   private currentContacts: Contact[];
+  // Variable for filtering ArtWorks by Iguala selected in dropdown.
   private currentArtWorkList: ArtWork[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
@@ -55,6 +56,9 @@ export class WorkFormComponent implements OnChanges {
   public ngOnChanges() {
     if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
       this.filterContactsByClientId(this.clientsList[0].id);
+    }
+    if (this.igualasList && this.igualasList.length > 0) {
+      this.filterArtWorksByIgualaId(this.igualasList[0].id);
     }
   }
 
@@ -77,6 +81,10 @@ export class WorkFormComponent implements OnChanges {
   }
 
   private onIgualaChange(id: number) {
+    this.filterArtWorksByIgualaId(id);
+  }
+
+  private filterArtWorksByIgualaId(id: number) {
     this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
   }
 }
