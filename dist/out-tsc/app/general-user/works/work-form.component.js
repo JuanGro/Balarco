@@ -18,6 +18,7 @@ var WorkFormComponent = (function () {
         this.requestWarning = new EventEmitter();
         this.modalAction = '';
         this.active = true;
+        this.currentWorkTypeId = 0;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
         this.initialDropdownSetup();
@@ -41,6 +42,9 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterArtWorksByIgualaId = function (id) {
         this.currentArtWorkList = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala;
+    };
+    WorkFormComponent.prototype.onWorkTypeChange = function (id) {
+        this.currentWorkTypeId = id;
     };
     return WorkFormComponent;
 }());

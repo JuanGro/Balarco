@@ -94,8 +94,8 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="type" name="type" class="form-control" size="1" required>
-                    <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
+                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" required>
+                    <option *ngFor="let type of workTypesList" value="{{ type.work_type_id }}">{{ type.name }}</option>
                 </select>
             </div>
             <!-- Feedback type -->
@@ -106,7 +106,7 @@
             </div> -->
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="currentWorkTypeId == 1">
             <!-- Iguala field -->
             <label for="recipient-iguala" class="form-control-label">Iguala:</label>
             <div class="input-group">
@@ -151,15 +151,17 @@
     </div>
 
     <!-- Fifth row -->
-    <div class="form-group row" *ngFor="let artWork of currentArtWorkList">
-        <div class="col-md-12">
-            <div class="form-group row">
-                <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
-                <div class="col-3">
-                    <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity">
-                </div>
-            </div>
-        </div>
+    <div *ngIf="currentWorkTypeId == 1">
+      <div class="form-group row" *ngFor="let artWork of currentArtWorkList">
+          <div class="col-md-12">
+              <div class="form-group row">
+                  <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
+                  <div class="col-3">
+                      <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity">
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
 
     <!-- Sixth row -->

@@ -48,6 +48,8 @@ export class WorkFormComponent implements OnChanges {
   private currentContacts: Contact[];
   // Variable for filtering ArtWorks by Iguala selected in dropdown.
   private currentArtWorkList: ArtWork[];
+  // Variable to keep track of the current work type chosen.
+  private currentWorkTypeId: number = 0;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -106,5 +108,9 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterArtWorksByIgualaId(id: number) {
     this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
+  }
+
+  private onWorkTypeChange(id: number) {
+    this.currentWorkTypeId = id;
   }
 }
