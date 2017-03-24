@@ -54,6 +54,13 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    this.initialDropdownSetup();
+  }
+
+  /**
+  * Method to fill initially when the modal is shown.
+  **/
+  private initialDropdownSetup() {
     if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
       this.filterContactsByClientId(this.clientsList[0].id);
     }
@@ -80,10 +87,20 @@ export class WorkFormComponent implements OnChanges {
     this.currentContacts = this.contactsList.filter(x => x.client == id);
   }
 
+  /**
+  * Method that listens to event of change in the Igualas dropdown.
+  * Params:
+  *   - id: Id of the new iguala selected.
+  **/
   private onIgualaChange(id: number) {
     this.filterArtWorksByIgualaId(id);
   }
 
+  /**
+  * Method that filters the artWorks by the iguala id.
+  * Params:
+  *   - id: Id of the iguala from which the artWorks will be filtered.
+  **/
   private filterArtWorksByIgualaId(id: number) {
     this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
   }

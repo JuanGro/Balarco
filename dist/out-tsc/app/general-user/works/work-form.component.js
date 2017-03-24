@@ -20,6 +20,9 @@ var WorkFormComponent = (function () {
         this.active = true;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
+        this.initialDropdownSetup();
+    };
+    WorkFormComponent.prototype.initialDropdownSetup = function () {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
             this.filterContactsByClientId(this.clientsList[0].id);
         }
