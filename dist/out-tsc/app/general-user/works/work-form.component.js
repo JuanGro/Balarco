@@ -30,6 +30,12 @@ var WorkFormComponent = (function () {
         if (this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
         }
+        if (this.workTypesList && this.workTypesList.length > 0) {
+            this.currentWorkTypeId = this.workTypesList[0].work_type_id;
+        }
+        else {
+            this.currentWorkTypeId = 0;
+        }
     };
     WorkFormComponent.prototype.onClientChange = function (id) {
         this.filterContactsByClientId(id);

@@ -72,6 +72,11 @@ export class WorkFormComponent implements OnChanges {
     if (this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
     }
+    if (this.workTypesList && this.workTypesList.length > 0) {
+      this.currentWorkTypeId = this.workTypesList[0].work_type_id;
+    } else {
+      this.currentWorkTypeId = 0;
+    }
   }
 
   /**
@@ -110,6 +115,11 @@ export class WorkFormComponent implements OnChanges {
     this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
   }
 
+  /**
+  * Method that listens to event of change in the WorkType dropdown.
+  * Params:
+  *   - id: Id of the new workType selected.
+  **/
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = id;
   }
