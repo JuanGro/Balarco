@@ -6,6 +6,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Models
+import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -42,6 +43,7 @@ export class WorkFormComponent implements OnChanges {
   public active: boolean = true;
   // variable for filtering contacts by client.
   private currentContacts: Contact[];
+  private currentArtWorkList: ArtWork[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -72,5 +74,9 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterContactsByClientId(id: number) {
     this.currentContacts = this.contactsList.filter(x => x.client == id);
+  }
+
+  private onIgualaChange(id: number) {
+    this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
   }
 }

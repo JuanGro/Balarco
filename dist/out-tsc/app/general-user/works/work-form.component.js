@@ -30,6 +30,9 @@ var WorkFormComponent = (function () {
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
         this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
     };
+    WorkFormComponent.prototype.onIgualaChange = function (id) {
+        this.currentArtWorkList = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala;
+    };
     return WorkFormComponent;
 }());
 __decorate([

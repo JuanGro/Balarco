@@ -112,7 +112,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="iguala" name="iguala" class="form-control" size="1" required>
+                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" required>
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                 </select>
             </div>
@@ -151,13 +151,12 @@
     </div>
 
     <!-- Fifth row -->
-    <div class="form-group row">
-        <!-- Here you can use the ngFor -->
+    <div class="form-group row" *ngFor="let artWork of currentArtWorkList">
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="example-number-input" class="col-4 col-form-label">Tipo de arte 1</label>
-                <div class="col-2">
-                    <input class="form-control" type="number" value="0" id="example-number-input">
+                <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
+                <div class="col-3">
+                    <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity">
                 </div>
             </div>
         </div>
