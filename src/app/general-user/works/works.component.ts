@@ -8,6 +8,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { WorkType } from './work-type/work-type-model';
 
 // Environment
 import { environment } from '../../../environments/environment';
@@ -32,6 +33,8 @@ export class WorksComponent implements OnInit {
   public contactsList: Contact[];
   // List of igualas received from httpService.
   public igualasList: Iguala[];
+  // List of Work Types received from httpService.
+  public workTypesList: WorkType[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -58,6 +61,7 @@ export class WorksComponent implements OnInit {
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadWorkTypesList(environment.WORK_TYPES_URL);
   }
 
   /**
@@ -121,6 +125,21 @@ export class WorksComponent implements OnInit {
 
                       });
 
+  }
+
+
+  public loadWorkTypesList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(workTypesListJSON => {
+                      // Creates WorkType objects from JSON
+                      console.log(workTypesListJSON);
+                      this.workTypesList = [];
+                      for (let workTypeJSON of workTypesListJSON) {
+                        this.workTypesList.push(new WorkType(workTypeJSON));
+                      }
+                      console.log(this.workTypesList);
+                    });
   }
 
   /**

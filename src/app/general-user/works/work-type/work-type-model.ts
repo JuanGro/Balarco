@@ -11,6 +11,6 @@ export class WorkType {
   constructor(object?: any) {
     this.id = object && object.id;
     this.name = object && object.name;
-    this.work_type_id = object && object.work_type_id;
+    this.work_type_id = object && object.work_type_id;    
   }
 }

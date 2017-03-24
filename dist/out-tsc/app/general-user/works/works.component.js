@@ -13,6 +13,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { WorkType } from './work-type/work-type-model';
 import { environment } from '../../../environments/environment';
 var WorksComponent = (function () {
     function WorksComponent(httpService, toaster) {
@@ -28,6 +29,7 @@ var WorksComponent = (function () {
         this.loadClientsList(environment.CLIENTS_URL);
         this.loadContactsList(environment.CONTACTS_URL);
         this.loadIgualasList(environment.IGUALAS_URL);
+        this.loadWorkTypesList(environment.WORK_TYPES_URL);
     };
     WorksComponent.prototype.loadClientsList = function (url) {
         var _this = this;
@@ -66,6 +68,20 @@ var WorksComponent = (function () {
                 _this.igualasList.push(new Iguala(igualaJSON));
             }
         }, function (err) {
+        });
+    };
+    WorksComponent.prototype.loadWorkTypesList = function (url) {
+        var _this = this;
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (workTypesListJSON) {
+            console.log(workTypesListJSON);
+            _this.workTypesList = [];
+            for (var _i = 0, workTypesListJSON_1 = workTypesListJSON; _i < workTypesListJSON_1.length; _i++) {
+                var workTypeJSON = workTypesListJSON_1[_i];
+                _this.workTypesList.push(new WorkType(workTypeJSON));
+            }
+            console.log(_this.workTypesList);
         });
     };
     WorksComponent.prototype.initializeModal = function () { };
