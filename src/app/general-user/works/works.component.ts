@@ -7,6 +7,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Models
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { Iguala } from '../../accounts/igualas/iguala-model';
 
 // Environment
 import { environment } from '../../../environments/environment';
@@ -29,6 +30,8 @@ export class WorksComponent implements OnInit {
   public clientsList: Client[];
   // Variable that saves all contacts from DB.
   public contactsList: Contact[];
+  // List of igualas received from httpService.
+  public igualasList: Iguala[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -54,6 +57,7 @@ export class WorksComponent implements OnInit {
 
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
+    this.loadIgualasList(environment.IGUALAS_URL);
   }
 
   /**
@@ -90,12 +94,33 @@ export class WorksComponent implements OnInit {
                       this.contactsList = [];
                       for (let contactJSON of contactsListJSON) {
                         this.contactsList.push(new Contact(contactJSON));
-                      }                      
+                      }
                     },
                       err => {
                         // Call of toast
                       }
                     );
+  }
+
+  /**
+  * Loads all the igualas with httpService.
+  * Params:
+  *   - url: Url to igualas API methods.
+  **/
+  public loadIgualasList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(igualasListJSON => {
+                      // Creates Iguala objects from JSON.
+                      this.igualasList = [];
+                      for (let igualaJSON of igualasListJSON) {
+                        this.igualasList.push(new Iguala(igualaJSON));
+                      }
+                    },
+                      err => {
+
+                      });
+
   }
 
   /**

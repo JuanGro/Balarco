@@ -12,6 +12,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { Iguala } from '../../accounts/igualas/iguala-model';
 import { environment } from '../../../environments/environment';
 var WorksComponent = (function () {
     function WorksComponent(httpService, toaster) {
@@ -26,6 +27,7 @@ var WorksComponent = (function () {
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
         this.loadClientsList(environment.CLIENTS_URL);
         this.loadContactsList(environment.CONTACTS_URL);
+        this.loadIgualasList(environment.IGUALAS_URL);
     };
     WorksComponent.prototype.loadClientsList = function (url) {
         var _this = this;
@@ -49,6 +51,19 @@ var WorksComponent = (function () {
             for (var _i = 0, contactsListJSON_1 = contactsListJSON; _i < contactsListJSON_1.length; _i++) {
                 var contactJSON = contactsListJSON_1[_i];
                 _this.contactsList.push(new Contact(contactJSON));
+            }
+        }, function (err) {
+        });
+    };
+    WorksComponent.prototype.loadIgualasList = function (url) {
+        var _this = this;
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (igualasListJSON) {
+            _this.igualasList = [];
+            for (var _i = 0, igualasListJSON_1 = igualasListJSON; _i < igualasListJSON_1.length; _i++) {
+                var igualaJSON = igualasListJSON_1[_i];
+                _this.igualasList.push(new Iguala(igualaJSON));
             }
         }, function (err) {
         });

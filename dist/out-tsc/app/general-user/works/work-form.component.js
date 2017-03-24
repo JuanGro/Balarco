@@ -41,6 +41,10 @@ __decorate([
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "clientsList", void 0);
 __decorate([
+    Input('igualasList'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "igualasList", void 0);
+__decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], WorkFormComponent.prototype, "requestCloseModal", void 0);

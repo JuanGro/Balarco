@@ -8,6 +8,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Models
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { Iguala } from '../../accounts/igualas/iguala-model';
 
 @Component({
   selector: 'work-form',
@@ -27,6 +28,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
+  // Receives the igualas list from parent component.
+  @Input('igualasList') igualasList: Iguala[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
