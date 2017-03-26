@@ -24,6 +24,7 @@ var WorkFormComponent = (function () {
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
         if (!this.work) {
+            this.work = new Work();
             this.initialDropdownSetup();
             this.possibleStatus = this.getPossibleStatusForNewProject();
         }

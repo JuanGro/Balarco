@@ -12,7 +12,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" required>
+                <input type="text" id="recipient-name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" required>
             </div>
             <!-- Feedback name -->
             <!-- <div *ngIf="name.errors && name.touched" class="alert alert-danger">
@@ -147,7 +147,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="24" rows="3" name="description" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="24" rows="3" name="description" [(ngModel)]="work.brief" required></textarea>
             </div>
             <!-- Feedback description -->
             <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">
@@ -196,7 +196,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-external-link"></i>
                 </span>
-                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" required>
+                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link" required>
             </div>
             <!-- Feedback final link -->
             <!-- <div *ngIf="final-link.errors && final-link.touched" class="alert alert-danger">

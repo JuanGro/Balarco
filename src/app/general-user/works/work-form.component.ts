@@ -66,6 +66,7 @@ export class WorkFormComponent implements OnChanges {
   public ngOnChanges() {
     if (!this.work) {
       // New work
+      this.work = new Work();
       this.initialDropdownSetup();
       this.possibleStatus =  this.getPossibleStatusForNewProject();
     }
