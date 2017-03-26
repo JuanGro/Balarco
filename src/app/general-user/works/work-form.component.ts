@@ -10,6 +10,8 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Status } from './status/status-model';
+import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 
 @Component({
@@ -26,6 +28,7 @@ import { WorkType } from './work-type/work-type-model';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
+  @Input() work: Work;
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
@@ -50,6 +53,8 @@ export class WorkFormComponent implements OnChanges {
   private currentArtWorkList: ArtWork[];
   // Variable to keep track of the current work type chosen.
   private currentWorkTypeId: number = 0;
+  // Array to keep track of the possible status the work can get into.
+  private possibleStatus: Status[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -59,7 +64,12 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.initialDropdownSetup();
+    if (!this.work) {
+      // New work
+      this.initialDropdownSetup();
+      this.possibleStatus =  this.getPossibleStatusForNewProject();
+    }
+
   }
 
   /**
@@ -122,5 +132,17 @@ export class WorkFormComponent implements OnChanges {
   **/
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = id;
+  }
+
+  /**
+  * Function that returns an array of possible status if the project is new.
+  * Returns:
+  *   - Array of Status.
+  **/
+  private getPossibleStatusForNewProject(): Status[] {
+    let possibleStatus: Status[] = [];
+    possibleStatus.push(new Status({ id: 0, name: 'Pendiente'}));
+    possibleStatus.push(new Status({ id: 1, name: 'Diseño'}));
+    return possibleStatus;
   }
 }

@@ -172,7 +172,9 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                <input type="text" id="recipient-status" placeholder="Activo" class="form-control" minlength="3" maxlength="24" name="status" required>
+                <select id="status" name="status" class="form-control" size="1" required>
+                    <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
+                </select>
             </div>
             <!-- Feedback status -->
             <!-- <div *ngIf="status.errors && status.touched" class="alert alert-danger">

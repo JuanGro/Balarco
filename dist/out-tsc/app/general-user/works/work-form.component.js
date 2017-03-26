@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { Status } from './status/status-model';
+import { Work } from './work-model';
 var WorkFormComponent = (function () {
     function WorkFormComponent(httpService, toaster) {
         this.httpService = httpService;
@@ -21,7 +23,10 @@ var WorkFormComponent = (function () {
         this.currentWorkTypeId = 0;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
-        this.initialDropdownSetup();
+        if (!this.work) {
+            this.initialDropdownSetup();
+            this.possibleStatus = this.getPossibleStatusForNewProject();
+        }
     };
     WorkFormComponent.prototype.initialDropdownSetup = function () {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
@@ -52,8 +57,18 @@ var WorkFormComponent = (function () {
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = id;
     };
+    WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
+        var possibleStatus = [];
+        possibleStatus.push(new Status({ id: 0, name: 'Pendiente' }));
+        possibleStatus.push(new Status({ id: 1, name: 'Diseño' }));
+        return possibleStatus;
+    };
     return WorkFormComponent;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Work)
+], WorkFormComponent.prototype, "work", void 0);
 __decorate([
     Input('contactsList'),
     __metadata("design:type", Array)

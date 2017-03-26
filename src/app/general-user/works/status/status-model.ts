@@ -8,5 +8,5 @@ export class Status {
   constructor(object?: any) {
     this.id = object && object.id;
     this.name = object && object.name;
-  }
+  }  
 }
