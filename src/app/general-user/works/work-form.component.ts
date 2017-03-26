@@ -67,10 +67,11 @@ export class WorkFormComponent implements OnChanges {
     if (!this.work) {
       // New work
       this.work = new Work();
-      this.initialDropdownSetup();
       this.possibleStatus =  this.getPossibleStatusForNewProject();
     }
-
+    if (this.work && !this.work.id) {
+      this.initialDropdownSetup();
+    }
   }
 
   /**
