@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { ArtWork } from './art-works/art-work-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 var WorkFormComponent = (function () {
@@ -53,7 +54,11 @@ var WorkFormComponent = (function () {
         this.filterArtWorksByIgualaId(id);
     };
     WorkFormComponent.prototype.filterArtWorksByIgualaId = function (id) {
-        this.currentArtWorkList = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala;
+        this.currentArtWorkList = [];
+        for (var _i = 0, _a = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala; _i < _a.length; _i++) {
+            var artWork = _a[_i];
+            this.currentArtWorkList.push(new ArtWork(artWork));
+        }
     };
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = id;

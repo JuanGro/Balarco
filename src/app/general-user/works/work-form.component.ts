@@ -123,7 +123,10 @@ export class WorkFormComponent implements OnChanges {
   *   - id: Id of the iguala from which the artWorks will be filtered.
   **/
   private filterArtWorksByIgualaId(id: number) {
-    this.currentArtWorkList = this.igualasList.filter(x => x.id == id)[0].art_iguala;
+    this.currentArtWorkList = [];
+    for (let artWork of this.igualasList.filter(x => x.id == id)[0].art_iguala) {
+      this.currentArtWorkList.push(new ArtWork(artWork));
+    }
   }
 
   /**
