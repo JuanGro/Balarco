@@ -14,6 +14,7 @@ import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { WorkType } from './work-type/work-type-model';
+import { URLSearchParams } from '@angular/http';
 import { environment } from '../../../environments/environment';
 var WorksComponent = (function () {
     function WorksComponent(httpService, toaster) {
@@ -30,6 +31,7 @@ var WorksComponent = (function () {
         this.loadContactsList(environment.CONTACTS_URL);
         this.loadIgualasList(environment.IGUALAS_URL);
         this.loadWorkTypesList(environment.WORK_TYPES_URL);
+        this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     };
     WorksComponent.prototype.loadClientsList = function (url) {
         var _this = this;
@@ -75,12 +77,21 @@ var WorksComponent = (function () {
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
             .subscribe(function (workTypesListJSON) {
-            console.log(workTypesListJSON);
             _this.workTypesList = [];
             for (var _i = 0, workTypesListJSON_1 = workTypesListJSON; _i < workTypesListJSON_1.length; _i++) {
                 var workTypeJSON = workTypesListJSON_1[_i];
                 _this.workTypesList.push(new WorkType(workTypeJSON));
             }
+        });
+    };
+    WorksComponent.prototype.loadWorkTypesForGraduation = function (url) {
+        var graduation_id = '2';
+        var params = new URLSearchParams();
+        params.set('work_work_type_id', graduation_id);
+        this.httpService.getObject(url, params)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (graduationWorkTypesJSON) {
+            console.log(graduationWorkTypesJSON);
         });
     };
     WorksComponent.prototype.initializeModal = function () { };

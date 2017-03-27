@@ -9,6 +9,7 @@ import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { WorkType } from './work-type/work-type-model';
+import { URLSearchParams } from '@angular/http';
 
 // Environment
 import { environment } from '../../../environments/environment';
@@ -35,6 +36,8 @@ export class WorksComponent implements OnInit {
   public igualasList: Iguala[];
   // List of Work Types received from httpService.
   public workTypesList: WorkType[];
+  // List of Work Types of graduation only.
+  public graduationWorkTypes: WorkType[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -62,6 +65,7 @@ export class WorksComponent implements OnInit {
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
+    this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
   }
 
   /**
@@ -137,12 +141,23 @@ export class WorksComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(workTypesListJSON => {
                       // Creates WorkType objects from JSON
-                      console.log(workTypesListJSON);
                       this.workTypesList = [];
                       for (let workTypeJSON of workTypesListJSON) {
                         this.workTypesList.push(new WorkType(workTypeJSON));
                       }
                     });
+  }
+
+  private loadWorkTypesForGraduation(url: string) {
+    let graduation_id = '2'; // Should be id of graduación in API.
+    let params = new URLSearchParams();
+    params.set('work_work_type_id', graduation_id);
+    this.httpService.getObject(url, params)
+                    .map((data: any) => data.json())
+                    .subscribe(graduationWorkTypesJSON => {
+                      console.log(graduationWorkTypesJSON);
+                    });
+
   }
 
   /**
