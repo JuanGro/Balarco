@@ -5,6 +5,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Models
+import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -37,7 +38,7 @@ export class WorksComponent implements OnInit {
   // List of Work Types received from httpService.
   public workTypesList: WorkType[];
   // List of Work Types of graduation only.
-  public graduationWorkTypes: WorkType[];
+  public graduationArtTypes: ArtWork[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -73,7 +74,7 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: The url where the service will comunicate to get the Client object.
   **/
-  public loadClientsList(url: string) {
+  private loadClientsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(clientsListJSON => {
@@ -94,7 +95,7 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: The url where the service will comunicate to get the Contact object.
   **/
-  public loadContactsList(url: string) {
+  private loadContactsList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(contactsListJSON => {
@@ -115,7 +116,7 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: Url to igualas API methods.
   **/
-  public loadIgualasList(url: string) {
+  private loadIgualasList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(igualasListJSON => {
@@ -136,7 +137,7 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: Url to work types API methods.
   **/
-  public loadWorkTypesList(url: string) {
+  private loadWorkTypesList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(workTypesListJSON => {
@@ -148,14 +149,22 @@ export class WorksComponent implements OnInit {
                     });
   }
 
+  /**
+  * Loads all the art types for Graduation only with httpService.
+  * Params:
+  *   - url: Url to art types API methods.
+  **/
   private loadWorkTypesForGraduation(url: string) {
     let graduation_id = '2'; // Should be id of graduación in API.
     let params = new URLSearchParams();
     params.set('work_work_type_id', graduation_id);
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
-                    .subscribe(graduationWorkTypesJSON => {
-                      console.log(graduationWorkTypesJSON);
+                    .subscribe(graduationArtTypesJSON => {
+                      this.graduationArtTypes = [];                      
+                      for (let artType of graduationArtTypesJSON) {
+                        this.graduationArtTypes.push(new ArtWork(artType));
+                      }
                     });
 
   }

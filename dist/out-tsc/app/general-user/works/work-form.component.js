@@ -64,6 +64,16 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = id;
+        if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
+            this.filterArtWorksByIgualaId(this.igualasList[0].id);
+        }
+        else if (this.currentWorkTypeId == 2) {
+            this.currentArtWorkList = [];
+            for (var _i = 0, _a = this.graduationArtTypes; _i < _a.length; _i++) {
+                var artWork = _a[_i];
+                this.currentArtWorkList.push(new ArtWork(artWork));
+            }
+        }
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
         var possibleStatus = [];
@@ -93,6 +103,10 @@ __decorate([
     Input('workTypesList'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "workTypesList", void 0);
+__decorate([
+    Input(' graduationArtTypes'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "graduationArtTypes", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

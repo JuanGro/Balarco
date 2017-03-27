@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -85,13 +86,18 @@ var WorksComponent = (function () {
         });
     };
     WorksComponent.prototype.loadWorkTypesForGraduation = function (url) {
+        var _this = this;
         var graduation_id = '2';
         var params = new URLSearchParams();
         params.set('work_work_type_id', graduation_id);
         this.httpService.getObject(url, params)
             .map(function (data) { return data.json(); })
-            .subscribe(function (graduationWorkTypesJSON) {
-            console.log(graduationWorkTypesJSON);
+            .subscribe(function (graduationArtTypesJSON) {
+            _this.graduationArtTypes = [];
+            for (var _i = 0, graduationArtTypesJSON_1 = graduationArtTypesJSON; _i < graduationArtTypesJSON_1.length; _i++) {
+                var artType = graduationArtTypesJSON_1[_i];
+                _this.graduationArtTypes.push(new ArtWork(artType));
+            }
         });
     };
     WorksComponent.prototype.initializeModal = function () { };

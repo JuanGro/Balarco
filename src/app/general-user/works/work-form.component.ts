@@ -37,6 +37,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('igualasList') igualasList: Iguala[];
   // Receives the workTypes list from parent component.
   @Input('workTypesList') workTypesList: WorkType[];
+  // Receives workTypes for Graduation only from parent component.
+  @Input(' graduationArtTypes') graduationArtTypes: ArtWork[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -137,6 +139,15 @@ export class WorkFormComponent implements OnChanges {
   **/
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = id;
+    if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
+      this.filterArtWorksByIgualaId(this.igualasList[0].id);
+    }
+    else if (this.currentWorkTypeId == 2) {
+      this.currentArtWorkList = [];
+      for (let artWork of this.graduationArtTypes) {
+        this.currentArtWorkList.push(new ArtWork(artWork));
+      }
+    }
   }
 
   /**
