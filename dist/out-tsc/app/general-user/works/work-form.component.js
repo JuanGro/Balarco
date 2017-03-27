@@ -81,6 +81,21 @@ var WorkFormComponent = (function () {
         possibleStatus.push(new Status({ id: 1, name: 'Diseño' }));
         return possibleStatus;
     };
+    WorkFormComponent.prototype.requestCloseThisModal = function () {
+        this.modalAction = 'Close modal';
+        this.requestCloseModal.emit(this.modalAction);
+    };
+    WorkFormComponent.prototype.requestWarningModal = function () {
+        this.modalAction = 'Show warning modal';
+        this.requestWarning.emit(this.modalAction);
+    };
+    WorkFormComponent.prototype.cancelForm = function () {
+        var _this = this;
+        this.work = new Work();
+        setTimeout(function () { return _this.active = false; }, 1);
+        setTimeout(function () { return _this.active = true; }, 1);
+        this.initialDropdownSetup();
+    };
     return WorkFormComponent;
 }());
 __decorate([

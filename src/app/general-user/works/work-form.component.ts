@@ -161,4 +161,30 @@ export class WorkFormComponent implements OnChanges {
     possibleStatus.push(new Status({ id: 1, name: 'Diseño'}));
     return possibleStatus;
   }
+
+  /**
+  * Requests to parent component to close the current modal.
+  **/
+  public requestCloseThisModal() {
+    this.modalAction = 'Close modal';
+    this.requestCloseModal.emit(this.modalAction);
+  }
+
+  /**
+  * Requests to parent component to show the confirmation to remove the iguala selected.
+  **/
+  public requestWarningModal() {
+    this.modalAction = 'Show warning modal';
+    this.requestWarning.emit(this.modalAction);
+  }
+
+  /**
+  * Set work with TWDB with old values or clear object if it's new.
+  **/
+  private cancelForm() {
+    this.work = new Work();
+    setTimeout(() => this.active = false, 1);
+    setTimeout(() => this.active = true, 1);
+    this.initialDropdownSetup();
+  }
 }
