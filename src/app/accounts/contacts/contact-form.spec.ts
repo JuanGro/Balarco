@@ -44,16 +44,29 @@ describe('ContactFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    // Create a Client object example
+    let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+
+    // Create a Client object example
+    let testClient2: Client = { id: 2, name: 'General Electric', address: 'Example' };
+
+    // Initialize Client objects
+    testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
+
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true };
+                                client_complete: testClient };
+
+    // Initialize Contact objects
+    testContact = new Contact(testContact);
 
     let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
+                                testClient,
+                                testClient2
                                 ];
 
     // Base state before each test runs.

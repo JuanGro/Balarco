@@ -28,6 +28,8 @@ describe('Contact object model tests.', () => {
             email: email, alternate_email: alternate_email
         };
 
+        contact = new Contact(contact);
+
         // Check each attribute.
         expect(contact.id).toBe(id);
         expect(contact.name).toBe(name);

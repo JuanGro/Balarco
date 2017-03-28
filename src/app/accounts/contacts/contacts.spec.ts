@@ -26,6 +26,7 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
+import { Client } from './../clients/client-model';
 
 describe('ContactsComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
@@ -46,12 +47,21 @@ describe('ContactsComponent tests.', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
+    // Create a Client object example
+    let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+
+    // Initialize Client objects
+    testClient = new Client(testClient);
+
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true };
+                                client_complete: testClient };
+
+    // Initialize Contact objects
+    testContact = new Contact(testContact);
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
