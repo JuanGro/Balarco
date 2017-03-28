@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup } from '@angular/forms';
 
 // Models
-import { User } from './user-model';
+import { User, Group } from './user-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -27,6 +27,8 @@ import { environment } from '../../../environments/environment';
 export class UserFormComponent implements OnChanges {
   // Receives the user selected by the user or the empty object to know if is called the update or create user form.
   @Input('user') user: User;
+  // Receives the group list from parent component.
+  @Input('groupList') groupList: Group[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the user is permanent removed.

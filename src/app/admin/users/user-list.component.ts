@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Classes
-import { User } from './user-model';
+import { User, Group } from './user-model';
 
 @Component({
   selector: 'user-list',
@@ -14,8 +14,10 @@ import { User } from './user-model';
 * - Send the user that is selected by the user.
 **/
 export class UserListComponent {
-  // Receives the users list from parent component.
+  // Receives the user list from parent component.
   @Input('userList') userList: User[];
+  // Receives the group list from parent component.
+  @Input('groupList') groupList: Group[];
   // Sends the request to show the new user modal in parent component.
   @Output() requestShowNewUserModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update user modal in parent component.

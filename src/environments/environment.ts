@@ -10,4 +10,5 @@ export const environment = {
   'CONTACTS_URL': 'clients/contacts/',
   'IGUALAS_URL': 'works/igualas/',
   'USERS_URL': 'users/users/',
+  'GROUPS_URL': 'users/groups/',
 };

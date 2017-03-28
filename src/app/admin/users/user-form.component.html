@@ -104,6 +104,28 @@
         </div>
     </div>
 
+
+    <!-- Second row -->
+    <div class="form-group row">
+        <div class="col-md-6">
+            <!-- Client field -->
+            <label for="recipient-client" class="form-control-label">Roles:</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
+                <select id="groups" name="groups" class="form-control" [(ngModel)]="user.groups" #groups="ngModel" size="1" required>
+                    <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
+                </select>
+            </div>
+            <!-- Feedback client -->
+            <div *ngIf="groups.errors && groups.touched" class="alert alert-danger">
+                <div [hidden]="!groups.errors.required">
+                    El rol es obligatorio.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Buttons -->
     <div class="modal-footer">
         <!-- Clear form -->

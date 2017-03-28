@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 // Classes
-import { User } from './user-model';
+import { User, Group } from './user-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -28,6 +28,8 @@ export class UsersComponent implements OnInit {
   public title: string;
   // List of users received from httpService.
   public userList: User[];
+  // List of groups received from httpService
+  public groupList: Group[];
   // Variable for save the object received from child component and manage if the form is for update or create user.
   public user: User;
   // Title of new user modal.
@@ -53,6 +55,7 @@ export class UsersComponent implements OnInit {
     this.titleDangerModal = 'Eliminar Usuario';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este usuario?';
     this.loadUserList(environment.USERS_URL);
+    this.loadGroupList(environment.GROUPS_URL);
   }
 
   /**
@@ -68,6 +71,27 @@ export class UsersComponent implements OnInit {
                       this.userList = [];
                       for (let userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
+                    );
+  }
+
+  /**
+  * Loads all the groups from the API
+  * Params:
+  *   - url: The url where the service will comunicate to get the Group list.
+  **/
+  public loadGroupList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(groupListJSON => {
+                      // Creates user objetc list from JSON.
+                      this.groupList = [];
+                      for (let groupJSON of groupListJSON) {
+                        this.groupList.push(new Group(groupJSON));
                       }
                     },
                       err => {
