@@ -85,6 +85,7 @@ export class ContactsListComponent {
           contact.email.toLowerCase().includes(value.toLowerCase())) {
           this.contactsList.push(contact);
       }
+      this.contactsList.sort();
     }
   }
 }

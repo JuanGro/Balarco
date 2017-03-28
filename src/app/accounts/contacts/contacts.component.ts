@@ -79,6 +79,8 @@ export class ContactsComponent implements OnInit {
                         this.contactsList.push(new Contact(contactJSON));
                       }
                       this.originalContactsList = this.contactsList;
+                      this.contactsList.sort();
+                      this.originalContactsList.sort();
                     },
                       err => {
                         // Call of toast
@@ -100,6 +102,7 @@ export class ContactsComponent implements OnInit {
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
                       }
+                      this.clientsList.sort();
                     },
                       err => {
                         // Call of toast
