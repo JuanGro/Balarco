@@ -31,6 +31,8 @@ export class ContactsListComponent {
   @Output() requestShowUpdateContactModal: EventEmitter<string> = new EventEmitter();
   // Sends the contact selected by the user to parent component.
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
+  // Sends the contactsList updated to parent component to avoid problems.
+  @Output() contactsListFiltered: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
@@ -59,6 +61,14 @@ export class ContactsListComponent {
   **/
   public sendCurrentContact(object: Contact) {
     this.currentContact.emit(object);
+    this.contactsListFiltered.emit(this.contactsList);
+  }
+
+  /**
+  * Sends to parent component the current contacts list.
+  **/
+  public sendContactsList() {
+    this.contactsListFiltered.emit(this.contactsList);
   }
 
   public filterItem(value) {

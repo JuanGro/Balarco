@@ -5,7 +5,7 @@
             <h1>{{ title }}</h1>
         </blockquote>
     </div>
- </div>
+</div>
 
 <!-- Child component, it contains the table -->
 <!-- [contactsList] sends the contacts list to the table -->
@@ -13,7 +13,9 @@
 <!-- (requestShowNewContactModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
 <!-- (currentContact) receives the contact who was selected by the user -->
-<contacts-list [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"></contacts-list>
+<!-- (contactsListFiltered) receives the contacts list updated for the filter in the contacts list component -->
+<contacts-list [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"
+    (contactsListFiltered)="getContactsListFromTable($event)"></contacts-list>
 
 <!-- Modal New Contact -->
 <div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">

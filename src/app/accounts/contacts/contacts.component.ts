@@ -24,7 +24,9 @@ import { environment } from '../../../environments/environment';
 **/
 export class ContactsComponent implements OnInit {
   // Received from table component, it gives me the contact that the user selected to see his detail.
-  @Input() currentContact: Contact;
+  @Input('currentContact') currentContact: Contact;
+  // Received from table component, it gives me the contact that the user selected to see his detail.
+  @Input('contactsListFiltered') contactsListFiltered: Contact[];
   // Variable that saves the title to show in the template.
   public title: string;
   // List of contacts received from httpService.
@@ -138,6 +140,15 @@ export class ContactsComponent implements OnInit {
   **/
   public getContactFromTable(object: Contact): void {
     this.contact = object;
+  }
+
+  /**
+  * Saves the updated contacts list if the user is using a filter.
+  * Params:
+  *   - list: A Contacts list.
+  **/
+  public getContactsListFromTable(list: Contact[]): void {
+    this.contactsList = list;
   }
 
   /**
