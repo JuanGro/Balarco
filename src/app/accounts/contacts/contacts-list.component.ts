@@ -7,9 +7,6 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
 
-// Environment
-import { environment } from '../../../environments/environment';
-
 @Component({
   selector: 'contacts-list',
   templateUrl: 'contacts-list.component.html'
@@ -23,6 +20,8 @@ import { environment } from '../../../environments/environment';
 export class ContactsListComponent {
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
+  // Receives the original contacts list without filters from parent component.
+  @Input('originalContactsList') originalContactsList: Contact[];
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Sends the request to show the new contact modal in parent component.
@@ -76,24 +75,16 @@ export class ContactsListComponent {
   * making all the strings to lower case and checks substrings.
   **/
   public filterItem(value: string) {
-    this.httpService.getObject(environment.CONTACTS_URL)
-                    .map((data: any) => data.json())
-                    .subscribe(contactsListJSON => {
-                      // Creates Contact objects from JSON.
-                      this.contactsList = [];
-                      for (let contactJSON of contactsListJSON) {
-                        let contact = new Contact(contactJSON);
-                        if (contact.name.toLowerCase().includes(value.toLowerCase()) ||
-                            contact.last_name.toLowerCase().includes(value.toLowerCase()) ||
-                            contact.client_complete.name.toLowerCase().includes(value.toLowerCase()) ||
-                            contact.email.toLowerCase().includes(value.toLowerCase())) {
-                            this.contactsList.push(contact);
-                        }
-                      }
-                    },
-                      err => {
-                        // Call of toast
-                      }
-                    );
+    this.contactsList = [];
+    for (let contactFromList of this.originalContactsList) {
+      let contact = new Contact(contactFromList);
+      if (contact.name.toLowerCase().includes(value.toLowerCase()) ||
+          contact.last_name.toLowerCase().includes(value.toLowerCase()) ||
+          contact.charge.toLowerCase().includes(value.toLowerCase()) ||
+          contact.client_complete.name.toLowerCase().includes(value.toLowerCase()) ||
+          contact.email.toLowerCase().includes(value.toLowerCase())) {
+          this.contactsList.push(contact);
+      }
+    }
   }
 }

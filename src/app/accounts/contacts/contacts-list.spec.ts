@@ -51,30 +51,45 @@ describe('ContactsListComponent  tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    // Create a Client object example
+    let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+
+    // Create a Client object example
+    let testClient2: Client = { id: 2, name: 'General Electric', address: 'Example' };
+
+    // Initialize Client objects
+    testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
+
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
                                 charge: 'Estudent', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true };
+                                client_complete: testClient
+                            };
 
     // Create a Contact object example.
-    let testListContacts: Contact[] = [
-                                { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
-                                charge: 'Estudent', landline: '2211111', extension: '22',
-                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
-                                email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true },
-                                { id: 3, name: 'José', last_name: 'Perez', client: 3,
+    let testContact2: Contact = { id: 3, name: 'José', last_name: 'Perez', client: 3,
                                 charge: 'Estudent', landline: '2211111', extension: '11',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
-                                is_active: true }
+                                client_complete: testClient2
+                            };
+
+    // Initialize Contact objects
+    testContact = new Contact(testContact);
+    testContact2 = new Contact(testContact2);
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                testContact,
+                                testContact2
                                 ];
 
     let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
+                                testClient,
+                                testClient2
                                 ];
 
     // Base state before each test runs.
@@ -138,7 +153,7 @@ describe('ContactsListComponent  tests.', () => {
         **/
         it('should load correctly contacts list in contactsList Input', () => {
             component.contactsList = testListContacts;
-            fixtureParent.detectChanges();
+            fixtureChildTable.detectChanges();
             expect(component.contactsList).toEqual(testListContacts);
         });
 
@@ -147,7 +162,7 @@ describe('ContactsListComponent  tests.', () => {
         **/
         it('should load correctly clients list in clientsList Input', () => {
             component.clientsList = testListClients;
-            fixtureParent.detectChanges();
+            fixtureChildTable.detectChanges();
             expect(component.clientsList).toEqual(testListClients);
         });
     });
@@ -197,6 +212,19 @@ describe('ContactsListComponent  tests.', () => {
                 expect(result).toEqual(testContact);
             });
             modalAction.sendCurrentContact(testContact);
+        }));
+    });
+
+    describe('Search finds the correct objects', () => {
+        /**
+        * Tests that the search obtains objects which contains the text to find.
+        **/
+        it('should find an specific object', async(() => {
+            component.originalContactsList = testListContacts;
+            component.contactsList = testListContacts;
+            component.filterItem('Juan');
+            fixtureChildTable.detectChanges();
+            expect(component.contactsList).toContain(testContact);
         }));
     });
 });
