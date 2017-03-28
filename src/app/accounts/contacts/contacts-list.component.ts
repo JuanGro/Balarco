@@ -1,8 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
+
 // Models
 import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
+
+// Environment
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'contacts-list',
@@ -28,7 +34,7 @@ export class ContactsListComponent {
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
-  public constructor() { }
+  public constructor(public httpService: HttpService) { }
 
   /**
   * Requests to parent component to show the new contact modal.
@@ -53,5 +59,25 @@ export class ContactsListComponent {
   **/
   public sendCurrentContact(object: Contact) {
     this.currentContact.emit(object);
+  }
+
+  public filterItem(value) {
+    this.httpService.getObject(environment.CONTACTS_URL)
+                    .map((data: any) => data.json())
+                    .subscribe(contactsListJSON => {
+                      // Creates Contact objects from JSON.
+                      this.contactsList = [];
+                      for (let contactJSON of contactsListJSON) {
+                        let contact = new Contact(contactJSON);
+                        if (contact.name.includes(value) || contact.last_name.includes(value) ||
+                        contact.client_complete.name.includes(value) || contact.email.includes(value)) {
+                            this.contactsList.push(contact);
+                        }
+                      }
+                    },
+                      err => {
+                        // Call of toast
+                      }
+                    );
   }
 }
