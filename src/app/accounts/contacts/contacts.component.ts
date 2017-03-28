@@ -78,9 +78,8 @@ export class ContactsComponent implements OnInit {
                       for (let contactJSON of contactsListJSON) {
                         this.contactsList.push(new Contact(contactJSON));
                       }
+                      this.contactsList.sort().reverse();
                       this.originalContactsList = this.contactsList;
-                      this.contactsList.sort();
-                      this.originalContactsList.sort();
                     },
                       err => {
                         // Call of toast
@@ -102,7 +101,7 @@ export class ContactsComponent implements OnInit {
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
                       }
-                      this.clientsList.sort();
+                      this.clientsList.sort().reverse();
                     },
                       err => {
                         // Call of toast
