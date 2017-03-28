@@ -71,7 +71,11 @@ export class ContactsListComponent {
     this.contactsListFiltered.emit(this.contactsList);
   }
 
-  public filterItem(value) {
+  /**
+  * Search specific items in the contacts list,
+  * making all the strings to lower case and checks substrings.
+  **/
+  public filterItem(value: string) {
     this.httpService.getObject(environment.CONTACTS_URL)
                     .map((data: any) => data.json())
                     .subscribe(contactsListJSON => {
@@ -79,8 +83,10 @@ export class ContactsListComponent {
                       this.contactsList = [];
                       for (let contactJSON of contactsListJSON) {
                         let contact = new Contact(contactJSON);
-                        if (contact.name.includes(value) || contact.last_name.includes(value) ||
-                        contact.client_complete.name.includes(value) || contact.email.includes(value)) {
+                        if (contact.name.toLowerCase().includes(value.toLowerCase()) ||
+                            contact.last_name.toLowerCase().includes(value.toLowerCase()) ||
+                            contact.client_complete.name.toLowerCase().includes(value.toLowerCase()) ||
+                            contact.email.toLowerCase().includes(value.toLowerCase())) {
                             this.contactsList.push(contact);
                         }
                       }
