@@ -82,7 +82,8 @@ export class ContactsListComponent {
           contact.last_name.toLowerCase().includes(value.toLowerCase()) ||
           contact.charge.toLowerCase().includes(value.toLowerCase()) ||
           contact.client_complete.name.toLowerCase().includes(value.toLowerCase()) ||
-          contact.email.toLowerCase().includes(value.toLowerCase())) {
+          contact.email.toLowerCase().includes(value.toLowerCase()) ||
+          contact.alternate_email.toLowerCase().includes(value.toLowerCase())) {
           this.contactsList.push(contact);
       }
     }
