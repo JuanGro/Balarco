@@ -261,7 +261,8 @@ describe('ContactsComponent tests.', () => {
 
     describe('Use of methods for TWDB', () => {
         /**
-        * Tests that the getContactFromTable method returns the correct Contact object.
+        * Tests that the onContactCreated method returns the new Contact object and
+        * is added to the contact list.
         **/
         it('should add the new contact to the contact list', () => {
             component.contactsList = testListContacts;
