@@ -71,14 +71,6 @@ describe('ContactsComponent tests.', () => {
                                 client_complete: testClient2
                             };
 
-    // Create a Contact object example.
-    let testContact3: Contact = { id: 3, name: 'Jorge', last_name: 'Martínez', client: 3,
-                                charge: 'Student', landline: '2211991', extension: '11',
-                                mobile_phone_1: '4422229922', mobile_phone_2: '4112223322',
-                                email: 'jorge@gmail.com', alternate_email: 'jorge@gmail.com',
-                                client_complete: testClient2
-                            };
-
     // Initialize Contact objects
     testContact = new Contact(testContact);
     testContact2 = new Contact(testContact2);
@@ -94,12 +86,6 @@ describe('ContactsComponent tests.', () => {
                                 testContact,
                                 testContact2,
                                 testContact
-                                ];
-
-    // Create a Contact object example.
-    let testListContacts3: Contact[] = [
-                                testContact,
-                                testContact3
                                 ];
 
     // Base state before each test runs.
