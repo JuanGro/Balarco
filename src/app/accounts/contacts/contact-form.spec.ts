@@ -44,6 +44,9 @@ describe('ContactFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    // Variable to test if the contact is correctly updated in emitters.
+    let updatedContact;
+
     // Create a Client object example
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
 
@@ -121,6 +124,82 @@ describe('ContactFormComponent tests.', () => {
         });
     });
 
+    describe('Correct behaviour of OnChanges hook in the component', () => {
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the contact and oldContact is undefined.
+        **/
+        it('should have a defined contact but with its atributes undefined', () => {
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+
+            expect(component.contact).toBeDefined();
+            expect(component.contact.id).toBeUndefined();
+            expect(component.contact.name).toBeUndefined();
+            expect(component.contact.last_name).toBeUndefined();
+            expect(component.contact.client).toBeUndefined();
+            expect(component.contact.charge).toBeUndefined();
+            expect(component.contact.landline).toBeUndefined();
+            expect(component.contact.extension).toBeUndefined();
+            expect(component.contact.mobile_phone_1).toBeUndefined();
+            expect(component.contact.mobile_phone_2).toBeUndefined();
+            expect(component.contact.email).toBeUndefined();
+            expect(component.contact.alternate_email).toBeUndefined();
+            expect(component.contact.client_complete).toBeUndefined();
+
+            expect(component.oldContact).toBeDefined();
+            expect(component.oldContact.id).toBeUndefined();
+            expect(component.oldContact.name).toBeUndefined();
+            expect(component.oldContact.last_name).toBeUndefined();
+            expect(component.oldContact.client).toBeUndefined();
+            expect(component.oldContact.charge).toBeUndefined();
+            expect(component.oldContact.landline).toBeUndefined();
+            expect(component.oldContact.extension).toBeUndefined();
+            expect(component.oldContact.mobile_phone_1).toBeUndefined();
+            expect(component.oldContact.mobile_phone_2).toBeUndefined();
+            expect(component.oldContact.email).toBeUndefined();
+            expect(component.oldContact.alternate_email).toBeUndefined();
+            expect(component.oldContact.client_complete).toBeUndefined();
+        });
+
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the contact and oldContact is defined.
+        **/
+        it('should have a defined contact and its atributes correctly defined', () => {
+            component.contact = testContact;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+            expect(component.contact).toBeDefined();
+            expect(component.contact.id).toBeDefined();
+            expect(component.contact.name).toBeDefined();
+            expect(component.contact.last_name).toBeDefined();
+            expect(component.contact.client).toBeDefined();
+            expect(component.contact.charge).toBeDefined();
+            expect(component.contact.landline).toBeDefined();
+            expect(component.contact.extension).toBeDefined();
+            expect(component.contact.mobile_phone_1).toBeDefined();
+            expect(component.contact.mobile_phone_2).toBeDefined();
+            expect(component.contact.email).toBeDefined();
+            expect(component.contact.alternate_email).toBeDefined();
+            expect(component.contact.client_complete).toBeDefined();
+
+            expect(component.oldContact).toBeDefined();
+            expect(component.oldContact.id).toBeDefined();
+            expect(component.oldContact.name).toBeDefined();
+            expect(component.oldContact.last_name).toBeDefined();
+            expect(component.oldContact.client).toBeDefined();
+            expect(component.oldContact.charge).toBeDefined();
+            expect(component.oldContact.landline).toBeDefined();
+            expect(component.oldContact.extension).toBeDefined();
+            expect(component.oldContact.mobile_phone_1).toBeDefined();
+            expect(component.oldContact.mobile_phone_2).toBeDefined();
+            expect(component.oldContact.email).toBeDefined();
+            expect(component.oldContact.alternate_email).toBeDefined();
+            expect(component.oldContact.client_complete).toBeDefined();
+        });
+    });
+
     describe('Initialization of variable for child contacts form component', () => {
         /**
         * Tests that the Contact object received from parent component is not empty.
@@ -153,20 +232,42 @@ describe('ContactFormComponent tests.', () => {
         * Tests that the close modal request is correctly received.
         **/
         it('should request to close the current modal', async(() => {
+            modalAction.requestCloseThisModal();
             modalAction.requestCloseModal.subscribe(result => {
                 expect(result).toBe('Close modal');
             });
-            modalAction.requestCloseThisModal();
         }));
 
         /**
         * Tests that the show warning modal request is correctly received.
         **/
         it('should request to close the show warning modal', async(() => {
+            modalAction.requestWarningModal();
             modalAction.requestWarning.subscribe(result => {
                 expect(result).toBe('Show warning modal');
             });
-            modalAction.requestWarningModal();
+        }));
+    });
+
+    describe('Cancel form method is correctly send depending if its current contact is not empty', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([ContactFormComponent], result => {
+            updatedContact = result;
+        }));
+
+        /**
+        * Tests that the send of the contact updated is working correctly.
+        **/
+        it('should send the contact updated', async(() => {
+            component.contact = testContact;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+            updatedContact.submitUpdatedContact();
+            updatedContact.contactUpdated.subscribe(result => {
+                expect(result).toBe(component.oldContact);
+            });
         }));
     });
 });

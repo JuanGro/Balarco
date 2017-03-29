@@ -28,7 +28,7 @@ import { ContactFormComponent } from './contact-form.component';
 import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
 
-describe('ContactsListComponent  tests.', () => {
+describe('ContactsListComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
     let fixtureParent: ComponentFixture<ContactsComponent>;
     // Fixture for debugging and testing a ContactsFormComponent.
@@ -50,6 +50,9 @@ describe('ContactsListComponent  tests.', () => {
 
     // Variable to test which action is executing in modal.
     let modalAction;
+
+    // Variable to test which action is executing the sending requests.
+    let action;
 
     // Create a Client object example
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
@@ -201,17 +204,29 @@ describe('ContactsListComponent  tests.', () => {
         * Get the current component to use it in observables.
         **/
         beforeEach(inject([ ContactsListComponent ], result => {
-            modalAction = result;
+            action = result;
         }));
 
         /**
         * Tests that the sendCurrentContact request is correctly received.
         **/
         it('should request to send a contact object', async(() => {
-            modalAction.currentContact.subscribe(result => {
+            action.sendCurrentContact(testContact);
+            action.currentContact.subscribe(result => {
                 expect(result).toEqual(testContact);
             });
-            modalAction.sendCurrentContact(testContact);
+        }));
+
+        /**
+        * Tests that the sendContactsList request is correctly received.
+        **/
+        it('should request to send a contact list', async(() => {
+            component.contactsList = testListContacts;
+            fixtureChildTable.detectChanges();
+            action.sendContactsList();
+            action.contactsListFiltered.subscribe(result => {
+                expect(result).toEqual(testListContacts);
+            });
         }));
     });
 

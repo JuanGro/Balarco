@@ -49,19 +49,58 @@ describe('ContactsComponent tests.', () => {
 
     // Create a Client object example
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+    // Create a Client object example
+    let testClient2: Client = { id: 2, name: 'General Electric', address: 'Example' };
 
     // Initialize Client objects
     testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
 
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
-                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                charge: 'Student', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
                                 client_complete: testClient };
 
+    // Create a Contact object example.
+    let testContact2: Contact = { id: 3, name: 'José', last_name: 'Perez', client: 3,
+                                charge: 'Student', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
+                                client_complete: testClient2
+                            };
+
+    // Create a Contact object example.
+    let testContact3: Contact = { id: 3, name: 'Jorge', last_name: 'Martínez', client: 3,
+                                charge: 'Student', landline: '2211991', extension: '11',
+                                mobile_phone_1: '4422229922', mobile_phone_2: '4112223322',
+                                email: 'jorge@gmail.com', alternate_email: 'jorge@gmail.com',
+                                client_complete: testClient2
+                            };
+
     // Initialize Contact objects
     testContact = new Contact(testContact);
+    testContact2 = new Contact(testContact2);
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                testContact,
+                                testContact2
+                                ];
+
+    // Create a Contact object example.
+    let testListContacts2: Contact[] = [
+                                testContact,
+                                testContact2,
+                                testContact
+                                ];
+
+    // Create a Contact object example.
+    let testListContacts3: Contact[] = [
+                                testContact,
+                                testContact3
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -107,7 +146,11 @@ describe('ContactsComponent tests.', () => {
         **/
         it('should have a defined current component', () => {
             component.ngOnInit();
-            expect(component).toBeDefined();
+            expect(component.title).toBeDefined();
+            expect(component.titleDangerModal).toBeDefined();
+            expect(component.titleNewModal).toBeDefined();
+            expect(component.titleUpdateModal).toBeDefined();
+            expect(component.descriptionDangerModal).toBeDefined();
         });
 
         /**
@@ -200,11 +243,31 @@ describe('ContactsComponent tests.', () => {
         });
 
         /**
-        * Tests that the getContactFromTable method doesn't returns a Contact object empty.
+        * Tests that the getContactFromTable method returns the correct Contact object.
         **/
         it('should return a not empty Contact object', () => {
             component.getContactFromTable(testContact);
             expect(component.contact).toEqual(testContact);
+        });
+
+        /**
+        * Tests that the getContactsListFromTable method returns the correct Contact list.
+        **/
+        it('should return a not empty Contact object', () => {
+            component.getContactsListFromTable(testListContacts);
+            expect(component.contactsList).toEqual(testListContacts);
+        });
+    });
+
+    describe('Use of methods for TWDB', () => {
+        /**
+        * Tests that the getContactFromTable method returns the correct Contact object.
+        **/
+        it('should add the new contact to the contact list', () => {
+            component.contactsList = testListContacts;
+            fixtureParent.detectChanges();
+            component.onContactCreated(testContact);
+            expect(component.contactsList).toEqual(testListContacts2);
         });
     });
 });
