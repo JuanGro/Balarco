@@ -129,6 +129,7 @@ export class ContactsComponent implements OnInit {
         let index = this.contactsList.indexOf(object);
         if (index >= 0) {
           this.contactsList.splice(index, 1);
+          this.completeContactsList.splice(index, 1);
           this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
         }
       }
@@ -164,7 +165,7 @@ export class ContactsComponent implements OnInit {
   **/
   public onContactCreated(event: Contact) {
     this.contactsList.push(event);
-    this.completeContactsList = this.contactsList;
+    this.completeContactsList.push(event);
   }
 
   /**
@@ -178,7 +179,7 @@ export class ContactsComponent implements OnInit {
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
       this.contactsList[index] = event;
-      this.completeContactsList = this.contactsList;
+      this.completeContactsList[index] = event;
     }
   }
 }
