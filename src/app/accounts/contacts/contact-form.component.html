@@ -61,7 +61,9 @@
                 </span>
                 <select id="client" name="client" class="form-control" [(ngModel)]="contact.client" #client="ngModel" size="1" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
-                </select>
+                </select
+
+
             </div>
             <!-- Feedback client -->
             <div *ngIf="client.errors && client.touched" class="alert alert-danger">

@@ -20,6 +20,7 @@ export class User {
       this.first_name = json && json.first_name;
       this.last_name = json && json.last_name;
       this.email = json && json.email;
+      this.groups = [];
       this.groups = json && json.groups;
     }
 }
