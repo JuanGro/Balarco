@@ -235,7 +235,7 @@ describe('ContactsListComponent tests.', () => {
         * Tests that the search obtains objects which contains the text to find.
         **/
         it('should find an specific object', async(() => {
-            component.originalContactsList = testListContacts;
+            component.completeContactsList = testListContacts;
             component.contactsList = testListContacts;
             component.filterItem('Juan');
             fixtureChildTable.detectChanges();

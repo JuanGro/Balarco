@@ -248,13 +248,13 @@ describe('ContactsComponent tests.', () => {
     describe('Use of methods for TWDB', () => {
         /**
         * Tests that the onContactCreated method returns the new Contact object and
-        * is added to the contact list.
+        * is added to the complete contact list.
         **/
-        it('should add the new contact to the contact list', () => {
-            component.contactsList = testListContacts;
+        it('should add the new contact to the complete contact list', () => {
+            component.completeContactsList = testListContacts;
             fixtureParent.detectChanges();
             component.onContactCreated(testContact);
-            expect(component.contactsList).toEqual(testListContacts2);
+            expect(component.completeContactsList).toEqual(testListContacts2);
         });
     });
 });
