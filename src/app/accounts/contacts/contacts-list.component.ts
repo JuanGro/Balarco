@@ -21,7 +21,7 @@ export class ContactsListComponent {
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the original contacts list without filters from parent component.
-  @Input('originalContactsList') originalContactsList: Contact[];
+  @Input('completeContactsList') completeContactsList: Contact[];
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Sends the request to show the new contact modal in parent component.
@@ -76,7 +76,7 @@ export class ContactsListComponent {
   **/
   public filterItem(value: string) {
     this.contactsList = [];
-    for (let contactFromList of this.originalContactsList) {
+    for (let contactFromList of this.completeContactsList) {
       let contact = new Contact(contactFromList);
       if (contact.name.toLowerCase().includes(value.toLowerCase()) ||
           contact.last_name.toLowerCase().includes(value.toLowerCase()) ||

@@ -30,7 +30,7 @@ export class ContactsComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
   // Original copy of the contacts list received from httpService.
-  public originalContactsList: Contact[];
+  public completeContactsList: Contact[];
   // List of contacts received from httpService.
   public contactsList: Contact[];
   // List of clients received from httpService.
@@ -79,7 +79,7 @@ export class ContactsComponent implements OnInit {
                         this.contactsList.push(new Contact(contactJSON));
                       }
                       this.contactsList.sort().reverse();
-                      this.originalContactsList = this.contactsList;
+                      this.completeContactsList = this.contactsList;
                     },
                       err => {
                         // Call of toast
@@ -164,7 +164,7 @@ export class ContactsComponent implements OnInit {
   **/
   public onContactCreated(event: Contact) {
     this.contactsList.push(event);
-    this.originalContactsList = this.contactsList;
+    this.completeContactsList = this.contactsList;
   }
 
   /**
@@ -178,7 +178,7 @@ export class ContactsComponent implements OnInit {
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
       this.contactsList[index] = event;
-      this.originalContactsList = this.contactsList;
+      this.completeContactsList = this.contactsList;
     }
   }
 }
