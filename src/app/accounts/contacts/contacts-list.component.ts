@@ -32,6 +32,10 @@ export class ContactsListComponent {
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
   // Sends the contactsList updated to parent component to avoid problems.
   @Output() contactsListFiltered: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
+  // Sends the value of the search to parent component to add to the contact list the item created only if it's necessary.
+  @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
+  // Variable to save what te user is searching.
+  public wordSearch: string;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
@@ -54,7 +58,8 @@ export class ContactsListComponent {
   }
 
   /**
-  * Sends to parent component the contact selected by the user.
+  * Sends to parent component the contact selected by the user 
+  * and the contact list filtered from search.
   * Params:
   *   - object: A Contact object.
   **/
@@ -64,10 +69,12 @@ export class ContactsListComponent {
   }
 
   /**
-  * Sends to parent component the current contacts list.
+  * Sends to parent component the current contacts list and the value 
+  * of the search if the user is typing.
   **/
   public sendContactsList() {
     this.contactsListFiltered.emit(this.contactsList);
+    this.valueSearch.emit(this.wordSearch);
   }
 
   /**
@@ -75,6 +82,7 @@ export class ContactsListComponent {
   * making all the strings to lower case and checks substrings.
   **/
   public filterItem(value: string) {
+    this.wordSearch = value;
     this.contactsList = [];
     for (let contactFromList of this.completeContactsList) {
       let contact = new Contact(contactFromList);

@@ -14,8 +14,9 @@
 <!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
 <!-- (currentContact) receives the contact who was selected by the user -->
 <!-- (contactsListFiltered) receives the contacts list updated for the filter in the contacts list component -->
+<!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
 <contacts-list [completeContactsList]="completeContactsList" [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()"
-    (currentContact)="getContactFromTable($event)" (contactsListFiltered)="getContactsListFromTable($event)"></contacts-list>
+    (currentContact)="getContactFromTable($event)" (contactsListFiltered)="getContactsListFromTable($event)" (valueSearch)="getValueSearch($event)"></contacts-list>
 
 <!-- Modal New Contact -->
 <div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">

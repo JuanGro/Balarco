@@ -27,6 +27,8 @@ export class ContactsComponent implements OnInit {
   @Input('currentContact') currentContact: Contact;
   // Received from table component, it gives me the filtered contact list if the user is using the search.
   @Input('contactsListFiltered') contactsListFiltered: Contact[];
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
   // Original copy of the contacts list received from httpService.
@@ -144,7 +146,7 @@ export class ContactsComponent implements OnInit {
   * Params:
   *   - object: A Contact object.
   **/
-  public getContactFromTable(object: Contact): void {
+  public getContactFromTable(object: Contact) {
     this.contact = object;
   }
 
@@ -153,23 +155,42 @@ export class ContactsComponent implements OnInit {
   * Params:
   *   - list: A Contacts list.
   **/
-  public getContactsListFromTable(list: Contact[]): void {
+  public getContactsListFromTable(list: Contact[]) {
     this.contactsList = list;
   }
 
   /**
+  * Saves the value of the search if the user is using a filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+  }
+
+  /**
   * Recieves event when a new contact is created in the form.
-  * It pushes the new contact to the list.
+  * It pushes the new contact to the complete list and to the contact list if
+  * it's necessary.
   * Params:
   *   - event: New contact received from the event.
   **/
   public onContactCreated(event: Contact) {
-    this.contactsList.push(event);
+    if (this.valueSearch) {
+      if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          event.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          event.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          event.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+          this.contactsList.push(event);
+      }
+    }
     this.completeContactsList.push(event);
   }
 
   /**
-  * Recieves event when a contact is updated in the form.
+  * Receives event when a contact is updated in the form.
   * It updates the contact selected.
   * Params:
   *   - event: Contact updated received from the event.
