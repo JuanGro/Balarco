@@ -29,13 +29,17 @@ var WorkFormComponent = (function () {
             this.work = new Work();
             this.possibleStatus = this.getPossibleStatusForNewProject();
         }
-        if (this.work && !this.work.id) {
+        else if (this.work && !this.work.id) {
             this.initialDropdownSetup();
+        }
+        else if (this.work && this.work.id) {
+            this.setValuesWithExistingWork();
         }
     };
     WorkFormComponent.prototype.initialDropdownSetup = function () {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
-            this.filterContactsByClientId(this.clientsList[0].id);
+            this.client_id = this.clientsList[0].id;
+            this.filterContactsByClientId(this.client_id);
         }
         if (this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
@@ -56,6 +60,12 @@ var WorkFormComponent = (function () {
             if (this.workTypesList && this.workTypesList.length > 0) {
                 this.work.work_type = this.workTypesList[0].id;
             }
+        }
+    };
+    WorkFormComponent.prototype.setValuesWithExistingWork = function () {
+        if (this.work && this.work.contact_complete) {
+            this.client_id = this.work.contact_complete.client;
+            this.filterContactsByClientId(this.client_id);
         }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {

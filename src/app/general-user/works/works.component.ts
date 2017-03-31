@@ -194,6 +194,8 @@ export class WorksComponent implements OnInit {
 
   private getWorkFromTable(object: Work) {
     this.work = object;
+    console.log('Updating...');
+    console.log(object);
   }
 
   /**

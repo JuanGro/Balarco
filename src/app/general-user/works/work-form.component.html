@@ -55,7 +55,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" required>
+                <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
@@ -147,7 +147,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="24" rows="3" name="description" [(ngModel)]="work.brief" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" required></textarea>
             </div>
             <!-- Feedback description -->
             <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">

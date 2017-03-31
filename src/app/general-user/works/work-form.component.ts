@@ -60,6 +60,8 @@ export class WorkFormComponent implements OnChanges {
   private currentWorkTypeId: number = 0;
   // Array to keep track of the possible status the work can get into.
   private possibleStatus: Status[];
+  // Variable to set the client when an existing work is received.
+  private client_id: number;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -74,17 +76,21 @@ export class WorkFormComponent implements OnChanges {
       this.work = new Work();
       this.possibleStatus =  this.getPossibleStatusForNewProject();
     }
-    if (this.work && !this.work.id) {
+    else if (this.work && !this.work.id) {
       this.initialDropdownSetup();
+    }
+    else if (this.work && this.work.id) {
+      this.setValuesWithExistingWork();
     }
   }
 
   /**
-  * Method to fill initially when the modal is shown.
+  * Method to fill dropdowns initially when the modal is shown and Work is new.
   **/
   private initialDropdownSetup() {
     if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
-      this.filterContactsByClientId(this.clientsList[0].id);
+      this.client_id = this.clientsList[0].id;
+      this.filterContactsByClientId(this.client_id);
     }
     if (this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
@@ -108,6 +114,16 @@ export class WorkFormComponent implements OnChanges {
       if (this.workTypesList && this.workTypesList.length > 0) {
         this.work.work_type = this.workTypesList[0].id;
       }
+    }
+  }
+
+  /**
+  * Method to fill dropdowns when the modal is shown and Work is being updated.
+  **/
+  private setValuesWithExistingWork() {
+    if(this.work && this.work.contact_complete) {
+      this.client_id = this.work.contact_complete.client;
+      this.filterContactsByClientId(this.client_id);
     }
   }
 

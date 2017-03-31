@@ -117,6 +117,8 @@ var WorksComponent = (function () {
     };
     WorksComponent.prototype.getWorkFromTable = function (object) {
         this.work = object;
+        console.log('Updating...');
+        console.log(object);
     };
     WorksComponent.prototype.initializeModal = function () { };
     return WorksComponent;
