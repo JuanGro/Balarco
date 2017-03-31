@@ -73,7 +73,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <select id="contact" name="contact" class="form-control" size="1" required>
+                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="work.contact" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
             </div>
@@ -94,7 +94,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" required>
+                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" required>
                     <option *ngFor="let type of workTypesList" value="{{ type.work_type_id }}">{{ type.name }}</option>
                 </select>
             </div>
@@ -112,7 +112,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" required>
+                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" required>
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                 </select>
             </div>
@@ -172,7 +172,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                <select id="status" name="status" class="form-control" size="1" required>
+                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.status" required>
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                 </select>
             </div>

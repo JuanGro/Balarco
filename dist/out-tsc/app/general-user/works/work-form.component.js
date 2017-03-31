@@ -46,10 +46,24 @@ var WorkFormComponent = (function () {
         else {
             this.currentWorkTypeId = 0;
         }
+        if (!this.work.id) {
+            if (this.currentContacts && this.currentContacts.length > 0) {
+                this.work.contact = this.currentContacts[0].id;
+            }
+            if (this.igualasList && this.igualasList.length > 0) {
+                this.work.iguala = this.igualasList[0].id;
+            }
+            if (this.possibleStatus && this.possibleStatus.length > 0) {
+                this.work.status = this.possibleStatus[0].id;
+            }
+            this.work.work_type = this.currentWorkTypeId;
+        }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {
         var _this = this;
         this.work.art_works = this.currentArtWorkList;
+        console.log('HERE');
+        console.log(this.work);
         if (this.work.id) {
         }
         else {
@@ -59,6 +73,8 @@ var WorkFormComponent = (function () {
         setTimeout(function () { return _this.active = true; }, 0);
     };
     WorkFormComponent.prototype.submitNewWork = function () {
+        console.log('Sending...');
+        console.log(this.work.generateJSONForPOST());
         this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 console.log('WORK CREATED!');

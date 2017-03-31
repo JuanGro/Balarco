@@ -1,8 +1,4 @@
-import { Iguala } from '../../accounts/igualas/iguala-model';
-import { Contact } from '../../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work-model';
-import { WorkType } from './work-type/work-type-model';
-import { Status } from './status/status-model';
 var Work = (function () {
     function Work(object) {
         this.executive_id = 1;
@@ -37,10 +33,6 @@ var Work = (function () {
                     this.expected_delivery_date = new Date(deliveryYear, deliverytMonth, deliveryDay);
                 }
             }
-            this.contact = new Contact(object.contact);
-            this.work_type = new WorkType(object.work_type);
-            this.status = new Status(object.status);
-            this.iguala = new Iguala(object.iguala);
             this.art_works = [];
             if (object.art_works) {
                 for (var _i = 0, _a = object.art_works; _i < _a.length; _i++) {
@@ -57,14 +49,14 @@ var Work = (function () {
             (this.expected_delivery_date.getUTCMonth() + 1) + '-' +
             this.expected_delivery_date.getUTCDate();
         newWorkJSON['executive'] = this.executive_id;
-        newWorkJSON['contact'] = this.contact.id;
-        newWorkJSON['current_status'] = this.status.id;
-        newWorkJSON['work_type'] = this.work_type.work_type_id;
+        newWorkJSON['contact'] = +this.contact;
+        newWorkJSON['current_status'] = +this.status;
+        newWorkJSON['work_type'] = +this.work_type;
         if (this.id) {
             newWorkJSON['id'] = this.id;
         }
-        if (this.iguala) {
-            newWorkJSON['iguala'] = this.iguala.id;
+        if (this.iguala && this.work_type == 1) {
+            newWorkJSON['iguala'] = +this.iguala;
         }
         if (this.brief) {
             newWorkJSON['brief'] = this.brief;

@@ -94,6 +94,22 @@ export class WorkFormComponent implements OnChanges {
     } else {
       this.currentWorkTypeId = 0;
     }
+
+    /**
+    * This is for having initial values in dropdowns.
+    **/
+    if (!this.work.id) {
+      if (this.currentContacts && this.currentContacts.length > 0) {
+        this.work.contact = this.currentContacts[0].id;
+      }
+      if (this.igualasList && this.igualasList.length > 0) {
+        this.work.iguala = this.igualasList[0].id;
+      }
+      if (this.possibleStatus && this.possibleStatus.length > 0) {
+        this.work.status = this.possibleStatus[0].id;
+      }
+      this.work.work_type = this.currentWorkTypeId;
+    }
   }
 
   /**
@@ -102,6 +118,8 @@ export class WorkFormComponent implements OnChanges {
   **/
   private submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
+    console.log('HERE');
+    console.log(this.work);
     if (this.work.id) {
       // Update work
     } else {
@@ -116,6 +134,8 @@ export class WorkFormComponent implements OnChanges {
   * Requests the API to create a new Work.
   **/
   private submitNewWork() {
+    console.log('Sending...');
+    console.log(this.work.generateJSONForPOST());
     this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         console.log('WORK CREATED!');

@@ -12,11 +12,11 @@ export class Work {
   expected_delivery_date: Date;
   brief?: string;
   final_link?: string;
-  contact: Contact;
-  work_type: WorkType;
-  iguala?: Iguala;
+  contact: number;
+  work_type: number;
+  iguala?: number;
   art_works?: ArtWork[];
-  status: Status;
+  status: number;
   // TODO: Executive.
   executive_id: number = 1;
 
@@ -55,10 +55,11 @@ export class Work {
         }
       }
 
-      this.contact = new Contact(object.contact);
+      /*this.contact = new Contact(object.contact);
       this.work_type = new WorkType(object.work_type);
       this.status = new Status(object.status);
       this.iguala = new Iguala(object.iguala);
+      */
 
       // Add ArtWorks collection to the Work.
       this.art_works = [];
@@ -84,15 +85,15 @@ export class Work {
                                             (this.expected_delivery_date.getUTCMonth() + 1) + '-' +
                                             this.expected_delivery_date.getUTCDate();
     newWorkJSON['executive'] = this.executive_id;
-    newWorkJSON['contact'] = this.contact.id;
-    newWorkJSON['current_status'] = this.status.id;
-    newWorkJSON['work_type'] = this.work_type.work_type_id;
+    newWorkJSON['contact'] = +this.contact;
+    newWorkJSON['current_status'] = +this.status;
+    newWorkJSON['work_type'] = +this.work_type;
 
     if (this.id) {
       newWorkJSON['id'] = this.id;
     }
-    if (this.iguala) {
-      newWorkJSON['iguala'] = this.iguala.id;
+    if (this.iguala && this.work_type == 1) {
+      newWorkJSON['iguala'] = +this.iguala;
     }
     if (this.brief) {
       newWorkJSON['brief'] = this.brief;
