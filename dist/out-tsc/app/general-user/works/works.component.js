@@ -14,6 +14,7 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
 import { environment } from '../../../environments/environment';
@@ -36,11 +37,18 @@ var WorksComponent = (function () {
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     };
     WorksComponent.prototype.loadWorksList = function (url) {
+        var _this = this;
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             console.log('WORKS:');
             console.log(worksListJSON);
+            _this.worksList = [];
+            for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
+                var workJSON = worksListJSON_1[_i];
+                _this.worksList.push(new Work(workJSON));
+            }
+            console.log(_this.worksList);
         });
     };
     WorksComponent.prototype.loadClientsList = function (url) {

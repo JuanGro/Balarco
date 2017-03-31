@@ -80,6 +80,11 @@ export class WorksComponent implements OnInit {
                     .subscribe(worksListJSON => {
                       console.log('WORKS:');
                       console.log(worksListJSON);
+                      this.worksList = [];
+                      for (let workJSON of worksListJSON) {
+                        this.worksList.push(new Work(workJSON));
+                      }
+                      console.log(this.worksList);
                     });
   }
 

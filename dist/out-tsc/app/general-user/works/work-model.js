@@ -1,4 +1,8 @@
+import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Contact } from '../../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work-model';
+import { WorkType } from './work-type/work-type-model';
+import { Status } from './status/status-model';
 var Work = (function () {
     function Work(object) {
         this.executive_id = 1;
@@ -33,6 +37,14 @@ var Work = (function () {
                     this.expected_delivery_date = new Date(deliveryYear, deliverytMonth, deliveryDay);
                 }
             }
+            this.contact = object.contact;
+            this.contact_complete = new Contact(object.contact_complete);
+            this.work_type = object.work_type;
+            this.work_type_complete = new WorkType(object.work_type_complete);
+            this.current_status = object.current_status;
+            this.current_status_complete = new Status(object.current_status_complete);
+            this.iguala = object.iguala;
+            this.iguala_complete = new Iguala(object.iguala_complete);
             this.art_works = [];
             if (object.art_works) {
                 for (var _i = 0, _a = object.art_works; _i < _a.length; _i++) {

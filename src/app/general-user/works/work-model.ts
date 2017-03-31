@@ -58,12 +58,15 @@ export class Work {
           this.expected_delivery_date = new Date(deliveryYear, deliverytMonth, deliveryDay);
         }
       }
-
-      /*this.contact = new Contact(object.contact);
-      this.work_type = new WorkType(object.work_type);
-      this.status = new Status(object.status);
-      this.iguala = new Iguala(object.iguala);
-      */
+      
+      this.contact = object.contact;
+      this.contact_complete = new Contact(object.contact_complete);
+      this.work_type = object.work_type;
+      this.work_type_complete = new WorkType(object.work_type_complete);
+      this.current_status = object.current_status;
+      this.current_status_complete = new Status(object.current_status_complete);
+      this.iguala = object.iguala;
+      this.iguala_complete = new Iguala(object.iguala_complete);
 
       // Add ArtWorks collection to the Work.
       this.art_works = [];
