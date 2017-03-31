@@ -70,6 +70,7 @@ var WorkFormComponent = (function () {
                 this.filterContactsByClientId(this.client_id);
             }
             this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
+            this.currentArtWorkList = this.work.art_works;
         }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {

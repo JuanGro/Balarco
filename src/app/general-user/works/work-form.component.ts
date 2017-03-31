@@ -80,6 +80,7 @@ export class WorkFormComponent implements OnChanges {
       this.initialDropdownSetup();
     }
     else if (this.work && this.work.id) {
+      // Update work
       this.setValuesWithExistingWork();
     }
   }
@@ -128,8 +129,8 @@ export class WorkFormComponent implements OnChanges {
         this.filterContactsByClientId(this.client_id);
       }
       this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
+      this.currentArtWorkList = this.work.art_works;
     }
-
   }
 
   /**
