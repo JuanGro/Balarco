@@ -15,6 +15,7 @@ export class Work {
   contact: number;
   contact_complete?: Contact;
   work_type: number;
+  work_type_id_enum: number;
   work_type_complete?: WorkType;
   iguala?: number;
   iguala_complete?: Iguala;
@@ -58,7 +59,7 @@ export class Work {
           this.expected_delivery_date = new Date(deliveryYear, deliverytMonth, deliveryDay);
         }
       }
-      
+
       this.contact = object.contact;
       this.contact_complete = new Contact(object.contact_complete);
       this.work_type = object.work_type;
@@ -99,7 +100,7 @@ export class Work {
     if (this.id) {
       newWorkJSON['id'] = this.id;
     }
-    if (this.iguala && this.work_type == 1) {
+    if (this.iguala && this.work_type_id_enum == 1) {
       newWorkJSON['iguala'] = +this.iguala;
     }
     if (this.brief) {
@@ -109,7 +110,7 @@ export class Work {
       newWorkJSON['final_link'] = this.final_link;
     }
     let artWorksArray = [];
-    if (this.art_works && (this.work_type == 1 || this.work_type == 2)) {
+    if (this.art_works && (this.work_type_id_enum == 1 || this.work_type_id_enum == 2)) {
       for (let artWork of this.art_works) {
         artWorksArray.push({ art_type: artWork.id, quantity: artWork.quantity });
       }

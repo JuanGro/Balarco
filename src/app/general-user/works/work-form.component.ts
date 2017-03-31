@@ -113,6 +113,7 @@ export class WorkFormComponent implements OnChanges {
       }
       if (this.workTypesList && this.workTypesList.length > 0) {
         this.work.work_type = this.workTypesList[0].id;
+        this.work.work_type_id_enum = this.workTypesList[0].work_type_id;
       }
     }
   }
@@ -121,10 +122,14 @@ export class WorkFormComponent implements OnChanges {
   * Method to fill dropdowns when the modal is shown and Work is being updated.
   **/
   private setValuesWithExistingWork() {
-    if(this.work && this.work.contact_complete) {
-      this.client_id = this.work.contact_complete.client;
-      this.filterContactsByClientId(this.client_id);
+    if (this.work) {
+      if(this.work.contact_complete) {
+        this.client_id = this.work.contact_complete.client;
+        this.filterContactsByClientId(this.client_id);
+      }
+      this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
     }
+
   }
 
   /**
@@ -208,6 +213,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = this.getWorkTypeIdById(id);
+    this.work.work_type_id_enum = this.currentWorkTypeId;
     if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
     }

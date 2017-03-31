@@ -59,13 +59,17 @@ var WorkFormComponent = (function () {
             }
             if (this.workTypesList && this.workTypesList.length > 0) {
                 this.work.work_type = this.workTypesList[0].id;
+                this.work.work_type_id_enum = this.workTypesList[0].work_type_id;
             }
         }
     };
     WorkFormComponent.prototype.setValuesWithExistingWork = function () {
-        if (this.work && this.work.contact_complete) {
-            this.client_id = this.work.contact_complete.client;
-            this.filterContactsByClientId(this.client_id);
+        if (this.work) {
+            if (this.work.contact_complete) {
+                this.client_id = this.work.contact_complete.client;
+                this.filterContactsByClientId(this.client_id);
+            }
+            this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
         }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {
@@ -111,6 +115,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = this.getWorkTypeIdById(id);
+        this.work.work_type_id_enum = this.currentWorkTypeId;
         if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
         }
