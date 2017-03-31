@@ -216,30 +216,5 @@ describe('ContactsListComponent tests.', () => {
                 expect(result).toEqual(testContact);
             });
         }));
-
-        /**
-        * Tests that the sendContactsList request is correctly received.
-        **/
-        it('should request to send a contact list', async(() => {
-            component.contactsList = testListContacts;
-            fixtureChildTable.detectChanges();
-            action.sendContactsList();
-            action.contactsListFiltered.subscribe(result => {
-                expect(result).toEqual(testListContacts);
-            });
-        }));
-    });
-
-    describe('Search finds the correct objects', () => {
-        /**
-        * Tests that the search obtains objects which contains the text to find.
-        **/
-        it('should find an specific object', async(() => {
-            component.completeContactsList = testListContacts;
-            component.contactsList = testListContacts;
-            component.filterItem('Juan');
-            fixtureChildTable.detectChanges();
-            expect(component.contactsList).toContain(testContact);
-        }));
     });
 });

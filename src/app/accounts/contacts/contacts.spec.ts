@@ -71,6 +71,14 @@ describe('ContactsComponent tests.', () => {
                                 client_complete: testClient2
                             };
 
+    // Create a Contact object example.
+    let testContactUpdate: Contact = { id: 3, name: 'Alejandro', last_name: 'Perez', client: 3,
+                                charge: 'Student', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'ale@gmail.com', alternate_email: 'ale@gmail.com',
+                                client_complete: testClient2
+                            };
+
     // Initialize Contact objects
     testContact = new Contact(testContact);
     testContact2 = new Contact(testContact2);
@@ -86,6 +94,17 @@ describe('ContactsComponent tests.', () => {
                                 testContact,
                                 testContact2,
                                 testContact
+                                ];
+
+    // Create a Contact object example.
+    let testListUnique: Contact[] = [
+                                testContact
+                                ];
+
+    // Create a Contact object example.
+    let testListContactUpdated: Contact[] = [
+                                testContact,
+                                testContactUpdate
                                 ];
 
     // Base state before each test runs.
@@ -250,11 +269,36 @@ describe('ContactsComponent tests.', () => {
         * Tests that the onContactCreated method returns the new Contact object and
         * is added to the complete contact list.
         **/
-        it('should add the new contact to the complete contact list', () => {
-            component.completeContactsList = testListContacts;
-            fixtureParent.detectChanges();
+        it('should add the new contact', () => {
+            let testList: Contact[] = [ testContact, testContact2 ];
+            component.completeContactsList = testList;
+            component.contactsList = testList;
             component.onContactCreated(testContact);
+            fixtureParent.detectChanges();
             expect(component.completeContactsList).toEqual(testListContacts2);
+            expect(component.contactsList).toEqual(testListContacts2);
         });
+
+        it('should update the contact', () => {
+            let testList: Contact[] = [ testContact, testContact2 ];
+            component.completeContactsList = testList;
+            component.contactsList = testList;
+            component.onContactUpdated(testContactUpdate);
+            fixtureParent.detectChanges();
+            expect(component.completeContactsList).toEqual(testListContactUpdated);
+            expect(component.contactsList).toEqual(testListContactUpdated);
+        });
+    });
+
+    describe('Search finds the correct objects', () => {
+        /**
+        * Tests that the search obtains objects which contains the text to find.
+        **/
+        it('should find an specific object', async(() => {
+            component.completeContactsList = testListContacts;
+            component.getValueSearch('Juan');
+            fixtureParent.detectChanges();
+            expect(component.contactsList).toEqual(testListUnique);
+        }));
     });
 });
