@@ -95,7 +95,7 @@
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
                 <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" required>
-                    <option *ngFor="let type of workTypesList" value="{{ type.work_type_id }}">{{ type.name }}</option>
+                    <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
                 </select>
             </div>
             <!-- Feedback type -->

@@ -65,7 +65,7 @@ var Work = (function () {
             newWorkJSON['final_link'] = this.final_link;
         }
         var artWorksArray = [];
-        if (this.art_works) {
+        if (this.art_works && (this.work_type == 1 || this.work_type == 2)) {
             for (var _i = 0, _a = this.art_works; _i < _a.length; _i++) {
                 var artWork = _a[_i];
                 artWorksArray.push({ art_type: artWork.id, quantity: artWork.quantity });

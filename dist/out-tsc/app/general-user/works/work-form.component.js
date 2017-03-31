@@ -56,7 +56,9 @@ var WorkFormComponent = (function () {
             if (this.possibleStatus && this.possibleStatus.length > 0) {
                 this.work.status = this.possibleStatus[0].id;
             }
-            this.work.work_type = this.currentWorkTypeId;
+            if (this.workTypesList && this.workTypesList.length > 0) {
+                this.work.work_type = this.workTypesList[0].id;
+            }
         }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {

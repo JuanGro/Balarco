@@ -102,7 +102,7 @@ export class Work {
       newWorkJSON['final_link'] = this.final_link;
     }
     let artWorksArray = [];
-    if (this.art_works) {
+    if (this.art_works && (this.work_type == 1 || this.work_type == 2)) {
       for (let artWork of this.art_works) {
         artWorksArray.push({ art_type: artWork.id, quantity: artWork.quantity });
       }
