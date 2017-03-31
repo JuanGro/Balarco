@@ -137,7 +137,7 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Saves the value of the search if the user is using a filter.
+  * Shows the contact list that the user is requesting in the filter.
   * Params:
   *   - value: String from search form.
   **/
