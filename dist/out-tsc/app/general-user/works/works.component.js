@@ -41,8 +41,6 @@ var WorksComponent = (function () {
         this.httpService.getObject(url)
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
-            console.log('WORKS:');
-            console.log(worksListJSON);
             _this.worksList = [];
             for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
                 var workJSON = worksListJSON_1[_i];

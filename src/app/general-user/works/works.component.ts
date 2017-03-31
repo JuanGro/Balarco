@@ -73,13 +73,15 @@ export class WorksComponent implements OnInit {
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
   }
 
-
+  /**
+  * Loads all the works from the get method in httpService to use it the work attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the Work objects.
+  **/
   private loadWorksList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
-                      console.log('WORKS:');
-                      console.log(worksListJSON);
                       this.worksList = [];
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));

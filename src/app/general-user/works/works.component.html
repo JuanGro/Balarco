@@ -13,7 +13,7 @@
 <!-- (requestShowNewWorkModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
 <!-- (currentWork) receives the work who was selected by the user -->
-<works-list (requestShowNewWorkModal)="newWorkModal.show()" (requestShowNewWorkModal)="initializeModal()" (requestShowUpdateWorkModal)="updateWorkModal.show()"></works-list>
+<works-list [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowNewWorkModal)="initializeModal()" (requestShowUpdateWorkModal)="updateWorkModal.show()"></works-list>
 
 <!-- Modal New Work -->
 <div bsModal #newWorkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewWorkModal" aria-hidden="true">
