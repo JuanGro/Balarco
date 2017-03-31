@@ -122,6 +122,9 @@ var WorksComponent = (function () {
         console.log(object);
     };
     WorksComponent.prototype.initializeModal = function () { };
+    WorksComponent.prototype.onWorkCreated = function (event) {
+        this.worksList.push(event);
+    };
     return WorksComponent;
 }());
 WorksComponent = __decorate([

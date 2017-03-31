@@ -203,4 +203,14 @@ export class WorksComponent implements OnInit {
   * Clears the work variable to get an empty modal.
   **/
   public initializeModal() {}
+
+  /**
+  * Recieves event when a new work is created in the form.
+  * It pushes the new work to the list.
+  * Params:
+  *   - event: New Work received from the event.
+  **/
+  public onWorkCreated(event: Work) {
+    this.worksList.push(event);
+  }
 }

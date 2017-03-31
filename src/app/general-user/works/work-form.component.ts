@@ -46,6 +46,8 @@ export class WorkFormComponent implements OnChanges {
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
+  // Event for the parent to push a new Work to the list.
+  @Output() workCreated: EventEmitter<Work> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Initialization of control form.
@@ -131,7 +133,8 @@ export class WorkFormComponent implements OnChanges {
         this.filterContactsByClientId(this.client_id);
       }
       this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
-      this.currentArtWorkList = this.work.art_works;
+      // TODO: Uncomment when Julian fix name undefined
+      //this.currentArtWorkList = this.work.art_works;
       this.contact_id = this.work.contact;
     }
   }
@@ -159,15 +162,17 @@ export class WorkFormComponent implements OnChanges {
   * Requests the API to create a new Work.
   **/
   private submitNewWork() {
-    console.log('Sending...');
-    console.log(this.work.generateJSONForPOST());
     this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         console.log('WORK CREATED!');
+        let newWork = new Work(result.json());
+        console.log(newWork);
+        this.workCreated.emit(newWork);
+        this.toaster.show(result, 'Trabajo creado', 'El trabajo se creó con éxito');
       }
     },
-    error => {
-      console.log('OH NO ERROR IN WORK');
+    error => {      
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el trabajo');
     });
   }
 

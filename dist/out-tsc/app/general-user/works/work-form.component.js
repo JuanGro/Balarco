@@ -20,6 +20,7 @@ var WorkFormComponent = (function () {
         this.toaster = toaster;
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
+        this.workCreated = new EventEmitter();
         this.modalAction = '';
         this.active = true;
         this.currentWorkTypeId = 0;
@@ -70,7 +71,6 @@ var WorkFormComponent = (function () {
                 this.filterContactsByClientId(this.client_id);
             }
             this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
-            this.currentArtWorkList = this.work.art_works;
             this.contact_id = this.work.contact;
         }
     };
@@ -89,14 +89,17 @@ var WorkFormComponent = (function () {
         setTimeout(function () { return _this.active = true; }, 1);
     };
     WorkFormComponent.prototype.submitNewWork = function () {
-        console.log('Sending...');
-        console.log(this.work.generateJSONForPOST());
+        var _this = this;
         this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 console.log('WORK CREATED!');
+                var newWork = new Work(result.json());
+                console.log(newWork);
+                _this.workCreated.emit(newWork);
+                _this.toaster.show(result, 'Trabajo creado', 'El trabajo se creó con éxito');
             }
         }, function (error) {
-            console.log('OH NO ERROR IN WORK');
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el trabajo');
         });
     };
     WorkFormComponent.prototype.onClientChange = function (id) {
@@ -188,6 +191,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], WorkFormComponent.prototype, "requestWarning", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], WorkFormComponent.prototype, "workCreated", void 0);
 WorkFormComponent = __decorate([
     Component({
         selector: 'work-form',
