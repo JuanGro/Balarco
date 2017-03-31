@@ -102,7 +102,7 @@ var WorkFormComponent = (function () {
         }
     };
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
-        this.currentWorkTypeId = id;
+        this.currentWorkTypeId = this.getWorkTypeIdById(id);
         if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
         }
@@ -113,6 +113,9 @@ var WorkFormComponent = (function () {
                 this.currentArtWorkList.push(new ArtWork(artWork));
             }
         }
+    };
+    WorkFormComponent.prototype.getWorkTypeIdById = function (id) {
+        return this.workTypesList.filter(function (x) { return x.id == id; })[0].work_type_id;
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
         var possibleStatus = [];

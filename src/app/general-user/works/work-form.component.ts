@@ -193,7 +193,7 @@ export class WorkFormComponent implements OnChanges {
   *   - id: Id of the new workType selected.
   **/
   private onWorkTypeChange(id: number) {
-    this.currentWorkTypeId = id;
+    this.currentWorkTypeId = this.getWorkTypeIdById(id);
     if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
     }
@@ -203,6 +203,10 @@ export class WorkFormComponent implements OnChanges {
         this.currentArtWorkList.push(new ArtWork(artWork));
       }
     }
+  }
+
+  private getWorkTypeIdById(id: number): number {
+    return this.workTypesList.filter(x => x.id == id)[0].work_type_id;
   }
 
   /**
