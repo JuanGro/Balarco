@@ -51,7 +51,7 @@ var WorkFormComponent = (function () {
                 this.work.iguala = this.igualasList[0].id;
             }
             if (this.possibleStatus && this.possibleStatus.length > 0) {
-                this.work.status = this.possibleStatus[0].id;
+                this.work.current_status = this.possibleStatus[0].id;
             }
             if (this.workTypesList && this.workTypesList.length > 0) {
                 this.work.work_type = this.workTypesList[0].id;

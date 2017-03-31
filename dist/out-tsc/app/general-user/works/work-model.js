@@ -50,7 +50,7 @@ var Work = (function () {
             this.expected_delivery_date.getUTCDate();
         newWorkJSON['executive'] = this.executive_id;
         newWorkJSON['contact'] = +this.contact;
-        newWorkJSON['current_status'] = +this.status;
+        newWorkJSON['current_status'] = +this.current_status;
         newWorkJSON['work_type'] = +this.work_type;
         if (this.id) {
             newWorkJSON['id'] = this.id;

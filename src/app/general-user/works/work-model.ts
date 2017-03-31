@@ -13,10 +13,14 @@ export class Work {
   brief?: string;
   final_link?: string;
   contact: number;
+  contact_complete?: Contact;
   work_type: number;
+  work_type_complete?: WorkType;
   iguala?: number;
+  iguala_complete?: Iguala;
   art_works?: ArtWork[];
-  status: number;
+  current_status: number;
+  current_status_complete?: Status;
   // TODO: Executive.
   executive_id: number = 1;
 
@@ -86,7 +90,7 @@ export class Work {
                                             this.expected_delivery_date.getUTCDate();
     newWorkJSON['executive'] = this.executive_id;
     newWorkJSON['contact'] = +this.contact;
-    newWorkJSON['current_status'] = +this.status;
+    newWorkJSON['current_status'] = +this.current_status;
     newWorkJSON['work_type'] = +this.work_type;
 
     if (this.id) {

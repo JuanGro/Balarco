@@ -172,7 +172,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.status" required>
+                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" required>
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                 </select>
             </div>
