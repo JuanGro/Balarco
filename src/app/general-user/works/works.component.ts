@@ -85,6 +85,7 @@ export class WorksComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
+                      console.log(worksListJSON);
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
                       }

@@ -71,11 +71,13 @@ var WorkFormComponent = (function () {
             }
             this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
             this.currentArtWorkList = this.work.art_works;
+            this.contact_id = this.work.contact;
         }
     };
     WorkFormComponent.prototype.submitWorkForm = function () {
         var _this = this;
         this.work.art_works = this.currentArtWorkList;
+        this.work.contact = this.contact_id;
         console.log('HERE');
         console.log(this.work);
         if (this.work.id) {
@@ -102,7 +104,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
         this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
-        this.work.contact = this.currentContacts[0].id;
+        this.contact_id = this.currentContacts[0].id;
     };
     WorkFormComponent.prototype.onIgualaChange = function (id) {
         this.filterArtWorksByIgualaId(id);

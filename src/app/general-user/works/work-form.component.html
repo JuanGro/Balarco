@@ -73,7 +73,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="work.contact" required>
+                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
             </div>

@@ -62,6 +62,8 @@ export class WorkFormComponent implements OnChanges {
   private possibleStatus: Status[];
   // Variable to set the client when an existing work is received.
   private client_id: number;
+  // Variable to set the contact when client dropdown changes.
+  private contact_id: number;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -130,6 +132,7 @@ export class WorkFormComponent implements OnChanges {
       }
       this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
       this.currentArtWorkList = this.work.art_works;
+      this.contact_id = this.work.contact;
     }
   }
 
@@ -139,6 +142,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
+    this.work.contact = this.contact_id;
     console.log('HERE');
     console.log(this.work);
     if (this.work.id) {
@@ -183,7 +187,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterContactsByClientId(id: number) {
     this.currentContacts = this.contactsList.filter(x => x.client == id);
-    this.work.contact = this.currentContacts[0].id;
+    this.contact_id = this.currentContacts[0].id;
   }
 
   /**

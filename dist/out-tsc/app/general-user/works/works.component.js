@@ -42,6 +42,7 @@ var WorksComponent = (function () {
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             _this.worksList = [];
+            console.log(worksListJSON);
             for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
                 var workJSON = worksListJSON_1[_i];
                 _this.worksList.push(new Work(workJSON));
