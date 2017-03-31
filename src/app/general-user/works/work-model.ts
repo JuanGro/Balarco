@@ -8,7 +8,7 @@ import { Status } from './status/status-model';
 export class Work {
   id?: number;
   name: string;
-  creation_date: Date;
+  creation_date?: Date;
   expected_delivery_date: Date;
   brief?: string;
   final_link?: string;
@@ -18,6 +18,7 @@ export class Work {
   art_works?: ArtWork[];
   status: Status;
   // TODO: Executive.
+  executive_id: number = 1;
 
   constructor(object?: any) {
     if (object) {
@@ -67,6 +68,50 @@ export class Work {
         }
       }
     }
+  }
+
+  /**
+  * Class method to generate a json with date fields in the specific form that
+  * Django API is requesting them.
+  * Returns:
+  *   - Json representing the work.
+  **/
+  public generateJSONForPOST() {
+    let newWorkJSON = {};
+
+    newWorkJSON['name'] = this.name;
+    newWorkJSON['expected_delivery_date'] = this.expected_delivery_date.getUTCFullYear() + '-' +
+                                            (this.expected_delivery_date.getUTCMonth() + 1) + '-' +
+                                            this.expected_delivery_date.getUTCDate();
+    newWorkJSON['executive'] = this.executive_id;
+    newWorkJSON['contact'] = this.contact.id;
+    newWorkJSON['current_status'] = this.status.id;
+    newWorkJSON['work_type'] = this.work_type.work_type_id;
+
+    if (this.id) {
+      newWorkJSON['id'] = this.id;
+    }
+    if (this.iguala) {
+      newWorkJSON['iguala'] = this.iguala.id;
+    }
+    if (this.brief) {
+      newWorkJSON['brief'] = this.brief;
+    }
+    if (this.final_link) {
+      newWorkJSON['final_link'] = this.final_link;
+    }
+    let artWorksArray = [];
+    if (this.art_works) {
+      for (let artWork of this.art_works) {
+        artWorksArray.push({ art_type: artWork.id, quantity: artWork.quantity });
+      }
+    }
+    newWorkJSON['art_works'] = artWorksArray;
+
+    // TODO: Designers assignation.
+    newWorkJSON['work_designers'] = [];
+
+    return newWorkJSON;
   }
 
 }
