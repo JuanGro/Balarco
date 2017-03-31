@@ -98,10 +98,7 @@ export class WorkFormComponent implements OnChanges {
     /**
     * This is for having initial values in dropdowns.
     **/
-    if (!this.work.id) {
-      if (this.currentContacts && this.currentContacts.length > 0) {
-        this.work.contact = this.currentContacts[0].id;
-      }
+    if (!this.work.id) {      
       if (this.igualasList && this.igualasList.length > 0) {
         this.work.iguala = this.igualasList[0].id;
       }
@@ -164,6 +161,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterContactsByClientId(id: number) {
     this.currentContacts = this.contactsList.filter(x => x.client == id);
+    this.work.contact = this.currentContacts[0].id;
   }
 
   /**

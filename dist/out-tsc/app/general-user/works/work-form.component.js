@@ -47,9 +47,6 @@ var WorkFormComponent = (function () {
             this.currentWorkTypeId = 0;
         }
         if (!this.work.id) {
-            if (this.currentContacts && this.currentContacts.length > 0) {
-                this.work.contact = this.currentContacts[0].id;
-            }
             if (this.igualasList && this.igualasList.length > 0) {
                 this.work.iguala = this.igualasList[0].id;
             }
@@ -90,6 +87,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
         this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
+        this.work.contact = this.currentContacts[0].id;
     };
     WorkFormComponent.prototype.onIgualaChange = function (id) {
         this.filterArtWorksByIgualaId(id);
