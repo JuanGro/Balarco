@@ -119,29 +119,6 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Requests to the Backend service to remove the contact selected by the user.
-  * Params:
-  *   - object: A Contact object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
-  **/
-  public removeContact(object: Contact) {
-    this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(result => {
-      if (result.ok) {
-        let index = this.contactsList.indexOf(object);
-        if (index >= 0) {
-          this.contactsList.splice(index, 1);
-          this.completeContactsList.splice(index, 1);
-          this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
-        }
-      }
-    },
-    error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar contacto');
-    });
-  }
-
-  /**
   * Saves which contact was selected by the user.
   * Params:
   *   - object: A Contact object.
@@ -166,6 +143,47 @@ export class ContactsComponent implements OnInit {
   **/
   public getValueSearch(value: string) {
     this.valueSearch = value;
+    this.contactsList = [];
+    if (this.valueSearch !== '') {
+      for (let contactFromList of this.completeContactsList) {
+        let contact = new Contact(contactFromList);
+        if (contact.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contact.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contact.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contact.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contact.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contact.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+              this.contactsList.push(contact);
+        }
+      }
+    } else {
+      this.contactsList = [];
+      this.contactsList = this.completeContactsList;
+    }
+    this.contactsList.sort();
+  }
+
+  /**
+  * Requests to the Backend service to remove the contact selected by the user.
+  * Params:
+  *   - object: A Contact object.
+  * Returns:
+  *   - result: Response from backend service to know if the operation was success or not.
+  **/
+  public removeContact(object: Contact) {
+    this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.contactsList.indexOf(object);
+        if (index >= 0) {
+          this.contactsList.splice(index, 1);
+          this.completeContactsList.splice(index, 1);
+          this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
+        }
+      }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar contacto');
+    });
   }
 
   /**
@@ -189,6 +207,8 @@ export class ContactsComponent implements OnInit {
     this.completeContactsList.push(event);
   }
 
+
+
   /**
   * Receives event when a contact is updated in the form.
   * It updates the contact selected.
@@ -199,8 +219,23 @@ export class ContactsComponent implements OnInit {
     let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
     let index = this.contactsList.indexOf(oldContact);
     if (index >= 0) {
-      this.contactsList[index] = event;
-      this.completeContactsList[index] = event;
+      if (this.valueSearch) {
+        if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            event.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            event.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            event.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            this.contactsList.splice(index, 1);
+            this.contactsList.push(event);
+        } else {
+          this.contactsList.splice(index, 1);
+        }
+      } else {
+        this.contactsList[index] = event;
+      }
     }
+    this.completeContactsList.splice(index, 1);
+    this.completeContactsList.push(event);
   }
 }

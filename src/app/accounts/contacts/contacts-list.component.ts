@@ -20,8 +20,6 @@ import { Client } from './../clients/client-model';
 export class ContactsListComponent {
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
-  // Receives the original contacts list without filters from parent component.
-  @Input('completeContactsList') completeContactsList: Contact[];
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Sends the request to show the new contact modal in parent component.
@@ -34,8 +32,6 @@ export class ContactsListComponent {
   @Output() contactsListFiltered: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   // Sends the value of the search to parent component to add to the contact list the item created only if it's necessary.
   @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
-  // Variable to save what te user is searching.
-  public wordSearch: string;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
@@ -65,16 +61,6 @@ export class ContactsListComponent {
   **/
   public sendCurrentContact(object: Contact) {
     this.currentContact.emit(object);
-    this.contactsListFiltered.emit(this.contactsList);
-  }
-
-  /**
-  * Sends to parent component the current contacts list and the value 
-  * of the search if the user is typing.
-  **/
-  public sendContactsList() {
-    this.contactsListFiltered.emit(this.contactsList);
-    this.valueSearch.emit(this.wordSearch);
   }
 
   /**
@@ -82,19 +68,6 @@ export class ContactsListComponent {
   * making all the strings to lower case and checks substrings.
   **/
   public filterItem(value: string) {
-    this.wordSearch = value;
-    this.contactsList = [];
-    for (let contactFromList of this.completeContactsList) {
-      let contact = new Contact(contactFromList);
-      if (contact.name.toLowerCase().includes(value.toLowerCase()) ||
-          contact.last_name.toLowerCase().includes(value.toLowerCase()) ||
-          contact.charge.toLowerCase().includes(value.toLowerCase()) ||
-          contact.client_complete.name.toLowerCase().includes(value.toLowerCase()) ||
-          contact.email.toLowerCase().includes(value.toLowerCase()) ||
-          contact.alternate_email.toLowerCase().includes(value.toLowerCase())) {
-          this.contactsList.push(contact);
-      }
-    }
-    this.contactsList.sort();
+    this.valueSearch.emit(value);
   }
 }
