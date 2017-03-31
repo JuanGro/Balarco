@@ -28,7 +28,9 @@ export class UserFormComponent implements OnChanges {
   // Receives the user selected by the user or the empty object to know if is called the update or create user form.
   @Input('user') user: User;
   // Receives the group list from parent component.
-  @Input('groupList') groupList: Group[];
+  @Input('groupList') groupList: Group[]; 
+  // List containing the users's current groups
+  public currentGroupList: Group[]
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the user is permanent removed.
@@ -47,6 +49,7 @@ export class UserFormComponent implements OnChanges {
   public oldUser: User;
   // Variable to active the form.
   public active: boolean = true;
+  
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -61,6 +64,18 @@ export class UserFormComponent implements OnChanges {
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
+      this.currentGroupList = [];
+      let userGroups = this.user.groups;
+/*
+      for (let userGroup of userGroups){
+        for (let group of this.groupList){
+          if (group.id === userGroup.id){
+            this.currentGroupList.push(group);
+          }
+        }
+      }
+      */
+      this.currentGroupList = userGroups;
     }
   }
 

@@ -44,7 +44,7 @@
             <!-- [user] sends the user object to the form to display the current values -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <user-form [user]="user" [groupList]="groupList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateUserModal.hide()" (userUpdated)="onUserUpdated($event)"></user-form>
+            <user-form [user]="user" [groupList]="groupList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateUserModal.hide()" (userUpdated)="onUserUpdated($event)" ></user-form>
         </div>
     </div>
 </div>

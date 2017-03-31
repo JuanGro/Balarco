@@ -4,9 +4,9 @@ import { User, Group } from './user-model';
 describe('User object model tests.', () => {
     let contact: User;
     /**
-    * Tests that verify if the Contact object is correctly built.
+    * Tests that verify if the User object is correctly built.
     **/
-    it('should build a Contact object correctly', () => {
+    it('should build a user object correctly', () => {
         // Build the object with it's attributes.
         let id = 10;
         let username = 'example@balarco.com';

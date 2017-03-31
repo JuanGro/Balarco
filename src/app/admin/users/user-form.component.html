@@ -105,7 +105,7 @@
     </div>
 
 
-    <!-- Second row -->
+    <!-- Fourth row -->
     <div class="form-group row">
         <div class="col-md-6">
             <!-- Client field -->
@@ -113,23 +113,49 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select multiple id="groups" name="groups" class="form-control" [(ngModel)]="user.groups" #groups="ngModel" size="1">
-
-                    <div *ngFor="let group of groupList" >
-                        <!-- juangro aqui checo si el grupo existe en el usuario -->
-                        <option *ngIf="group in user.groups.length" value="{{ group.id }}" selected>{{ group.name }}</option>
-                        <option *ngIf="group not in user.groups.length" value="{{ group.id }}">{{ group.name }}</option>
-                    </div>
-                </select>
+                <!--<select multiple id="groups" name="groups" class="form-control" [(ngModel)]="user.groups" #groups="ngModel" size="1" required>
+                      <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
+                </select>-->
             </div>
             <!-- Feedback client -->
-            <div *ngIf="groups.errors && groups.touched" class="alert alert-danger">
+            <!--<div *ngIf="groups.errors && groups.touched" class="alert alert-danger">
                 <div [hidden]="!groups.errors.required">
                     El rol es obligatorio.
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
+
+    <!-- Fifth row -->
+    <div *ngIf="user.id" class="form-group row">
+        <div class="col-md-12">
+            <ul>
+                <li *ngFor="let currentGroup of currentGroupList">
+                    {{ currentGroup.id }}
+                </li>
+
+            </ul> 
+            <p>{{ user.groups }}</p>
+        </div>
+    </div>
+
+    <div class=“card”>
+        <div class=“card-header”>
+            <strong>Ng2-select</strong>
+        </div>
+        <div class=“card-block”>
+        <ng-select
+            [multiple]=“true”
+            [items]=“items”
+            (data)=“refreshValue($event)”
+            (selected)=“selected($event)”
+            (removed)=“removed($event)”
+            placeholder=“No city selected”>
+        </ng-select>
+         <br/>
+         <pre class=“alert alert-info”>{{itemsToString(value)}}</pre>
+        </div>
+     </div>
 
     <!-- Buttons -->
     <div class="modal-footer">
