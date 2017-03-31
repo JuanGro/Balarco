@@ -115,6 +115,9 @@ var WorksComponent = (function () {
             }
         });
     };
+    WorksComponent.prototype.getWorkFromTable = function (object) {
+        this.work = object;
+    };
     WorksComponent.prototype.initializeModal = function () { };
     return WorksComponent;
 }());

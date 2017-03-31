@@ -30,6 +30,8 @@ import { environment } from '../../../environments/environment';
 export class WorksComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
+  // Variable to keep track of current work.
+  public work: Work;
   // Variable that saves all works from DB.
   public worksList: Work[];
   // Variable that saves all clients from DB.
@@ -188,6 +190,10 @@ export class WorksComponent implements OnInit {
                       }
                     });
 
+  }
+
+  private getWorkFromTable(object: Work) {
+    this.work = object;
   }
 
   /**

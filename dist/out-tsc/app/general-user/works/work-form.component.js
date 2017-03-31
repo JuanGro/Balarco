@@ -69,7 +69,7 @@ var WorkFormComponent = (function () {
             this.submitNewWork();
         }
         this.active = false;
-        setTimeout(function () { return _this.active = true; }, 0);
+        setTimeout(function () { return _this.active = true; }, 1);
     };
     WorkFormComponent.prototype.submitNewWork = function () {
         console.log('Sending...');

@@ -126,7 +126,7 @@ export class WorkFormComponent implements OnChanges {
       this.submitNewWork();
     }
     this.active = false;
-    setTimeout(() => this.active = true, 0);
+    setTimeout(() => this.active = true, 1);
   }
 
   /**
