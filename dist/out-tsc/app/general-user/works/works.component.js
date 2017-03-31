@@ -118,12 +118,24 @@ var WorksComponent = (function () {
     };
     WorksComponent.prototype.getWorkFromTable = function (object) {
         this.work = object;
-        console.log('Updating...');
-        console.log(object);
     };
     WorksComponent.prototype.initializeModal = function () { };
     WorksComponent.prototype.onWorkCreated = function (event) {
         this.worksList.push(event);
+    };
+    WorksComponent.prototype.removeWork = function (object) {
+        var _this = this;
+        this.httpService.deleteObject(environment.WORKS_URL + object.id + '/').subscribe(function (result) {
+            if (result.ok) {
+                var index = _this.worksList.indexOf(object);
+                if (index >= 0) {
+                    _this.worksList.splice(index, 1);
+                }
+                _this.toaster.show(result, 'Trabajo eliminado', 'El trabajo se eliminó con éxito');
+            }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
+        });
     };
     return WorksComponent;
 }());

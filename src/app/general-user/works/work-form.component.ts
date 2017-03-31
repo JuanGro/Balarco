@@ -164,14 +164,12 @@ export class WorkFormComponent implements OnChanges {
   private submitNewWork() {
     this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
-        console.log('WORK CREATED!');
         let newWork = new Work(result.json());
-        console.log(newWork);
         this.workCreated.emit(newWork);
         this.toaster.show(result, 'Trabajo creado', 'El trabajo se creó con éxito');
       }
     },
-    error => {      
+    error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el trabajo');
     });
   }

@@ -195,8 +195,6 @@ export class WorksComponent implements OnInit {
 
   private getWorkFromTable(object: Work) {
     this.work = object;
-    console.log('Updating...');
-    console.log(object);
   }
 
   /**
@@ -212,5 +210,25 @@ export class WorksComponent implements OnInit {
   **/
   public onWorkCreated(event: Work) {
     this.worksList.push(event);
+  }
+
+  /**
+  * Requests to the Backend service to remove the work selected by the user.
+  * Params:
+  *   - object: A work object.
+  **/
+  public removeWork(object: Work) {
+    this.httpService.deleteObject(environment.WORKS_URL + object.id + '/').subscribe(result => {
+      if (result.ok) {
+        let index = this.worksList.indexOf(object);
+        if (index >= 0) {
+          this.worksList.splice(index, 1);
+        }
+        this.toaster.show(result, 'Trabajo eliminado', 'El trabajo se eliminó con éxito');
+      }
+    },
+  error => {
+    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
+  });
   }
 }
