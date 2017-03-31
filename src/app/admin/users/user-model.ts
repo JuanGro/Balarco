@@ -6,7 +6,6 @@ export class User {
     username: string;
     first_name: string;
     last_name: string;
-    email: string;
     password?: string;
     groups?: Group[];
     /**
@@ -19,7 +18,6 @@ export class User {
       this.username = json && json.username;
       this.first_name = json && json.first_name;
       this.last_name = json && json.last_name;
-      this.email = json && json.email;
       this.groups = [];
       this.groups = json && json.groups;
     }
@@ -29,7 +27,7 @@ export class User {
 **/
 export class Group {
     id?: number;
-    name: string;
+    name?: string;
 
     /**
     * Constructor to create a Group based on server response at POST.
