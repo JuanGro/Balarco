@@ -279,6 +279,9 @@ describe('ContactsComponent tests.', () => {
             expect(component.contactsList).toEqual(testListContacts2);
         });
 
+        /**
+        * Tests that the onContactUpdated method update the Contact object.
+        **/
         it('should update the contact', () => {
             let testList: Contact[] = [ testContact, testContact2 ];
             component.completeContactsList = testList;
