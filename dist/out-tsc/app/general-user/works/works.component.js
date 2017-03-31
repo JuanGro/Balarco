@@ -28,11 +28,20 @@ var WorksComponent = (function () {
         this.titleUpdateModal = 'Modificar Trabajo';
         this.titleDangerModal = 'Eliminar trabajo';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
+        this.loadWorksList(environment.WORKS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
         this.loadContactsList(environment.CONTACTS_URL);
         this.loadIgualasList(environment.IGUALAS_URL);
         this.loadWorkTypesList(environment.WORK_TYPES_URL);
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+    };
+    WorksComponent.prototype.loadWorksList = function (url) {
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (worksListJSON) {
+            console.log('WORKS:');
+            console.log(worksListJSON);
+        });
     };
     WorksComponent.prototype.loadClientsList = function (url) {
         var _this = this;

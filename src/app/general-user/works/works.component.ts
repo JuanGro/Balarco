@@ -9,6 +9,7 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
 
@@ -29,6 +30,8 @@ import { environment } from '../../../environments/environment';
 export class WorksComponent implements OnInit {
   // Variable that saves the title to show in the template.
   public title: string;
+  // Variable that saves all works from DB.
+  public worksList: Work[];
   // Variable that saves all clients from DB.
   public clientsList: Client[];
   // Variable that saves all contacts from DB.
@@ -62,11 +65,22 @@ export class WorksComponent implements OnInit {
     this.titleDangerModal = 'Eliminar trabajo';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
 
+    this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+  }
+
+
+  private loadWorksList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(worksListJSON => {
+                      console.log('WORKS:');
+                      console.log(worksListJSON);
+                    });
   }
 
   /**
@@ -161,7 +175,7 @@ export class WorksComponent implements OnInit {
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(graduationArtTypesJSON => {
-                      this.graduationArtTypes = [];                      
+                      this.graduationArtTypes = [];
                       for (let artType of graduationArtTypesJSON) {
                         this.graduationArtTypes.push(new ArtWork(artType));
                       }
