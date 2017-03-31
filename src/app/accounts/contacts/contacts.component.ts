@@ -144,7 +144,9 @@ export class ContactsComponent implements OnInit {
   public getValueSearch(value: string) {
     this.valueSearch = value;
     this.contactsList = [];
-    if (this.valueSearch !== '') {
+    if (this.valueSearch === '') {
+      this.contactsList = this.completeContactsList;
+    } else {
       for (let contactFromList of this.completeContactsList) {
         let contact = new Contact(contactFromList);
         if (contact.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
@@ -153,14 +155,10 @@ export class ContactsComponent implements OnInit {
             contact.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             contact.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             contact.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-              this.contactsList.push(contact);
+            this.contactsList.push(contact);
         }
       }
-    } else {
-      this.contactsList = [];
-      this.contactsList = this.completeContactsList;
     }
-    this.contactsList.sort();
   }
 
   /**
@@ -170,13 +168,18 @@ export class ContactsComponent implements OnInit {
   * Returns:
   *   - result: Response from backend service to know if the operation was success or not.
   **/
-  public removeContact(object: Contact) {
-    this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(result => {
+  public removeContact(event: Contact) {
+    this.httpService.deleteObject(environment.CONTACTS_URL + event.id + '/').subscribe(result => {
       if (result.ok) {
-        let index = this.contactsList.indexOf(object);
-        if (index >= 0) {
+        let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
+        let oldContactComplete = this.completeContactsList.filter(contact => contact.id === event.id)[0];
+        let index = this.contactsList.indexOf(oldContact);
+        let index2 = this.completeContactsList.indexOf(oldContactComplete);
+        if (index >= 0 && index2 >= 0) {
           this.contactsList.splice(index, 1);
-          this.completeContactsList.splice(index, 1);
+          if (this.valueSearch) {
+            this.completeContactsList.splice(index2, 1);
+          }
           this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
         }
       }
@@ -187,14 +190,14 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Recieves event when a new contact is created in the form.
+  * Receives event when a new contact is created in the form.
   * It pushes the new contact to the complete list and to the contact list if
   * it's necessary.
   * Params:
   *   - event: New contact received from the event.
   **/
   public onContactCreated(event: Contact) {
-    if (this.valueSearch) {
+    if (this.valueSearch || this.valueSearch === '') {
       if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
           event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
           event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
@@ -217,17 +220,19 @@ export class ContactsComponent implements OnInit {
   **/
   public onContactUpdated(event: Contact) {
     let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
+    let oldContactComplete = this.completeContactsList.filter(contact => contact.id === event.id)[0];
     let index = this.contactsList.indexOf(oldContact);
-    if (index >= 0) {
+    let index2 = this.completeContactsList.indexOf(oldContactComplete);
+    if (index >= 0 && index2 >= 0) {
       if (this.valueSearch) {
+        // If the filter is using, decide if show the current object updated or not.
         if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             event.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             event.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             event.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-            this.contactsList.splice(index, 1);
-            this.contactsList.push(event);
+            this.contactsList[index] = event;
         } else {
           this.contactsList.splice(index, 1);
         }
@@ -235,7 +240,6 @@ export class ContactsComponent implements OnInit {
         this.contactsList[index] = event;
       }
     }
-    this.completeContactsList.splice(index, 1);
-    this.completeContactsList.push(event);
+    this.completeContactsList[index2] = event;
   }
 }
