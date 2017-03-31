@@ -5,6 +5,9 @@ import { FormGroup } from '@angular/forms';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
+// Environment
+import { environment } from '../../../environments/environment';
+
 // Models
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
@@ -38,7 +41,7 @@ export class WorkFormComponent implements OnChanges {
   // Receives the workTypes list from parent component.
   @Input('workTypesList') workTypesList: WorkType[];
   // Receives workTypes for Graduation only from parent component.
-  @Input(' graduationArtTypes') graduationArtTypes: ArtWork[];
+  @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -91,6 +94,36 @@ export class WorkFormComponent implements OnChanges {
     } else {
       this.currentWorkTypeId = 0;
     }
+  }
+
+  /**
+  * Executes the submitUpdatedWork or submitNewWork depending if the work
+  * received when the modal was called is empty or not.
+  **/
+  private submitWorkForm() {
+    this.work.art_works = this.currentArtWorkList;
+    if (this.work.id) {
+      // Update work
+    } else {
+      // New work
+      this.submitNewWork();
+    }
+    this.active = false;
+    setTimeout(() => this.active = true, 0);
+  }
+
+  /**
+  * Requests the API to create a new Work.
+  **/
+  private submitNewWork() {
+    this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
+      if (result.ok) {
+        console.log('WORK CREATED!');
+      }
+    },
+    error => {
+      console.log('OH NO ERROR IN WORK');
+    });
   }
 
   /**

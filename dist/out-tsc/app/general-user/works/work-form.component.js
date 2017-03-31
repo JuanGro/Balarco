@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
@@ -45,6 +46,26 @@ var WorkFormComponent = (function () {
         else {
             this.currentWorkTypeId = 0;
         }
+    };
+    WorkFormComponent.prototype.submitWorkForm = function () {
+        var _this = this;
+        this.work.art_works = this.currentArtWorkList;
+        if (this.work.id) {
+        }
+        else {
+            this.submitNewWork();
+        }
+        this.active = false;
+        setTimeout(function () { return _this.active = true; }, 0);
+    };
+    WorkFormComponent.prototype.submitNewWork = function () {
+        this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(function (result) {
+            if (result.ok) {
+                console.log('WORK CREATED!');
+            }
+        }, function (error) {
+            console.log('OH NO ERROR IN WORK');
+        });
     };
     WorkFormComponent.prototype.onClientChange = function (id) {
         this.filterContactsByClientId(id);
@@ -119,7 +140,7 @@ __decorate([
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "workTypesList", void 0);
 __decorate([
-    Input(' graduationArtTypes'),
+    Input('graduationArtTypes'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "graduationArtTypes", void 0);
 __decorate([
