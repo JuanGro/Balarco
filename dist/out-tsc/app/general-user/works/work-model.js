@@ -41,6 +41,7 @@ var Work = (function () {
             this.contact_complete = new Contact(object.contact_complete);
             this.work_type = object.work_type;
             this.work_type_complete = new WorkType(object.work_type_complete);
+            this.work_type_id_enum = object.work_type_complete && object.work_type_complete.work_type_id;
             this.current_status = object.current_status;
             this.current_status_complete = new Status(object.current_status_complete);
             this.iguala = object.iguala;

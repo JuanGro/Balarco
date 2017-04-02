@@ -84,6 +84,7 @@ var WorkFormComponent = (function () {
         console.log('HERE');
         console.log(this.work);
         if (this.work.id) {
+            this.submitUpdatedWork();
         }
         else {
             this.submitNewWork();
@@ -101,6 +102,19 @@ var WorkFormComponent = (function () {
             }
         }, function (error) {
             _this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el trabajo');
+        });
+    };
+    WorkFormComponent.prototype.submitUpdatedWork = function () {
+        var _this = this;
+        console.log(this.work.generateJSONForPOST());
+        this.httpService.updateObject(environment.WORKS_URL + this.work.id + '/', this.work.generateJSONForPOST()).subscribe(function (result) {
+            if (result.ok) {
+                var updatedWork = new Work(result.json());
+                _this.workUpdated.emit(updatedWork);
+                _this.toaster.show(result, 'Trabajo actulizado', 'El trabajo se actualizó con éxito');
+            }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el trabajo');
         });
     };
     WorkFormComponent.prototype.onClientChange = function (id) {

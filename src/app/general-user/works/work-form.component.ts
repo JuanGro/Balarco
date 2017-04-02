@@ -155,6 +155,7 @@ export class WorkFormComponent implements OnChanges {
     console.log(this.work);
     if (this.work.id) {
       // Update work
+      this.submitUpdatedWork();
     } else {
       // New work
       this.submitNewWork();
@@ -176,6 +177,23 @@ export class WorkFormComponent implements OnChanges {
     },
     error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el trabajo');
+    });
+  }
+
+  /**
+  * Requests the API to update a current work.
+  **/
+  private submitUpdatedWork() {
+    console.log(this.work.generateJSONForPOST());
+    this.httpService.updateObject(environment.WORKS_URL + this.work.id + '/', this.work.generateJSONForPOST()).subscribe(result => {
+      if (result.ok) {
+        let updatedWork = new Work(result.json());
+        this.workUpdated.emit(updatedWork);
+        this.toaster.show(result, 'Trabajo actulizado', 'El trabajo se actualizó con éxito');
+      }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el trabajo');
     });
   }
 
