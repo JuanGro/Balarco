@@ -29,8 +29,13 @@ import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
 
 // Models
-import { Contact } from './contact-model';
-import { Client } from './../clients/client-model';
+import { ArtWork } from './art-works/art-work-model';
+import { Contact } from '../../accounts/contacts/contact-model';
+import { Client } from '../../accounts/clients/client-model';
+import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Status } from './status/status-model';
+import { Work } from './work-model';
+import { WorkType } from './work-type/work-type-model';
 
 
 describe('WorksComponent tests', () => {
@@ -51,6 +56,24 @@ describe('WorksComponent tests', () => {
     // Handles on the component's DOM element.
     let de: DebugElement;
     let el: HTMLElement;
+
+    // Create a test Work
+    let testWork = new Work({
+      id: 1, name: 'Test Work', creation_date: new Date(), expected_delivery_date: new Date(),
+      brief: 'Foo', final_link: 'Bar.com',
+      contact_complete: {
+        id: 1, name: 'TestGuy', last_name: 'TestLast', client: 2,
+        charge: 'TestCEO', landline: '111111111111', extension: '12',
+        mobile_phone_1: '4271000000', email: 'test@tes.com', client_complete: new Client(),
+      },
+      work_type_complete: new WorkType({ id: 1, name: 'TestType' }),
+      iguala_complete: new Iguala ({ id: 1, name: 'Iguala', client: 2, start_date: new Date(), end_date: new Date()}),
+      current_status_complete: new Status ({ id: 3, name: 'Testing' }),
+      art_works: [
+        new ArtWork({id: 1, name: 'New art', quantity: 12}),
+        new ArtWork({id: 2, name: 'Test art', quantity: 5}),
+      ]
+    });
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -153,5 +176,48 @@ describe('WorksComponent tests', () => {
             expect(component.titleDangerModal).toContain('Eliminar Trabajo');
             expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este trabajo?');
         });
+    });
+
+    describe('Load of the variables to the template for parent works component', () => {
+        /**
+        * Tests that the title is empty before the use of the title variable.
+        **/
+        it('no title in the DOM until manually call `detectChanges`', () => {
+            expect(el.textContent).toEqual('');
+        });
+
+        /**
+        * Tests that the component have the correct title when everything is loaded.
+        **/
+        it('should display original page title', () => {
+            fixtureParent.detectChanges();
+            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).not.toBe(null);
+        });
+    });
+
+    describe('Use of methods for parent works component', () => {
+        /**
+        * Tests that the getContactFromTable method returns the correct Contact object.
+        **/
+        it('should return a not empty Work object', () => {
+            component.getWorkFromTable(testWork);
+            expect(component.work).toEqual(testWork);
+        });
+    });
+
+    describe('Use of methods for TWDB', () => {
+        /**
+        * Tests that the onWorkCreated method returns the new Work object and
+        * is added to the complete work list.
+        **/
+        it('should add the new work', () => {
+            let testList: Work[] = [ testWork, testWork ];
+            component.worksList = testList;
+            component.onWorkCreated(testWork);
+            fixtureParent.detectChanges();
+            expect(component.worksList.length).toEqual(3);
+            expect(component.worksList[2]).toEqual(testWork);
+        });        
     });
 });

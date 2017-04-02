@@ -193,7 +193,7 @@ export class WorksComponent implements OnInit {
 
   }
 
-  private getWorkFromTable(object: Work) {
+  public getWorkFromTable(object: Work) {
     this.work = object;
   }
 
