@@ -58,9 +58,9 @@ var IgualasComponent = (function () {
     };
     IgualasComponent.prototype.loadArtTypeList = function (url) {
         var _this = this;
-        var work_work_type_id = '1';
+        var iguala_work_type_id = '1';
         var params = new URLSearchParams();
-        params.set('work_work_type_id', work_work_type_id);
+        params.set('work_work_type_id', iguala_work_type_id);
         this.httpService.getObject(url, params)
             .map(function (data) { return data.json(); })
             .subscribe(function (artTypesJSON) {

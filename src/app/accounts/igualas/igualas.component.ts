@@ -112,9 +112,9 @@ export class IgualasComponent implements OnInit {
   * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
   **/
   public loadArtTypeList(url: string) {
-    let work_work_type_id = '1';
+    let iguala_work_type_id = '1';
     let params = new URLSearchParams();
-    params.set('work_work_type_id', work_work_type_id);
+    params.set('work_work_type_id', iguala_work_type_id);
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(artTypesJSON => {
