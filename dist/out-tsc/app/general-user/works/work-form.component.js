@@ -12,6 +12,7 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
+import { Status } from './status/status-model';
 import { Work } from './work-model';
 var WorkFormComponent = (function () {
     function WorkFormComponent(httpService, toaster) {
@@ -38,6 +39,7 @@ var WorkFormComponent = (function () {
         }
         else if (this.work && this.work.id) {
             this.oldWork = new Work(this.work);
+            this.loadPossibleStatusForExistingProject();
             this.setValuesWithExistingWork();
         }
     };
@@ -80,8 +82,6 @@ var WorkFormComponent = (function () {
         var _this = this;
         this.work.art_works = this.currentArtWorkList;
         this.work.contact = this.contact_id;
-        console.log('HERE');
-        console.log(this.work);
         if (this.work.id) {
             this.submitUpdatedWork();
         }
@@ -153,6 +153,18 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
         return this.statusList.filter(function (status) { return status.status_id == 0 || status.status_id == 1; });
+    };
+    WorkFormComponent.prototype.loadPossibleStatusForExistingProject = function () {
+        var _this = this;
+        this.httpService.getObject(environment.WORKS_URL + this.work.id + '/possible-status-changes/')
+            .map(function (data) { return data.json(); })
+            .subscribe(function (statusListJSON) {
+            _this.possibleStatus = [];
+            for (var _i = 0, statusListJSON_1 = statusListJSON; _i < statusListJSON_1.length; _i++) {
+                var status_1 = statusListJSON_1[_i];
+                _this.possibleStatus.push(new Status(status_1));
+            }
+        });
     };
     WorkFormComponent.prototype.requestCloseThisModal = function () {
         this.modalAction = 'Close modal';

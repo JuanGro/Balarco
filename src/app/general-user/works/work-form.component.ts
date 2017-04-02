@@ -95,6 +95,7 @@ export class WorkFormComponent implements OnChanges {
     else if (this.work && this.work.id) {
       // Update work
       this.oldWork = new Work(this.work);
+      this.loadPossibleStatusForExistingProject();
       this.setValuesWithExistingWork();
     }
   }
@@ -152,8 +153,6 @@ export class WorkFormComponent implements OnChanges {
   private submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
-    console.log('HERE');
-    console.log(this.work);
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();
@@ -269,6 +268,17 @@ export class WorkFormComponent implements OnChanges {
   **/
   private getPossibleStatusForNewProject(): Status[] {
     return this.statusList.filter(status => status.status_id == 0 || status.status_id == 1);
+  }
+
+  private loadPossibleStatusForExistingProject() {
+    this.httpService.getObject(environment.WORKS_URL + this.work.id + '/possible-status-changes/')
+                    .map((data: any) => data.json())
+                    .subscribe(statusListJSON => {
+                      this.possibleStatus = [];                      
+                      for (let status of statusListJSON) {
+                        this.possibleStatus.push(new Status(status));
+                      }
+                    });
   }
 
   /**
