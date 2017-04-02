@@ -12,7 +12,6 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
-import { Status } from './status/status-model';
 import { Work } from './work-model';
 var WorkFormComponent = (function () {
     function WorkFormComponent(httpService, toaster) {
@@ -30,9 +29,11 @@ var WorkFormComponent = (function () {
         console.log('CALLING');
         if (!this.work) {
             this.work = new Work();
-            this.possibleStatus = this.getPossibleStatusForNewProject();
         }
         else if (this.work && !this.work.id) {
+            if (this.statusList) {
+                this.possibleStatus = this.getPossibleStatusForNewProject();
+            }
             this.initialDropdownSetup();
         }
         else if (this.work && this.work.id) {
@@ -55,8 +56,6 @@ var WorkFormComponent = (function () {
             this.currentWorkTypeId = 0;
         }
         if (!this.work.id) {
-            if (this.igualasList && this.igualasList.length > 0) {
-            }
             if (this.possibleStatus && this.possibleStatus.length > 0) {
                 this.work.current_status = this.possibleStatus[0].id;
             }
@@ -153,10 +152,7 @@ var WorkFormComponent = (function () {
         return this.workTypesList.filter(function (x) { return x.id == id; })[0].work_type_id;
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
-        var possibleStatus = [];
-        possibleStatus.push(new Status({ id: 0, name: 'Pendiente' }));
-        possibleStatus.push(new Status({ id: 1, name: 'Diseño' }));
-        return possibleStatus;
+        return this.statusList.filter(function (status) { return status.status_id == 0 || status.status_id == 1; });
     };
     WorkFormComponent.prototype.requestCloseThisModal = function () {
         this.modalAction = 'Close modal';
@@ -200,6 +196,10 @@ __decorate([
     Input('graduationArtTypes'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "graduationArtTypes", void 0);
+__decorate([
+    Input('statusList'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "statusList", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

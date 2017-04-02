@@ -42,6 +42,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('workTypesList') workTypesList: WorkType[];
   // Receives workTypes for Graduation only from parent component.
   @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
+  // Receives status list from parent component.
+  @Input('statusList') statusList: Status[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -83,9 +85,11 @@ export class WorkFormComponent implements OnChanges {
     if (!this.work) {
       // New work
       this.work = new Work();
-      this.possibleStatus =  this.getPossibleStatusForNewProject();
     }
     else if (this.work && !this.work.id) {
+      if (this.statusList) {
+        this.possibleStatus =  this.getPossibleStatusForNewProject();
+      }
       this.initialDropdownSetup();
     }
     else if (this.work && this.work.id) {
@@ -116,9 +120,6 @@ export class WorkFormComponent implements OnChanges {
     * This is for having initial values in dropdowns.
     **/
     if (!this.work.id) {
-      if (this.igualasList && this.igualasList.length > 0) {
-        //this.work.iguala = this.igualasList[0].id;
-      }
       if (this.possibleStatus && this.possibleStatus.length > 0) {
         this.work.current_status = this.possibleStatus[0].id;
       }
@@ -267,10 +268,7 @@ export class WorkFormComponent implements OnChanges {
   *   - Array of Status.
   **/
   private getPossibleStatusForNewProject(): Status[] {
-    let possibleStatus: Status[] = [];
-    possibleStatus.push(new Status({ id: 0, name: 'Pendiente'}));
-    possibleStatus.push(new Status({ id: 1, name: 'Diseño'}));
-    return possibleStatus;
+    return this.statusList.filter(status => status.status_id == 0 || status.status_id == 1);
   }
 
   /**

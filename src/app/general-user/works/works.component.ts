@@ -197,10 +197,15 @@ export class WorksComponent implements OnInit {
 
   }
 
+  /**
+  * Loads all the Status with httpService.
+  * Params:
+  *   - url: Url to Status API methods.
+  **/
   private loadStatusList(url: string) {
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
-                    .subscribe(statusListJSON => {                      
+                    .subscribe(statusListJSON => {
                       this.statusList = [];
                       for (let status of statusListJSON) {
                         this.statusList.push(new Status(status));

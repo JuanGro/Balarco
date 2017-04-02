@@ -27,7 +27,7 @@
             <!-- [work] sends the work empty to the form to avoid problems if the last work is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <work-form [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
+            <work-form [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
         </div>
     </div>
 </div>
