@@ -73,7 +73,11 @@ export class Work {
       this.art_works = [];
       if (object.art_works) {
         for (let artWork of object.art_works) {
-          this.art_works.push(new ArtWork(artWork));
+          if (!artWork.name && artWork.art_type_complete) {
+            this.art_works.push({ id: artWork.art_type, name: artWork.art_type_complete.name, quantity: artWork.quantity });
+          } else {
+            this.art_works.push(new ArtWork(artWork));
+          }
         }
       }
     }
