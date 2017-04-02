@@ -74,7 +74,7 @@ export class Work {
       if (object.art_works) {
         for (let artWork of object.art_works) {
           if (!artWork.name && artWork.art_type_complete) {
-            this.art_works.push({ id: artWork.art_type, name: artWork.art_type_complete.name, quantity: artWork.quantity });
+            this.art_works.push(new ArtWork({ id: artWork.art_type, name: artWork.art_type_complete.name, quantity: artWork.quantity }));
           } else {
             this.art_works.push(new ArtWork(artWork));
           }

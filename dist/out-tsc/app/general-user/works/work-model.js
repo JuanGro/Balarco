@@ -50,7 +50,7 @@ var Work = (function () {
                 for (var _i = 0, _a = object.art_works; _i < _a.length; _i++) {
                     var artWork = _a[_i];
                     if (!artWork.name && artWork.art_type_complete) {
-                        this.art_works.push({ id: artWork.art_type, name: artWork.art_type_complete.name, quantity: artWork.quantity });
+                        this.art_works.push(new ArtWork({ id: artWork.art_type, name: artWork.art_type_complete.name, quantity: artWork.quantity }));
                     }
                     else {
                         this.art_works.push(new ArtWork(artWork));
