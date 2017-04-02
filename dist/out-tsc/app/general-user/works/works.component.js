@@ -123,6 +123,13 @@ var WorksComponent = (function () {
     WorksComponent.prototype.onWorkCreated = function (event) {
         this.worksList.push(event);
     };
+    WorksComponent.prototype.onWorkUpdated = function (event) {
+        var oldWork = this.worksList.filter(function (work) { return work.id === event.id; })[0];
+        var index = this.worksList.indexOf(oldWork);
+        if (index >= 0) {
+            this.worksList[index] = event;
+        }
+    };
     WorksComponent.prototype.removeWork = function (object) {
         var _this = this;
         this.httpService.deleteObject(environment.WORKS_URL + object.id + '/').subscribe(function (result) {

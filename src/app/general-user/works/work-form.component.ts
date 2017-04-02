@@ -48,6 +48,8 @@ export class WorkFormComponent implements OnChanges {
   @Output() requestWarning: EventEmitter<string> = new EventEmitter();
   // Event for the parent to push a new Work to the list.
   @Output() workCreated: EventEmitter<Work> = new EventEmitter();
+  // Event for the parent to push updated Work to the list.
+  @Output() workUpdated: EventEmitter<Work> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Initialization of control form.
@@ -66,6 +68,8 @@ export class WorkFormComponent implements OnChanges {
   private client_id: number;
   // Variable to set the contact when client dropdown changes.
   private contact_id: number;
+  // Variable to store Work before starting to update.
+  private oldWork: Work;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -80,16 +84,14 @@ export class WorkFormComponent implements OnChanges {
       // New work
       this.work = new Work();
       this.possibleStatus =  this.getPossibleStatusForNewProject();
-      console.log('NEW WORK');
     }
     else if (this.work && !this.work.id) {
       this.initialDropdownSetup();
-      console.log('FILLING DROPDOWN IN New');
     }
     else if (this.work && this.work.id) {
       // Update work
+      this.oldWork = new Work(this.work);
       this.setValuesWithExistingWork();
-      console.log('UPDATE WORK');
     }
   }
 
@@ -272,7 +274,10 @@ export class WorkFormComponent implements OnChanges {
   /**
   * Set work with TWDB with old values or clear object if it's new.
   **/
-  private cancelForm() {    
+  private cancelForm() {
+    if (this.oldWork) {
+      this.workUpdated.emit(this.oldWork);
+    }
     setTimeout(() => this.active = false, 0);
     setTimeout(() => this.active = true, 1);
   }

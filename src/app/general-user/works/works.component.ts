@@ -213,6 +213,18 @@ export class WorksComponent implements OnInit {
   }
 
   /**
+  * Receives event when a work is updated in the form.
+  * It updates the work selected.
+  **/
+  public onWorkUpdated(event: Work) {
+    let oldWork = this.worksList.filter(work => work.id === event.id)[0];
+    let index = this.worksList.indexOf(oldWork);
+    if (index >= 0) {
+      this.worksList[index] = event;
+    }
+  }
+
+  /**
   * Requests to the Backend service to remove the work selected by the user.
   * Params:
   *   - object: A work object.

@@ -21,6 +21,7 @@ var WorkFormComponent = (function () {
         this.requestCloseModal = new EventEmitter();
         this.requestWarning = new EventEmitter();
         this.workCreated = new EventEmitter();
+        this.workUpdated = new EventEmitter();
         this.modalAction = '';
         this.active = true;
         this.currentWorkTypeId = 0;
@@ -30,15 +31,13 @@ var WorkFormComponent = (function () {
         if (!this.work) {
             this.work = new Work();
             this.possibleStatus = this.getPossibleStatusForNewProject();
-            console.log('NEW WORK');
         }
         else if (this.work && !this.work.id) {
             this.initialDropdownSetup();
-            console.log('FILLING DROPDOWN IN New');
         }
         else if (this.work && this.work.id) {
+            this.oldWork = new Work(this.work);
             this.setValuesWithExistingWork();
-            console.log('UPDATE WORK');
         }
     };
     WorkFormComponent.prototype.initialDropdownSetup = function () {
@@ -155,6 +154,9 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.cancelForm = function () {
         var _this = this;
+        if (this.oldWork) {
+            this.workUpdated.emit(this.oldWork);
+        }
         setTimeout(function () { return _this.active = false; }, 0);
         setTimeout(function () { return _this.active = true; }, 1);
     };
@@ -196,6 +198,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], WorkFormComponent.prototype, "workCreated", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], WorkFormComponent.prototype, "workUpdated", void 0);
 WorkFormComponent = __decorate([
     Component({
         selector: 'work-form',
