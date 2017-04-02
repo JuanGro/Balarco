@@ -14,6 +14,8 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import { SelectModule } from 'ng2-select';
 describe('WorksComponent tests', function () {
     var fixtureParent;
     var fixtureChildForm;
@@ -27,7 +29,7 @@ describe('WorksComponent tests', function () {
         TestBed.configureTestingModule({
             declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule],
+                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule],
             providers: [
                 {
                     provide: HttpService, useFactory: function (backend, options) {
@@ -62,6 +64,25 @@ describe('WorksComponent tests', function () {
         });
         it('should have a defined child table component', function () {
             expect(componentTable).toBeDefined();
+        });
+    });
+    describe('Initialization of variable for parent works component', function () {
+        it('should show the work component with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.title).toContain('Lista de Trabajos');
+        });
+        it('should show the new work modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleNewModal).toContain('Nuevo Trabajo');
+        });
+        it('should show the update work modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleUpdateModal).toContain('Modificar Trabajo');
+        });
+        it('should show the danger modal with correct attributes', function () {
+            fixtureParent.detectChanges();
+            expect(component.titleDangerModal).toContain('Eliminar Trabajo');
+            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este trabajo?');
         });
     });
 });

@@ -24,10 +24,10 @@ var WorksComponent = (function () {
         this.toaster = toaster;
     }
     WorksComponent.prototype.ngOnInit = function () {
-        this.title = 'Lista de contactos';
+        this.title = 'Lista de Trabajos';
         this.titleNewModal = 'Nuevo Trabajo';
         this.titleUpdateModal = 'Modificar Trabajo';
-        this.titleDangerModal = 'Eliminar trabajo';
+        this.titleDangerModal = 'Eliminar Trabajo';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
         this.loadWorksList(environment.WORKS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
