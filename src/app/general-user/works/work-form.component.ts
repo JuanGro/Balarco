@@ -75,17 +75,21 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    console.log('CALLING');
     if (!this.work) {
       // New work
       this.work = new Work();
       this.possibleStatus =  this.getPossibleStatusForNewProject();
+      console.log('NEW WORK');
     }
     else if (this.work && !this.work.id) {
       this.initialDropdownSetup();
+      console.log('FILLING DROPDOWN IN New');
     }
     else if (this.work && this.work.id) {
       // Update work
       this.setValuesWithExistingWork();
+      console.log('UPDATE WORK');
     }
   }
 
@@ -111,7 +115,7 @@ export class WorkFormComponent implements OnChanges {
     **/
     if (!this.work.id) {
       if (this.igualasList && this.igualasList.length > 0) {
-        this.work.iguala = this.igualasList[0].id;
+        //this.work.iguala = this.igualasList[0].id;
       }
       if (this.possibleStatus && this.possibleStatus.length > 0) {
         this.work.current_status = this.possibleStatus[0].id;
@@ -223,6 +227,7 @@ export class WorkFormComponent implements OnChanges {
     this.work.work_type_id_enum = this.currentWorkTypeId;
     if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
+      this.work.iguala = this.igualasList[0].id;
     }
     else if (this.currentWorkTypeId == 2) {
       this.currentArtWorkList = [];
@@ -267,10 +272,8 @@ export class WorkFormComponent implements OnChanges {
   /**
   * Set work with TWDB with old values or clear object if it's new.
   **/
-  private cancelForm() {
-    this.work = new Work();
-    setTimeout(() => this.active = false, 1);
+  private cancelForm() {    
+    setTimeout(() => this.active = false, 0);
     setTimeout(() => this.active = true, 1);
-    this.initialDropdownSetup();
   }
 }
