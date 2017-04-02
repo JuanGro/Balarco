@@ -133,8 +133,7 @@ export class WorkFormComponent implements OnChanges {
         this.filterContactsByClientId(this.client_id);
       }
       this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
-      // TODO: Uncomment when Julian fix name undefined
-      //this.currentArtWorkList = this.work.art_works;
+      this.currentArtWorkList = this.work.art_works;
       this.contact_id = this.work.contact;
     }
   }
