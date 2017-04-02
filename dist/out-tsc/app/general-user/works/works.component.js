@@ -14,6 +14,7 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
@@ -35,6 +36,7 @@ var WorksComponent = (function () {
         this.loadIgualasList(environment.IGUALAS_URL);
         this.loadWorkTypesList(environment.WORK_TYPES_URL);
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+        this.loadStatusList(environment.STATUS_URL);
     };
     WorksComponent.prototype.loadWorksList = function (url) {
         var _this = this;
@@ -113,6 +115,18 @@ var WorksComponent = (function () {
             for (var _i = 0, graduationArtTypesJSON_1 = graduationArtTypesJSON; _i < graduationArtTypesJSON_1.length; _i++) {
                 var artType = graduationArtTypesJSON_1[_i];
                 _this.graduationArtTypes.push(new ArtWork(artType));
+            }
+        });
+    };
+    WorksComponent.prototype.loadStatusList = function (url) {
+        var _this = this;
+        this.httpService.getObject(url)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (statusListJSON) {
+            _this.statusList = [];
+            for (var _i = 0, statusListJSON_1 = statusListJSON; _i < statusListJSON_1.length; _i++) {
+                var status_1 = statusListJSON_1[_i];
+                _this.statusList.push(new Status(status_1));
             }
         });
     };

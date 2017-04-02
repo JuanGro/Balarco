@@ -9,6 +9,7 @@ import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
@@ -44,6 +45,8 @@ export class WorksComponent implements OnInit {
   public workTypesList: WorkType[];
   // List of Work Types of graduation only.
   public graduationArtTypes: ArtWork[];
+  // List of Status.
+  public statusList: Status[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -73,6 +76,7 @@ export class WorksComponent implements OnInit {
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+    this.loadStatusList(environment.STATUS_URL);
   }
 
   /**
@@ -191,6 +195,17 @@ export class WorksComponent implements OnInit {
                       }
                     });
 
+  }
+
+  private loadStatusList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(statusListJSON => {                      
+                      this.statusList = [];
+                      for (let status of statusListJSON) {
+                        this.statusList.push(new Status(status));
+                      }
+                    });
   }
 
   public getWorkFromTable(object: Work) {
