@@ -270,11 +270,14 @@ export class WorkFormComponent implements OnChanges {
     return this.statusList.filter(status => status.status_id == 0 || status.status_id == 1);
   }
 
+  /**
+  * Function that loads the possible status changes that a work can have.
+  **/
   private loadPossibleStatusForExistingProject() {
     this.httpService.getObject(environment.WORKS_URL + this.work.id + '/possible-status-changes/')
                     .map((data: any) => data.json())
                     .subscribe(statusListJSON => {
-                      this.possibleStatus = [];                      
+                      this.possibleStatus = [];
                       for (let status of statusListJSON) {
                         this.possibleStatus.push(new Status(status));
                       }
