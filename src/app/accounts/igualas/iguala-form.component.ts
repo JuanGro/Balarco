@@ -28,7 +28,7 @@ import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 **/
 export class IgualaFormComponent implements OnChanges {
   // Receives the iguala selected by the user or the empty object to know if is called the update or create iguala form.
-  @Input() iguala: Iguala;
+  @Input('iguala') iguala: Iguala;
   // Receives the clients list from parent component.
   @Input('clientsList') clientsList: Client[];
   // Receives the ArtWork list from parent component.

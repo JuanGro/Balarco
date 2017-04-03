@@ -29,7 +29,6 @@ import { IgualaFormComponent } from './iguala-form.component';
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
 
 describe('IgualaFormComponent tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -126,9 +125,9 @@ describe('IgualaFormComponent tests.', () => {
         * Tests that the Iguala object received from parent component is not empty.
         **/
         it('should load correctly a Iguala in Iguala Input', () => {
-            component.Iguala = testIguala;
+            component.iguala = testIguala;
             fixtureParent.detectChanges();
-            expect(component.Iguala).toEqual(testIguala);
+            expect(component.iguala).toEqual(testIguala);
         });
 
         /**
