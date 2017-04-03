@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // Class
 import { Client } from './client-model';
@@ -22,8 +22,14 @@ import { environment } from '../../../environments/environment';
 * - Remove a client.
 **/
 export class ClientsComponent implements OnInit {
+  // Received from table component, it gives me the filtered client list if the user is using the search.
+  @Input('clientsListFiltered') clientsListFiltered: Client[];
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
+  // Original copy of the client list received from httpService.
+  public completeContactsList: Client[];
   // Client list
   public clientsList: Client[];
   // Current selected client to update or delete
@@ -125,6 +131,15 @@ export class ClientsComponent implements OnInit {
   **/
   public onClientCreated(event: Client) {
     this.clientsList.push(event);
+  }
+
+  /**
+  * Saves the updated contacts list if the user is using a filter.
+  * Params:
+  *   - list: A Contacts list.
+  **/
+  public getContactsListFromTable(list: Client[]) {
+    this.clientsList = list;
   }
 
   /**
