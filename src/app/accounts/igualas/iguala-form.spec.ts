@@ -49,7 +49,7 @@ describe('IgualaFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
-    // Variable to test if the client is correctly updated in emitters.
+    // Variable to test if the iguala is correctly updated in emitters.
     let updatedIguala;
 
     let testArtWork: ArtWork = {
