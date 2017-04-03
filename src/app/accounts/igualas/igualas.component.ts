@@ -25,9 +25,9 @@ import { environment } from '../../../environments/environment';
 * - Remove an Iguala.
 **/
 export class IgualasComponent implements OnInit {
-  // Received from table component, it gives me the contact that the user selected to see his detail.
+  // Received from table component, it gives me the iguala that the user selected to see his detail.
   @Input('currentIguala') currentIguala: Iguala;
-  // Received from table component, it gives me the filtered client list if the user is using the search.
+  // Received from table component, it gives me the filtered iguala list if the user is using the search.
   @Input('igualaListFiltered') igualaListFiltered: Iguala[];
   // Received from table component, it gives me the value that the user is typing in the search.
   @Input('valueSearch') valueSearch: string;
@@ -233,7 +233,7 @@ export class IgualasComponent implements OnInit {
   }
 
   /**
-  * Clears the contact variable to get an empty modal.
+  * Clears the iguala variable to get an empty modal.
   **/
   public initializeModal() {
     this.iguala = new Iguala();
