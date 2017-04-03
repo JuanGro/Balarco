@@ -29,6 +29,7 @@ import { IgualaFormComponent } from './iguala-form.component';
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 describe('IgualaFormComponent tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -48,24 +49,50 @@ describe('IgualaFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    // Variable to test if the client is correctly updated in emitters.
+    let updatedIguala;
+
+    let testArtWork: ArtWork = {
+        id: 1, name: 'Test Diseño 1', quantity: 100
+    };
+
+    let testArtWork2: ArtWork = {
+        id: 2, name: 'Test Diseño 2', quantity: 200
+    };
+
+    let testArtWork3: ArtWork = {
+        id: 3, name: 'Test Diseño 3', quantity: 300
+    };
+
+    let testListArtWorks: ArtWork[] = [
+                                testArtWork,
+                                testArtWork2,
+                                testArtWork3
+                                ];
+
     // Create a Iguala object example.
     let testIguala: Iguala = {
       id: 1,
       name: 'Starbucks 2018',
       client: 2,
       start_date: new Date(2011, 10, 10),
-      end_date: new Date(2012, 10, 10)
+      end_date: new Date(2012, 10, 10),
+      art_iguala: testListArtWorks
+    };
+
+    testIguala = new Iguala(testIguala);
+
+    let testClient: Client = {
+        id: 1, name: 'Starbucks', address: 'Example'
+    };
+
+    let testClient2: Client = {
+        id: 1, name: 'Starbucks', address: 'Example'
     };
 
     let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
-                                ];
-
-    let testListArtWorls: ArtWork[] = [
-                                { id: 1, name: 'Test Diseño 1', quantity: 100},
-                                { id: 2, name: 'Test Diseño 2', quantity: 200},
-                                { id: 3, name: 'Test Diseño 3', quantity: 300},
+                                testClient,
+                                testClient2
                                 ];
 
     // Base state before each test runs.
@@ -143,10 +170,55 @@ describe('IgualaFormComponent tests.', () => {
         * Tests that the artwork object list received from parent component is not empty.
         **/
         it('should load correctly artwork list in ArtworkList Input', () => {
-            component.artWorkList = testListArtWorls;
+            component.artWorkList = testListArtWorks;
             fixtureParent.detectChanges();
-            expect(component.artWorkList).toEqual(testListArtWorls);
+            expect(component.artWorkList).toEqual(testListArtWorks);
         });
+    });
+
+    describe('Correct behaviour of OnChanges hook in the component', () => {
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the iguala and oldIguala is undefined.
+        **/
+        /* it('should have a defined iguala but with its atributes undefined', () => {
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeUndefined();
+            expect(component.iguala.client).toBeUndefined();
+            expect(component.iguala.start_date).toBeUndefined();
+            expect(component.iguala.end_date).toBeUndefined();
+
+            expect(component.oldIguala).toBeDefined();
+            expect(component.oldIguala.name).toBeUndefined();
+            expect(component.oldIguala.client).toBeUndefined();
+            expect(component.oldIguala.start_date).toBeUndefined();
+            expect(component.oldIguala.end_date).toBeUndefined();
+        }); */
+
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the iguala and oldIguala is defined.
+        **/
+        /* it('should have a defined iguala and its atributes correctly defined', () => {
+            component.iguala = testIguala;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeDefined();
+            expect(component.iguala.client).toBeDefined();
+            expect(component.iguala.start_date).toBeDefined();
+            expect(component.iguala.end_date).toBeDefined();
+
+            expect(component.oldIguala).toBeDefined();
+            expect(component.oldIguala.name).toBeDefined();
+            expect(component.oldIguala.client).toBeDefined();
+            expect(component.oldIguala.start_date).toBeDefined();
+            expect(component.oldIguala.end_date).toBeDefined();
+        }); */
     });
 
     describe('EventEmitter of modal requests for child Igualas form component', () => {
@@ -176,5 +248,27 @@ describe('IgualaFormComponent tests.', () => {
             });
             modalAction.requestWarningModal();
         }));
+    });
+
+     describe('Cancel form method is correctly send depending if its current iguala is not empty', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([IgualaFormComponent], result => {
+            updatedIguala = result;
+        }));
+
+        /**
+        * Tests that the send of the iguala updated is working correctly.
+        **/
+        /* it('should send the iguala updated', async(() => {
+            component.iguala = testIguala;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+            updatedIguala.submitUpdatedIguala();
+            updatedIguala.igualaUpdated.subscribe(result => {
+                expect(result).toBe(component.oldIguala);
+            });
+        })); */
     });
 });
