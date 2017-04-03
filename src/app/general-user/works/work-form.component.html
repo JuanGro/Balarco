@@ -12,10 +12,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" id="recipient-name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" required>
+                <input type="text" id="name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" required>
             </div>
             <!-- Feedback name -->
-            <!-- <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
                 <div [hidden]="!name.errors.required">
                     El nombre es obligatorio.
                 </div>
@@ -25,7 +25,7 @@
                 <div [hidden]="!name.errors.maxlength">
                     El nombre debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -39,11 +39,11 @@
                 </select>
             </div>
             <!-- Feedback executive -->
-            <!-- <div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
+            <!--<div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
                 <div [hidden]="!executive.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div> -->
+            </div>-->
         </div>
     </div>
 
@@ -55,16 +55,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" required>
+                <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
             <!-- Feedback client -->
-            <!-- <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
                 <div [hidden]="!client.errors.required">
                     La compañía es obligatoria.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -73,16 +73,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" required>
+                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
             </div>
             <!-- Feedback contact -->
-            <!-- <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
+            <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
                 <div [hidden]="!contact.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -94,16 +94,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" required>
+                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" required>
                     <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
                 </select>
             </div>
             <!-- Feedback type -->
-            <!-- <div *ngIf="type.errors && type.touched" class="alert alert-danger">
+            <div *ngIf="type.errors && type.touched" class="alert alert-danger">
                 <div [hidden]="!type.errors.required">
                     El tipo es obligatorio.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6" *ngIf="currentWorkTypeId == 1">
@@ -112,16 +112,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" required>
+                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" #iguala="ngModel" required>
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                 </select>
             </div>
             <!-- Feedback iguala -->
-            <!-- <div *ngIf="iguala.errors && iguala.touched" class="alert alert-danger">
+            <div *ngIf="iguala.errors && iguala.touched" class="alert alert-danger">
                 <div [hidden]="!iguala.errors.required">
                     La iguala es obligatoria.
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -147,10 +147,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" #description="ngModel" required></textarea>
             </div>
             <!-- Feedback description -->
-            <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">
+            <div *ngIf="description.errors && description.touched" class="alert alert-danger">
                 <div [hidden]="!description.errors.required">
                     La descripción es obligatorio.
                 </div>
@@ -160,7 +160,7 @@
                 <div [hidden]="!description.errors.maxlength">
                     La descripción debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -172,12 +172,12 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" required>
+                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" #status="ngModel" required>
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                 </select>
             </div>
             <!-- Feedback status -->
-            <!-- <div *ngIf="status.errors && status.touched" class="alert alert-danger">
+            <div *ngIf="status.errors && status.touched" class="alert alert-danger">
                 <div [hidden]="!status.errors.required">
                     El estado es obligatorio.
                 </div>
@@ -187,7 +187,7 @@
                 <div [hidden]="!status.errors.maxlength">
                     El estado debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -196,9 +196,9 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-external-link"></i>
                 </span>
-                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link" required>
+                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link">
             </div>
-            <!-- Feedback final link -->
+            <!-- Feedback final link IF NEEDED -->
             <!-- <div *ngIf="final-link.errors && final-link.touched" class="alert alert-danger">
                 <div [hidden]="!final-link.errors.required">
                     El nombre es obligatorio.
