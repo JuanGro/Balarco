@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
@@ -69,7 +69,7 @@ describe('WorksComponent tests', function () {
             declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
                 ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule],
-            providers: [
+            providers: [WorksListComponent,
                 {
                     provide: HttpService, useFactory: function (backend, options) {
                         return new HttpService(backend, options);
@@ -103,6 +103,34 @@ describe('WorksComponent tests', function () {
             fixtureChildTable.detectChanges();
             expect(component.worksList).toEqual(testWorkList);
         });
+    });
+    describe('EventEmitter of modal requests for child works list table component', function () {
+        beforeEach(inject([WorksListComponent], function (result) {
+            modalAction = result;
+        }));
+        it('should request to open the new work modal', async(function () {
+            modalAction.requestShowNewWorkModal.subscribe(function (result) {
+                expect(result).toBe('Open new Work modal');
+            });
+            modalAction.requestNewWorkModal();
+        }));
+        it('should request to open the update work modal', async(function () {
+            modalAction.requestShowUpdateWorkModal.subscribe(function (result) {
+                expect(result).toBe('Open update Work modal');
+            });
+            modalAction.requestUpdateWorkModal();
+        }));
+    });
+    describe('EventEmitter of current work requests for child works list table component', function () {
+        beforeEach(inject([WorksListComponent], function (result) {
+            action = result;
+        }));
+        it('should request to send a work object', async(function () {
+            action.sendCurrentWork(testWork1);
+            action.currentWork.subscribe(function (result) {
+                expect(result).toEqual(testWork1);
+            });
+        }));
     });
 });
 //# sourceMappingURL=../../../../../src/app/general-user/works/works-list.spec.js.map

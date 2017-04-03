@@ -94,7 +94,7 @@ describe('WorksComponent tests', () => {
     });
 
     let testWorkList: Work[] = [testWork1, testWork2];
-    
+
     // Base state before each test runs.
     // Handles asynchronous compilation.
     beforeEach(async(() => {
@@ -103,7 +103,7 @@ describe('WorksComponent tests', () => {
             declarations: [ WorksComponent, WorksListComponent , WorkFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
-            providers: [
+            providers: [ WorksListComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
@@ -160,4 +160,52 @@ describe('WorksComponent tests', () => {
            expect(component.worksList).toEqual(testWorkList);
        });
    });
+
+   describe('EventEmitter of modal requests for child works list table component', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([ WorksListComponent ], result => {
+            modalAction = result;
+        }));
+
+        /**
+        * Tests that the open new work modal request is correctly received.
+        **/
+        it('should request to open the new work modal', async(() => {
+            modalAction.requestShowNewWorkModal.subscribe(result => {
+                expect(result).toBe('Open new Work modal');
+            });
+            modalAction.requestNewWorkModal();
+        }));
+
+        /**
+        * Tests that the open update modal request is correctly received.
+        **/
+        it('should request to open the update work modal', async(() => {
+            modalAction.requestShowUpdateWorkModal.subscribe(result => {
+                expect(result).toBe('Open update Work modal');
+            });
+            modalAction.requestUpdateWorkModal();
+        }));
+    });
+
+    describe('EventEmitter of current work requests for child works list table component', () => {
+        /**
+        * Get the current component to use it in observables.
+        **/
+        beforeEach(inject([ WorksListComponent ], result => {
+            action = result;
+        }));
+
+        /**
+        * Tests that the sendCurrentWork request is correctly received.
+        **/
+        it('should request to send a work object', async(() => {
+            action.sendCurrentWork(testWork1);
+            action.currentWork.subscribe(result => {
+                expect(result).toEqual(testWork1);
+            });
+        }));
+    });
 });
