@@ -232,6 +232,7 @@ describe('ContactsComponent tests.', () => {
         * Tests that the initialize modal method is working correctly, setting the contact to null.
         **/
         it('should initialize the modal', () => {
+            component.contact = testContact;
             component.initializeModal();
             expect(component.contact.id).toBeUndefined();
             expect(component.contact.name).toBeUndefined();
