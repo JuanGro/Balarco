@@ -43,7 +43,7 @@ describe('ClientFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
-    // Variable to test if the contact is correctly updated in emitters.
+    // Variable to test if the client is correctly updated in emitters.
     let updatedClient;
 
     // Create a Client object example.
@@ -106,7 +106,7 @@ describe('ClientFormComponent tests.', () => {
         * Tests that the current component is correctly built depending of OnChanges hook,
         * in this case, the client and oldClient is undefined.
         **/
-        it('should have a defined contact but with its atributes undefined', () => {
+        it('should have a defined client but with its atributes undefined', () => {
             component.ngOnChanges();
             fixtureChildForm.detectChanges();
 
@@ -121,9 +121,9 @@ describe('ClientFormComponent tests.', () => {
 
         /**
         * Tests that the current component is correctly built depending of OnChanges hook,
-        * in this case, the contact and oldContact is defined.
+        * in this case, the client and oldClient is defined.
         **/
-        it('should have a defined contact and its atributes correctly defined', () => {
+        it('should have a defined client and its atributes correctly defined', () => {
             component.client = testClient;
             component.ngOnChanges();
             fixtureChildForm.detectChanges();
@@ -178,7 +178,7 @@ describe('ClientFormComponent tests.', () => {
         }));
     });
 
-    describe('Cancel form method is correctly send depending if its current contact is not empty', () => {
+    describe('Cancel form method is correctly send depending if its current client is not empty', () => {
         /**
         * Get the current component to use it in observables.
         **/
@@ -187,14 +187,14 @@ describe('ClientFormComponent tests.', () => {
         }));
 
         /**
-        * Tests that the send of the contact updated is working correctly.
+        * Tests that the send of the client updated is working correctly.
         **/
-        it('should send the contact updated', async(() => {
+        it('should send the client updated', async(() => {
             component.client = testClient;
             component.ngOnChanges();
             fixtureChildForm.detectChanges();
             updatedClient.submitUpdatedClient();
-            updatedClient.contactUpdated.subscribe(result => {
+            updatedClient.clientUpdated.subscribe(result => {
                 expect(result).toBe(component.oldClient);
             });
         }));
