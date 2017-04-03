@@ -30,7 +30,6 @@ import { IgualaFormComponent } from './iguala-form.component';
 
 // Models
 import { Iguala } from './iguala-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
 import { Client } from './../clients/client-model';
 
 describe('IgualasListComponent  tests.', () => {

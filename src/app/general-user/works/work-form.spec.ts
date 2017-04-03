@@ -50,17 +50,8 @@ describe('WorkFormComponent tests', () => {
   // Save WorksListComponent  to test it's methods and variables.
   let componentTable: WorksListComponent ;
 
-  // Handles on the component's DOM element.
-  let de: DebugElement;
-  let el: HTMLElement;
-
   // Variable to test which action is executing in modal.
   let modalAction;
-  // Variable to test which action is executing the sending requests.
-  let action;
-
-  // Variable to test if the contact is correctly updated in emitters.
-  let updatedWork;
 
   // Create a test Work
   let testWork1 = new Work({
@@ -226,6 +217,15 @@ describe('WorkFormComponent tests', () => {
             component.statusList = testStatusList;
             fixtureParent.detectChanges();
             expect(component.statusList).toEqual(testStatusList);
+        });
+
+        /**
+        * Tests that the graduationTypes list received from parent is correct
+        **/
+        it('should load correctly the graduationArtTypes list Input', () => {
+            component.graduationArtTypes = testGraduationArtTypes;
+            fixtureParent.detectChanges();
+            expect(component.graduationArtTypes).toEqual(testGraduationArtTypes);
         });
     });
 

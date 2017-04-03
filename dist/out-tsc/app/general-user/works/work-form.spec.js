@@ -29,11 +29,7 @@ describe('WorkFormComponent tests', function () {
     var componentParent;
     var component;
     var componentTable;
-    var de;
-    var el;
     var modalAction;
-    var action;
-    var updatedWork;
     var testWork1 = new Work({
         id: 1, name: 'Test Work', creation_date: new Date(), expected_delivery_date: new Date(),
         brief: 'Foo', final_link: 'Bar.com', contact: 1, work_type: 1, iguala: 1, current_status: 1,
@@ -147,6 +143,11 @@ describe('WorkFormComponent tests', function () {
             component.statusList = testStatusList;
             fixtureParent.detectChanges();
             expect(component.statusList).toEqual(testStatusList);
+        });
+        it('should load correctly the graduationArtTypes list Input', function () {
+            component.graduationArtTypes = testGraduationArtTypes;
+            fixtureParent.detectChanges();
+            expect(component.graduationArtTypes).toEqual(testGraduationArtTypes);
         });
     });
     describe('EventEmitter of modal requests for child works form component', function () {

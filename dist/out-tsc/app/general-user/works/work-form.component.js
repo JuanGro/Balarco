@@ -120,7 +120,7 @@ var WorkFormComponent = (function () {
         this.filterContactsByClientId(id);
     };
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
-        this.currentContacts = this.contactsList.filter(function (x) { return x.client == id; });
+        this.currentContacts = this.contactsList.filter(function (x) { return x.client === id; });
         this.contact_id = this.currentContacts[0].id;
     };
     WorkFormComponent.prototype.onIgualaChange = function (id) {
@@ -128,7 +128,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterArtWorksByIgualaId = function (id) {
         this.currentArtWorkList = [];
-        for (var _i = 0, _a = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.igualasList.filter(function (x) { return x.id === id; })[0].art_iguala; _i < _a.length; _i++) {
             var artWork = _a[_i];
             this.currentArtWorkList.push(new ArtWork(artWork));
         }
@@ -136,11 +136,11 @@ var WorkFormComponent = (function () {
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = this.getWorkTypeIdById(id);
         this.work.work_type_id_enum = this.currentWorkTypeId;
-        if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
+        if (this.currentWorkTypeId === 1 && this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
             this.work.iguala = this.igualasList[0].id;
         }
-        else if (this.currentWorkTypeId == 2) {
+        else if (this.currentWorkTypeId === 2) {
             this.currentArtWorkList = [];
             for (var _i = 0, _a = this.graduationArtTypes; _i < _a.length; _i++) {
                 var artWork = _a[_i];
@@ -149,10 +149,10 @@ var WorkFormComponent = (function () {
         }
     };
     WorkFormComponent.prototype.getWorkTypeIdById = function (id) {
-        return this.workTypesList.filter(function (x) { return x.id == id; })[0].work_type_id;
+        return this.workTypesList.filter(function (x) { return x.id === id; })[0].work_type_id;
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
-        return this.statusList.filter(function (status) { return status.status_id == 0 || status.status_id == 1; });
+        return this.statusList.filter(function (status) { return status.status_id === 0 || status.status_id === 1; });
     };
     WorkFormComponent.prototype.loadPossibleStatusForExistingProject = function () {
         var _this = this;

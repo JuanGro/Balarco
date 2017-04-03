@@ -30,7 +30,6 @@ import { SelectModule } from 'ng2-select';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
-import { Contact } from '../../accounts/contacts/contact-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
@@ -218,6 +217,6 @@ describe('WorksComponent tests', () => {
             fixtureParent.detectChanges();
             expect(component.worksList.length).toEqual(3);
             expect(component.worksList[2]).toEqual(testWork);
-        });        
+        });
     });
 });

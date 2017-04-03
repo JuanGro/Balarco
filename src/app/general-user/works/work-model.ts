@@ -105,7 +105,7 @@ export class Work {
     if (this.id) {
       newWorkJSON['id'] = this.id;
     }
-    if (this.iguala && this.work_type_id_enum == 1) {
+    if (this.iguala && this.work_type_id_enum === 1) {
       newWorkJSON['iguala'] = +this.iguala;
     }
     if (this.brief) {
@@ -115,7 +115,7 @@ export class Work {
       newWorkJSON['final_link'] = this.final_link;
     }
     let artWorksArray = [];
-    if (this.art_works && (this.work_type_id_enum == 1 || this.work_type_id_enum == 2)) {
+    if (this.art_works && (this.work_type_id_enum === 1 || this.work_type_id_enum === 2)) {
       for (let artWork of this.art_works) {
         artWorksArray.push({ art_type: artWork.id, quantity: artWork.quantity });
       }
