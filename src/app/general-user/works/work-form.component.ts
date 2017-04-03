@@ -254,6 +254,14 @@ export class WorkFormComponent implements OnChanges {
     }
   }
 
+  /**
+  * Method to get the work_type_id od a work type by its DB object id
+  * This is needed because we are using an enum on Django.
+  * Params:
+  *   - id: DB id object of a WorkType
+  * Returns:
+  *   - The work_type_id.
+  **/
   private getWorkTypeIdById(id: number): number {
     return this.workTypesList.filter(x => x.id == id)[0].work_type_id;
   }
