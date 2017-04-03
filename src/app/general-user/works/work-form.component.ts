@@ -210,7 +210,7 @@ export class WorkFormComponent implements OnChanges {
   *   - id: Id of the client from which the contacts will be filtered.
   **/
   private filterContactsByClientId(id: number) {
-    this.currentContacts = this.contactsList.filter(x => x.client === id);
+    this.currentContacts = this.contactsList.filter(x => x.client == id);
     this.contact_id = this.currentContacts[0].id;
   }
 
@@ -230,7 +230,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterArtWorksByIgualaId(id: number) {
     this.currentArtWorkList = [];
-    for (let artWork of this.igualasList.filter(x => x.id === id)[0].art_iguala) {
+    for (let artWork of this.igualasList.filter(x => x.id == id)[0].art_iguala) {
       this.currentArtWorkList.push(new ArtWork(artWork));
     }
   }
@@ -243,10 +243,10 @@ export class WorkFormComponent implements OnChanges {
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = this.getWorkTypeIdById(id);
     this.work.work_type_id_enum = this.currentWorkTypeId;
-    if (this.currentWorkTypeId === 1 && this.igualasList && this.igualasList.length > 0) {
+    if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
       this.work.iguala = this.igualasList[0].id;
-    } else if (this.currentWorkTypeId === 2) {
+    } else if (this.currentWorkTypeId == 2) {
       this.currentArtWorkList = [];
       for (let artWork of this.graduationArtTypes) {
         this.currentArtWorkList.push(new ArtWork(artWork));
@@ -255,7 +255,7 @@ export class WorkFormComponent implements OnChanges {
   }
 
   private getWorkTypeIdById(id: number): number {
-    return this.workTypesList.filter(x => x.id === id)[0].work_type_id;
+    return this.workTypesList.filter(x => x.id == id)[0].work_type_id;
   }
 
   /**
@@ -264,7 +264,7 @@ export class WorkFormComponent implements OnChanges {
   *   - Array of Status.
   **/
   private getPossibleStatusForNewProject(): Status[] {
-    return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
+    return this.statusList.filter(status => status.status_id == 0 || status.status_id == 1);
   }
 
   /**
