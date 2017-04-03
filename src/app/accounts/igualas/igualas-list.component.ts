@@ -48,4 +48,11 @@ export class IgualasListComponent {
     this.currentIguala.emit(object);
   }
 
+  /**
+  * Search specific items in the iguala list,
+  * making all the strings to lower case and checks substrings.
+  **/
+  public filterItem(value: string) {
+    this.valueSearch.emit(value);
+  }
 }
