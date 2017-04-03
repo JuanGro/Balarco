@@ -68,10 +68,12 @@ export class UsersComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(userListJSON => {
                       // Creates user objetc list from JSON.
+                      console.log(userListJSON);
                       this.userList = [];
                       for (let userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
                       }
+                      console.log(this.userList);
                     },
                       err => {
                         // Call of toast

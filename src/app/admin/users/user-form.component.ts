@@ -28,7 +28,7 @@ export class UserFormComponent implements OnChanges {
   // Receives the user selected by the user or the empty object to know if is called the update or create user form.
   @Input('user') user: User;
   // Receives the group list from parent component.
-  @Input('groupList') groupList: Group[]; 
+  @Input('groupList') groupList: Group[];
   // List containing the users's current groups
   public currentGroupList: Group[]
   // Requests close of the current modal to parent component.
@@ -49,7 +49,8 @@ export class UserFormComponent implements OnChanges {
   public oldUser: User;
   // Variable to active the form.
   public active: boolean = true;
-  
+  // Variable to show the role of the contact selected.
+  public array: string = '';
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -59,23 +60,25 @@ export class UserFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    this.currentGroupList = [];
     if (!this.user) {
       this.user = new User();
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
-      this.currentGroupList = [];
-      let userGroups = this.user.groups;
-/*
-      for (let userGroup of userGroups){
-        for (let group of this.groupList){
-          if (group.id === userGroup.id){
-            this.currentGroupList.push(group);
+      this.currentGroupList = this.user.groups_complete;
+      if (this.currentGroupList) {
+        for (let group of this.currentGroupList) {
+          if (group) {
+            group = new Group(group);
+            if (this.array === '') {
+              this.array = group.name;
+            } else {
+              this.array += ', ' + group.name;
+            }
           }
         }
       }
-      */
-      this.currentGroupList = userGroups;
     }
   }
 

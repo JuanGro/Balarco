@@ -5,14 +5,14 @@
             <h1>{{ title }}</h1>
         </blockquote>
     </div>
- </div>
+</div>
 
 <!-- Child component, it contains the table -->
 <!-- [userList] sends the user list to the table -->
 <!-- (requestShowNewUserModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateUserModal) receives the request to show the update modal -->
 <!-- (currentUser) receives the user that was selected -->
-<user-list [userList]="userList" (requestShowNewUserModal)="newUserModal.show()" (requestShowNewUserModal)="initializeModal()" (requestShowUpdateUserModal)="updateUserModal.show()" (currentUser)="getUserFromTable($event)" ></user-list>
+<user-list [userList]="userList" (requestShowNewUserModal)="newUserModal.show()" (requestShowNewUserModal)="initializeModal()" (requestShowUpdateUserModal)="updateUserModal.show()" (currentUser)="getUserFromTable($event)"></user-list>
 
 
 <!-- Modal New User -->
@@ -27,7 +27,7 @@
             <!-- [user] sends the user empty to the form to avoid problems if the last user is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <user-form [user]="user" [groupList]="groupList" (requestCloseModal)="newUserModal.hide()" (userCreated)="onUserCreated($event)"></user-form>
+            <user-form [groupList]="groupList" (requestCloseModal)="newUserModal.hide()" (userCreated)="onUserCreated($event)"></user-form>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
             <!-- [user] sends the user object to the form to display the current values -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <user-form [user]="user" [groupList]="groupList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateUserModal.hide()" (userUpdated)="onUserUpdated($event)" ></user-form>
+            <user-form [user]="user" [groupList]="groupList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateUserModal.hide()" (userUpdated)="onUserUpdated($event)"></user-form>
         </div>
     </div>
 </div>
