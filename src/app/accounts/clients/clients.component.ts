@@ -81,8 +81,8 @@ export class ClientsComponent implements OnInit {
                       this.clientsList.sort().reverse();
                       this.completeClientList = this.clientsList;
                     },
-                    err => {
-                            // Call of toast
+                    error => {
+                            this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de clientes');
                            }
                     );
   }
