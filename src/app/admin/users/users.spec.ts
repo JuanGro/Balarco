@@ -47,7 +47,7 @@ describe('ContactsComponent tests.', () => {
     let el: HTMLElement;
 
     // Create a Contact object example.
-    let testGroup: Group = {id: 1}
+    let testGroup: Group = { id: 1 };
     let testUser: User = { id: 2, username: 'example@balarco.com', first_name: 'Juan',
                             last_name: 'Hernández', groups: [testGroup]};
     // Base state before each test runs.

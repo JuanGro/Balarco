@@ -68,12 +68,10 @@ export class UsersComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(userListJSON => {
                       // Creates user objetc list from JSON.
-                      console.log(userListJSON);
                       this.userList = [];
                       for (let userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
                       }
-                      console.log(this.userList);
                     },
                       err => {
                         // Call of toast
@@ -116,7 +114,7 @@ export class UsersComponent implements OnInit {
   * Returns:
   *   - result: Response from backend service to know if the operation was successful or not.
   **/
-  
+
   public removeUser(object: User) {
     this.httpService.deleteObject(environment.USERS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
@@ -137,7 +135,6 @@ export class UsersComponent implements OnInit {
   * Params:
   *   - object: A User object.
   **/
-  
   public getUserFromTable(object: User): void {
     this.user = object;
   }
@@ -148,7 +145,6 @@ export class UsersComponent implements OnInit {
   * Params:
   *   - event: New user received from the event.
   **/
-  
   public onUserCreated(event: User) {
     this.userList.push(event);
   }
@@ -159,7 +155,6 @@ export class UsersComponent implements OnInit {
   * Params:
   *   - event: Updated user received from the event.
   **/
-  
   public onUserUpdated(event: User) {
     let lastUser = this.userList.filter(user => user.id === event.id)[0];
     let index = this.userList.indexOf(lastUser);

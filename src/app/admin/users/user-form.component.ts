@@ -30,7 +30,7 @@ export class UserFormComponent implements OnChanges {
   // Receives the group list from parent component.
   @Input('groupList') groupList: Group[];
   // List containing the users's current groups
-  public currentGroupList: Group[]
+  public currentGroupList: Group[] = [];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the user is permanent removed.
@@ -126,7 +126,6 @@ export class UserFormComponent implements OnChanges {
         }
     },
     error => {
-      console.log(error)
       this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el usuario');
     });
   }

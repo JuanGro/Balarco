@@ -15,7 +15,7 @@ import { CompletedDesignsListComponent } from './completed-designs/completed-des
 import { CompletedDesignsListModalComponent } from './completed-designs/completed-designs-list.modal';
 import { UsersComponent } from './users/users.component';
 import { UserListComponent } from './users/user-list.component';
-import { UserFormComponent } from './users/user-form.component'
+import { UserFormComponent } from './users/user-form.component';
 
 // Services
 import { HttpService } from '../shared/http-service/http.service';
@@ -32,7 +32,7 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ModalModule.forRoot(),
     ToasterModule
   ],
-  declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, UsersComponent,
+  declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, CompletedDesignsListService, UsersComponent,
   UserListComponent, UserFormComponent],
   providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
 })

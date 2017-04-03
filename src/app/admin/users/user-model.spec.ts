@@ -13,7 +13,7 @@ describe('User object model tests.', () => {
         let first_name = 'John';
         let last_name = 'Smith';
         let password = 'hashed_password';
-        let testGroup: Group = {id: 1}
+        let testGroup: Group = { id: 1 };
         let groups = [testGroup];
 
         contact = {
