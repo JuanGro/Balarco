@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
 import { ArtWork } from './../../general-user/works/art-works/art-work-model';
+import { URLSearchParams } from '@angular/http';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -111,7 +112,10 @@ export class IgualasComponent implements OnInit {
   * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
   **/
   public loadArtTypeList(url: string) {
-    this.httpService.getObject(url)
+    let iguala_work_type_id = '1';
+    let params = new URLSearchParams();
+    params.set('work_work_type_id', iguala_work_type_id);
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(artTypesJSON => {
                       // Creates ArtWorks objects from JSON.
