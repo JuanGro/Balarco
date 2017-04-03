@@ -98,7 +98,7 @@ export class ContactFormComponent implements OnChanges {
         }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el conacto');
+      this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el contacto');
     });
   }
 
@@ -116,7 +116,7 @@ export class ContactFormComponent implements OnChanges {
         }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el conacto');
+      this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el contacto');
     });
     this.contact = new Contact();
   }

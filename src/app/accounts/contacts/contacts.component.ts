@@ -83,8 +83,8 @@ export class ContactsComponent implements OnInit {
                       this.contactsList.sort().reverse();
                       this.completeContactsList = this.contactsList;
                     },
-                      err => {
-                        // Call of toast
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de contactos');
                       }
                     );
   }
@@ -105,8 +105,8 @@ export class ContactsComponent implements OnInit {
                       }
                       this.clientsList.sort().reverse();
                     },
-                      err => {
-                        // Call of toast
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de clientes');
                       }
                     );
   }
