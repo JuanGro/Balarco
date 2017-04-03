@@ -96,6 +96,7 @@ export class IgualaFormComponent implements OnChanges {
     error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al guardar la iguala');
     });
+    this.iguala = new Iguala();
   }
 
   /**
