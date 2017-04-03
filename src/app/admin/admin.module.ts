@@ -32,8 +32,8 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ModalModule.forRoot(),
     ToasterModule
   ],
-  declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, CompletedDesignsListService, UsersComponent,
+  declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, UsersComponent,
   UserListComponent, UserFormComponent],
-  providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
+  providers: [ CanActivateAuthGuard, HttpService, CustomToastService, CompletedDesignsListService ]
 })
 export class AdminModule { }
