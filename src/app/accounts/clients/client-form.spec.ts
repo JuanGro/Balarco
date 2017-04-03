@@ -193,7 +193,7 @@ describe('ClientFormComponent tests.', () => {
             component.client = testClient;
             component.ngOnChanges();
             fixtureChildForm.detectChanges();
-            updatedClient.submitUpdatedContact();
+            updatedClient.submitUpdatedClient();
             updatedClient.contactUpdated.subscribe(result => {
                 expect(result).toBe(component.oldClient);
             });
