@@ -61,25 +61,36 @@ export class UserFormComponent implements OnChanges {
   **/
   public ngOnChanges() {
     this.currentGroupList = [];
+    this.array = '';
     if (!this.user) {
       this.user = new User();
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
-      this.currentGroupList = this.user.groups_complete;
-      if (this.currentGroupList) {
-        for (let group of this.currentGroupList) {
-          if (group) {
-            group = new Group(group);
-            if (this.array === '') {
-              this.array = group.name;
-            } else {
-              this.array += ', ' + group.name;
-            }
+      this.showRoles(this.array);
+    }
+  }
+
+  /**
+  * Builds an string containing all the roles for the current contact.
+  *   Params:
+  *   - roles: String where it's saved the roles for the current contact.
+  **/
+  public showRoles(roles) {
+    if (this.user.groups_complete && roles === '') {
+      for (let group of this.user.groups_complete) {
+        if (group) {
+          group = new Group(group);
+          if (roles === '') {
+            roles = group.name;
+          } else {
+            roles += ', ' + group.name;
           }
         }
       }
+      roles += '.';
     }
+    this.array = roles;
   }
 
   /**
