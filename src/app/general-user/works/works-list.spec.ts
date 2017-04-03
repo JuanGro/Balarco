@@ -57,6 +57,44 @@ describe('WorksComponent tests', () => {
     // Variable to test which action is executing the sending requests.
     let action;
 
+    // Create a test Work
+    let testWork1 = new Work({
+      id: 1, name: 'Test Work', creation_date: new Date(), expected_delivery_date: new Date(),
+      brief: 'Foo', final_link: 'Bar.com',
+      contact_complete: {
+        id: 1, name: 'TestGuy', last_name: 'TestLast', client: 2,
+        charge: 'TestCEO', landline: '111111111111', extension: '12',
+        mobile_phone_1: '4271000000', email: 'test@tes.com', client_complete: new Client(),
+      },
+      work_type_complete: new WorkType({ id: 1, name: 'TestType' }),
+      iguala_complete: new Iguala ({ id: 1, name: 'Iguala', client: 2, start_date: new Date(), end_date: new Date()}),
+      current_status_complete: new Status ({ id: 3, name: 'Testing' }),
+      art_works: [
+        new ArtWork({id: 1, name: 'New art', quantity: 12}),
+        new ArtWork({id: 2, name: 'Test art', quantity: 5}),
+      ]
+    });
+
+    // Create a test Work
+    let testWork2 = new Work({
+      id: 2, name: 'Test Work 2', creation_date: new Date(), expected_delivery_date: new Date(),
+      brief: 'Bar', final_link: 'Foo.com',
+      contact_complete: {
+        id: 1, name: 'TestGuy', last_name: 'TestLast', client: 2,
+        charge: 'TestCEO', landline: '111111111111', extension: '12',
+        mobile_phone_1: '4271000000', email: 'test@tes.com', client_complete: new Client(),
+      },
+      work_type_complete: new WorkType({ id: 1, name: 'TestType' }),
+      iguala_complete: new Iguala ({ id: 1, name: 'Iguala', client: 2, start_date: new Date(), end_date: new Date()}),
+      current_status_complete: new Status ({ id: 3, name: 'Testing' }),
+      art_works: [
+        new ArtWork({id: 1, name: 'New art', quantity: 12}),
+        new ArtWork({id: 2, name: 'Test art', quantity: 5}),
+      ]
+    });
+
+    let testWorkList: Work[] = [testWork1, testWork2];
+    
     // Base state before each test runs.
     // Handles asynchronous compilation.
     beforeEach(async(() => {
@@ -110,5 +148,16 @@ describe('WorksComponent tests', () => {
             componentParent.ngOnInit();
             expect(componentParent).toBeDefined();
         });
-    });    
+    });
+
+    describe('Initialization of variable for child work list table component', () => {
+       /**
+       * Tests that the Work list received is correct.
+       **/
+       it('should load correctly work list in worksList Input', () => {
+           component.worksList = testWorkList;
+           fixtureChildTable.detectChanges();
+           expect(component.worksList).toEqual(testWorkList);
+       });
+   });
 });
