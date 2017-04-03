@@ -201,8 +201,6 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-
-
   /**
   * Receives event when a contact is updated in the form.
   * It updates the contact selected and reload the search.
