@@ -144,6 +144,7 @@ export class ContactsComponent implements OnInit {
   public getValueSearch(value: string) {
     this.valueSearch = value;
     this.contactsList = [];
+    this.completeContactsList.sort();
     if (this.valueSearch === '') {
       this.contactsList = this.completeContactsList;
     } else {
@@ -162,7 +163,7 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Requests to the Backend service to remove the contact selected by the user.
+  * Requests to the Backend service to remove the contact selected by the user and reload the search.
   * Params:
   *   - object: A Contact object.
   * Returns:
@@ -171,14 +172,12 @@ export class ContactsComponent implements OnInit {
   public removeContact(event: Contact) {
     this.httpService.deleteObject(environment.CONTACTS_URL + event.id + '/').subscribe(result => {
       if (result.ok) {
-        let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
-        let oldContactComplete = this.completeContactsList.filter(contact => contact.id === event.id)[0];
-        let index = this.contactsList.indexOf(oldContact);
-        let index2 = this.completeContactsList.indexOf(oldContactComplete);
-        if (index >= 0 && index2 >= 0) {
-          this.contactsList.splice(index, 1);
+        let oldContact = this.completeContactsList.filter(contact => contact.id === event.id)[0];
+        let index = this.completeContactsList.indexOf(oldContact);
+        if (index >= 0) {
+          this.completeContactsList.splice(index, 1);
           if (this.valueSearch) {
-            this.completeContactsList.splice(index2, 1);
+          this.getValueSearch(this.valueSearch);
           }
           this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
         }
@@ -191,55 +190,33 @@ export class ContactsComponent implements OnInit {
 
   /**
   * Receives event when a new contact is created in the form.
-  * It pushes the new contact to the complete list and to the contact list if
-  * it's necessary.
+  * It pushes the new contact to the complete list and reload the search.
   * Params:
   *   - event: New contact received from the event.
   **/
   public onContactCreated(event: Contact) {
-    if (this.valueSearch || this.valueSearch === '') {
-      if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-          event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-          event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-          event.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-          event.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-          event.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-          this.contactsList.push(event);
-      }
-    }
     this.completeContactsList.push(event);
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
+    }
   }
 
 
 
   /**
   * Receives event when a contact is updated in the form.
-  * It updates the contact selected.
+  * It updates the contact selected and reload the search.
   * Params:
   *   - event: Contact updated received from the event.
   **/
   public onContactUpdated(event: Contact) {
-    let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
-    let oldContactComplete = this.completeContactsList.filter(contact => contact.id === event.id)[0];
-    let index = this.contactsList.indexOf(oldContact);
-    let index2 = this.completeContactsList.indexOf(oldContactComplete);
-    if (index >= 0 && index2 >= 0) {
+    let oldContact = this.completeContactsList.filter(contact => contact.id === event.id)[0];
+    let index = this.completeContactsList.indexOf(oldContact);
+    if (index >= 0) {
+      this.completeContactsList[index] = event;
       if (this.valueSearch) {
-        // If the filter is using, decide if show the current object updated or not.
-        if (event.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            event.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            event.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            event.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            event.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            event.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-            this.contactsList[index] = event;
-        } else {
-          this.contactsList.splice(index, 1);
-        }
-      } else {
-        this.contactsList[index] = event;
+        this.getValueSearch(this.valueSearch);
       }
     }
-    this.completeContactsList[index2] = event;
   }
 }
