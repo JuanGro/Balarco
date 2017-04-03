@@ -71,7 +71,7 @@ export class WorkFormComponent implements OnChanges {
   // Variable to set the contact when client dropdown changes.
   private contact_id: number;
   // Variable to store Work before starting to update.
-  private oldWork: Work;
+  public oldWork: Work;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 

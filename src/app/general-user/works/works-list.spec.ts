@@ -33,7 +33,7 @@ import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 
-describe('WorksComponent tests', () => {
+describe('WorkListComponent tests', () => {
   // Fixture for debugging and testing a WorksComponent.
     let fixtureParent: ComponentFixture<WorksComponent>;
     // Fixture for debugging and testing a WorkFormComponent.

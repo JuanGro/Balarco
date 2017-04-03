@@ -20,7 +20,7 @@ import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
-describe('WorksComponent tests', function () {
+describe('WorkListComponent tests', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
