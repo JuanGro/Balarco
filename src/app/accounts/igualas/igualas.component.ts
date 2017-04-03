@@ -217,7 +217,7 @@ export class IgualasComponent implements OnInit {
     this.httpService.deleteObject(environment.IGUALAS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
         let oldIguala = this.completeIgualaList.filter(iguala => iguala.id === object.id)[0];
-        let index = this.igualasList.indexOf(object);
+        let index = this.igualasList.indexOf(oldIguala);
         if (index >= 0) {
           this.igualasList.splice(index, 1);
           if (this.valueSearch) {
