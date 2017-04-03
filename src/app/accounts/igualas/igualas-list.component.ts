@@ -16,6 +16,8 @@ export class IgualasListComponent {
   @Output() requestShowUpdateIgualaModal: EventEmitter<string> = new EventEmitter();
   // Sends the iguala object to the parent when it is selected.
   @Output() currentIguala: EventEmitter<Iguala> = new EventEmitter();
+  // Sends the value of the search to parent component to add to the igualas list the item created only if it's necessary.
+  @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
