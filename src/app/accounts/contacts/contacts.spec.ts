@@ -255,14 +255,6 @@ describe('ContactsComponent tests.', () => {
             component.getContactFromTable(testContact);
             expect(component.contact).toEqual(testContact);
         });
-
-        /**
-        * Tests that the getContactsListFromTable method returns the correct Contact list.
-        **/
-        it('should return a not empty Contact object', () => {
-            component.getContactsListFromTable(testListContacts);
-            expect(component.contactsList).toEqual(testListContacts);
-        });
     });
 
     describe('Use of methods for TWDB', () => {
