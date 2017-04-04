@@ -211,10 +211,12 @@ export class WorkFormComponent implements OnChanges {
   *   - id: Id of the client from which the contacts will be filtered.
   **/
   private filterContactsByClientId(id: number) {
-    this.currentContacts = this.contactsList.filter(x => x.client === +id);
-    if (this.currentContacts.length > 0) {
-      this.contact_id = this.currentContacts[0].id;
-    }
+    if (this.contactsList) {
+      this.currentContacts = this.contactsList.filter(x => x.client === +id);
+      if (this.currentContacts.length > 0) {
+        this.contact_id = this.currentContacts[0].id;
+      }
+    }    
   }
 
   /**

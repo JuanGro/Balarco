@@ -198,5 +198,16 @@ describe('WorkFormComponent tests', function () {
             });
         }));
     });
+    describe('Cancel form method is correctly send depending if its current work is not empty', function () {
+        it('should send the work updated', async(function () {
+            component.work = testWork1;
+            component.ngOnChanges();
+            component.cancelForm();
+            expect(component.work).toBeDefined();
+            expect(component.work.name).toBeDefined();
+            expect(component.work.id).toBeDefined();
+            expect(component.work.contact).toBeDefined();
+        }));
+    });
 });
 //# sourceMappingURL=../../../../../src/app/general-user/works/work-form.spec.js.map

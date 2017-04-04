@@ -120,9 +120,11 @@ var WorkFormComponent = (function () {
         this.filterContactsByClientId(id);
     };
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
-        this.currentContacts = this.contactsList.filter(function (x) { return x.client === +id; });
-        if (this.currentContacts.length > 0) {
-            this.contact_id = this.currentContacts[0].id;
+        if (this.contactsList) {
+            this.currentContacts = this.contactsList.filter(function (x) { return x.client === +id; });
+            if (this.currentContacts.length > 0) {
+                this.contact_id = this.currentContacts[0].id;
+            }
         }
     };
     WorkFormComponent.prototype.onIgualaChange = function (id) {
