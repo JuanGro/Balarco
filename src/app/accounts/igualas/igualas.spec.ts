@@ -280,14 +280,6 @@ describe('Igualas Component tests.', () => {
           expect(component.iguala).toEqual(testIguala);
           expect(component.currentArtWorkList).toEqual(component.iguala.art_iguala);
       });
-
-      /**
-      * Tests that the getContactFromTable method doesn't returns a Contact object empty.
-      **/
-      it('should return a not empty Contact object', () => {
-          component.getIgualaListFromTable(testIgualaList);
-          expect(component.igualasList).toEqual(testIgualaList);
-      });
    });
 
    describe('Use of methods for TWDB', () => {
