@@ -49,9 +49,6 @@ describe('IgualaFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
-    // Variable to test if the iguala is correctly updated in emitters.
-    let updatedIguala;
-
     let testArtWork: ArtWork = {
         id: 1, name: 'Test Diseño 1', quantity: 100
     };
@@ -79,8 +76,6 @@ describe('IgualaFormComponent tests.', () => {
       end_date: new Date(2012, 10, 10),
       art_iguala: testListArtWorks
     };
-
-    testIguala = new Iguala(testIguala);
 
     let testClient: Client = {
         id: 1, name: 'Starbucks', address: 'Example'
@@ -245,13 +240,6 @@ describe('IgualaFormComponent tests.', () => {
     });
 
      describe('Cancel form method is correctly send depending if its current iguala is not empty', () => {
-        /**
-        * Get the current component to use it in observables.
-        **/
-        beforeEach(inject([IgualaFormComponent], result => {
-            updatedIguala = result;
-        }));
-
         /**
         * Tests that the send of the iguala updated is working correctly.
         **/
