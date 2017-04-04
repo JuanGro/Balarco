@@ -216,7 +216,7 @@ export class WorkFormComponent implements OnChanges {
       if (this.currentContacts.length > 0) {
         this.contact_id = this.currentContacts[0].id;
       }
-    }    
+    }
   }
 
   /**
