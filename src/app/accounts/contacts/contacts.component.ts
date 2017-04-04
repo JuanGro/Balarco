@@ -31,7 +31,7 @@ export class ContactsComponent implements OnInit {
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
-  // Original copy of the contacts list received from httpService.
+  // Original copy of the contacts list it's used always like a base for search.
   public completeContactsList: Contact[];
   // List of contacts received from httpService.
   public contactsList: Contact[];
@@ -149,13 +149,13 @@ export class ContactsComponent implements OnInit {
       this.contactsList = this.completeContactsList;
     } else {
       for (let contactFromList of this.completeContactsList) {
-        let contact = new Contact(contactFromList);
-        if (contact.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contact.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contact.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contact.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contact.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contact.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+        if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let contact = new Contact(contactFromList);
             this.contactsList.push(contact);
         }
       }
