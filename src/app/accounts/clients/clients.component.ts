@@ -104,15 +104,6 @@ export class ClientsComponent implements OnInit {
   }
 
   /**
-  * Saves the updated client list if the user is using a filter.
-  * Params:
-  *   - list: A Clients list.
-  **/
-  public getClientListFromTable(list: Client[]) {
-    this.clientsList = list;
-  }
-
-  /**
   * Shows the client list that the user is requesting in the filter.
   * Params:
   *   - value: String from search form.

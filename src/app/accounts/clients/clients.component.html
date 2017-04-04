@@ -14,8 +14,7 @@
 <!-- (currentClient) receives the client who was selected by the user -->
 <!-- (clientListFiltered) receives the client list updated for the filter in the client list component -->
 <!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
-<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)" (clientListFiltered)="getClientListFromTable($event)"
-    (valueSearch)="getValueSearch($event)"></clients-list>
+<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)" (valueSearch)="getValueSearch($event)"></clients-list>
 
 <!-- Modal New Client -->
 <div bsModal #newClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewClientModal" aria-hidden="true">
