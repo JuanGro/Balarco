@@ -94,7 +94,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los trabajos");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
                     });
   }
 
@@ -114,7 +114,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los clientes");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los clientes');
                     });
   }
 
@@ -134,7 +134,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los contactos");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los contactos');
                     });
   }
 
@@ -154,7 +154,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                       error => {
-                        this.toaster.show(error, "Error", "Ocurrió un error al cargar las igualas");
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al cargar las igualas');
                       });
 
   }
@@ -175,7 +175,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los tipos de trabajo");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los tipos de trabajo');
                     });
   }
 
@@ -197,7 +197,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar las graduaciones");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar las graduaciones');
                     });
 
   }
@@ -217,7 +217,7 @@ export class WorksComponent implements OnInit {
                       }
                     },
                     error => {
-                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los estados");
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los estados');
                     });
   }
 
