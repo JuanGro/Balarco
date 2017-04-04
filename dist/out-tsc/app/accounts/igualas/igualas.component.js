@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
 import { ArtWork } from './../../general-user/works/art-works/art-work-model';
+import { URLSearchParams } from '@angular/http';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
@@ -57,7 +58,10 @@ var IgualasComponent = (function () {
     };
     IgualasComponent.prototype.loadArtTypeList = function (url) {
         var _this = this;
-        this.httpService.getObject(url)
+        var iguala_work_type_id = '1';
+        var params = new URLSearchParams();
+        params.set('work_work_type_id', iguala_work_type_id);
+        this.httpService.getObject(url, params)
             .map(function (data) { return data.json(); })
             .subscribe(function (artTypesJSON) {
             _this.artWorkList = [];

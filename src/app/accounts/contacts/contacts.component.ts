@@ -24,9 +24,13 @@ import { environment } from '../../../environments/environment';
 **/
 export class ContactsComponent implements OnInit {
   // Received from table component, it gives me the contact that the user selected to see his detail.
-  @Input() currentContact: Contact;
+  @Input('currentContact') currentContact: Contact;
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
+  // Original copy of the contacts list it's used always like a base for search.
+  public completeContactsList: Contact[];
   // List of contacts received from httpService.
   public contactsList: Contact[];
   // List of clients received from httpService.
@@ -74,9 +78,11 @@ export class ContactsComponent implements OnInit {
                       for (let contactJSON of contactsListJSON) {
                         this.contactsList.push(new Contact(contactJSON));
                       }
+                      this.contactsList.sort().reverse();
+                      this.completeContactsList = this.contactsList;
                     },
-                      err => {
-                        // Call of toast
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de contactos');
                       }
                     );
   }
@@ -95,9 +101,10 @@ export class ContactsComponent implements OnInit {
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
                       }
+                      this.clientsList.sort().reverse();
                     },
-                      err => {
-                        // Call of toast
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de clientes');
                       }
                     );
   }
@@ -110,18 +117,56 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Requests to the Backend service to remove the contact selected by the user.
+  * Saves which contact was selected by the user.
+  * Params:
+  *   - object: A Contact object.
+  **/
+  public getContactFromTable(object: Contact) {
+    this.contact = object;
+  }
+
+  /**
+  * Shows the contact list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.contactsList = [];
+    this.completeContactsList.sort();
+    if (this.valueSearch === '') {
+      this.contactsList = this.completeContactsList;
+    } else {
+      for (let contactFromList of this.completeContactsList) {
+        if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let contact = new Contact(contactFromList);
+            this.contactsList.push(contact);
+        }
+      }
+    }
+  }
+
+  /**
+  * Requests to the Backend service to remove the contact selected by the user and reload the search.
   * Params:
   *   - object: A Contact object.
   * Returns:
   *   - result: Response from backend service to know if the operation was success or not.
   **/
-  public removeContact(object: Contact) {
-    this.httpService.deleteObject(environment.CONTACTS_URL + object.id + '/').subscribe(result => {
+  public removeContact(event: Contact) {
+    this.httpService.deleteObject(environment.CONTACTS_URL + event.id + '/').subscribe(result => {
       if (result.ok) {
-        let index = this.contactsList.indexOf(object);
+        let oldContact = this.completeContactsList.filter(contact => contact.id === event.id)[0];
+        let index = this.completeContactsList.indexOf(oldContact);
         if (index >= 0) {
-          this.contactsList.splice(index, 1);
+          this.completeContactsList.splice(index, 1);
+          if (this.valueSearch) {
+          this.getValueSearch(this.valueSearch);
+          }
           this.toaster.show(result, 'Contacto eliminado', 'El contacto se eliminó con éxito');
         }
       }
@@ -132,35 +177,32 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Saves which contact was selected by the user.
-  * Params:
-  *   - object: A Contact object.
-  **/
-  public getContactFromTable(object: Contact): void {
-    this.contact = object;
-  }
-
-  /**
-  * Recieves event when a new contact is created in the form.
-  * It pushes the new contact to the list.
+  * Receives event when a new contact is created in the form.
+  * It pushes the new contact to the complete list and reload the search.
   * Params:
   *   - event: New contact received from the event.
   **/
   public onContactCreated(event: Contact) {
-    this.contactsList.push(event);
+    this.completeContactsList.push(event);
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
+    }
   }
 
   /**
-  * Recieves event when a contact is updated in the form.
-  * It updates the contact selected.
+  * Receives event when a contact is updated in the form.
+  * It updates the contact selected and reload the search.
   * Params:
   *   - event: Contact updated received from the event.
   **/
   public onContactUpdated(event: Contact) {
-    let oldContact = this.contactsList.filter(contact => contact.id === event.id)[0];
-    let index = this.contactsList.indexOf(oldContact);
+    let oldContact = this.completeContactsList.filter(contact => contact.id === event.id)[0];
+    let index = this.completeContactsList.indexOf(oldContact);
     if (index >= 0) {
-      this.contactsList[index] = event;
+      this.completeContactsList[index] = event;
+      if (this.valueSearch) {
+        this.getValueSearch(this.valueSearch);
+      }
     }
   }
 }

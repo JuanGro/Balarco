@@ -26,22 +26,39 @@ describe('IgualasListComponent  tests.', function () {
     var de;
     var el;
     var modalAction;
+    var testArtWork = {
+        id: 1, name: 'Test Diseño 1', quantity: 100
+    };
+    var testArtWork2 = {
+        id: 2, name: 'Test Diseño 2', quantity: 200
+    };
+    var testArtWork3 = {
+        id: 3, name: 'Test Diseño 3', quantity: 300
+    };
+    var testListArtWorks = [
+        testArtWork,
+        testArtWork2,
+        testArtWork3
+    ];
     var testIguala = {
         id: 1,
         name: 'Starbucks 2018',
         client: 2,
         start_date: new Date(2011, 10, 10),
-        end_date: new Date(2012, 10, 10)
+        end_date: new Date(2012, 10, 10),
+        art_iguala: testListArtWorks
+    };
+    var testIguala2 = {
+        id: 2,
+        name: 'Oxxo 2018',
+        client: 1,
+        start_date: new Date(2011, 10, 10),
+        end_date: new Date(2012, 10, 10),
+        art_iguala: testListArtWorks
     };
     var testListigualas = [
-        { id: 1, name: 'Starbucks 2018', client: 2,
-            start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10) },
-        { id: 2, name: 'Oxxo 2018', client: 1,
-            start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10) }
-    ];
-    var testListClients = [
-        { id: 1, name: 'Starbucks', address: 'Example' },
-        { id: 2, name: 'General Electric', address: 'Example' }
+        testIguala,
+        testIguala2
     ];
     beforeEach(async(function () {
         TestBed.configureTestingModule({
@@ -81,11 +98,6 @@ describe('IgualasListComponent  tests.', function () {
             component.igualasList = testListigualas;
             fixtureParent.detectChanges();
             expect(component.igualasList).toEqual(testListigualas);
-        });
-        it('should load correctly clients list in clientsList Input', function () {
-            component.clientsList = testListClients;
-            fixtureParent.detectChanges();
-            expect(component.clientsList).toEqual(testListClients);
         });
     });
     describe('EventEmitter of modal requests for child igualas list table component', function () {

@@ -49,10 +49,39 @@ describe('ClientsComponent tests.', () => {
     // Create a Client object example.
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
 
+    // Create a Client object example.
+    let testClient2: Client = { id: 2, name: 'Oxxo', address: 'Example' };
+
+    // Create a Client object example.
+    let testClientUpdate: Client = { id: 2, name: 'General Electric', address: 'Example' };
+
+    // Initialize Contact objects
+    testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
+    testClientUpdate = new Client(testClientUpdate);
+
     // Create a Client list example.
     let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
+                                testClient,
+                                testClient2
+                                ];
+
+    // Create a Client list example.
+    let testListClients2: Client[] = [
+                                testClient,
+                                testClient2,
+                                testClient
+                                ];
+
+    // Create a Client list example.
+    let testListUnique: Client[] = [
+                                testClient
+                                ];
+
+    // Create a Client list example.
+    let testListClientUpdated: Client[] = [
+                                testClient,
+                                testClientUpdate
                                 ];
 
     // Base state before each test runs.
@@ -187,6 +216,7 @@ describe('ClientsComponent tests.', () => {
         * Tests that the initialize modal method is working correctly, setting the client to null.
         **/
         it('should initialize the modal', () => {
+            component.client = testClient;
             component.initializeModal();
             expect(component.client.id).toBeUndefined();
             expect(component.client.name).toBeUndefined();
@@ -200,5 +230,46 @@ describe('ClientsComponent tests.', () => {
             component.getClientFromTable(testClient);
             expect(component.client).toEqual(testClient);
         });
+    });
+
+    describe('Use of methods for TWDB', () => {
+        /**
+        * Tests that the onClientCreated method returns the new Client object and
+        * is added to the complete client list.
+        **/
+        it('should add the new client', () => {
+            let testList: Client[] = [ testClient, testClient2 ];
+            component.completeClientList = testList;
+            component.clientsList = testList;
+            component.onClientCreated(testClient);
+            fixtureParent.detectChanges();
+            expect(component.completeClientList).toEqual(testListClients2);
+            expect(component.clientsList).toEqual(testListClients2);
+        });
+
+        /**
+        * Tests that the onClientUpdated method update the Client object.
+        **/
+        it('should update the client', () => {
+            let testList: Client[] = [ testClient, testClient2 ];
+            component.completeClientList = testList;
+            component.clientsList = testList;
+            component.onClientUpdated(testClientUpdate);
+            fixtureParent.detectChanges();
+            expect(component.completeClientList).toEqual(testListClientUpdated);
+            expect(component.clientsList).toEqual(testListClientUpdated);
+        });
+    });
+
+    describe('Search finds the correct objects', () => {
+        /**
+        * Tests that the search obtains objects which contains the text to find.
+        **/
+        it('should find an specific object', async(() => {
+            component.completeClientList = testListClients;
+            component.getValueSearch('Starbucks');
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListUnique);
+        }));
     });
 });

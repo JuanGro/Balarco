@@ -3,40 +3,45 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-              <!-- Header -->
+                <!-- Header -->
                 <div class="card-header">
-                  <div class="row">
-                    <!-- Add Iguala -->
-                    <!-- Calls the requestNewIgualaModal method -->
-                    <div class="col align-self-start" (click)="requestNewIgualaModal($event)">
-                      <i class="icon-plus icons font-2xl d-block mt-2"></i>
+                    <div class="row">
+                        <!-- Add Iguala -->
+                        <!-- Calls the requestNewIgualaModal method -->
+                        <div class="col align-self-start" (click)="requestNewIgualaModal($event)">
+                            <i class="icon-plus icons font-2xl d-block mt-2"></i>
+                        </div>
+                        <!-- Search field -->
+                        <div class="col-4 input-group align-self-end">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input #search type="text" class="form-control" placeholder="Search by name" (input)="filterItem(search.value)" />
+                        </div>
                     </div>
-                  </div>
                 </div>
 
                 <div class="card-block">
                     <table class="table">
-                    <thead class="thead-inverse">
-                        <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Cliente</th>
-                        <th>Inicio</th>
-                        <th>Fin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Select Iguala to update -->
-                        <!-- Calls the requestShowUpdateIgualaModal method to show the modal-->
-                        <!-- Sends the iguala selected by the user -->
-                        <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
-                        <th scope="row">{{ iguala.id }}</th>
-                        <td>{{ iguala.name }}</td>
-                        <td>{{ iguala.client_complete.name }}</td>
-                        <td>{{ iguala.start_date.toDateString() }}</td>
-                        <td>{{ iguala.end_date.toDateString() }}</td>
-                        </tr>
-                    </tbody>
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Cliente</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Select Iguala to update -->
+                            <!-- Calls the requestShowUpdateIgualaModal method to show the modal-->
+                            <!-- Sends the iguala selected by the user -->
+                            <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
+                                <th scope="row">{{ iguala.id }}</th>
+                                <td>{{ iguala.name }}</td>
+                                <td>{{ iguala.client_complete.name }}</td>
+                                <td>{{ iguala.start_date.toDateString() }}</td>
+                                <td>{{ iguala.end_date.toDateString() }}</td>
+                            </tr>
+                        </tbody>
                     </table>
                     <nav>
                         <ul class="pagination">

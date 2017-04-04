@@ -1,18 +1,20 @@
 <!-- Title -->
-<div class="card card-inverse card-primary text-center">
+<div class="card card-inverse card-success text-center">
     <div class="card-block">
         <blockquote class="card-blockquote">
             <h1>{{ title }}</h1>
         </blockquote>
     </div>
- </div>
+</div>
 
 <!-- Child component, it contains the table -->
 <!-- [clientsList] sends the clients list to the table -->
 <!-- (requestShowNewClientModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateClientModal) receives the request to show the update modal -->
 <!-- (currentClient) receives the client who was selected by the user -->
-<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)"></clients-list>
+<!-- (clientListFiltered) receives the client list updated for the filter in the client list component -->
+<!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
+<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)" (valueSearch)="getValueSearch($event)"></clients-list>
 
 <!-- Modal New Client -->
 <div bsModal #newClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewClientModal" aria-hidden="true">

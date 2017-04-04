@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // Models
 import { Iguala } from './iguala-model';
 import { Client } from './../clients/client-model';
 import { ArtWork } from './../../general-user/works/art-works/art-work-model';
+import { URLSearchParams } from '@angular/http';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -24,8 +25,14 @@ import { environment } from '../../../environments/environment';
 * - Remove an Iguala.
 **/
 export class IgualasComponent implements OnInit {
+  // Received from table component, it gives me the iguala that the user selected to see his detail.
+  @Input('currentIguala') currentIguala: Iguala;
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
+  // Original copy of the iguala list it's used always like a base for search.
+  public completeIgualaList: Iguala[];
   // List of igualas received from httpService.
   public igualasList: Iguala[];
   // List of clients received from httpService.
@@ -78,11 +85,12 @@ export class IgualasComponent implements OnInit {
                       for (let igualaJSON of igualasListJSON) {
                         this.igualasList.push(new Iguala(igualaJSON));
                       }
+                      this.igualasList.sort().reverse();
+                      this.completeIgualaList = this.igualasList;
                     },
-                      err => {
-
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de igualas');
                       });
-
   }
 
   /**
@@ -99,11 +107,11 @@ export class IgualasComponent implements OnInit {
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
                       }
+                      this.clientsList.sort().reverse();
                     },
-                      err => {
-                        // Call of toast
-                      }
-                    );
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de clientes');
+                      });
   }
 
   /**
@@ -111,7 +119,10 @@ export class IgualasComponent implements OnInit {
   * Convert them in an array of ArtWork objects with 0 quantity to be filled in modal.
   **/
   public loadArtTypeList(url: string) {
-    this.httpService.getObject(url)
+    let iguala_work_type_id = '1';
+    let params = new URLSearchParams();
+    params.set('work_work_type_id', iguala_work_type_id);
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(artTypesJSON => {
                       // Creates ArtWorks objects from JSON.
@@ -120,10 +131,9 @@ export class IgualasComponent implements OnInit {
                         this.artWorkList.push(new ArtWork(artJSON));
                       }
                     },
-                      err => {
-                        // Call of toast
-                      }
-                    );
+                      error => {
+                        this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de tipos de arte');
+                      });
   }
 
   /**
@@ -137,13 +147,38 @@ export class IgualasComponent implements OnInit {
   }
 
   /**
-  * Recieves event when a new iguala is created in the form.
-  * It pushes the new iguala to the list.
+  * Shows the iguala list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.igualasList = [];
+    this.completeIgualaList.sort();
+    if (this.valueSearch === '') {
+      this.igualasList = this.completeIgualaList;
+    } else {
+      for (let igualaFromList of this.completeIgualaList) {
+        if (igualaFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            igualaFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let iguala = new Iguala(igualaFromList);
+            this.igualasList.push(iguala);
+        }
+      }
+    }
+  }
+
+  /**
+  * Receives event when a new iguala is created in the form.
+  * It pushes the new iguala to the list and reload the search.
   * Params:
   *   - event: New iguala received from the event.
   **/
   public onIgualaCreated(event: Iguala) {
-    this.igualasList.push(event);
+    this.completeIgualaList.push(event);
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
+    }
   }
 
   /**
@@ -151,10 +186,13 @@ export class IgualasComponent implements OnInit {
   * It updates the iguala selected.
   **/
   public onIgualaUpdated(event: Iguala) {
-    let oldIguala = this.igualasList.filter(iguala => iguala.id === event.id)[0];
-    let index = this.igualasList.indexOf(oldIguala);
+    let oldIguala = this.completeIgualaList.filter(iguala => iguala.id === event.id)[0];
+    let index = this.completeIgualaList.indexOf(oldIguala);
     if (index >= 0) {
-      this.igualasList[index] = event;
+      this.completeIgualaList[index] = event;
+      if (this.valueSearch) {
+        this.getValueSearch(this.valueSearch);
+      }
     }
   }
 
@@ -166,20 +204,24 @@ export class IgualasComponent implements OnInit {
   public removeIguala(object: Iguala) {
     this.httpService.deleteObject(environment.IGUALAS_URL + object.id + '/').subscribe(result => {
       if (result.ok) {
-        let index = this.igualasList.indexOf(object);
+        let oldIguala = this.completeIgualaList.filter(iguala => iguala.id === object.id)[0];
+        let index = this.igualasList.indexOf(oldIguala);
         if (index >= 0) {
           this.igualasList.splice(index, 1);
+          if (this.valueSearch) {
+            this.getValueSearch(this.valueSearch);
+          }
+          this.toaster.show(result, 'Iguala eliminada', 'La iguala se eliminó con éxito');
         }
-        this.toaster.show(result, 'Iguala eliminada', 'La iguala se eliminó con éxito');
       }
     },
-  error => {
-    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar iguala');
-  });
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar iguala');
+    });
   }
 
   /**
-  * Clears the contact variable to get an empty modal.
+  * Clears the iguala variable to get an empty modal.
   **/
   public initializeModal() {
     this.iguala = new Iguala();
