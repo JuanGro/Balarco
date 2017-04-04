@@ -33,7 +33,7 @@ export class IgualasComponent implements OnInit {
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
-  // Original copy of the iguala list received from httpService.
+  // Original copy of the iguala list it's used always like a base for search.
   public completeIgualaList: Iguala[];
   // List of igualas received from httpService.
   public igualasList: Iguala[];
@@ -171,9 +171,9 @@ export class IgualasComponent implements OnInit {
       this.igualasList = this.completeIgualaList;
     } else {
       for (let igualaFromList of this.completeIgualaList) {
-        let iguala = new Iguala(igualaFromList);
-        if (iguala.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            iguala.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+        if (igualaFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            igualaFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let iguala = new Iguala(igualaFromList);
             this.igualasList.push(iguala);
         }
       }
