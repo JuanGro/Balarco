@@ -147,7 +147,7 @@ export class WorkFormComponent implements OnChanges {
   * Executes the submitUpdatedWork or submitNewWork depending if the work
   * received when the modal was called is empty or not.
   **/
-  private submitWorkForm() {
+  public submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
     if (this.work.id) {
@@ -199,7 +199,7 @@ export class WorkFormComponent implements OnChanges {
   * Params:
   *   - id: Id of the new client selected.
   **/
-  private onClientChange(id: number) {
+  public onClientChange(id: number) {
     this.filterContactsByClientId(id);
   }
 
@@ -220,7 +220,7 @@ export class WorkFormComponent implements OnChanges {
   * Params:
   *   - id: Id of the new iguala selected.
   **/
-  private onIgualaChange(id: number) {
+  public onIgualaChange(id: number) {
     this.filterArtWorksByIgualaId(id);
   }
 
@@ -241,7 +241,7 @@ export class WorkFormComponent implements OnChanges {
   * Params:
   *   - id: Id of the new workType selected.
   **/
-  private onWorkTypeChange(id: number) {
+  public onWorkTypeChange(id: number) {
     this.currentWorkTypeId = this.getWorkTypeIdById(id);
     this.work.work_type_id_enum = this.currentWorkTypeId;
     if (this.currentWorkTypeId === 1 && this.igualasList && this.igualasList.length > 0) {
@@ -309,7 +309,7 @@ export class WorkFormComponent implements OnChanges {
   /**
   * Set work with TWDB with old values or clear object if it's new.
   **/
-  private cancelForm() {
+  public cancelForm() {
     if (this.oldWork) {
       this.workUpdated.emit(this.oldWork);
     }
