@@ -212,7 +212,7 @@ export class WorkFormComponent implements OnChanges {
     this.currentContacts = this.contactsList.filter(x => x.client === +id);
     if (this.currentContacts.length > 0) {
       this.contact_id = this.currentContacts[0].id;
-    }    
+    }
   }
 
   /**
@@ -231,7 +231,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterArtWorksByIgualaId(id: number) {
     this.currentArtWorkList = [];
-    for (let artWork of this.igualasList.filter(x => x.id == id)[0].art_iguala) {
+    for (let artWork of this.igualasList.filter(x => x.id === +id)[0].art_iguala) {
       this.currentArtWorkList.push(new ArtWork(artWork));
     }
   }
@@ -244,10 +244,10 @@ export class WorkFormComponent implements OnChanges {
   private onWorkTypeChange(id: number) {
     this.currentWorkTypeId = this.getWorkTypeIdById(id);
     this.work.work_type_id_enum = this.currentWorkTypeId;
-    if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
+    if (this.currentWorkTypeId === 1 && this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
       this.work.iguala = this.igualasList[0].id;
-    } else if (this.currentWorkTypeId == 2) {
+    } else if (this.currentWorkTypeId === 2) {
       this.currentArtWorkList = [];
       for (let artWork of this.graduationArtTypes) {
         this.currentArtWorkList.push(new ArtWork(artWork));

@@ -129,7 +129,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterArtWorksByIgualaId = function (id) {
         this.currentArtWorkList = [];
-        for (var _i = 0, _a = this.igualasList.filter(function (x) { return x.id == id; })[0].art_iguala; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.igualasList.filter(function (x) { return x.id === +id; })[0].art_iguala; _i < _a.length; _i++) {
             var artWork = _a[_i];
             this.currentArtWorkList.push(new ArtWork(artWork));
         }
@@ -137,11 +137,11 @@ var WorkFormComponent = (function () {
     WorkFormComponent.prototype.onWorkTypeChange = function (id) {
         this.currentWorkTypeId = this.getWorkTypeIdById(id);
         this.work.work_type_id_enum = this.currentWorkTypeId;
-        if (this.currentWorkTypeId == 1 && this.igualasList && this.igualasList.length > 0) {
+        if (this.currentWorkTypeId === 1 && this.igualasList && this.igualasList.length > 0) {
             this.filterArtWorksByIgualaId(this.igualasList[0].id);
             this.work.iguala = this.igualasList[0].id;
         }
-        else if (this.currentWorkTypeId == 2) {
+        else if (this.currentWorkTypeId === 2) {
             this.currentArtWorkList = [];
             for (var _i = 0, _a = this.graduationArtTypes; _i < _a.length; _i++) {
                 var artWork = _a[_i];
