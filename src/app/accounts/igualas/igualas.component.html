@@ -16,7 +16,7 @@
 <!-- (igualaListFiltered) receives the iguala list updated for the filter in the iguala list component -->
 <!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
 <igualas-list-table [igualasList]="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()" (requestShowNewIgualaModal)="initializeModal()" (requestShowUpdateIgualaModal)="updateIgualaModal.show()" (currentIguala)="getIgualaFromTable($event)"
-    (igualaListFiltered)="getIgualaListFromTable($event)" (valueSearch)="getValueSearch($event)"></igualas-list-table>
+    (valueSearch)="getValueSearch($event)"></igualas-list-table>
 
 <!-- Modal New Iguala -->
 <div bsModal #newIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewIgualaModal" aria-hidden="true">

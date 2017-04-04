@@ -148,15 +148,6 @@ export class IgualasComponent implements OnInit {
   }
 
   /**
-  * Saves the updated iguala list if the user is using a filter.
-  * Params:
-  *   - list: An iguala list.
-  **/
-  public getIgualaListFromTable(list: Iguala[]) {
-    this.igualasList = list;
-  }
-
-  /**
   * Shows the iguala list that the user is requesting in the filter.
   * Params:
   *   - value: String from search form.
