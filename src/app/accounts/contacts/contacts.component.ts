@@ -25,8 +25,6 @@ import { environment } from '../../../environments/environment';
 export class ContactsComponent implements OnInit {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentContact') currentContact: Contact;
-  // Received from table component, it gives me the filtered contact list if the user is using the search.
-  @Input('contactsListFiltered') contactsListFiltered: Contact[];
   // Received from table component, it gives me the value that the user is typing in the search.
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
