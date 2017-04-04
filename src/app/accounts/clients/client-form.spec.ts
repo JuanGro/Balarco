@@ -180,23 +180,16 @@ describe('ClientFormComponent tests.', () => {
 
     describe('Cancel form method is correctly send depending if its current client is not empty', () => {
         /**
-        * Get the current component to use it in observables.
-        **/
-        beforeEach(inject([ClientFormComponent], result => {
-            updatedClient = result;
-        }));
-
-        /**
         * Tests that the send of the client updated is working correctly.
         **/
         it('should send the client updated', async(() => {
             component.client = testClient;
             component.ngOnChanges();
-            fixtureChildForm.detectChanges();
-            updatedClient.submitUpdatedClient();
-            updatedClient.clientUpdated.subscribe(result => {
-                expect(result).toBe(component.oldClient);
-            });
+            component.cancelForm();
+
+            expect(component.client).toBeDefined();
+            expect(component.client.name).toBeUndefined();
+            expect(component.client.address).toBeUndefined();
         }));
     });
 });
