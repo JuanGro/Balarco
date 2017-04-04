@@ -80,7 +80,7 @@ export class WorkFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update work form is called.
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
-  public ngOnChanges() {    
+  public ngOnChanges() {
     if (!this.work) {
       // New work
       this.work = new Work();
@@ -209,8 +209,10 @@ export class WorkFormComponent implements OnChanges {
   *   - id: Id of the client from which the contacts will be filtered.
   **/
   private filterContactsByClientId(id: number) {
-    this.currentContacts = this.contactsList.filter(x => x.client == id);
-    this.contact_id = this.currentContacts[0].id;
+    this.currentContacts = this.contactsList.filter(x => x.client === +id);
+    if (this.currentContacts.length > 0) {
+      this.contact_id = this.currentContacts[0].id;
+    }    
   }
 
   /**
