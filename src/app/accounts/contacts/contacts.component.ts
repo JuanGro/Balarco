@@ -126,15 +126,6 @@ export class ContactsComponent implements OnInit {
   }
 
   /**
-  * Saves the updated contacts list if the user is using a filter.
-  * Params:
-  *   - list: A Contacts list.
-  **/
-  public getContactsListFromTable(list: Contact[]) {
-    this.contactsList = list;
-  }
-
-  /**
   * Shows the contact list that the user is requesting in the filter.
   * Params:
   *   - value: String from search form.
@@ -151,8 +142,7 @@ export class ContactsComponent implements OnInit {
             contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.alternate_email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
             let contact = new Contact(contactFromList);
             this.contactsList.push(contact);
         }

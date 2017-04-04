@@ -29,8 +29,6 @@ export class ContactsListComponent {
   // Sends the contact selected by the user to parent component.
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
   // Sends the contactsList updated to parent component to avoid problems.
-  @Output() contactsListFiltered: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
-  // Sends the value of the search to parent component to add to the contact list the item created only if it's necessary.
   @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
