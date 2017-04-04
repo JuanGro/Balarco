@@ -26,6 +26,7 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Models
 import { Contact } from './contact-model';
+import { Client } from './../clients/client-model';
 
 describe('ContactsComponent tests.', () => {
     // Fixture for debugging and testing a ContactsComponent.
@@ -46,12 +47,65 @@ describe('ContactsComponent tests.', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
+    // Create a Client object example
+    let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+    // Create a Client object example
+    let testClient2: Client = { id: 2, name: 'General Electric', address: 'Example' };
+
+    // Initialize Client objects
+    testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
+
     // Create a Contact object example.
     let testContact: Contact = { id: 2, name: 'Juan', last_name: 'Hernández', client: 2,
-                                charge: 'Estudent', landline: '2211111', extension: '22',
+                                charge: 'Student', landline: '2211111', extension: '22',
                                 mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
                                 email: 'juan@gmail.com', alternate_email: 'juan@gmail.com',
-                                is_active: true };
+                                client_complete: testClient };
+
+    // Create a Contact object example.
+    let testContact2: Contact = { id: 3, name: 'José', last_name: 'Perez', client: 3,
+                                charge: 'Student', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'jose@gmail.com', alternate_email: 'jose@gmail.com',
+                                client_complete: testClient2
+                            };
+
+    // Create a Contact object example.
+    let testContactUpdate: Contact = { id: 3, name: 'Alejandro', last_name: 'Perez', client: 3,
+                                charge: 'Student', landline: '2211111', extension: '11',
+                                mobile_phone_1: '4422222222', mobile_phone_2: '4112223322',
+                                email: 'ale@gmail.com', alternate_email: 'ale@gmail.com',
+                                client_complete: testClient2
+                            };
+
+    // Initialize Contact objects
+    testContact = new Contact(testContact);
+    testContact2 = new Contact(testContact2);
+
+    // Create a Contact object example.
+    let testListContacts: Contact[] = [
+                                testContact,
+                                testContact2
+                                ];
+
+    // Create a Contact object example.
+    let testListContacts2: Contact[] = [
+                                testContact,
+                                testContact2,
+                                testContact
+                                ];
+
+    // Create a Contact object example.
+    let testListUnique: Contact[] = [
+                                testContact
+                                ];
+
+    // Create a Contact object example.
+    let testListContactUpdated: Contact[] = [
+                                testContact,
+                                testContactUpdate
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -97,7 +151,11 @@ describe('ContactsComponent tests.', () => {
         **/
         it('should have a defined current component', () => {
             component.ngOnInit();
-            expect(component).toBeDefined();
+            expect(component.title).toBeDefined();
+            expect(component.titleDangerModal).toBeDefined();
+            expect(component.titleNewModal).toBeDefined();
+            expect(component.titleUpdateModal).toBeDefined();
+            expect(component.descriptionDangerModal).toBeDefined();
         });
 
         /**
@@ -174,6 +232,7 @@ describe('ContactsComponent tests.', () => {
         * Tests that the initialize modal method is working correctly, setting the contact to null.
         **/
         it('should initialize the modal', () => {
+            component.contact = testContact;
             component.initializeModal();
             expect(component.contact.id).toBeUndefined();
             expect(component.contact.name).toBeUndefined();
@@ -190,11 +249,52 @@ describe('ContactsComponent tests.', () => {
         });
 
         /**
-        * Tests that the getContactFromTable method doesn't returns a Contact object empty.
+        * Tests that the getContactFromTable method returns the correct Contact object.
         **/
         it('should return a not empty Contact object', () => {
             component.getContactFromTable(testContact);
             expect(component.contact).toEqual(testContact);
         });
+    });
+
+    describe('Use of methods for TWDB', () => {
+        /**
+        * Tests that the onContactCreated method returns the new Contact object and
+        * is added to the complete contact list.
+        **/
+        it('should add the new contact', () => {
+            let testList: Contact[] = [ testContact, testContact2 ];
+            component.completeContactsList = testList;
+            component.contactsList = testList;
+            component.onContactCreated(testContact);
+            fixtureParent.detectChanges();
+            expect(component.completeContactsList).toEqual(testListContacts2);
+            expect(component.contactsList).toEqual(testListContacts2);
+        });
+
+        /**
+        * Tests that the onContactUpdated method update the Contact object.
+        **/
+        it('should update the contact', () => {
+            let testList: Contact[] = [ testContact, testContact2 ];
+            component.completeContactsList = testList;
+            component.contactsList = testList;
+            component.onContactUpdated(testContactUpdate);
+            fixtureParent.detectChanges();
+            expect(component.completeContactsList).toEqual(testListContactUpdated);
+            expect(component.contactsList).toEqual(testListContactUpdated);
+        });
+    });
+
+    describe('Search finds the correct objects', () => {
+        /**
+        * Tests that the search obtains objects which contains the text to find.
+        **/
+        it('should find an specific object', async(() => {
+            component.completeContactsList = testListContacts;
+            component.getValueSearch('Juan');
+            fixtureParent.detectChanges();
+            expect(component.contactsList).toEqual(testListUnique);
+        }));
     });
 });
