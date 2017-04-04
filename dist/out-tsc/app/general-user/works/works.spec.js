@@ -91,20 +91,20 @@ describe('WorksComponent tests', function () {
     describe('Initialization of variable for parent works component', function () {
         it('should show the work component with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.title).toContain('Lista de Trabajos');
+            expect(component.title).toBe('Lista de Trabajos');
         });
         it('should show the new work modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleNewModal).toContain('Nuevo Trabajo');
+            expect(component.titleNewModal).toBe('Nuevo Trabajo');
         });
         it('should show the update work modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleUpdateModal).toContain('Modificar Trabajo');
+            expect(component.titleUpdateModal).toBe('Modificar Trabajo');
         });
         it('should show the danger modal with correct attributes', function () {
             fixtureParent.detectChanges();
-            expect(component.titleDangerModal).toContain('Eliminar Trabajo');
-            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este trabajo?');
+            expect(component.titleDangerModal).toBe('Eliminar Trabajo');
+            expect(component.descriptionDangerModal).toBe('¿Está usted seguro de eliminar este trabajo?');
         });
     });
     describe('Load of the variables to the template for parent works component', function () {
@@ -113,7 +113,7 @@ describe('WorksComponent tests', function () {
         });
         it('should display original page title', function () {
             fixtureParent.detectChanges();
-            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).toBe(component.title);
             expect(el.textContent).not.toBe(null);
         });
     });

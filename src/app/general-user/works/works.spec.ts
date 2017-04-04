@@ -148,7 +148,7 @@ describe('WorksComponent tests', () => {
         **/
         it('should show the work component with correct attributes', () => {
             fixtureParent.detectChanges();
-            expect(component.title).toContain('Lista de Trabajos');
+            expect(component.title).toBe('Lista de Trabajos');
         });
 
         /**
@@ -156,7 +156,7 @@ describe('WorksComponent tests', () => {
         **/
         it('should show the new work modal with correct attributes', () => {
             fixtureParent.detectChanges();
-            expect(component.titleNewModal).toContain('Nuevo Trabajo');
+            expect(component.titleNewModal).toBe('Nuevo Trabajo');
         });
 
         /**
@@ -164,7 +164,7 @@ describe('WorksComponent tests', () => {
         **/
         it('should show the update work modal with correct attributes', () => {
             fixtureParent.detectChanges();
-            expect(component.titleUpdateModal).toContain('Modificar Trabajo');
+            expect(component.titleUpdateModal).toBe('Modificar Trabajo');
         });
 
         /**
@@ -172,8 +172,8 @@ describe('WorksComponent tests', () => {
         **/
         it('should show the danger modal with correct attributes', () => {
             fixtureParent.detectChanges();
-            expect(component.titleDangerModal).toContain('Eliminar Trabajo');
-            expect(component.descriptionDangerModal).toContain('¿Está usted seguro de eliminar este trabajo?');
+            expect(component.titleDangerModal).toBe('Eliminar Trabajo');
+            expect(component.descriptionDangerModal).toBe('¿Está usted seguro de eliminar este trabajo?');
         });
     });
 
@@ -190,7 +190,7 @@ describe('WorksComponent tests', () => {
         **/
         it('should display original page title', () => {
             fixtureParent.detectChanges();
-            expect(el.textContent).toContain(component.title);
+            expect(el.textContent).toBe(component.title);
             expect(el.textContent).not.toBe(null);
         });
     });
