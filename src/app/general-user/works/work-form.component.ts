@@ -256,7 +256,7 @@ export class WorkFormComponent implements OnChanges {
   }
 
   /**
-  * Method to get the work_type_id od a work type by its DB object id
+  * Method to get the work_type_id of a work type by its DB object id
   * This is needed because we are using an enum on Django.
   * Params:
   *   - id: DB id object of a WorkType
@@ -264,7 +264,7 @@ export class WorkFormComponent implements OnChanges {
   *   - The work_type_id.
   **/
   private getWorkTypeIdById(id: number): number {
-    return this.workTypesList.filter(x => x.id == id)[0].work_type_id;
+    return this.workTypesList.filter(x => x.id === +id)[0].work_type_id;
   }
 
   /**
@@ -273,7 +273,7 @@ export class WorkFormComponent implements OnChanges {
   *   - Array of Status.
   **/
   private getPossibleStatusForNewProject(): Status[] {
-    return this.statusList.filter(status => status.status_id == 0 || status.status_id == 1);
+    return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
   }
 
   /**

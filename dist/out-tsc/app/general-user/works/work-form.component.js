@@ -150,10 +150,10 @@ var WorkFormComponent = (function () {
         }
     };
     WorkFormComponent.prototype.getWorkTypeIdById = function (id) {
-        return this.workTypesList.filter(function (x) { return x.id == id; })[0].work_type_id;
+        return this.workTypesList.filter(function (x) { return x.id === +id; })[0].work_type_id;
     };
     WorkFormComponent.prototype.getPossibleStatusForNewProject = function () {
-        return this.statusList.filter(function (status) { return status.status_id == 0 || status.status_id == 1; });
+        return this.statusList.filter(function (status) { return status.status_id === 0 || status.status_id === 1; });
     };
     WorkFormComponent.prototype.loadPossibleStatusForExistingProject = function () {
         var _this = this;
