@@ -251,23 +251,26 @@ describe('ContactFormComponent tests.', () => {
 
     describe('Cancel form method is correctly send depending if its current contact is not empty', () => {
         /**
-        * Get the current component to use it in observables.
-        **/
-        beforeEach(inject([ContactFormComponent], result => {
-            updatedContact = result;
-        }));
-
-        /**
         * Tests that the send of the contact updated is working correctly.
         **/
         it('should send the contact updated', async(() => {
             component.contact = testContact;
             component.ngOnChanges();
-            fixtureChildForm.detectChanges();
-            updatedContact.submitUpdatedContact();
-            updatedContact.contactUpdated.subscribe(result => {
-                expect(result).toBe(component.oldContact);
-            });
+            component.cancelForm();
+
+            expect(component.contact).toBeDefined();
+            expect(component.contact.id).toBeUndefined();
+            expect(component.contact.name).toBeUndefined();
+            expect(component.contact.last_name).toBeUndefined();
+            expect(component.contact.client).toBeUndefined();
+            expect(component.contact.charge).toBeUndefined();
+            expect(component.contact.landline).toBeUndefined();
+            expect(component.contact.extension).toBeUndefined();
+            expect(component.contact.mobile_phone_1).toBeUndefined();
+            expect(component.contact.mobile_phone_2).toBeUndefined();
+            expect(component.contact.email).toBeUndefined();
+            expect(component.contact.alternate_email).toBeUndefined();
+            expect(component.contact.client_complete).toBeUndefined();
         }));
     });
 });
