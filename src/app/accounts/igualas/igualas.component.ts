@@ -27,8 +27,6 @@ import { environment } from '../../../environments/environment';
 export class IgualasComponent implements OnInit {
   // Received from table component, it gives me the iguala that the user selected to see his detail.
   @Input('currentIguala') currentIguala: Iguala;
-  // Received from table component, it gives me the filtered iguala list if the user is using the search.
-  @Input('igualaListFiltered') igualaListFiltered: Iguala[];
   // Received from table component, it gives me the value that the user is typing in the search.
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
