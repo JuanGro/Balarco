@@ -130,7 +130,6 @@ export class IgualasComponent implements OnInit {
                       for (let artJSON of artTypesJSON) {
                         this.artWorkList.push(new ArtWork(artJSON));
                       }
-                      this.artWorkList.sort().reverse();
                     },
                       error => {
                         this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de tipos de arte');
