@@ -55,7 +55,7 @@ export class ClientsListComponent {
   }
 
   /**
-  * Search specific items in the contacts list,
+  * Search specific items in the client list,
   * making all the strings to lower case and checks substrings.
   **/
   public filterItem(value: string) {
