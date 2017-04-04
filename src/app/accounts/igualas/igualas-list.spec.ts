@@ -31,7 +31,6 @@ import { IgualaFormComponent } from './iguala-form.component';
 // Models
 import { Iguala } from './iguala-model';
 import { ArtWork } from './../../general-user/works/art-works/art-work-model';
-import { Client } from './../clients/client-model';
 
 describe('IgualasListComponent  tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -97,19 +96,6 @@ describe('IgualasListComponent  tests.', () => {
     let testListigualas: Iguala[] = [
                                 testIguala,
                                 testIguala2
-                                ];
-
-    let testClient: Client = {
-        id: 1, name: 'Starbucks', address: 'Example'
-    };
-
-    let testClient2: Client = {
-        id: 1, name: 'Starbucks', address: 'Example'
-    };
-
-    let testListClients: Client[] = [
-                                testClient,
-                                testClient2
                                 ];
 
     // Base state before each test runs.
