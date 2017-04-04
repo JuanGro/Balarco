@@ -30,8 +30,7 @@ import { IgualaFormComponent } from './iguala-form.component';
 
 // Models
 import { Iguala } from './iguala-model';
-import { ArtWork } from './../../works/art-works/art-work-model';
-import { Client } from './../clients/client-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 describe('IgualasListComponent  tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -56,26 +55,47 @@ describe('IgualasListComponent  tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    let testArtWork: ArtWork = {
+        id: 1, name: 'Test Diseño 1', quantity: 100
+    };
+
+    let testArtWork2: ArtWork = {
+        id: 2, name: 'Test Diseño 2', quantity: 200
+    };
+
+    let testArtWork3: ArtWork = {
+        id: 3, name: 'Test Diseño 3', quantity: 300
+    };
+
+    let testListArtWorks: ArtWork[] = [
+                                testArtWork,
+                                testArtWork2,
+                                testArtWork3
+                                ];
+
     // Create a Iguala object example.
     let testIguala: Iguala = {
       id: 1,
       name: 'Starbucks 2018',
       client: 2,
       start_date: new Date(2011, 10, 10),
-      end_date: new Date(2012, 10, 10)
+      end_date: new Date(2012, 10, 10),
+      art_iguala: testListArtWorks
+    };
+
+    let testIguala2: Iguala = {
+      id: 2,
+      name: 'Oxxo 2018',
+      client: 1,
+      start_date: new Date(2011, 10, 10),
+      end_date: new Date(2012, 10, 10),
+      art_iguala: testListArtWorks
     };
 
     // Create a Iguala object example.
     let testListigualas: Iguala[] = [
-                                { id: 1, name: 'Starbucks 2018', client: 2,
-                                start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10)},
-                                { id: 2, name: 'Oxxo 2018', client: 1,
-                                start_date: new Date(2011, 10, 10), end_date: new Date(2012, 10, 10)}
-                                ];
-
-    let testListClients: Client[] = [
-                                { id: 1, name: 'Starbucks', address: 'Example' },
-                                { id: 2, name: 'General Electric', address: 'Example' }
+                                testIguala,
+                                testIguala2
                                 ];
 
     // Base state before each test runs.
@@ -142,16 +162,6 @@ describe('IgualasListComponent  tests.', () => {
             fixtureParent.detectChanges();
             expect(component.igualasList).toEqual(testListigualas);
         });
-
-        /**
-        * Tests that the Client object received from parent component is not empty.
-        **/
-        it('should load correctly clients list in clientsList Input', () => {
-            component.clientsList = testListClients;
-            fixtureParent.detectChanges();
-            expect(component.clientsList).toEqual(testListClients);
-        });
-
     });
 
     describe('EventEmitter of modal requests for child igualas list table component', () => {

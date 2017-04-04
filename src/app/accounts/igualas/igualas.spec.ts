@@ -30,9 +30,11 @@ import { IgualaFormComponent } from './iguala-form.component';
 
 // Models
 import { Iguala } from './iguala-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
+import { Client } from './../clients/client-model';
 
 describe('Igualas Component tests.', () => {
-  // Fixture for debugging and testing a IgualasComponent.
+    // Fixture for debugging and testing a IgualasComponent.
     let fixtureParent: ComponentFixture<IgualasComponent>;
     // Fixture for debugging and testing a IgualaFormComponent.
     let fixtureChildForm: ComponentFixture<IgualaFormComponent>;
@@ -40,24 +42,101 @@ describe('Igualas Component tests.', () => {
     let fixtureChildTable: ComponentFixture<IgualasListComponent >;
 
     // Save IgualasComponent to test it's methods and variables.
-   let component: IgualasComponent;
-   // Save IgualaFormComponent to test it's methods and variables.
-   let componentForm: IgualaFormComponent;
-   // Save IgualasListComponent  to test it's methods and variables.
-   let componentTable: IgualasListComponent ;
+    let component: IgualasComponent;
+    // Save IgualaFormComponent to test it's methods and variables.
+    let componentForm: IgualaFormComponent;
+    // Save IgualasListComponent  to test it's methods and variables.
+    let componentTable: IgualasListComponent ;
 
-   // Handles on the component's DOM element.
-   let de: DebugElement;
-   let el: HTMLElement;
+    // Handles on the component's DOM element.
+    let de: DebugElement;
+    let el: HTMLElement;
 
-   // Create Iguala object example.
-   let testIguala: Iguala = {
-     id: 1,
-     name: 'Starbucks 2018',
-     client: 2,
-     start_date: new Date(2011, 10, 10),
-     end_date: new Date(2012, 10, 10)
-   };
+    // Create a Client object example
+    let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
+    // Create a Client object example
+    let testClient2: Client = { id: 2, name: 'General Electric', address: 'Example' };
+
+    // Initialize Client objects
+    testClient = new Client(testClient);
+    testClient2 = new Client(testClient2);
+
+    let testArtWork: ArtWork = {
+        id: 1, name: 'Test Diseño 1', quantity: 100
+    };
+
+    let testArtWork2: ArtWork = {
+        id: 2, name: 'Test Diseño 2', quantity: 200
+    };
+
+    let testArtWork3: ArtWork = {
+        id: 3, name: 'Test Diseño 3', quantity: 300
+    };
+
+    testArtWork = new ArtWork(testArtWork);
+    testArtWork2 = new ArtWork(testArtWork2);
+    testArtWork3 = new ArtWork(testArtWork3);
+
+    let testListArtWorks: ArtWork[] = [
+                                testArtWork,
+                                testArtWork2,
+                                testArtWork3
+                                ];
+
+    // Create Iguala object example.
+    let testIguala: Iguala = {
+        id: 1,
+        name: 'Starbucks 2018',
+        client: 2,
+        client_complete: testClient,
+        start_date: new Date(2011, 10, 10),
+        end_date: new Date(2012, 10, 10),
+        art_iguala: testListArtWorks
+    };
+
+    let testIguala2: Iguala = {
+        id: 2,
+        name: 'Oxxo 2018',
+        client: 2,
+        client_complete: testClient2,
+        start_date: new Date(2011, 10, 10),
+        end_date: new Date(2012, 10, 10),
+        art_iguala: testListArtWorks
+    };
+
+    let testIgualaUpdate: Iguala = {
+        id: 2,
+        name: 'GE 2018',
+        client: 2,
+        client_complete: testClient,
+        start_date: new Date(2011, 10, 10),
+        end_date: new Date(2012, 10, 10),
+        art_iguala: testListArtWorks
+    };
+
+    testIguala = new Iguala(testIguala);
+    testIguala2 = new Iguala(testIguala2);
+    testIgualaUpdate = new Iguala(testIgualaUpdate);
+
+    let testIgualaList: Iguala[] = [
+        testIguala,
+        testIguala2
+    ];
+
+    let testIgualaList2: Iguala[] = [
+        testIguala,
+        testIguala2,
+        testIguala
+    ];
+
+    let testListIgualaUpdated: Iguala[] = [
+                                testIguala,
+                                testIgualaUpdate
+                                ];
+
+    let testListUnique: Iguala[] = [
+                                testIguala
+                                ];
 
   // Base state before each test runs.
   // Handles asynchronous compilation.
@@ -104,6 +183,11 @@ describe('Igualas Component tests.', () => {
       it('should have a defined current component', () => {
           component.ngOnInit();
           expect(component).toBeDefined();
+          expect(component.title).toBeDefined();
+          expect(component.titleDangerModal).toBeDefined();
+          expect(component.titleNewModal).toBeDefined();
+          expect(component.titleUpdateModal).toBeDefined();
+          expect(component.descriptionDangerModal).toBeDefined();
       });
 
       /**
@@ -194,7 +278,48 @@ describe('Igualas Component tests.', () => {
       it('should return a not empty Contact object', () => {
           component.getIgualaFromTable(testIguala);
           expect(component.iguala).toEqual(testIguala);
+          expect(component.currentArtWorkList).toEqual(component.iguala.art_iguala);
       });
-  });
+   });
 
+   describe('Use of methods for TWDB', () => {
+        /**
+        * Tests that the onIgualaCreated method returns the new Iguala object and
+        * is added to the complete iguala list.
+        **/
+        it('should add the new iguala', () => {
+            let testList: Iguala[] = [ testIguala, testIguala2 ];
+            component.completeIgualaList = testList;
+            component.igualasList = testList;
+            component.onIgualaCreated(testIguala);
+            fixtureParent.detectChanges();
+            expect(component.completeIgualaList).toEqual(testIgualaList2);
+            expect(component.igualasList).toEqual(testIgualaList2);
+        });
+
+        /**
+        * Tests that the onIgualaUpdated method update the Iguala object.
+        **/
+        it('should update the iguala', () => {
+            let testList: Iguala[] = [ testIguala, testIguala2 ];
+            component.completeIgualaList = testList;
+            component.igualasList = testList;
+            component.onIgualaUpdated(testIgualaUpdate);
+            fixtureParent.detectChanges();
+            expect(component.completeIgualaList).toEqual(testListIgualaUpdated);
+            expect(component.igualasList).toEqual(testListIgualaUpdated);
+        });
+    });
+
+    describe('Search finds the correct objects', () => {
+        /**
+        * Tests that the search obtains objects which contains the text to find.
+        **/
+        it('should find an specific object', async(() => {
+            component.completeIgualaList = testIgualaList;
+            component.getValueSearch('Starbucks');
+            fixtureParent.detectChanges();
+            expect(component.igualasList).toEqual(testListUnique);
+        }));
+    });
 });
