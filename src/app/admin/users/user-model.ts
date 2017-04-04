@@ -7,7 +7,6 @@ export class User {
     first_name: string;
     last_name: string;
     password?: string;
-    groups?: Group[];
     groups_complete?: Group[];
     /**
     * Constructor to create a User based on server response at POST.
@@ -20,8 +19,6 @@ export class User {
       this.username = json && json.username;
       this.first_name = json && json.first_name;
       this.last_name = json && json.last_name;
-      this.groups = [];
-      this.groups = json && json.groups;
       this.groups_complete = [];
       if (json.groups_complete) {
         for (let group of json.groups_complete) {
