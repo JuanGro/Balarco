@@ -181,9 +181,8 @@ describe('IgualaFormComponent tests.', () => {
         * Tests that the current component is correctly built depending of OnChanges hook,
         * in this case, the iguala and oldIguala is undefined.
         **/
-        /* it('should have a defined iguala but with its atributes undefined', () => {
+        it('should have a defined iguala but with its atributes undefined', () => {
             component.ngOnChanges();
-            fixtureChildForm.detectChanges();
 
             expect(component.iguala).toBeDefined();
             expect(component.iguala.name).toBeUndefined();
@@ -191,21 +190,16 @@ describe('IgualaFormComponent tests.', () => {
             expect(component.iguala.start_date).toBeUndefined();
             expect(component.iguala.end_date).toBeUndefined();
 
-            expect(component.oldIguala).toBeDefined();
-            expect(component.oldIguala.name).toBeUndefined();
-            expect(component.oldIguala.client).toBeUndefined();
-            expect(component.oldIguala.start_date).toBeUndefined();
-            expect(component.oldIguala.end_date).toBeUndefined();
-        }); */
+            expect(component.oldIguala).toBeUndefined();
+        });
 
         /**
         * Tests that the current component is correctly built depending of OnChanges hook,
         * in this case, the iguala and oldIguala is defined.
         **/
-        /* it('should have a defined iguala and its atributes correctly defined', () => {
+        it('should have a defined iguala and its atributes correctly defined', () => {
             component.iguala = testIguala;
             component.ngOnChanges();
-            fixtureChildForm.detectChanges();
 
             expect(component.iguala).toBeDefined();
             expect(component.iguala.name).toBeDefined();
@@ -218,7 +212,7 @@ describe('IgualaFormComponent tests.', () => {
             expect(component.oldIguala.client).toBeDefined();
             expect(component.oldIguala.start_date).toBeDefined();
             expect(component.oldIguala.end_date).toBeDefined();
-        }); */
+        });
     });
 
     describe('EventEmitter of modal requests for child Igualas form component', () => {
@@ -261,14 +255,16 @@ describe('IgualaFormComponent tests.', () => {
         /**
         * Tests that the send of the iguala updated is working correctly.
         **/
-        /* it('should send the iguala updated', async(() => {
+        it('should send the iguala updated', async(() => {
             component.iguala = testIguala;
             component.ngOnChanges();
-            fixtureChildForm.detectChanges();
-            updatedIguala.submitUpdatedIguala();
-            updatedIguala.igualaUpdated.subscribe(result => {
-                expect(result).toBe(component.oldIguala);
-            });
-        })); */
+            component.cancelForm();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeUndefined();
+            expect(component.iguala.client).toBeUndefined();
+            expect(component.iguala.start_date).toBeUndefined();
+            expect(component.iguala.end_date).toBeUndefined();
+        }));
     });
 });
