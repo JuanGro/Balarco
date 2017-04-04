@@ -22,6 +22,8 @@ export class ClientsListComponent {
   @Output() requestShowUpdateClientModal: EventEmitter<string> = new EventEmitter();
   // Sends the client selected by the user to parent component
   @Output() currentClient: EventEmitter<Client> = new EventEmitter<Client>();
+  // Sends the value of the search to parent component to add to the contact list the item created only if it's necessary.
+  @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
@@ -50,5 +52,13 @@ export class ClientsListComponent {
   **/
   public sendCurrentClient(object: Client) {
     this.currentClient.emit(object);
+  }
+
+  /**
+  * Search specific items in the client list,
+  * making all the strings to lower case and checks substrings.
+  **/
+  public filterItem(value: string) {
+    this.valueSearch.emit(value);
   }
 }

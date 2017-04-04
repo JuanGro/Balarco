@@ -98,6 +98,43 @@ describe('ClientFormComponent tests.', () => {
         });
     });
 
+    describe('Correct behaviour of OnChanges hook in the component', () => {
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the client and oldClient is undefined.
+        **/
+        it('should have a defined client but with its atributes undefined', () => {
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+
+            expect(component.client).toBeDefined();
+            expect(component.client.name).toBeUndefined();
+            expect(component.client.address).toBeUndefined();
+
+            expect(component.oldClient).toBeDefined();
+            expect(component.oldClient.name).toBeUndefined();
+            expect(component.oldClient.address).toBeUndefined();
+        });
+
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the client and oldClient is defined.
+        **/
+        it('should have a defined client and its atributes correctly defined', () => {
+            component.client = testClient;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+
+            expect(component.client).toBeDefined();
+            expect(component.client.name).toBeDefined();
+            expect(component.client.address).toBeDefined();
+
+            expect(component.oldClient).toBeDefined();
+            expect(component.oldClient.name).toBeDefined();
+            expect(component.oldClient.address).toBeDefined();
+        });
+    });
+
     describe('Initialization of variable for child clients form component', () => {
         /**
         * Tests that the Client object received from parent component is not empty.
@@ -135,6 +172,21 @@ describe('ClientFormComponent tests.', () => {
                 expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();
+        }));
+    });
+
+    describe('Cancel form method is correctly send depending if its current client is not empty', () => {
+        /**
+        * Tests that the send of the client updated is working correctly.
+        **/
+        it('should send the client updated', async(() => {
+            component.client = testClient;
+            component.ngOnChanges();
+            component.cancelForm();
+
+            expect(component.client).toBeDefined();
+            expect(component.client.name).toBeUndefined();
+            expect(component.client.address).toBeUndefined();
         }));
     });
 });
