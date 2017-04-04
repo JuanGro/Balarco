@@ -30,7 +30,7 @@ export class ClientsComponent implements OnInit {
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
-  // Original copy of the client list received from httpService.
+  // Original copy of the client list it's used always like a base for filter by name.
   public completeClientList: Client[];
   // Client list
   public clientsList: Client[];
@@ -127,9 +127,8 @@ export class ClientsComponent implements OnInit {
       this.clientsList = this.completeClientList;
     } else {
       for (let clientFromList of this.completeClientList) {
-        let client = new Client(clientFromList);
-        if (client.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            client.address.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+        if (clientFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let client = new Client(clientFromList);
             this.clientsList.push(client);
         }
       }
