@@ -43,9 +43,6 @@ describe('ClientFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
-    // Variable to test if the client is correctly updated in emitters.
-    let updatedClient;
-
     // Create a Client object example.
     let testClient: Client = { id: 1, name: 'Starbucks', address: 'Example' };
 
