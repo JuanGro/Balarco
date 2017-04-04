@@ -80,8 +80,7 @@ export class WorkFormComponent implements OnChanges {
   *   - Initialize the form depending if the new or update work form is called.
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
-  public ngOnChanges() {
-    console.log('CALLING');
+  public ngOnChanges() {    
     if (!this.work) {
       // New work
       this.work = new Work();

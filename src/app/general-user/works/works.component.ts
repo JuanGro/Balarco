@@ -89,11 +89,12 @@ export class WorksComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
-                      console.log(worksListJSON);
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
                       }
-                      console.log(this.worksList);
+                    },
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los trabajos");
                     });
   }
 
@@ -112,10 +113,9 @@ export class WorksComponent implements OnInit {
                         this.clientsList.push(new Client(clientJSON));
                       }
                     },
-                      err => {
-                        // Call of toast
-                      }
-                    );
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los clientes");
+                    });
   }
 
   /**
@@ -133,10 +133,9 @@ export class WorksComponent implements OnInit {
                         this.contactsList.push(new Contact(contactJSON));
                       }
                     },
-                      err => {
-                        // Call of toast
-                      }
-                    );
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los contactos");
+                    });
   }
 
   /**
@@ -154,8 +153,8 @@ export class WorksComponent implements OnInit {
                         this.igualasList.push(new Iguala(igualaJSON));
                       }
                     },
-                      err => {
-
+                      error => {
+                        this.toaster.show(error, "Error", "Ocurrió un error al cargar las igualas");
                       });
 
   }
@@ -174,6 +173,9 @@ export class WorksComponent implements OnInit {
                       for (let workTypeJSON of workTypesListJSON) {
                         this.workTypesList.push(new WorkType(workTypeJSON));
                       }
+                    },
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los tipos de trabajo");
                     });
   }
 
@@ -193,6 +195,9 @@ export class WorksComponent implements OnInit {
                       for (let artType of graduationArtTypesJSON) {
                         this.graduationArtTypes.push(new ArtWork(artType));
                       }
+                    },
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar las graduaciones");
                     });
 
   }
@@ -210,6 +215,9 @@ export class WorksComponent implements OnInit {
                       for (let status of statusListJSON) {
                         this.statusList.push(new Status(status));
                       }
+                    },
+                    error => {
+                      this.toaster.show(error, "Error", "Ocurrió un error al cargar los estados");
                     });
   }
 

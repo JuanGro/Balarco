@@ -27,7 +27,6 @@ var WorkFormComponent = (function () {
         this.currentWorkTypeId = 0;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
-        console.log('CALLING');
         if (!this.work) {
             this.work = new Work();
         }

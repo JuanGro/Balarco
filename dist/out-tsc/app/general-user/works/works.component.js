@@ -44,12 +44,12 @@ var WorksComponent = (function () {
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             _this.worksList = [];
-            console.log(worksListJSON);
             for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
                 var workJSON = worksListJSON_1[_i];
                 _this.worksList.push(new Work(workJSON));
             }
-            console.log(_this.worksList);
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar los trabajos");
         });
     };
     WorksComponent.prototype.loadClientsList = function (url) {
@@ -62,7 +62,8 @@ var WorksComponent = (function () {
                 var clientJSON = clientsListJSON_1[_i];
                 _this.clientsList.push(new Client(clientJSON));
             }
-        }, function (err) {
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar los clientes");
         });
     };
     WorksComponent.prototype.loadContactsList = function (url) {
@@ -75,7 +76,8 @@ var WorksComponent = (function () {
                 var contactJSON = contactsListJSON_1[_i];
                 _this.contactsList.push(new Contact(contactJSON));
             }
-        }, function (err) {
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar los contactos");
         });
     };
     WorksComponent.prototype.loadIgualasList = function (url) {
@@ -88,7 +90,8 @@ var WorksComponent = (function () {
                 var igualaJSON = igualasListJSON_1[_i];
                 _this.igualasList.push(new Iguala(igualaJSON));
             }
-        }, function (err) {
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar las igualas");
         });
     };
     WorksComponent.prototype.loadWorkTypesList = function (url) {
@@ -101,6 +104,8 @@ var WorksComponent = (function () {
                 var workTypeJSON = workTypesListJSON_1[_i];
                 _this.workTypesList.push(new WorkType(workTypeJSON));
             }
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar los tipos de trabajo");
         });
     };
     WorksComponent.prototype.loadWorkTypesForGraduation = function (url) {
@@ -116,6 +121,8 @@ var WorksComponent = (function () {
                 var artType = graduationArtTypesJSON_1[_i];
                 _this.graduationArtTypes.push(new ArtWork(artType));
             }
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar las graduaciones");
         });
     };
     WorksComponent.prototype.loadStatusList = function (url) {
@@ -128,6 +135,8 @@ var WorksComponent = (function () {
                 var status_1 = statusListJSON_1[_i];
                 _this.statusList.push(new Status(status_1));
             }
+        }, function (error) {
+            _this.toaster.show(error, "Error", "Ocurrió un error al cargar los estados");
         });
     };
     WorksComponent.prototype.getWorkFromTable = function (object) {
