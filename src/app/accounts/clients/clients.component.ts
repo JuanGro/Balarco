@@ -24,15 +24,13 @@ import { environment } from '../../../environments/environment';
 export class ClientsComponent implements OnInit {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentClient') currentClient: Client;
-  // Received from table component, it gives me the filtered client list if the user is using the search.
-  @Input('clientListFiltered') clientListFiltered: Client[];
   // Received from table component, it gives me the value that the user is typing in the search.
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
   // Original copy of the client list it's used always like a base for filter by name.
   public completeClientList: Client[];
-  // Client list
+  // Client list used for the search.
   public clientsList: Client[];
   // Current selected client to update or delete
   public client: Client;
