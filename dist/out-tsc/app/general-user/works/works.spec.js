@@ -47,6 +47,38 @@ describe('WorksComponent tests', function () {
             new ArtWork({ id: 2, name: 'Test art', quantity: 5 }),
         ]
     });
+    var testWork2 = new Work({
+        id: 2, name: 'Test Work 2', creation_date: new Date(), expected_delivery_date: new Date(),
+        brief: 'Foo', final_link: 'Bar.com',
+        contact_complete: {
+            id: 1, name: 'TestGuy', last_name: 'TestLast', client: 2,
+            charge: 'TestCEO', landline: '111111111111', extension: '12',
+            mobile_phone_1: '4271000000', email: 'test@tes.com', client_complete: new Client(),
+        },
+        work_type_complete: new WorkType({ id: 1, name: 'TestType' }),
+        iguala_complete: new Iguala({ id: 1, name: 'Iguala', client: 2, start_date: new Date(), end_date: new Date() }),
+        current_status_complete: new Status({ id: 3, name: 'Testing' }),
+        art_works: [
+            new ArtWork({ id: 1, name: 'New art', quantity: 12 }),
+            new ArtWork({ id: 2, name: 'Test art', quantity: 5 }),
+        ]
+    });
+    var testWorkUpdated = new Work({
+        id: 1, name: 'Test Work Updated', creation_date: new Date(), expected_delivery_date: new Date(),
+        brief: 'Foo', final_link: 'Bar.com',
+        contact_complete: {
+            id: 1, name: 'TestGuy', last_name: 'TestLast', client: 2,
+            charge: 'TestCEO', landline: '111111111111', extension: '12',
+            mobile_phone_1: '4271000000', email: 'test@tes.com', client_complete: new Client(),
+        },
+        work_type_complete: new WorkType({ id: 1, name: 'TestTypeUpdated' }),
+        iguala_complete: new Iguala({ id: 1, name: 'IgualaUpdated', client: 2, start_date: new Date(), end_date: new Date() }),
+        current_status_complete: new Status({ id: 3, name: 'Testing' }),
+        art_works: [
+            new ArtWork({ id: 1, name: 'New art', quantity: 2 }),
+            new ArtWork({ id: 2, name: 'Test art', quantity: 16 }),
+        ]
+    });
     beforeEach(async(function () {
         TestBed.configureTestingModule({
             declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
@@ -131,6 +163,14 @@ describe('WorksComponent tests', function () {
             fixtureParent.detectChanges();
             expect(component.worksList.length).toEqual(3);
             expect(component.worksList[2]).toEqual(testWork);
+        });
+        it('should update work object', function () {
+            var testList = [testWork, testWork2];
+            var updatedList = [testWorkUpdated, testWork2];
+            component.worksList = testList;
+            component.onWorkUpdated(testWorkUpdated);
+            fixtureParent.detectChanges();
+            expect(component.worksList).toEqual(updatedList);
         });
     });
 });
