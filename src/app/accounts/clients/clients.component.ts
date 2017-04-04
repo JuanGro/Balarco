@@ -144,7 +144,7 @@ export class ClientsComponent implements OnInit {
   *   - result: Response from backend service to know if the operation was success or not.
   **/
   public removeClient(event: Client) {
-    this.httpService.deleteObject(environment.CONTACTS_URL + event.id + '/').subscribe(result => {
+    this.httpService.deleteObject(environment.CLIENTS_URL + event.id + '/').subscribe(result => {
       if (result.ok) {
         let oldClient = this.completeClientList.filter(client => client.id === event.id)[0];
         let index = this.completeClientList.indexOf(oldClient);
