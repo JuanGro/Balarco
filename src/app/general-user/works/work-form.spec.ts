@@ -164,6 +164,51 @@ describe('WorkFormComponent tests', () => {
        });
    });
 
+   describe('Correct behaviour of OnChanges hook in the component', () => {
+      /**
+      * Tests that the current component is correctly built depending of OnChanges hook,
+      * in this case, the client and oldClient is undefined.
+      **/
+      it('should have an defined work with undefined attributes', () => {
+          component.ngOnChanges();
+          fixtureChildForm.detectChanges();
+
+          expect(component.work).toBeDefined();
+          expect(component.work.id).toBeUndefined();
+          expect(component.work.name).toBeUndefined();
+          expect(component.work.contact).toBeUndefined();
+          expect(component.work.iguala).toBeUndefined();
+          expect(component.work.work_type).toBeUndefined();
+
+          expect(component.oldWork).toBeUndefined();
+      });
+
+      /**
+      * Tests that the current component is correctly built depending of OnChanges hook,
+      * in this case, the client and oldClient is defined.
+      **/
+      it('should have a defined work and its atributes correctly defined', () => {
+          component.work = testWork1;
+          component.contactsList = testContactList;
+          component.ngOnChanges();
+          fixtureChildForm.detectChanges();
+
+          expect(component.work).toBeDefined();
+          expect(component.work.id).toBeDefined();
+          expect(component.work.name).toBeDefined();
+          expect(component.work.contact).toBeDefined();
+          expect(component.work.iguala).toBeDefined();
+          expect(component.work.work_type).toBeDefined();
+
+          expect(component.oldWork).toBeDefined();
+          expect(component.oldWork.id).toBeDefined();
+          expect(component.oldWork.name).toBeDefined();
+          expect(component.oldWork.contact).toBeDefined();
+          expect(component.oldWork.iguala).toBeDefined();
+          expect(component.oldWork.work_type).toBeDefined();
+      });
+   });
+
    describe('Initialization of variable for child contacts form component', () => {
         /**
         * Tests that the Work object received from parent component is not empty.

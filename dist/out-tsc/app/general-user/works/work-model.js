@@ -5,7 +5,6 @@ import { WorkType } from './work-type/work-type-model';
 import { Status } from './status/status-model';
 var Work = (function () {
     function Work(object) {
-        this.executive_id = 1;
         if (object) {
             this.id = object.id;
             this.name = object.name;

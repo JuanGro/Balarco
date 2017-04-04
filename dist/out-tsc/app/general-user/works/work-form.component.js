@@ -81,6 +81,7 @@ var WorkFormComponent = (function () {
         var _this = this;
         this.work.art_works = this.currentArtWorkList;
         this.work.contact = this.contact_id;
+        this.work.executive_id = 1;
         if (this.work.id) {
             this.submitUpdatedWork();
         }

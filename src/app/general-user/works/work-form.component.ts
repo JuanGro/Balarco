@@ -150,6 +150,8 @@ export class WorkFormComponent implements OnChanges {
   public submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
+    // TODO: Remove when Users module is ready.
+    this.work.executive_id = 1;
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();

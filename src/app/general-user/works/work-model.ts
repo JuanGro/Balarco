@@ -23,7 +23,7 @@ export class Work {
   current_status: number;
   current_status_complete?: Status;
   // TODO: Executive.
-  executive_id: number = 1;
+  executive_id: number;
 
   constructor(object?: any) {
     if (object) {

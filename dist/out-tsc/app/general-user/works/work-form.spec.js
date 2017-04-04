@@ -113,6 +113,37 @@ describe('WorkFormComponent tests', function () {
             expect(componentParent).toBeDefined();
         });
     });
+    describe('Correct behaviour of OnChanges hook in the component', function () {
+        it('should have an defined work with undefined attributes', function () {
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+            expect(component.work).toBeDefined();
+            expect(component.work.id).toBeUndefined();
+            expect(component.work.name).toBeUndefined();
+            expect(component.work.contact).toBeUndefined();
+            expect(component.work.iguala).toBeUndefined();
+            expect(component.work.work_type).toBeUndefined();
+            expect(component.oldWork).toBeUndefined();
+        });
+        it('should have a defined work and its atributes correctly defined', function () {
+            component.work = testWork1;
+            component.contactsList = testContactList;
+            component.ngOnChanges();
+            fixtureChildForm.detectChanges();
+            expect(component.work).toBeDefined();
+            expect(component.work.id).toBeDefined();
+            expect(component.work.name).toBeDefined();
+            expect(component.work.contact).toBeDefined();
+            expect(component.work.iguala).toBeDefined();
+            expect(component.work.work_type).toBeDefined();
+            expect(component.oldWork).toBeDefined();
+            expect(component.oldWork.id).toBeDefined();
+            expect(component.oldWork.name).toBeDefined();
+            expect(component.oldWork.contact).toBeDefined();
+            expect(component.oldWork.iguala).toBeDefined();
+            expect(component.oldWork.work_type).toBeDefined();
+        });
+    });
     describe('Initialization of variable for child contacts form component', function () {
         it('should load correctly a work in contact Input', function () {
             component.work = testWork1;
