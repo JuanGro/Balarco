@@ -3,7 +3,7 @@
     <!-- #worksModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitWorkForm(worksModalForm.value)" executes the submitWorkForm method sending the values of each field -->
     <form #worksModalForm="ngForm" novalidate (ngSubmit)="submitWorkForm(worksModalForm.value)" *ngIf="active">
-    
+
     <!-- First row -->
     <div class="form-group row">
         <div class="col-md-6">
@@ -12,10 +12,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" required>
+                <input type="text" id="name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" required>
             </div>
             <!-- Feedback name -->
-            <!-- <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+            <div *ngIf="name.errors && name.touched" class="alert alert-danger">
                 <div [hidden]="!name.errors.required">
                     El nombre es obligatorio.
                 </div>
@@ -25,7 +25,7 @@
                 <div [hidden]="!name.errors.maxlength">
                     El nombre debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -39,11 +39,11 @@
                 </select>
             </div>
             <!-- Feedback executive -->
-            <!-- <div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
+            <!--<div *ngIf="executive.errors && executive.touched" class="alert alert-danger">
                 <div [hidden]="!executive.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div> -->
+            </div>-->
         </div>
     </div>
 
@@ -55,16 +55,16 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                <select id="client" name="client" class="form-control" size="1" required>
+                <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
             </div>
             <!-- Feedback client -->
-            <!-- <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+            <div *ngIf="client.errors && client.touched" class="alert alert-danger">
                 <div [hidden]="!client.errors.required">
                     La compañía es obligatoria.
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -73,19 +73,19 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                <select id="contact" name="contact" class="form-control" size="1" required>
-                    <option *ngFor="let contact of contactsList" value="{{ contact.id }}">{{ contact.name }}</option>
+                <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
+                    <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
             </div>
             <!-- Feedback contact -->
-            <!-- <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
+            <div *ngIf="contact.errors && contact.touched" class="alert alert-danger">
                 <div [hidden]="!contact.errors.required">
                     El contacto es obligatorio.
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
-    
+
     <!-- Third row -->
     <div class="form-group row">
         <div class="col-md-6">
@@ -94,38 +94,52 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="type" name="type" class="form-control" size="1" required>
-                    <option *ngFor="let type of typesList" value="{{ type.id }}">{{ type.name }}</option>
+                <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" required>
+                    <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
                 </select>
             </div>
             <!-- Feedback type -->
-            <!-- <div *ngIf="type.errors && type.touched" class="alert alert-danger">
+            <div *ngIf="type.errors && type.touched" class="alert alert-danger">
                 <div [hidden]="!type.errors.required">
                     El tipo es obligatorio.
                 </div>
-            </div> -->
+            </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="currentWorkTypeId == 1">
             <!-- Iguala field -->
             <label for="recipient-iguala" class="form-control-label">Iguala:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                <select id="iguala" name="iguala" class="form-control" size="1" required>
+                <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" #iguala="ngModel" required>
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                 </select>
             </div>
             <!-- Feedback iguala -->
-            <!-- <div *ngIf="iguala.errors && iguala.touched" class="alert alert-danger">
+            <div *ngIf="iguala.errors && iguala.touched" class="alert alert-danger">
                 <div [hidden]="!iguala.errors.required">
                     La iguala es obligatoria.
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
     <!-- Fourth row -->
+    <div *ngIf="currentWorkTypeId == 1 || currentWorkTypeId == 2">
+      <div class="form-group row" *ngFor="let artWork of currentArtWorkList">
+          <div class="col-md-12">
+              <div class="form-group row">
+                  <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
+                  <div class="col-3">
+                      <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity">
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Fifth row -->
     <div class="form-group row">
         <div class="col-md-12">
             <!-- Description field -->
@@ -133,10 +147,10 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
-                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="24" rows="3" name="description" required></textarea>
+                <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" #description="ngModel" required></textarea>
             </div>
             <!-- Feedback description -->
-            <!-- <div *ngIf="description.errors && description.touched" class="alert alert-danger">
+            <div *ngIf="description.errors && description.touched" class="alert alert-danger">
                 <div [hidden]="!description.errors.required">
                     La descripción es obligatorio.
                 </div>
@@ -146,35 +160,24 @@
                 <div [hidden]="!description.errors.maxlength">
                     La descripción debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
-        </div>
-    </div>
-
-    <!-- Fifth row -->
-    <div class="form-group row">
-        <!-- Here you can use the ngFor -->
-        <div class="col-md-12">
-            <div class="form-group row">
-                <label for="example-number-input" class="col-4 col-form-label">Tipo de arte 1</label>
-                <div class="col-2">
-                    <input class="form-control" type="number" value="0" id="example-number-input">
-                </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Sixth row -->
     <div class="form-group row">
         <div class="col-md-6">
             <!-- Status field -->
-            <label for="recipient-status" class="form-control-label">Estado:</label>
+            <label for="recipient-status" class="form-control-label">Estado: <b *ngIf="work.id">{{ work.current_status_complete.name }}</b></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                <input type="text" id="recipient-status" placeholder="Activo" class="form-control" minlength="3" maxlength="24" name="status" required>
+                <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" #status="ngModel" required>
+                    <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
+                </select>
             </div>
             <!-- Feedback status -->
-            <!-- <div *ngIf="status.errors && status.touched" class="alert alert-danger">
+            <div *ngIf="status.errors && status.touched" class="alert alert-danger">
                 <div [hidden]="!status.errors.required">
                     El estado es obligatorio.
                 </div>
@@ -184,18 +187,18 @@
                 <div [hidden]="!status.errors.maxlength">
                     El estado debe ser menor a 25 caracteres.
                 </div>
-            </div> -->
+            </div>
         </div>
-        
+
         <div class="col-md-6">
             <!-- Final link field -->
             <label for="recipient-final-link" class="form-control-label">Link trabajo final:</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-external-link"></i>
                 </span>
-                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" required>
+                <input type="text" id="recipient-final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link">
             </div>
-            <!-- Feedback final link -->
+            <!-- Feedback final link IF NEEDED -->
             <!-- <div *ngIf="final-link.errors && final-link.touched" class="alert alert-danger">
                 <div [hidden]="!final-link.errors.required">
                     El nombre es obligatorio.
@@ -217,7 +220,7 @@
             <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
             <div class="card-block">
                 <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-                    <datepicker name="start_date" required></datepicker>
+                    <datepicker name="start_date" [(ngModel)]="work.creation_date" required></datepicker>
                 </div>
             </div>
         </div>
@@ -227,7 +230,7 @@
             <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
             <div class="card-block">
                 <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
-                    <datepicker name="end_date" required></datepicker>
+                    <datepicker name="end_date" [(ngModel)]="work.expected_delivery_date" [minDate]="work.creation_date" required></datepicker>
                 </div>
             </div>
         </div>

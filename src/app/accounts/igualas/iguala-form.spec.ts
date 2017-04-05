@@ -28,6 +28,8 @@ import { IgualaFormComponent } from './iguala-form.component';
 
 // Models
 import { Iguala } from './iguala-model';
+import { Client } from './../clients/client-model';
+import { ArtWork } from './../../general-user/works/art-works/art-work-model';
 
 describe('IgualaFormComponent tests.', () => {
     // Fixture for debugging and testing a IgualasComponent.
@@ -47,14 +49,46 @@ describe('IgualaFormComponent tests.', () => {
     // Variable to test which action is executing in modal.
     let modalAction;
 
+    let testArtWork: ArtWork = {
+        id: 1, name: 'Test Diseño 1', quantity: 100
+    };
+
+    let testArtWork2: ArtWork = {
+        id: 2, name: 'Test Diseño 2', quantity: 200
+    };
+
+    let testArtWork3: ArtWork = {
+        id: 3, name: 'Test Diseño 3', quantity: 300
+    };
+
+    let testListArtWorks: ArtWork[] = [
+                                testArtWork,
+                                testArtWork2,
+                                testArtWork3
+                                ];
+
     // Create a Iguala object example.
     let testIguala: Iguala = {
       id: 1,
       name: 'Starbucks 2018',
       client: 2,
       start_date: new Date(2011, 10, 10),
-      end_date: new Date(2012, 10, 10)
+      end_date: new Date(2012, 10, 10),
+      art_iguala: testListArtWorks
     };
+
+    let testClient: Client = {
+        id: 1, name: 'Starbucks', address: 'Example'
+    };
+
+    let testClient2: Client = {
+        id: 1, name: 'Starbucks', address: 'Example'
+    };
+
+    let testListClients: Client[] = [
+                                testClient,
+                                testClient2
+                                ];
 
     // Base state before each test runs.
     // Handles asynchronous compilation.
@@ -113,9 +147,66 @@ describe('IgualaFormComponent tests.', () => {
         * Tests that the Iguala object received from parent component is not empty.
         **/
         it('should load correctly a Iguala in Iguala Input', () => {
-            component.Iguala = testIguala;
+            component.iguala = testIguala;
             fixtureParent.detectChanges();
-            expect(component.Iguala).toEqual(testIguala);
+            expect(component.iguala).toEqual(testIguala);
+        });
+
+        /**
+        * Tests that the clients object list received from parent component is not empty.
+        **/
+        it('should load correctly clients list in clientsList Input', () => {
+            component.clientsList = testListClients;
+            fixtureParent.detectChanges();
+            expect(component.clientsList).toEqual(testListClients);
+        });
+
+        /**
+        * Tests that the artwork object list received from parent component is not empty.
+        **/
+        it('should load correctly artwork list in ArtworkList Input', () => {
+            component.artWorkList = testListArtWorks;
+            fixtureParent.detectChanges();
+            expect(component.artWorkList).toEqual(testListArtWorks);
+        });
+    });
+
+    describe('Correct behaviour of OnChanges hook in the component', () => {
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the iguala and oldIguala is undefined.
+        **/
+        it('should have a defined iguala but with its atributes undefined', () => {
+            component.ngOnChanges();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeUndefined();
+            expect(component.iguala.client).toBeUndefined();
+            expect(component.iguala.start_date).toBeUndefined();
+            expect(component.iguala.end_date).toBeUndefined();
+
+            expect(component.oldIguala).toBeUndefined();
+        });
+
+        /**
+        * Tests that the current component is correctly built depending of OnChanges hook,
+        * in this case, the iguala and oldIguala is defined.
+        **/
+        it('should have a defined iguala and its atributes correctly defined', () => {
+            component.iguala = testIguala;
+            component.ngOnChanges();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeDefined();
+            expect(component.iguala.client).toBeDefined();
+            expect(component.iguala.start_date).toBeDefined();
+            expect(component.iguala.end_date).toBeDefined();
+
+            expect(component.oldIguala).toBeDefined();
+            expect(component.oldIguala.name).toBeDefined();
+            expect(component.oldIguala.client).toBeDefined();
+            expect(component.oldIguala.start_date).toBeDefined();
+            expect(component.oldIguala.end_date).toBeDefined();
         });
     });
 
@@ -145,6 +236,23 @@ describe('IgualaFormComponent tests.', () => {
                 expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();
+        }));
+    });
+
+     describe('Cancel form method is correctly send depending if its current iguala is not empty', () => {
+        /**
+        * Tests that the send of the iguala updated is working correctly.
+        **/
+        it('should send the iguala updated', async(() => {
+            component.iguala = testIguala;
+            component.ngOnChanges();
+            component.cancelForm();
+
+            expect(component.iguala).toBeDefined();
+            expect(component.iguala.name).toBeUndefined();
+            expect(component.iguala.client).toBeUndefined();
+            expect(component.iguala.start_date).toBeUndefined();
+            expect(component.iguala.end_date).toBeUndefined();
         }));
     });
 });

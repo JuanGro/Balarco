@@ -25,7 +25,7 @@ describe('ArtWork object model tests.', () => {
 
     expect(artWork.id).toBe(undefined);
     expect(artWork.name).toBe(undefined);
-    expect(artWork.quantity).toBe(undefined);
+    expect(artWork.quantity).toBe(0);
   });
 
 

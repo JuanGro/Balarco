@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
+
 // Models
 import { Contact } from './contact-model';
 import { Client } from './../clients/client-model';
@@ -25,10 +28,12 @@ export class ContactsListComponent {
   @Output() requestShowUpdateContactModal: EventEmitter<string> = new EventEmitter();
   // Sends the contact selected by the user to parent component.
   @Output() currentContact: EventEmitter<Contact> = new EventEmitter<Contact>();
+  // Sends the value of the search to parent component to add to the contact list the item created only if it's necessary.
+  @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
-  public constructor() { }
+  public constructor(public httpService: HttpService) { }
 
   /**
   * Requests to parent component to show the new contact modal.
@@ -47,11 +52,20 @@ export class ContactsListComponent {
   }
 
   /**
-  * Sends to parent component the contact selected by the user.
+  * Sends to parent component the contact selected by the user 
+  * and the contact list filtered from search.
   * Params:
   *   - object: A Contact object.
   **/
   public sendCurrentContact(object: Contact) {
     this.currentContact.emit(object);
+  }
+
+  /**
+  * Search specific items in the contacts list,
+  * making all the strings to lower case and checks substrings.
+  **/
+  public filterItem(value: string) {
+    this.valueSearch.emit(value);
   }
 }

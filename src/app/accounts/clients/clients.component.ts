@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // Class
 import { Client } from './client-model';
@@ -22,9 +22,15 @@ import { environment } from '../../../environments/environment';
 * - Remove a client.
 **/
 export class ClientsComponent implements OnInit {
+  // Received from table component, it gives me the contact that the user selected to see his detail.
+  @Input('currentClient') currentClient: Client;
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
-  // Client list
+  // Original copy of the client list it's used always like a base for filter by name.
+  public completeClientList: Client[];
+  // Client list used for the search.
   public clientsList: Client[];
   // Current selected client to update or delete
   public client: Client;
@@ -70,9 +76,11 @@ export class ClientsComponent implements OnInit {
                       for (let clientJSON of clientsListJSON) {
                         this.clientsList.push(new Client(clientJSON));
                       }
+                      this.clientsList.sort().reverse();
+                      this.completeClientList = this.clientsList;
                     },
-                    err => {
-                            // Call of toast
+                    error => {
+                            this.toaster.show(error, 'Error', 'Ocurrió un error al obtener la lista de clientes');
                            }
                     );
   }
@@ -82,28 +90,6 @@ export class ClientsComponent implements OnInit {
   **/
   public initializeModal() {
     this.client = new Client();
-  }
-
-  /**
-  * Requests to the Backend service to remove the client selected by the user.
-  * Params:
-  *   - object: A Client object.
-  * Returns:
-  *   - result: Response from backend service to know if the operation was success or not.
-  **/
-  public removeClient(object: Client) {
-    this.httpService.deleteObject(environment.CLIENTS_URL + object.id + '/').subscribe(result => {
-      if (result.ok) {
-        let index = this.clientsList.indexOf(object);
-        if (index >= 0) {
-          this.clientsList.splice(index, 1);
-        }
-        this.toaster.show(result, 'Cliente eliminado', 'El cliente se eliminó con éxito');
-      }
-    },
-    error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar cliente');
-    });
   }
 
   /**
@@ -118,26 +104,79 @@ export class ClientsComponent implements OnInit {
   }
 
   /**
-  * Recieves event when a new client is created in the form.
-  * It pushes the new client to the list.
+  * Shows the client list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.clientsList = [];
+    this.completeClientList.sort();
+    if (this.valueSearch === '') {
+      this.clientsList = this.completeClientList;
+    } else {
+      for (let clientFromList of this.completeClientList) {
+        if (clientFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let client = new Client(clientFromList);
+            this.clientsList.push(client);
+        }
+      }
+    }
+  }
+
+  /**
+  * Requests to the Backend service to remove the client selected by the user and reload the search.
+  * Params:
+  *   - object: A Client object.
+  * Returns:
+  *   - result: Response from backend service to know if the operation was success or not.
+  **/
+  public removeClient(event: Client) {
+    this.httpService.deleteObject(environment.CLIENTS_URL + event.id + '/').subscribe(result => {
+      if (result.ok) {
+        let oldClient = this.completeClientList.filter(client => client.id === event.id)[0];
+        let index = this.completeClientList.indexOf(oldClient);
+        if (index >= 0) {
+          this.completeClientList.splice(index, 1);
+          if (this.valueSearch) {
+          this.getValueSearch(this.valueSearch);
+          }
+          this.toaster.show(result, 'Cliente eliminado', 'El cliente se eliminó con éxito');
+        }
+      }
+    },
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar el cliente');
+    });
+  }
+
+  /**
+  * Receives event when a new client is created in the form.
+  * It pushes the new client to the complete list and reload the search.
   * Params:
   *   - event: New client received from the event.
   **/
   public onClientCreated(event: Client) {
-    this.clientsList.push(event);
+    this.completeClientList.push(event);
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
+    }
   }
 
   /**
-  * Recieves event when a client is updated in the form.
-  * It updates the client selected.
+  * Receives event when a client is updated in the form.
+  * It updates the client selected and reload the search.
   * Params:
   *   - event: Client updated received from the event.
   **/
   public onClientUpdated(event: Client) {
-    let oldClient = this.clientsList.filter(client => client.id === event.id)[0];
-    let index = this.clientsList.indexOf(oldClient);
+    let oldClient = this.completeClientList.filter(client => client.id === event.id)[0];
+    let index = this.completeClientList.indexOf(oldClient);
     if (index >= 0) {
-      this.clientsList[index] = event;
+      this.completeClientList[index] = event;
+      if (this.valueSearch) {
+        this.getValueSearch(this.valueSearch);
+      }
     }
   }
 }

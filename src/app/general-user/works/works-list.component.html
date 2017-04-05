@@ -22,17 +22,12 @@
 
                 <!-- Start table -->
                 <div class="card-block">
-                    <table class="table table-inverse">
+                    <table class="table">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
-                                <th>Contacto</th>
-                                <th>Ejecutivo</th>
-                                <th>Iguala</th>
-                                <th>Descripción</th>
-                                <th>Link trabajo terminado</th>
-                                <th>Fecha de creación</th>
+                                <th>Tipo</th>
                                 <th>Fecha de entrega</th>
                                 <th>Estado</th>
                             </tr>
@@ -44,14 +39,9 @@
                             <tr data-toggle="modal" *ngFor="let work of worksList" (click)="requestUpdateWorkModal($event)" (click)="sendCurrentWork(work)">
                                 <th scope="row">{{ work.id }}</th>
                                 <td>{{ work.name }}</td>
-                                <td>{{ work.last_name }}</td>
-                                <td>{{ work.client_complete.name }}</td>
-                                <td>{{ work.charge }}</td>
-                                <td>{{ work.landline }}</td>
-                                <td>{{ work.extension }}</td>
-                                <td>{{ work.mobile_phone_1 }}</td>
-                                <td>{{ work.mobile_phone_2 }}</td>
-                                <td>{{ work.email }}</td>
+                                <td>{{ work.work_type_complete.name }}</td>
+                                <td>{{ work.expected_delivery_date.toDateString() }}</td>
+                                <td>{{ work.current_status_complete.name }}</td>
                             </tr>
                         </tbody>
                     </table>

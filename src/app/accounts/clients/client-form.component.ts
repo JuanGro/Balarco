@@ -117,6 +117,7 @@ export class ClientFormComponent implements OnChanges {
     error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al actualizar el cliente');
     });
+    this.client = new Client();
   }
 
   /**

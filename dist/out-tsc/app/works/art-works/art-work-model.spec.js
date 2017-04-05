@@ -17,7 +17,7 @@ describe('ArtWork object model tests.', function () {
         var artWork = new ArtWork();
         expect(artWork.id).toBe(undefined);
         expect(artWork.name).toBe(undefined);
-        expect(artWork.quantity).toBe(undefined);
+        expect(artWork.quantity).toBe(0);
     });
     it('Should create an ArtWork object by passing a Json in the constructor', function () {
         var id = 1;

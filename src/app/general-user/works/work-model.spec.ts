@@ -39,8 +39,8 @@ describe('Work object model tests.', () => {
     let work: Work = {
       id: id, name: name, creation_date: creation_date,
       expected_delivery_date: expected_delivery_date, brief: brief,
-      final_link: final_link, contact: contact, work_type: workType,
-      iguala: iguala, status: status, art_works: artWorks,
+      final_link: final_link, contact_complete: contact, work_type_complete: workType,
+      iguala_complete: iguala, current_status_complete: status, art_works: artWorks,
     };
 
     expect(work.id).toBe(id);
@@ -49,10 +49,10 @@ describe('Work object model tests.', () => {
     expect(work.expected_delivery_date).toBe(expected_delivery_date);
     expect(work.brief).toBe(brief);
     expect(work.final_link).toBe(final_link);
-    expect(work.contact).toBe(contact);
-    expect(work.work_type).toBe(workType);
-    expect(work.iguala).toBe(iguala);
-    expect(work.status).toBe(status);
+    expect(work.contact_complete).toBe(contact);
+    expect(work.work_type_complete).toBe(workType);
+    expect(work.iguala_complete).toBe(iguala);
+    expect(work.current_status_complete).toBe(status);
     expect(work.art_works).toBe(artWorks);
   });
 
@@ -65,10 +65,10 @@ describe('Work object model tests.', () => {
     expect(work.expected_delivery_date).toBe(undefined);
     expect(work.brief).toBe(undefined);
     expect(work.final_link).toBe(undefined);
-    expect(work.contact).toBe(undefined);
-    expect(work.work_type).toBe(undefined);
-    expect(work.iguala).toBe(undefined);
-    expect(work.status).toBe(undefined);
+    expect(work.contact_complete).toBe(undefined);
+    expect(work.work_type_complete).toBe(undefined);
+    expect(work.iguala_complete).toBe(undefined);
+    expect(work.current_status).toBe(undefined);
     expect(work.art_works).toBe(undefined);
   });
 
@@ -96,8 +96,8 @@ describe('Work object model tests.', () => {
     let workJson = {
       id: id, name: name, creation_date: creation_date,
       expected_delivery_date: expected_delivery_date, brief: brief,
-      final_link: final_link, contact: contact, work_type: workType,
-      iguala: iguala, status: status, art_works: artWorks,
+      final_link: final_link, contact_complete: contact, work_type_complete: workType,
+      iguala_complete: iguala, current_status_complete: status, art_works: artWorks,
     };
 
     let work = new Work(workJson);
@@ -107,10 +107,10 @@ describe('Work object model tests.', () => {
     expect(work.expected_delivery_date).toBe(expected_delivery_date);
     expect(work.brief).toBe(brief);
     expect(work.final_link).toBe(final_link);
-    expect(work.contact.id).toBe(contact.id);
-    expect(work.work_type.id).toBe(workType.id);
-    expect(work.iguala.id).toBe(iguala.id);
-    expect(work.status.id).toBe(status.id);
+    expect(work.contact_complete.id).toBe(contact.id);
+    expect(work.work_type_complete.id).toBe(workType.id);
+    expect(work.iguala_complete.id).toBe(iguala.id);
+    expect(work.current_status_complete.id).toBe(status.id);
     expect(work.art_works.length).toBe(artWorks.length);
   });
 });

@@ -7,35 +7,30 @@
                 <div class="card-header">
                     <div class="row">
                         <!-- Add contact -->
-                        <!-- Calls the requestNewContactModal method, it requests the new contact modal -->
+                        <!-- Calls the requestNewContactModal method, it requests the new contact modal and send the contact list -->
                         <div class="col align-self-start" (click)="requestNewContactModal($event)">
                             <i class="icon-plus icons font-2xl d-block"></i>
                         </div>
                         <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
+                        <div class="col-4 input-group align-self-end">
                             <span class="input-group-addon"><i class="fa fa-search"></i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
+                            <input #search type="text" class="form-control" placeholder="Search by name" (input)="filterItem(search.value)" />
+                        </div>
                     </div>
                 </div>
 
                 <!-- Start table -->
                 <div class="card-block">
-                    <table class="table table-inverse">
+                    <table class="table">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Compañía</th>
-                                <th>Departamento o puesto</th>
-                                <th>Teléfono fijo</th>
-                                <th>Extensión</th>
-                                <th>Teléfono móvil</th>
-                                <th>Teléfono móvil secundario</th>
+                                <th>Puesto</th>
                                 <th>Correo</th>
-                                <th>Correo alterno</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,14 +42,8 @@
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.last_name }}</td>
                                 <td>{{ contact.client_complete.name }}</td>
-                                <!-- <td>{{ contact.client }}</td> -->
                                 <td>{{ contact.charge }}</td>
-                                <td>{{ contact.landline }}</td>
-                                <td>{{ contact.extension }}</td>
-                                <td>{{ contact.mobile_phone_1 }}</td>
-                                <td>{{ contact.mobile_phone_2 }}</td>
                                 <td>{{ contact.email }}</td>
-                                <td>{{ contact.alternate_email }}</td>
                             </tr>
                         </tbody>
                     </table>

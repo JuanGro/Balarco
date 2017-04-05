@@ -12,17 +12,17 @@
                             <i class="icon-plus icons font-2xl d-block"></i>
                         </div>
                         <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
+                        <div class="col-4 input-group align-self-end">
                             <span class="input-group-addon"><i class="fa fa-search"></i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
+                            <input #search type="text" class="form-control" placeholder="Search by name" (input)="filterItem(search.value)" />
+                        </div>
                     </div>
                 </div>
 
                 <!-- Start table -->
                 <div class="card-block">
-                    <table class="table table-inverse">
+                    <table class="table">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>#</th>
