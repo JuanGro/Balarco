@@ -60,7 +60,6 @@ export class UserFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.currentGroupList = [];
     this.array = '';
     if (!this.user) {
       this.user = new User();
@@ -100,16 +99,26 @@ export class UserFormComponent implements OnChanges {
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
   public submitUserForm(object: User) {
-      if (this.user.id) {
-        // Update user
-        this.submitUpdatedUser(object, this.user.id);
-      } else {
-        // Create user
-        this.submitNewUser(object);
-      }
-      this.active = false;
-      setTimeout(() => this.active = true, 0);
-      this.success = true;
+    this.currentGroupList = [];
+    for (let group of object.groups_complete) {
+      let id: number = +group;
+      group = new Group();
+      group.id = id;
+      group.name = '';
+      this.currentGroupList.push(group);
+    }
+    object.groups_complete = this.currentGroupList;
+    console.log(object);
+    if (this.user.id) {
+      // Update user
+      this.submitUpdatedUser(object, this.user.id);
+    } else {
+      // Create user
+      this.submitNewUser(object);
+    }
+    this.active = false;
+    setTimeout(() => this.active = true, 0);
+    this.success = true;
   }
 
   /**
