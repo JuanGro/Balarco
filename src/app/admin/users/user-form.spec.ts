@@ -1,17 +1,15 @@
 import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
-import { CommonModule } from '@angular/common';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
-import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 // Modals
 import  * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 
 // Forms
-import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
+import { FormsModule }  from '@angular/forms';
 
 // Services
 import { BaseRequestOptions } from '@angular/http';
@@ -21,31 +19,26 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Components
 import { UsersComponent } from './users.component';
-import { UserListComponent } from './user-list.component';
+import { UserListComponent  } from './user-list.component';
 import { UserFormComponent } from './user-form.component';
 
 // Models
 import { User, Group } from './user-model';
 
-describe('UserListComponent  tests.', () => {
+describe('UserFormComponent tests.', () => {
     // Fixture for debugging and testing a UsersComponent.
     let fixtureParent: ComponentFixture<UsersComponent>;
     // Fixture for debugging and testing a UserFormComponent.
     let fixtureChildForm: ComponentFixture<UserFormComponent>;
     // Fixture for debugging and testing a UserListComponent .
-    let fixtureChildTable: ComponentFixture<UserListComponent>;
+    let fixtureChildTable: ComponentFixture<UserListComponent >;
 
     // Save UsersComponent to test it's methods and variables.
     let componentParent: UsersComponent;
-    // Save UserFormComponent to test it's methods and variables.
-    let componentForm: UserFormComponent;
-    // Save UserListComponent  to test it's methods and variables.
-    let component: UserListComponent;
-
-    // let httpServiceStub;
-    // Handles on the component's DOM element.
-    let de: DebugElement;
-    let el: HTMLElement;
+    // Save UserListComponent to test it's methods and variables.
+    let componentTable: UserListComponent ;
+    // Save UserFormComponent  to test it's methods and variables.
+    let component: UserFormComponent;
 
     // Variable to test which action is executing in modal.
     let modalAction;
@@ -73,9 +66,9 @@ describe('UserListComponent  tests.', () => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
             declarations: [ UsersComponent, UserListComponent , UserFormComponent ],
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
-            providers: [ UserListComponent ,
+            providers: [ UserFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);
@@ -90,26 +83,23 @@ describe('UserListComponent  tests.', () => {
         fixtureParent = TestBed.createComponent(UsersComponent);
         // Create an instance of the UserFormComponent.
         fixtureChildForm = TestBed.createComponent(UserFormComponent);
-        // Create an instance of the UserListComponent.
-        fixtureChildTable = TestBed.createComponent(UserListComponent);
+        // Create an instance of the UserListComponent .
+        fixtureChildTable = TestBed.createComponent(UserListComponent );
 
         // UsersComponent test instance.
         componentParent = fixtureParent.componentInstance;
         // UserFormComponent test instance.
-        componentForm = fixtureChildForm.componentInstance;
+        component = fixtureChildForm.componentInstance;
         // UserListComponent  test instance.
-        component = fixtureChildTable.componentInstance;
-
-        // Query for the title <h1> by CSS element selector.
-        de = fixtureParent.debugElement.query(By.css('h1'));
-        el = de.nativeElement;
+        componentTable = fixtureChildTable.componentInstance;
     }));
 
-    describe('Components defined for the child user list table component', () => {
+    describe('Components defined for the child user form component', () => {
         /**
         * Tests that the current component is correctly built.
         **/
         it('should have a defined current component', () => {
+            component.ngOnChanges();
             expect(component).toBeDefined();
         });
 
@@ -122,71 +112,52 @@ describe('UserListComponent  tests.', () => {
         });
     });
 
-    describe('Initialization of variable for child user list table component', () => {
+    describe('Initialization of variable for child groups form component', () => {
         /**
-        * Tests that the User object received from parent component is not empty.
+        * Tests that the user object received from parent component is not empty.
         **/
-        it('should load correctly user list in userList Input', () => {
-            component.userList = testUserList;
+        it('should load correctly a user in user Input', () => {
+            component.user = testUser;
             fixtureParent.detectChanges();
-            expect(component.userList).toEqual(testUserList);
+            expect(component.user).toEqual(testUser);
         });
 
         /**
-        * Tests that the Client object received from parent component is not empty.
+        * Tests that the clients object list received from parent component is not empty.
         **/
-        it('should load correctly group list in groupList Input', () => {
+        it('should load correctly clients list in clientsList Input', () => {
             component.groupList = testGroupList;
             fixtureParent.detectChanges();
             expect(component.groupList).toEqual(testGroupList);
         });
     });
 
-    describe('EventEmitter of modal requests for child user list table component', () => {
+    describe('EventEmitter of modal requests for child user form component', () => {
         /**
         * Get the current component to use it in observables.
         **/
-        beforeEach(inject([ UserListComponent ], result => {
+        beforeEach(inject([UserFormComponent], result => {
             modalAction = result;
         }));
 
         /**
-        * Tests that the open new user modal request is correctly received.
+        * Tests that the close modal request is correctly received.
         **/
-        it('should request to open the new user modal', async(() => {
-            modalAction.requestShowNewUserModal.subscribe(result => {
-                expect(result).toBe('Open new User modal');
+        it('should request to close the current modal', async(() => {
+            modalAction.requestCloseModal.subscribe(result => {
+                expect(result).toBe('Close modal');
             });
-            modalAction.requestNewUserModal();
+            modalAction.requestCloseThisModal();
         }));
 
         /**
-        * Tests that the open update modal request is correctly received.
+        * Tests that the show warning modal request is correctly received.
         **/
-        it('should request to open the new user modal', async(() => {
-            modalAction.requestShowUpdateUserModal.subscribe(result => {
-                expect(result).toBe('Open update User modal');
+        it('should request to close the show warning modal', async(() => {
+            modalAction.requestWarning.subscribe(result => {
+                expect(result).toBe('Show warning modal');
             });
-            modalAction.requestUpdateUserModal();
-        }));
-    });
-
-    describe('EventEmitter of current user requests for child user list table component', () => {
-        /**
-        * Get the current component to use it in observables.
-        **/
-        beforeEach(inject([ UserListComponent ], result => {
-            modalAction = result;
-        }));
-
-        /**
-        * Tests that the sendCurrentUser request is correctly received.
-        **/
-        it('should request to send a user object', async(() => {
-            modalAction.currentUser.subscribe(result => {
-                expect(result).toEqual(testUser);
-            });
-            modalAction.sendCurrentUser(testUser);
+            modalAction.requestWarningModal();
         }));
     });
 });
