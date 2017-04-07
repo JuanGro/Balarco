@@ -6,7 +6,7 @@
 
         <!-- First row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!name.errors && name.touched" [class.has-danger]="name.errors && name.touched">
                 <!-- Name field -->
                 <label for="recipient-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
@@ -15,7 +15,7 @@
                     <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" required>
                 </div>
                 <!-- Feedback name -->
-                <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div *ngIf="name.errors && name.touched">
                     <div [hidden]="!name.errors.required">
                         <div class="form-control-feedback">El nombre es obligatorio.</div>
                     </div>
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!last_name.errors && last_name.touched" [class.has-danger]="last_name.errors && last_name.touched">
                 <!-- Lastname field -->
                 <label for="recipient-last_name" class="form-control-label">Apellido:</label>
                 <div class="input-group">
@@ -53,7 +53,7 @@
 
         <!-- Second row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!client.errors && client.touched" [class.has-danger]="client.errors && client.touched">
                 <!-- Client field -->
                 <label for="recipient-client" class="form-control-label">Compañía:</label>
                 <div class="input-group">
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!charge.errors && charge.touched" [class.has-danger]="charge.errors && charge.touched">
                 <!-- Charge field -->
                 <label for="recipient-charge" class="form-control-label">Puesto (Departamento):</label>
                 <div class="input-group">
@@ -96,7 +96,7 @@
 
         <!-- Third row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!landline.errors && landline.touched" [class.has-danger]="landline.errors && landline.touched">
                 <!-- Landline field -->
                 <label for="recipient-landline" class="form-control-label">Teléfono fijo:</label>
                 <div class="input-group">
@@ -118,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!extension.errors && extension.touched" [class.has-danger]="extension.errors && extension.touched">
                 <!-- Extension field -->
                 <label for="recipient-extension" class="form-control-label">Extensión (opcional):</label>
                 <div class="input-group">
@@ -140,7 +140,7 @@
 
         <!-- Fourth row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!mobile_phone_1.errors && mobile_phone_1.touched" [class.has-danger]="mobile_phone_1.errors && mobile_phone_1.touched">
                 <!-- Mobile phone 1 field -->
                 <label for="recipient-mobile_phone_1" class="form-control-label">Teléfono móvil:</label>
                 <div class="input-group">
@@ -162,7 +162,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!mobile_phone_2.errors && mobile_phone_2.touched" [class.has-danger]="mobile_phone_2.errors && mobile_phone_2.touched">
                 <!-- Mobile phone 2 field -->
                 <label for="recipient-mobile_phone_2" class="form-control-label">Teléfono móvil 2 (opcional):</label>
                 <div class="input-group">
@@ -184,7 +184,7 @@
 
         <!-- Fifth row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!email.errors && email.touched" [class.has-danger]="email.errors && email.touched">
                 <!-- Email field -->
                 <label for="recipient-email" class="form-control-label">Email:</label>
                 <div class="input-group">
@@ -210,7 +210,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!alternate_email.errors && alternate_email.touched" [class.has-danger]="alternate_email.errors && alternate_email.touched">
                 <!-- Alternate email field -->
                 <label for="recipient-alternate_email" class="form-control-label">Email alterno (opcional):</label>
                 <div class="input-group">
