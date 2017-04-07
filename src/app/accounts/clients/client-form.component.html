@@ -11,7 +11,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                     </span>
-                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" [class.form-control-success]="!(name.errors && name.touched)" [class.form-control-danger]="name.errors && name.touched"
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
                         required>
                 </div>
                 <!-- Feedback name -->
@@ -34,7 +34,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-map-marker"></i>
                     </span>
-                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" [class.form-control-success]="!(address.errors && address.touched)"
+                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" [class.form-control-success]="!address.errors && address.touched"
                         [class.form-control-danger]="address.errors && address.touched" required>
                 </div>
                 <!-- Feedback address -->

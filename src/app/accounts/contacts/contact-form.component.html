@@ -12,7 +12,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" [class.form-control-success]="!(name.errors && name.touched)" [class.form-control-danger]="name.errors && name.touched"
+                    <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
                         required>
                 </div>
                 <!-- Feedback name -->
@@ -35,7 +35,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" [class.form-control-success]="!(last_name.errors && last_name.touched)"
+                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" [class.form-control-success]="!last_name.errors && last_name.touched"
                         [class.form-control-danger]="last_name.errors && last_name.touched" required>
                 </div>
                 <!-- Feedback lastname -->
@@ -79,7 +79,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                    <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" [class.form-control-success]="!(charge.errors && charge.touched)" [class.form-control-danger]="charge.errors && charge.touched"
+                    <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" [class.form-control-success]="!charge.errors && charge.touched" [class.form-control-danger]="charge.errors && charge.touched"
                         required>
                 </div>
                 <!-- Feedback charge -->
@@ -105,8 +105,8 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                    <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" [class.form-control-success]="!(landline.errors && landline.touched)"
-                        [class.form-control-danger]="landline.errors && landline.touched" required>
+                    <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" [class.form-control-success]="!landline.errors && landline.touched" [class.form-control-danger]="landline.errors && landline.touched"
+                        required>
                 </div>
                 <!-- Feedback landline -->
                 <div *ngIf="landline.errors && landline.touched">
@@ -128,7 +128,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                    <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel" [class.form-control-success]="!(extension.errors && extension.touched)"
+                    <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel" [class.form-control-success]="!extension.errors && extension.touched"
                         [class.form-control-danger]="extension.errors && extension.touched">
                 </div>
                 <!-- Feedback extension -->
@@ -151,7 +151,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" [class.form-control-success]="!(mobile_phone_1.errors && mobile_phone_1.touched)"
+                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" [class.form-control-success]="!mobile_phone_1.errors && mobile_phone_1.touched"
                         [class.form-control-danger]="mobile_phone_1.errors && mobile_phone_1.touched" required>
                 </div>
                 <!-- Feedback mobile phone 1 -->
@@ -174,7 +174,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel" [class.form-control-success]="!(mobile_phone_2.errors && mobile_phone_2.touched)"
+                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel" [class.form-control-success]="!mobile_phone_2.errors && mobile_phone_2.touched"
                         [class.form-control-danger]="mobile_phone_2.errors && mobile_phone_2.touched">
                 </div>
                 <!-- Feedback mobile phone 2 -->
@@ -198,7 +198,7 @@
                     <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
                     <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" minlength="7" maxlength="24" name="email" [(ngModel)]="contact.email" #email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-                        [class.form-control-success]="!(email.errors && email.touched)" [class.form-control-danger]="email.errors && email.touched" required>
+                        [class.form-control-success]="!email.errors && email.touched" [class.form-control-danger]="email.errors && email.touched" required>
                 </div>
                 <!-- Feedback email -->
                 <div *ngIf="email.errors && email.touched">
@@ -224,7 +224,7 @@
                     <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
                     <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" minlength="7" maxlength="24" name="alternate_email" [(ngModel)]="contact.alternate_email" #alternate_email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-                        [class.form-control-success]="!(alternate_email.errors && alternate_email.touched)" [class.form-control-danger]="alternate_email.errors && alternate_email.touched">
+                        [class.form-control-success]="!alternate_email.errors && alternate_email.touched" [class.form-control-danger]="alternate_email.errors && alternate_email.touched">
                 </div>
                 <!-- Feedback alternate email -->
                 <div *ngIf="alternate_email.errors && alternate_email.touched">

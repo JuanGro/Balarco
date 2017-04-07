@@ -11,7 +11,7 @@
                 <label for="iguala-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="iguala.name" #name="ngModel" [class.form-control-success]="!(name.errors && name.touched)" [class.form-control-danger]="name.errors && name.touched"
+                    <input type="text" id="iguala-name" placeholder="Starbucks 2017" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="iguala.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
                         required>
                 </div>
                 <!-- Feedback name -->
@@ -34,8 +34,8 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
                     <select id="client" name="client" class="form-control" size="1" [(ngModel)]="iguala.client" #client="ngModel" required>
-              <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
-          </select>
+                        <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                    </select>
                 </div>
                 <!-- Feedback client -->
                 <div *ngIf="client.errors && client.touched">
