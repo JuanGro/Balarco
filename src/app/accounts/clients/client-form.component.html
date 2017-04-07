@@ -5,46 +5,48 @@
     <form #clientModalForm="ngForm" novalidate (ngSubmit)="submitClientForm(clientModalForm.value)" *ngIf="active">
         <!-- First row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!name.errors && name.touched" [class.has-danger]="name.errors && name.touched">
                 <!-- Name field -->
                 <label for="recipient-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                     </span>
-                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" required>
+                    <input type="text" placeholder="Starbucks" class="form-control" id="recipient-name" minlength="2" maxlength="24" name="name" [(ngModel)]="client.name" #name="ngModel" [class.form-control-success]="!(name.errors && name.touched)" [class.form-control-danger]="name.errors && name.touched"
+                        required>
                 </div>
                 <!-- Feedback name -->
-                <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div *ngIf="name.errors && name.touched">
                     <div [hidden]="!name.errors.required">
-                        El nombre es obligatorio.
+                        <div class="form-control-feedback">El nombre es obligatorio.</div>
                     </div>
                     <div [hidden]="!name.errors.minlength">
-                        El nombre debe ser mayor o igual a 2 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser mayor o igual a 2 caracteres.</div>
                     </div>
                     <div [hidden]="!name.errors.maxlength">
-                        El nombre debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!address.errors && address.touched" [class.has-danger]="address.errors && address.touched">
                 <!-- Name field -->
                 <label for="recipient-address" class="form-control-label">Dirección:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-map-marker"></i>
                     </span>
-                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" required>
+                    <input type="text" placeholder="Calle Campo Real, Col. El Refugio" class="form-control" id="recipient-address" minlength="3" maxlength="24" name="address" [(ngModel)]="client.address" #address="ngModel" [class.form-control-success]="!(address.errors && address.touched)"
+                        [class.form-control-danger]="address.errors && address.touched" required>
                 </div>
                 <!-- Feedback address -->
-                <div *ngIf="address.errors && address.touched" class="alert alert-danger">
+                <div *ngIf="address.errors && address.touched">
                     <div [hidden]="!address.errors.required">
-                        La dirección es obligatoria.
+                        <div class="form-control-feedback">La dirección es obligatoria.</div>
                     </div>
                     <div [hidden]="!address.errors.minlength">
-                        La dirección debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">La dirección debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!address.errors.maxlength">
-                        La dirección debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">La dirección debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
