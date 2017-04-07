@@ -155,7 +155,7 @@ describe('UserListComponent  tests.', () => {
         **/
         it('should request to open the new user modal', async(() => {
             modalAction.requestShowNewUserModal.subscribe(result => {
-                expect(result).toBe('Open new User modal');
+                expect(result).toBe('Open new user modal');
             });
             modalAction.requestNewUserModal();
         }));
@@ -165,7 +165,7 @@ describe('UserListComponent  tests.', () => {
         **/
         it('should request to open the new user modal', async(() => {
             modalAction.requestShowUpdateUserModal.subscribe(result => {
-                expect(result).toBe('Open update User modal');
+                expect(result).toBe('Open update user modal');
             });
             modalAction.requestUpdateUserModal();
         }));
