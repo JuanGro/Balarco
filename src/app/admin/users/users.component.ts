@@ -74,7 +74,7 @@ export class UsersComponent implements OnInit {
                       }
                     },
                       err => {
-                        // Call of toast
+                        this.toaster.show(err, 'Error', 'Ocurrió un error al cargar usuarios');
                       }
                     );
   }
@@ -95,7 +95,7 @@ export class UsersComponent implements OnInit {
                       }
                     },
                       err => {
-                        // Call of toast
+                        this.toaster.show(err, 'Error', 'Ocurrió un error al cargar los roles');
                       }
                     );
   }

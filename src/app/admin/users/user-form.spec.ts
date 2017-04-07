@@ -47,14 +47,6 @@ describe('UserFormComponent tests.', () => {
     let testUser: User = { id: 2, username: 'juan@balarco.com', first_name: 'Juan', last_name: 'Hernández',
                             password: 'password'};
 
-    // Create a user list example.
-    let testUserList: User[] = [
-                                { id: 2, username: 'juan@balarco.com', first_name: 'Juan', last_name: 'Hernández',
-                                password: 'password'},
-                                { id: 3, username: 'juan@balarco.com', first_name: 'Julian', last_name: 'Nieves',
-                                password: 'password'}
-                                ];
-
     let testGroupList: Group[] = [
                                  { id: 1, name: 'admin' },
                                  { id: 2, name: 'cuentas'}
