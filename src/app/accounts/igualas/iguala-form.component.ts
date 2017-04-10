@@ -60,8 +60,19 @@ export class IgualaFormComponent implements OnChanges {
   public ngOnChanges() {
     if (!this.iguala) {
       this.iguala = new Iguala();
-    } else {
+    } else if (this.iguala && !this.iguala.id) {
+      this.initialDropdownSetup();
+    } else if (this.iguala && this.iguala.id) {
       this.oldIguala = new Iguala(this.iguala);
+    }
+  }
+
+  /**
+  * Method to fill dropdowns initially when the modal is shown and Iguala is new.
+  **/
+  private initialDropdownSetup() {
+    if (this.clientsList && this.clientsList.length > 0) {
+      this.iguala.client = this.clientsList[0].id;
     }
   }
 
