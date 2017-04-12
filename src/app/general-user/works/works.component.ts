@@ -51,6 +51,8 @@ export class WorksComponent implements OnInit {
   public titleNewModal: string;
   // Title of update work modal.
   public titleUpdateModal: string;
+  // Title of filter work modal.
+  public titleFilterModal: string;
   // Title of danger work modal.
   public titleDangerModal: string;
   // Description for danger work modal.
@@ -68,6 +70,7 @@ export class WorksComponent implements OnInit {
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
     this.titleDangerModal = 'Eliminar Trabajo';
+    this.titleFilterModal = 'Filtrar trabajo(s)';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
 
     this.loadWorksList(environment.WORKS_URL);
@@ -224,11 +227,6 @@ export class WorksComponent implements OnInit {
   public getWorkFromTable(object: Work) {
     this.work = object;
   }
-
-  /**
-  * Clears the work variable to get an empty modal.
-  **/
-  public initializeModal() {}
 
   /**
   * Recieves event when a new work is created in the form.

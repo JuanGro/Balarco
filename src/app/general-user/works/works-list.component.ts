@@ -20,6 +20,8 @@ export class WorksListComponent {
   @Output() requestShowNewWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update work modal in parent component.
   @Output() requestShowUpdateWorkModal: EventEmitter<string> = new EventEmitter();
+  // Sends the request to show the filter work modal in parent component.
+  @Output() requestShowFilterWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the work selected by the user to parent component.
   @Output() currentWork: EventEmitter<Work> = new EventEmitter<Work>();
   // Variable to check in test what action is executed between components.
@@ -41,6 +43,14 @@ export class WorksListComponent {
   public requestUpdateWorkModal() {
     this.modalAction = 'Open update Work modal';
     this.requestShowUpdateWorkModal.emit(this.modalAction);
+  }
+
+  /**
+  * Requests to parent component to show the filter work modal.
+  **/
+  public requestFilterWorkModal() {
+    this.modalAction = 'Open filter Work modal';
+    this.requestShowFilterWorkModal.emit(this.modalAction);
   }
 
   /**

@@ -11,12 +11,11 @@
                         <div class="col align-self-start" (click)="requestNewWorkModal($event)">
                             <i class="icon-plus icons font-2xl d-block"></i>
                         </div>
+                        <div class="col-9"></div>
                         <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
-                            <span class="input-group-addon"><i class="fa fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
+                        <div class="col align-self-end" (click)="requestFilterWorkModal($event)">
+                            <button type="button" class="btn btn-info"><i class="fa fa-search"> Search</i></button>
+                        </div>
                     </div>
                 </div>
 
