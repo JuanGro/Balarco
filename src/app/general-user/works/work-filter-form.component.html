@@ -1,0 +1,135 @@
+<div class="modal-body">
+    <!-- Start form -->
+    <!-- #worksModalFilterForm="ngForm" calls the form methods to the component -->
+    <!-- (ngSubmit)="submitWorkFilterForm(worksModalFiterForm.value)" executes the submitWorkFilterForm method sending the values of each field -->
+    <form #worksModalFilterForm="ngForm" novalidate (ngSubmit)="submitWorkFilterForm(worksModalFilterForm.value)">
+        <!-- First row -->
+        <div class="form-group row">
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByClient == true" [class.has-danger]="workFilter.searchByClient == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByClient" [(ngModel)]="workFilter.searchByClient" #searchByClient="ngModel">
+                <div [hidden]="workFilter.searchByClient == false" [class.form-control-success]="workFilter.searchByClient == true">
+                    Buscar por compañía
+                </div>
+                <div [hidden]="workFilter.searchByClient == true" [class.form-control-danger]="workFilter.searchByClient == false">
+                    Buscar por compañía
+                </div>
+                </label>
+                <!-- Client field -->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" required>
+                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByContact == true" [class.has-danger]="workFilter.searchByContact == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByContact" [(ngModel)]="workFilter.searchByContact" #searchByContact="ngModel">
+                <div [hidden]="workFilter.searchByContact == false" [class.form-control-success]="workFilter.searchByContact == true">
+                    Buscar por contacto
+                </div>
+                <div [hidden]="workFilter.searchByContact == true" [class.form-control-danger]="workFilter.searchByContact == false">
+                    Buscar por contacto
+                </div>
+                </label>
+                <!-- Contact field -->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
+                    <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second row -->
+        <div class="form-group row">
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByIguala == true" [class.has-danger]="workFilter.searchByIguala == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByIguala" [(ngModel)]="workFilter.searchByIguala" #searchByIguala="ngModel">
+                <div [hidden]="workFilter.searchByIguala == false" [class.form-control-success]="workFilter.searchByIguala == true">
+                    Buscar por iguala
+                </div>
+                <div [hidden]="workFilter.searchByIguala == true" [class.form-control-danger]="workFilter.searchByIguala == false">
+                    Buscar por iguala
+                </div>
+                </label>
+                <!-- Iguala field -->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
+                    <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="workFilter.iguala" #iguala="ngModel" required>
+                    <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByStatus == true" [class.has-danger]="workFilter.searchByStatus == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByStatus" [(ngModel)]="workFilter.searchByStatus" #searchByStatus="ngModel">
+                <div [hidden]="workFilter.searchByStatus == false" [class.form-control-success]="workFilter.searchByStatus == true">
+                    Buscar por estado
+                </div>
+                <div [hidden]="workFilter.searchByStatus == true" [class.form-control-danger]="workFilter.searchByStatus == false">
+                    Buscar por estado
+                </div>
+                </label>
+                <!-- Status field -->
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                    <select id="status" name="status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #status="ngModel" required>
+                    <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third row -->
+        <div class="form-group row">
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByCreationDate == true" [class.has-danger]="workFilter.searchByCreationDate == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByCreationDate" [(ngModel)]="workFilter.searchByCreationDate" #searchByCreationDate="ngModel">
+                <div [hidden]="workFilter.searchByCreationDate == false" [class.form-control-success]="workFilter.searchByCreationDate == true">
+                    Buscar por fecha de creación
+                </div>
+                <div [hidden]="workFilter.searchByCreationDate == true" [class.form-control-danger]="workFilter.searchByCreationDate == false">
+                    Buscar por fecha de creación
+                </div>
+                </label>
+                <!-- StartDate Field -->
+                <div class="card-block">
+                    <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
+                        <datepicker name="start_date" [(ngModel)]="workFilter.creation_date" required></datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 form-check">
+                <label class="form-check-label" [class.has-success]="workFilter.searchByDeliveryDate == true" [class.has-danger]="workFilter.searchByDeliveryDate == false">
+                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByDeliveryDate" [(ngModel)]="workFilter.searchByDeliveryDate" #searchByDeliveryDate="ngModel">
+                <div [hidden]="workFilter.searchByDeliveryDate == false" [class.form-control-success]="workFilter.searchByDeliveryDate == true">
+                    Buscar por fecha de entrega
+                </div>
+                <div [hidden]="workFilter.searchByDeliveryDate == true" [class.form-control-danger]="workFilter.searchByDeliveryDate == false">
+                    Buscar por fecha de entrega
+                </div>
+                </label>
+                <!-- EndDate Field -->
+                <div class="card-block">
+                    <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
+                        <datepicker name="end_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date" required></datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="modal-footer">
+            <!-- Hides modal -->
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <!-- Submits updated or new work -->
+            <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+            <button type="submit" class="btn btn-primary" [disabled]="!workFilter.searchByClient && !workFilter.searchByContact && !workFilter.searchByIguala && !workFilter.searchByStatus && !workFilter.searchByCreationDate && !workFilter.searchByDeliveryDate" (click)="requestCloseThisModal($event)">Buscar</button>
+        </div>
+    </form>
+</div>
