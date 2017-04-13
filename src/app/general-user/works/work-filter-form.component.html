@@ -127,8 +127,8 @@
         <div class="modal-footer">
             <!-- Hides modal -->
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
-            <!-- Submits updated or new work -->
-            <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+            <!-- Submits filter work form -->
+            <!-- Calls the submitWorkFilterForm method, the submit button is only displayed if the user select at least one checkbox to enable the search of that field -->
             <button type="submit" class="btn btn-primary" [disabled]="!workFilter.searchByClient && !workFilter.searchByContact && !workFilter.searchByIguala && !workFilter.searchByStatus && !workFilter.searchByCreationDate && !workFilter.searchByDeliveryDate" (click)="requestCloseThisModal($event)">Buscar</button>
         </div>
     </form>
