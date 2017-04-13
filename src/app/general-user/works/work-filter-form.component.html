@@ -123,7 +123,13 @@
                 <!-- StartDate Field -->
                 <div class="card-block">
                     <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="start_date" [(ngModel)]="workFilter.creation_date" required></datepicker>
+                        <datepicker name="start_date" [(ngModel)]="workFilter.creation_date"></datepicker>
+                    </div>
+                </div>
+                <!-- Feedback StartDate -->
+                <div *ngIf="workFilter.searchByCreationDate == true">
+                    <div [hidden]="workFilter.creation_date != null">
+                        <div class="form-control-feedback">No has seleccionado ninguna fecha de creación.</div>
                     </div>
                 </div>
             </div>
@@ -141,7 +147,13 @@
                 <!-- EndDate Field -->
                 <div class="card-block">
                     <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="end_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date" required></datepicker>
+                        <datepicker name="end_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date"></datepicker>
+                    </div>
+                </div>
+                <!-- Feedback DeliveryDate -->
+                <div *ngIf="workFilter.searchByDeliveryDate == true">
+                    <div [hidden]="workFilter.expected_delivery_date != null">
+                        <div class="form-control-feedback">No has seleccionado ninguna fecha de entrega.</div>
                     </div>
                 </div>
             </div>
@@ -153,7 +165,8 @@
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
             <!-- Submits filter work form -->
             <!-- Calls the submitWorkFilterForm method, the submit button is only displayed if the user select at least one checkbox to enable the search of that field -->
-            <button type="submit" class="btn btn-primary" [disabled]="!workFilter.searchByClient && !workFilter.searchByContact && !workFilter.searchByIguala && !workFilter.searchByStatus && !workFilter.searchByCreationDate && !workFilter.searchByDeliveryDate" (click)="requestCloseThisModal($event)">Buscar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!workFilter.searchByClient && !workFilter.searchByContact && !workFilter.searchByIguala && !workFilter.searchByStatus && !workFilter.searchByCreationDate && !workFilter.searchByDeliveryDate || (workFilter.searchByContact && contact_id == null) || (workFilter.searchByClient && client_id == null) || (workFilter.searchByIguala && workFilter.iguala == null) || (workFilter.searchByStatus && workFilter.current_status == null) || (workFilter.searchByCreationDate && workFilter.creation_date == null) || (workFilter.searchByDeliveryDate && workFilter.expected_delivery_date == null)"
+                (click)="requestCloseThisModal($event)">Buscar</button>
         </div>
     </form>
 </div>
