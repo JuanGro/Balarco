@@ -43,10 +43,15 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     private client_id: number;
     // Variable to set the contact when client dropdown changes.
     private contact_id: number;
+    // Array to keep track of the possible status the work can get into.
+    private possibleStatus: Status[];
 
     public ngOnInit() {
         this.workFilter = new WorkFilter();
         this.initialDropdownSetup();
+        if (this.statusList) {
+        this.possibleStatus =  this.getPossibleStatusForProject();
+        }
     }
 
     /**
@@ -57,6 +62,9 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     public ngOnChanges() {
         this.workFilter = new WorkFilter();
         this.initialDropdownSetup();
+        if (this.statusList) {
+        this.possibleStatus =  this.getPossibleStatusForProject();
+        }
     }
 
     /**
@@ -67,6 +75,15 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
             this.client_id = this.clientsList[0].id;
             this.filterContactsByClientId(this.client_id);
         }
+    }
+
+    /**
+      * Function that returns an array of possible status if the project is new.
+      * Returns:
+      *   - Array of Status.
+      **/
+    private getPossibleStatusForProject(): Status[] {
+    return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
     }
 
     /**
