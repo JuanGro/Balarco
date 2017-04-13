@@ -22,6 +22,12 @@
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                     </select>
                 </div>
+                <!-- Feedback client -->
+                <div *ngIf="workFilter.searchByClient == true && client.touched">
+                    <div [hidden]="client_id != null">
+                        <div class="form-control-feedback">No has seleccionado ningún cliente.</div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6 form-check">
                 <label class="form-check-label" [class.has-success]="workFilter.searchByContact == true" [class.has-danger]="workFilter.searchByContact == false">
@@ -39,6 +45,12 @@
                     <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                     </select>
+                </div>
+                <!-- Feedback contact -->
+                <div *ngIf="workFilter.searchByContact == true && contact.touched">
+                    <div [hidden]="contact_id != null">
+                        <div class="form-control-feedback">No has seleccionado ningún contacto.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,6 +74,12 @@
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                     </select>
                 </div>
+                <!-- Feedback iguala -->
+                <div *ngIf="workFilter.searchByIguala == true && iguala.touched">
+                    <div [hidden]="workFilter.iguala != null">
+                        <div class="form-control-feedback">No has seleccionado ninguna iguala.</div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6 form-check">
@@ -80,6 +98,12 @@
                     <select id="status" name="status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #status="ngModel" required>
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                     </select>
+                </div>
+                <!-- Feedback status -->
+                <div *ngIf="workFilter.searchByStatus == true && status.touched">
+                    <div [hidden]="workFilter.current_status != null">
+                        <div class="form-control-feedback">No has seleccionado ningún estado.</div>
+                    </div>
                 </div>
             </div>
         </div>
