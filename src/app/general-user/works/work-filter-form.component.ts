@@ -63,7 +63,7 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
         this.workFilter = new WorkFilter();
         this.initialDropdownSetup();
         if (this.statusList) {
-        this.possibleStatus =  this.getPossibleStatusForProject();
+            this.possibleStatus =  this.getPossibleStatusForProject();
         }
     }
 
@@ -104,7 +104,7 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
         if (this.contactsList) {
             this.currentContacts = this.contactsList.filter(x => x.client === +id);
             if (this.currentContacts.length > 0) {
-            this.contact_id = this.currentContacts[0].id;
+                this.contact_id = this.currentContacts[0].id;
             }
         }
     }
@@ -120,9 +120,8 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     /**
      * Set work with TWDB with old values or clear object if it's new.
      **/
-    public cancelForm() {
+    public cancelForm(form) {
+        form.reset();
         this.workFilter = new WorkFilter();
-        setTimeout(() => this.active = false, 0);
-        setTimeout(() => this.active = true, 1);
     }
 }

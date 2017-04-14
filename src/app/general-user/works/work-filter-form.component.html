@@ -162,7 +162,7 @@
         <!-- Buttons -->
         <div class="modal-footer">
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(worksModalFilterForm)">Cancelar</button>
             <!-- Submits filter work form -->
             <!-- Calls the submitWorkFilterForm method, the submit button is only displayed if the user select at least one checkbox to enable the search of that field -->
             <button type="submit" class="btn btn-primary" [disabled]="!workFilter.searchByClient && !workFilter.searchByContact && !workFilter.searchByIguala && !workFilter.searchByStatus && !workFilter.searchByCreationDate && !workFilter.searchByDeliveryDate || (workFilter.searchByContact && contact_id == null) || (workFilter.searchByClient && client_id == null) || (workFilter.searchByIguala && workFilter.iguala == null) || (workFilter.searchByStatus && workFilter.current_status == null) || (workFilter.searchByCreationDate && workFilter.creation_date == null) || (workFilter.searchByDeliveryDate && workFilter.expected_delivery_date == null)"
