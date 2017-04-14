@@ -13,7 +13,7 @@
 <!-- (requestShowNewWorkModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
 <!-- (currentWork) receives the work who was selected by the user -->
-<works-list [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (currentWork)="getWorkFromTable($event)"></works-list>
+<works-list [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()" (currentWork)="getWorkFromTable($event)"></works-list>
 
 <!-- Modal New Work -->
 <div bsModal #newWorkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewWorkModal" aria-hidden="true">
@@ -58,7 +58,7 @@
                 <h4 class="modal-title">{{ titleFilterModal }}</h4>
             </div>
             <!-- Common Form -->
-            <work-filter-form [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [statusList]="statusList" (requestCloseModal)="filterWorkModal.hide()"></work-filter-form>
+            <work-filter-form [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [statusList]="statusList" (requestCloseModal)="filterWorkModal.hide()" (resultSearch)="getResultSearch($event)"></work-filter-form>
         </div>
     </div>
 </div>

@@ -35,6 +35,8 @@ export class WorksComponent implements OnInit {
   public work: Work;
   // Variable that saves all works from DB.
   public worksList: Work[];
+  // Saves the complete work list
+  public completeWorksList: Work[];
   // Variable that saves all clients from DB.
   public clientsList: Client[];
   // Variable that saves all contacts from DB.
@@ -92,8 +94,10 @@ export class WorksComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
+                      this.completeWorksList = [];
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
+                        this.completeWorksList.push(new Work(workJSON));
                       }
                     },
                     error => {
@@ -236,6 +240,27 @@ export class WorksComponent implements OnInit {
   **/
   public onWorkCreated(event: Work) {
     this.worksList.push(event);
+  }
+
+  public getResultSearch(urlFilterWorks: string) {
+    console.log(urlFilterWorks);
+
+    this.httpService.getObject(urlFilterWorks)
+                    .map((data: any) => data.json())
+                    .subscribe(worksListJSON => {
+                      this.worksList = [];
+                      for (let workJSON of worksListJSON) {
+                        this.worksList.push(new Work(workJSON));
+                      }
+                      console.log(this.worksList);
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos filtrados');
+                    });
+  }
+
+  public stopWorkFilter() {
+    this.worksList = this.completeWorksList;
   }
 
   /**

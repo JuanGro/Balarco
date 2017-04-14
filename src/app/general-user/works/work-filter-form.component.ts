@@ -2,10 +2,18 @@ import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angu
 
 // Models
 import { WorkFilter } from './work-filter.model';
+import { Work } from './work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
+
+// Services
+import { HttpService } from './../../shared/http-service/http.service';
+import { CustomToastService } from '../../shared/toast/custom-toast.service';
+
+// Environment
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'work-filter-form',
@@ -31,6 +39,8 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     @Input('statusList') statusList: Status[];
     // Requests close of the current modal to parent component.
     @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+    // Sends the workFilterList to show in the table.
+    @Output() resultSearch: EventEmitter<string> = new EventEmitter<string>();
     // Variable to check in test what action is executed between components.
     public modalAction: string = '';
     // Variable to control the work filter.
@@ -45,6 +55,8 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     private contact_id: number;
     // Array to keep track of the possible status the work can get into.
     private possibleStatus: Status[];
+
+    public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
     public ngOnInit() {
         this.workFilter = new WorkFilter();
@@ -78,12 +90,73 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
+      * Executes the submitUpdatedWork or submitNewWork depending if the work
+      * received when the modal was called is empty or not.
+      **/
+    public submitWorkFilterForm(values: WorkFilter) {
+        let urlFilterWorks: string = environment.WORKS_URL + '?';
+        let params: number = 0;
+
+        if (values.searchByClient) {
+            urlFilterWorks += 'client=' + values.client;
+            params++;
+        }
+
+        if (values.searchByContact) {
+            if (params === 0) {
+                urlFilterWorks += 'contact=' + values.contact;
+            } else {
+                urlFilterWorks += '&contact=' + values.contact;
+            }
+            params++;
+        }
+
+        if (values.searchByIguala) {
+            if (params === 0) {
+                urlFilterWorks += 'iguala=' + values.iguala;
+            } else {
+                urlFilterWorks += '&iguala=' + values.iguala;
+            }
+            params++;
+        }
+
+        if (values.searchByStatus) {
+            if (params === 0) {
+                urlFilterWorks += 'current_status=' + values.current_status;
+            } else {
+                urlFilterWorks += '&current_status=' + values.current_status;
+            }
+            params++;
+        }
+
+        if (values.searchByCreationDate) {
+            if (params === 0) {
+                urlFilterWorks += 'creation_date=' + values.creation_date;
+            } else {
+                urlFilterWorks += '&creation_date=' + values.creation_date;
+            }
+            params++;
+        }
+
+        if (values.searchByDeliveryDate) {
+            if (params === 0) {
+                urlFilterWorks += 'expected_delivery_date=' + values.expected_delivery_date;
+            } else {
+                urlFilterWorks += '&expected_delivery_date=' + values.expected_delivery_date;
+            }
+            params++;
+        }
+
+        this.resultSearch.emit(urlFilterWorks);
+    }
+
+    /**
       * Function that returns an array of possible status if the project is new.
       * Returns:
       *   - Array of Status.
       **/
     private getPossibleStatusForProject(): Status[] {
-    return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
+        return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
     }
 
     /**

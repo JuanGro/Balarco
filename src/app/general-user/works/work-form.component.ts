@@ -183,7 +183,6 @@ export class WorkFormComponent implements OnChanges {
   * Requests the API to update a current work.
   **/
   private submitUpdatedWork() {
-    console.log(this.work.generateJSONForPOST());
     this.httpService.updateObject(environment.WORKS_URL + this.work.id + '/', this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         let updatedWork = new Work(result.json());

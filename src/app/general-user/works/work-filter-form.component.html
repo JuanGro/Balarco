@@ -18,7 +18,7 @@
                 <!-- Client field -->
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" required>
+                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel">
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                     </select>
                 </div>
@@ -42,7 +42,7 @@
                 <!-- Contact field -->
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
+                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel">
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                     </select>
                 </div>
@@ -70,7 +70,7 @@
                 <!-- Iguala field -->
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
-                    <select id="iguala" name="iguala" class="form-control" size="1" [(ngModel)]="workFilter.iguala" #iguala="ngModel" required>
+                    <select id="iguala" name="iguala" class="form-control" size="1" [(ngModel)]="workFilter.iguala" #iguala="ngModel">
                     <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
                     </select>
                 </div>
@@ -95,7 +95,7 @@
                 <!-- Status field -->
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-check"></i></span>
-                    <select id="status" name="status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #status="ngModel" required>
+                    <select id="status" name="status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #status="ngModel">
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                     </select>
                 </div>
