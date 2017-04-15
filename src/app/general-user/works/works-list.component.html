@@ -18,7 +18,7 @@
                         </div> -->
                             <!-- Search field -->
                             <div class="col-3 align-self-end">
-                                <button type="button" class="btn btn-danger" (click)="requestStopWorkFilterButton($event)">Stop filter</button>
+                                <button type="button" class="btn btn-danger" [disabled]="stopFilterButton" (click)="requestStopWorkFilterButton($event)">Stop filter</button>
                                 <button type="button" class="btn btn-info" (click)="requestFilterWorkModal($event)"><i class="fa fa-search"> Search</i></button>
                             </div>
                         </div>

@@ -59,6 +59,8 @@ export class WorksComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger work modal.
   public descriptionDangerModal: string;
+  // Variable to disable stop filter button.
+  public stopFilterButton: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -74,6 +76,7 @@ export class WorksComponent implements OnInit {
     this.titleDangerModal = 'Eliminar Trabajo';
     this.titleFilterModal = 'Filtrar trabajo(s)';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
+    this.stopFilterButton = true;
 
     this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
@@ -257,10 +260,13 @@ export class WorksComponent implements OnInit {
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos filtrados');
                     });
+
+    this.stopFilterButton = false;
   }
 
   public stopWorkFilter() {
     this.worksList = this.completeWorksList;
+    this.stopFilterButton = true;
   }
 
   /**

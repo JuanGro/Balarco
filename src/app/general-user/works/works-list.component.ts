@@ -16,6 +16,8 @@ import { Work } from './work-model';
 export class WorksListComponent {
   // Receives the works list from parent component.
   @Input('worksList') worksList: Work[];
+  // Variable to disable stop filter button.
+  @Input('stopFilterButton') stopFilterButton: boolean;
   // Sends the request to show the new work modal in parent component.
   @Output() requestShowNewWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update work modal in parent component.
