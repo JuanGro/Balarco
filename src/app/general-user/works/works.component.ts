@@ -35,7 +35,7 @@ export class WorksComponent implements OnInit {
   public work: Work;
   // Variable that saves all works from DB.
   public worksList: Work[];
-  // Saves the complete work list
+  // Variable to save the complete work list.
   public completeWorksList: Work[];
   // Variable that saves all clients from DB.
   public clientsList: Client[];
@@ -231,12 +231,17 @@ export class WorksComponent implements OnInit {
                     });
   }
 
+  /**
+  * Recieves the work which is selected by the user.
+  * Params:
+  *   - object: Work selected.
+  **/
   public getWorkFromTable(object: Work) {
     this.work = object;
   }
 
   /**
-  * Recieves event when a new work is created in the form.
+  * Receives event when a new work is created in the form.
   * It pushes the new work to the list.
   * Params:
   *   - event: New Work received from the event.
@@ -245,9 +250,12 @@ export class WorksComponent implements OnInit {
     this.worksList.push(event);
   }
 
+  /**
+  * Get the url to get the contact list filtered.
+  * Params:
+  *   - urlFilterWorks: String with all the params to request the search to the API.
+  **/
   public getResultSearch(urlFilterWorks: string) {
-    console.log(urlFilterWorks);
-
     this.httpService.getObject(urlFilterWorks)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
@@ -255,7 +263,6 @@ export class WorksComponent implements OnInit {
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
                       }
-                      console.log(this.worksList);
                     },
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos filtrados');
@@ -264,6 +271,9 @@ export class WorksComponent implements OnInit {
     this.stopFilterButton = false;
   }
 
+  /**
+  * Back to the complete work list and disable the stop filter button.
+  **/
   public stopWorkFilter() {
     this.worksList = this.completeWorksList;
     this.stopFilterButton = true;
