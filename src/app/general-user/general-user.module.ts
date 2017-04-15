@@ -21,6 +21,9 @@ import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 
+// Pipes
+import { CalculateDeliveryDatePipe } from './works/work-dates-format-table.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +36,7 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     SelectModule,
     ToasterModule
   ],
-  declarations: [ WorksComponent, WorksListComponent, WorkFormComponent ],
+  declarations: [ WorksComponent, WorksListComponent, WorkFormComponent, CalculateDeliveryDatePipe ],
 
   providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
 })
