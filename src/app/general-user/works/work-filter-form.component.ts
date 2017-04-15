@@ -91,11 +91,10 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-      * Executes the submitWorkFilterForm and create the link to filter works depending of
-      * what is received.
-      **/
+     * Executes the submitWorkFilterForm and create the link to filter works depending of
+     * what is received.
+     **/
     public submitWorkFilterForm(object: WorkFilter) {
-        console.log(object);
         let urlFilterWorks: string = environment.WORKS_URL + '?';
         let params = 0;
 
@@ -153,10 +152,10 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-      * Function that returns an array of possible status if the project is new.
-      * Returns:
-      *   - Array of Status.
-      **/
+     * Function that returns an array of possible status if the project is new.
+     * Returns:
+     *   - Array of Status.
+     **/
     private getPossibleStatusForProject(): Status[] {
         return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
     }
