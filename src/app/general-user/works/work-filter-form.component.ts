@@ -131,19 +131,27 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
         }
 
         if (object.searchByCreationDate) {
+            let creation_date = object.creation_date.getUTCFullYear() + '-' +
+                                  (object.creation_date.getUTCMonth() + 1) + '-' +
+                                  object.creation_date.getUTCDate();
+
             if (params === 0) {
-                urlFilterWorks += 'creation_date=' + object.creation_date;
+                urlFilterWorks += 'creation_date=' + creation_date;
             } else {
-                urlFilterWorks += '&creation_date=' + object.creation_date;
+                urlFilterWorks += '&creation_date=' + creation_date;
             }
             params++;
         }
 
         if (object.searchByDeliveryDate) {
+            let delivery_date = object.expected_delivery_date.getUTCFullYear() + '-' +
+                                  (object.expected_delivery_date.getUTCMonth() + 1) + '-' +
+                                  object.expected_delivery_date.getUTCDate();
+
             if (params === 0) {
-                urlFilterWorks += 'expected_delivery_date=' + object.expected_delivery_date;
+                urlFilterWorks += 'expected_delivery_date=' + delivery_date;
             } else {
-                urlFilterWorks += '&expected_delivery_date=' + object.expected_delivery_date;
+                urlFilterWorks += '&expected_delivery_date=' + delivery_date;
             }
             params++;
         }

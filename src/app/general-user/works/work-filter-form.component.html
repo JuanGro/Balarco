@@ -123,7 +123,7 @@
                 <!-- StartDate Field -->
                 <div class="card-block">
                     <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="start_date" [(ngModel)]="workFilter.creation_date"></datepicker>
+                        <datepicker name="creation_date" [(ngModel)]="workFilter.creation_date"></datepicker>
                     </div>
                 </div>
                 <!-- Feedback StartDate -->
@@ -147,7 +147,7 @@
                 <!-- EndDate Field -->
                 <div class="card-block">
                     <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="end_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date"></datepicker>
+                        <datepicker name="expected_delivery_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date"></datepicker>
                     </div>
                 </div>
                 <!-- Feedback DeliveryDate -->
