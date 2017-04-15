@@ -56,8 +56,6 @@ export class WorkFormComponent implements OnChanges {
   public modalAction: string = '';
   // Initialization of control form.
   public worksModalForm: FormGroup;
-  // Variable to active the form.
-  public active: boolean = true;
   // Variable for filtering Contacts by Client selected in dropown..
   private currentContacts: Contact[];
   // Variable for filtering ArtWorks by Iguala selected in dropdown.
@@ -147,7 +145,7 @@ export class WorkFormComponent implements OnChanges {
   * Executes the submitUpdatedWork or submitNewWork depending if the work
   * received when the modal was called is empty or not.
   **/
-  public submitWorkForm() {
+  public submitWorkForm(form, values) {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
     // TODO: Remove when Users module is ready.
@@ -159,8 +157,8 @@ export class WorkFormComponent implements OnChanges {
       // New work
       this.submitNewWork();
     }
-    this.active = false;
-    setTimeout(() => this.active = true, 1);
+    this.work = new Work();
+    form.reset();
   }
 
   /**
@@ -312,11 +310,11 @@ export class WorkFormComponent implements OnChanges {
   /**
   * Set work with TWDB with old values or clear object if it's new.
   **/
-  public cancelForm() {
+  public cancelForm(form) {
     if (this.oldWork) {
       this.workUpdated.emit(this.oldWork);
     }
-    setTimeout(() => this.active = false, 0);
-    setTimeout(() => this.active = true, 1);
+    this.work = new Work();
+    form.reset();
   }
 }

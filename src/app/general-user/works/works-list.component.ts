@@ -24,7 +24,7 @@ export class WorksListComponent {
   @Output() requestShowUpdateWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the filter work modal in parent component.
   @Output() requestShowFilterWorkModal: EventEmitter<string> = new EventEmitter();
-  // Sends the request to show the filter work modal in parent component.
+  // Sends the request to stop filtering works in parent component.
   @Output() requestStopWorkFilter: EventEmitter<string> = new EventEmitter();
   // Sends the work selected by the user to parent component.
   @Output() currentWork: EventEmitter<Work> = new EventEmitter<Work>();
@@ -57,6 +57,9 @@ export class WorksListComponent {
     this.requestShowFilterWorkModal.emit(this.modalAction);
   }
 
+  /**
+  * Requests to parent component to stop filtering works.
+  **/
   public requestStopWorkFilterButton() {
     this.requestStopWorkFilter.emit('Stop');
   }

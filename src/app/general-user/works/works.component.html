@@ -8,10 +8,12 @@
 </div>
 
 <!-- Child component, it contains the table -->
+<!-- [stopFilterButton] sends the variable to know if the stop filter button should be disabled -->
 <!-- [worksList] sends the works list to the table -->
-<!-- [clientsList] sends the clients list to the table -->
 <!-- (requestShowNewWorkModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
+<!-- (requestShowFilterWorkModal) receives the request to show the works filter modal -->
+<!-- (requestStopWorkFilter) receives the request to stop the works filter -->
 <!-- (currentWork) receives the work who was selected by the user -->
 <works-list [stopFilterButton]="stopFilterButton" [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()"
     (currentWork)="getWorkFromTable($event)"></works-list>
@@ -25,9 +27,14 @@
             </div>
             <!-- Common Form -->
             <!-- Child component, it contains the work form -->
-            <!-- [work] sends the work empty to the form to avoid problems if the last work is currently saved -->
-            <!-- [clientsList] sends the clients list to the form -->
+            <!-- [clientsList] sends the client list to the form -->
+            <!-- [statusList] sends the status list to the form -->
+            <!-- [contactsList] sends the contact list to the form -->
+            <!-- [igualasList] sends the igualas list to the form -->
+            <!-- [workTypesList] sends the work types list to the form -->
+            <!-- [graduationArtTypes] sends the graduation art types list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
+            <!-- (workCreated) listens to add the new work -->
             <work-form [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
         </div>
     </div>
@@ -43,8 +50,14 @@
             <!-- Common Form -->
             <!-- Child component, it contains the work form -->
             <!-- [work] sends the work object to the form to display the current values -->
-            <!-- [clientsList] sends the clients list to the form -->
+            <!-- [clientsList] sends the client list to the form -->
+            <!-- [contactsList] sends the contact list to the form -->
+            <!-- [igualasList] sends the igualas list to the form -->
+            <!-- [workTypesList] sends the work types list to the form -->
+            <!-- [graduationArtTypes] sends the graduation art types list to the form -->
+            <!-- (requestWarning) shows confirmation modal -->
             <!-- (requestCloseModal) listens for the close of the modal -->
+            <!-- (workUpdated) listens to update the work -->
             <work-form [work]="work" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"
                 (workUpdated)="onWorkUpdated($event)"></work-form>
         </div>
@@ -58,7 +71,14 @@
             <div class="modal-header">
                 <h4 class="modal-title">{{ titleFilterModal }}</h4>
             </div>
-            <!-- Common Form -->
+            <!-- Filter Form -->
+            <!-- Child component, it contains the filter work form -->
+            <!-- [clientsList] sends the client list to the form -->
+            <!-- [contactsList] sends the contact list to the form -->
+            <!-- [igualasList] sends the igualas list to the form -->
+            <!-- [statusList] sends the status list to the form -->
+            <!-- (resultSearch) receives the params to search in an url to request them to API -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
             <work-filter-form [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [statusList]="statusList" (requestCloseModal)="filterWorkModal.hide()" (resultSearch)="getResultSearch($event)"></work-filter-form>
         </div>
     </div>

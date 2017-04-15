@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #worksModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitWorkForm(worksModalForm.value)" executes the submitWorkForm method sending the values of each field -->
-    <form #worksModalForm="ngForm" novalidate (ngSubmit)="submitWorkForm(worksModalForm.value)" *ngIf="active">
+    <form #worksModalForm="ngForm" novalidate (ngSubmit)="submitWorkForm(worksModalForm, worksModalForm.value)">
 
         <!-- First row -->
         <div class="form-group row">

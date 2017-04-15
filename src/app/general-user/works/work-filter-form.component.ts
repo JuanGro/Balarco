@@ -39,15 +39,13 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     @Input('statusList') statusList: Status[];
     // Requests close of the current modal to parent component.
     @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
-    // Sends the workFilterList to show in the table.
+    // Sends the url to send to the API.
     @Output() resultSearch: EventEmitter<string> = new EventEmitter<string>();
     // Variable to check in test what action is executed between components.
     public modalAction: string = '';
     // Variable to control the work filter.
     public workFilter: WorkFilter;
-    // Variable to active the form.
-    public active: boolean = true;
-    // Variable for filtering Contacts by Client selected in dropown..
+    // Variable for filtering Contacts by Client selected in dropdown.
     private currentContacts: Contact[];
     // Variable to set the client when an existing work is received.
     private client_id: number;
@@ -58,6 +56,9 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
 
     public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
+    /**
+     * Builds the component for first time each time when it's called.
+     **/
     public ngOnInit() {
         this.workFilter = new WorkFilter();
         this.initialDropdownSetup();
@@ -67,7 +68,7 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-     * Builds the component for first time each time when it's called.
+     * Builds the component each time when it's called.
      *   - Initialize the form depending if the new or update work form is called.
      *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
      **/
@@ -90,8 +91,8 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-      * Executes the submitUpdatedWork or submitNewWork depending if the work
-      * received when the modal was called is empty or not.
+      * Executes the submitWorkFilterForm and create the link to filter works depending of
+      * what is received.
       **/
     public submitWorkFilterForm(object: WorkFilter) {
         console.log(object);
@@ -192,7 +193,7 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-     * Set work with TWDB with old object or clear object if it's new.
+     * Reset the current form.
      **/
     public cancelForm(form) {
         form.reset();
