@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 // Models
 import { WorkFilter } from './work-filter.model';
-import { Work } from './work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -194,8 +194,8 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     /**
      * Reset the current form.
      **/
-    public cancelForm(form) {
-        form.reset();
+    public cancelForm(form: NgForm) {
         this.workFilter = new WorkFilter();
+        form.control.markAsUntouched();
     }
 }

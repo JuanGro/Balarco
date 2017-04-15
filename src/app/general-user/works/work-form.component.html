@@ -222,7 +222,7 @@
                 <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
                 <div class="card-block">
                     <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="start_date" [(ngModel)]="work.creation_date" required></datepicker>
+                        <datepicker name="creation_date" [(ngModel)]="work.creation_date" required></datepicker>
                     </div>
                 </div>
             </div>
@@ -232,7 +232,7 @@
                 <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
                 <div class="card-block">
                     <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="end_date" [(ngModel)]="work.expected_delivery_date" [minDate]="work.creation_date" required></datepicker>
+                        <datepicker name="expected_delivery_date" [(ngModel)]="work.expected_delivery_date" [minDate]="work.creation_date" required></datepicker>
                     </div>
                 </div>
             </div>

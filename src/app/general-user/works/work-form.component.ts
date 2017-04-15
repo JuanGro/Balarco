@@ -1,5 +1,5 @@
 import { Component, OnChanges, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -54,8 +54,6 @@ export class WorkFormComponent implements OnChanges {
   @Output() workUpdated: EventEmitter<Work> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Initialization of control form.
-  public worksModalForm: FormGroup;
   // Variable for filtering Contacts by Client selected in dropown..
   private currentContacts: Contact[];
   // Variable for filtering ArtWorks by Iguala selected in dropdown.
@@ -145,7 +143,7 @@ export class WorkFormComponent implements OnChanges {
   * Executes the submitUpdatedWork or submitNewWork depending if the work
   * received when the modal was called is empty or not.
   **/
-  public submitWorkForm(form, values) {
+  public submitWorkForm(form: NgForm, object: Work) {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
     // TODO: Remove when Users module is ready.
@@ -158,7 +156,7 @@ export class WorkFormComponent implements OnChanges {
       this.submitNewWork();
     }
     this.work = new Work();
-    form.reset();
+    form.control.markAsUntouched();
   }
 
   /**
@@ -310,11 +308,11 @@ export class WorkFormComponent implements OnChanges {
   /**
   * Set work with TWDB with old values or clear object if it's new.
   **/
-  public cancelForm(form) {
+  public cancelForm(form: NgForm) {
     if (this.oldWork) {
       this.workUpdated.emit(this.oldWork);
     }
     this.work = new Work();
-    form.reset();
+    form.control.markAsUntouched();
   }
 }
