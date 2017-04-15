@@ -247,7 +247,7 @@
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the work.id exists because it's used only for update work modal -->
             <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(worksModalForm)">Cancelar</button>
             <!-- Submits updated or new work -->
             <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!worksModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
