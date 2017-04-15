@@ -93,56 +93,57 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
       * Executes the submitUpdatedWork or submitNewWork depending if the work
       * received when the modal was called is empty or not.
       **/
-    public submitWorkFilterForm(values: WorkFilter) {
+    public submitWorkFilterForm(object: WorkFilter) {
+        console.log(object);
         let urlFilterWorks: string = environment.WORKS_URL + '?';
-        let params: number = 0;
+        let params = 0;
 
-        if (values.searchByClient) {
-            urlFilterWorks += 'client=' + values.client;
+        if (object.searchByClient) {
+            urlFilterWorks += 'client=' + object.client;
             params++;
         }
 
-        if (values.searchByContact) {
+        if (object.searchByContact) {
             if (params === 0) {
-                urlFilterWorks += 'contact=' + values.contact;
+                urlFilterWorks += 'contact=' + object.contact;
             } else {
-                urlFilterWorks += '&contact=' + values.contact;
+                urlFilterWorks += '&contact=' + object.contact;
             }
             params++;
         }
 
-        if (values.searchByIguala) {
+        if (object.searchByIguala) {
             if (params === 0) {
-                urlFilterWorks += 'iguala=' + values.iguala;
+                urlFilterWorks += 'iguala=' + object.iguala;
             } else {
-                urlFilterWorks += '&iguala=' + values.iguala;
+                urlFilterWorks += '&iguala=' + object.iguala;
             }
             params++;
         }
 
-        if (values.searchByStatus) {
+        if (object.searchByStatus) {
             if (params === 0) {
-                urlFilterWorks += 'current_status=' + values.current_status;
+                urlFilterWorks += 'current_status=' + object.current_status;
             } else {
-                urlFilterWorks += '&current_status=' + values.current_status;
+                urlFilterWorks += '&current_status=' + object.current_status;
             }
             params++;
         }
 
-        if (values.searchByCreationDate) {
+        if (object.searchByCreationDate) {
             if (params === 0) {
-                urlFilterWorks += 'creation_date=' + values.creation_date;
+                urlFilterWorks += 'creation_date=' + object.creation_date;
             } else {
-                urlFilterWorks += '&creation_date=' + values.creation_date;
+                urlFilterWorks += '&creation_date=' + object.creation_date;
             }
             params++;
         }
 
-        if (values.searchByDeliveryDate) {
+        if (object.searchByDeliveryDate) {
             if (params === 0) {
-                urlFilterWorks += 'expected_delivery_date=' + values.expected_delivery_date;
+                urlFilterWorks += 'expected_delivery_date=' + object.expected_delivery_date;
             } else {
-                urlFilterWorks += '&expected_delivery_date=' + values.expected_delivery_date;
+                urlFilterWorks += '&expected_delivery_date=' + object.expected_delivery_date;
             }
             params++;
         }
@@ -191,7 +192,7 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     }
 
     /**
-     * Set work with TWDB with old values or clear object if it's new.
+     * Set work with TWDB with old object or clear object if it's new.
      **/
     public cancelForm(form) {
         form.reset();
