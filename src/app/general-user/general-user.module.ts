@@ -21,12 +21,15 @@ import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     GeneralUserRoutingModule,
     ChartsModule,
+    NgxPaginationModule,
     DropdownModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
