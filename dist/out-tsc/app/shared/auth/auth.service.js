@@ -13,15 +13,30 @@ var CanActivateAuthGuard = (function () {
     function CanActivateAuthGuard(router) {
         this.router = router;
     }
-    CanActivateAuthGuard.prototype.canActivate = function () {
+    CanActivateAuthGuard.prototype.canActivate = function (route) {
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser) {
-            return true;
+            if (route.data['roles']) {
+                var roles = route.data['roles'];
+                return this.shareAtLeastOneElement(currentUser.roles, roles);
+            }
+            else {
+                return true;
+            }
         }
         else {
             this.router.navigate(['/login/login']);
             return false;
         }
+    };
+    CanActivateAuthGuard.prototype.shareAtLeastOneElement = function (a1, a2) {
+        for (var _i = 0, a1_1 = a1; _i < a1_1.length; _i++) {
+            var e = a1_1[_i];
+            if (a2.indexOf(e) != -1) {
+                return true;
+            }
+        }
+        return false;
     };
     return CanActivateAuthGuard;
 }());
