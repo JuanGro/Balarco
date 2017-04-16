@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 
 // Models
 import { Contact } from './contact-model';
@@ -42,12 +42,8 @@ export class ContactFormComponent implements OnChanges {
   public success: boolean = false;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Initialization of control form.
-  public contactsModalForm: FormGroup;
   // Variable to return the old contact if cancel the update form.
   public oldContact: Contact;
-  // Variable to active the form.
-  public active: boolean = true;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -71,7 +67,7 @@ export class ContactFormComponent implements OnChanges {
   *   - object: Contact object received from modal.
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
-  public submitContactForm(object: Contact) {
+  public submitContactForm(form: NgModel, object: Contact) {
       if (this.contact.id) {
         // Update contact
         this.submitUpdatedContact(object, this.contact.id);
@@ -79,8 +75,7 @@ export class ContactFormComponent implements OnChanges {
         // Create contact
         this.submitNewContact(object);
       }
-      this.active = false;
-      setTimeout(() => this.active = true, 0);
+      form.control.markAsUntouched();
       this.success = true;
   }
 
@@ -140,14 +135,12 @@ export class ContactFormComponent implements OnChanges {
   /**
   * Initialize the form and return to the original object the contact.
   **/
-  public cancelForm() {
+  public cancelForm(form: NgModel) {
     if (this.oldContact.id) {
       this.contact = this.oldContact;
       let updatedContact = new Contact(this.oldContact);
       this.contactUpdated.emit(updatedContact);
     }
-    this.contact = new Contact();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 0);
+    form.control.markAsUntouched();
   }
 }
