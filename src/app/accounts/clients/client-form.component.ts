@@ -70,7 +70,7 @@ export class ClientFormComponent implements OnChanges {
         // Create client
         this.submitNewClient(object);
       }
-      form.reset();
+      form.control.markAsUntouched();
       this.success = true;
   }
 
@@ -140,7 +140,6 @@ export class ClientFormComponent implements OnChanges {
       let updatedContact = new Client(this.oldClient);
       this.clientUpdated.emit(updatedContact);
     }
-    this.client = new Client();
-    form.reset();
+    form.control.markAsUntouched();
   }
 }
