@@ -66,12 +66,11 @@ export class LoginComplexFormComponent implements OnInit {
                      .map((data: any) => data.json())
                      .subscribe(usersList => {
 
-                       if (usersList.length == 1) {
+                       if (usersList.length === 1) {
                          let groupNames: string[] = [];
                          for (let group of usersList[0].groups_complete) {
                            groupNames.push(group.name);
                          }
-                         
                          this.loginService.setUserRoles(groupNames);
                          this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
                        }

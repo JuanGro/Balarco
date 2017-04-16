@@ -169,25 +169,25 @@ export class HttpService extends Http {
 
     for (let roleName of roleNames) {
       switch (roleName) {
-        case "Director de cuentas":
+        case 'Director de cuentas':
           roles.push(Role.DIRECTOR_CUENTAS);
           break;
-        case "Ejecutivo":
+        case 'Ejecutivo':
           roles.push(Role.EJECUTIVO);
           break;
-        case "Ventas":
+        case 'Ventas':
           roles.push(Role.VENTAS);
           break;
-        case "Director de arte":
+        case 'Director de arte':
           roles.push(Role.DIRECTOR_ARTE);
           break;
-        case "Diseñador SR":
+        case 'Diseñador SR':
           roles.push(Role.DISENADOR_SR);
           break;
-        case "Diseñador JR":
+        case 'Diseñador JR':
           roles.push(Role.DISENADOR_JR);
           break;
-        case "Super usuario":
+        case 'Super usuario':
           roles.push(Role.SUPER_USUARIO);
           break;
         default:
@@ -205,7 +205,7 @@ export class HttpService extends Http {
   * Returns:
   *   - Array of number with the id of role (based on Role enum).
   **/
-  public getCurrentUserRoles(): number[]{
+  public getCurrentUserRoles(): number[] {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser.roles;
   }

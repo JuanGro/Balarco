@@ -41,7 +41,7 @@ var LoginComplexFormComponent = (function () {
         this.loginService.getObject(environment.USERS_URL, params)
             .map(function (data) { return data.json(); })
             .subscribe(function (usersList) {
-            if (usersList.length == 1) {
+            if (usersList.length === 1) {
                 var groupNames = [];
                 for (var _i = 0, _a = usersList[0].groups_complete; _i < _a.length; _i++) {
                     var group = _a[_i];

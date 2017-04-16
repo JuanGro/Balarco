@@ -39,7 +39,7 @@ export class CanActivateAuthGuard implements CanActivate {
   **/
   private shareAtLeastOneElement(a1: number[], a2: number[]): boolean {
     for (let e of a1) {
-      if (a2.indexOf(e) != -1) {
+      if (a2.indexOf(e) !== -1) {
         return true;
       }
     }

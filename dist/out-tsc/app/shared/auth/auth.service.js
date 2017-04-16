@@ -32,7 +32,7 @@ var CanActivateAuthGuard = (function () {
     CanActivateAuthGuard.prototype.shareAtLeastOneElement = function (a1, a2) {
         for (var _i = 0, a1_1 = a1; _i < a1_1.length; _i++) {
             var e = a1_1[_i];
-            if (a2.indexOf(e) != -1) {
+            if (a2.indexOf(e) !== -1) {
                 return true;
             }
         }

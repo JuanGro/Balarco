@@ -99,25 +99,25 @@ var HttpService = (function (_super) {
         for (var _i = 0, roleNames_1 = roleNames; _i < roleNames_1.length; _i++) {
             var roleName = roleNames_1[_i];
             switch (roleName) {
-                case "Director de cuentas":
+                case 'Director de cuentas':
                     roles.push(Role.DIRECTOR_CUENTAS);
                     break;
-                case "Ejecutivo":
+                case 'Ejecutivo':
                     roles.push(Role.EJECUTIVO);
                     break;
-                case "Ventas":
+                case 'Ventas':
                     roles.push(Role.VENTAS);
                     break;
-                case "Director de arte":
+                case 'Director de arte':
                     roles.push(Role.DIRECTOR_ARTE);
                     break;
-                case "Diseñador SR":
+                case 'Diseñador SR':
                     roles.push(Role.DISENADOR_SR);
                     break;
-                case "Diseñador JR":
+                case 'Diseñador JR':
                     roles.push(Role.DISENADOR_JR);
                     break;
-                case "Super usuario":
+                case 'Super usuario':
                     roles.push(Role.SUPER_USUARIO);
                     break;
                 default:

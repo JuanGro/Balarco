@@ -14,7 +14,7 @@ export class FullLayoutComponent implements OnInit {
 
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
-    
+
     private userRoles: number[];
     // Variable for using enum in template.
     private roleEnum = Role;
