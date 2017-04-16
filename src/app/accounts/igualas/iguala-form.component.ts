@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -41,14 +41,10 @@ export class IgualaFormComponent implements OnChanges {
   @Output() igualaCreated: EventEmitter<Iguala> = new EventEmitter();
   // Event for parent when an Iguala is updated.
   @Output() igualaUpdated: EventEmitter<Iguala> = new EventEmitter();
-  // Inicialization of form control.
-  public igualasModalForm: FormGroup;
   // Variable that stores the old iguala if the update is canceled.
   public oldIguala: Iguala;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Variable to reset the HTML of the form when it is closed.
-  active: boolean = true;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -69,7 +65,7 @@ export class IgualaFormComponent implements OnChanges {
   * Executes the submitUpdatedIguala or submitNewIguala depending if the iguala
   * received when the modal was called is empty or not.
   **/
-  public submitIgualaForm() {
+  public submitIgualaForm(form: NgModel) {
     this.iguala.art_iguala = this.artWorkList;
     if (this.iguala.id) {
       // Update iguala
@@ -78,8 +74,7 @@ export class IgualaFormComponent implements OnChanges {
       // Create iguala
       this.submitNewIguala();
     }
-    this.active = false;
-    setTimeout(() => this.active = true, 0);
+    form.control.markAsUntouched();
   }
 
   /**
@@ -134,12 +129,10 @@ export class IgualaFormComponent implements OnChanges {
   /**
   * Set iguala with TWDB with old values or clear object if it's new.
   **/
-  public cancelForm() {
+  public cancelForm(form: NgModel) {
     if (this.oldIguala) {
       this.igualaUpdated.emit(this.oldIguala);
     }
-    this.iguala = new Iguala();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 1);
+    form.control.markAsUntouched();
   }
 }
