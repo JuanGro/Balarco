@@ -12,6 +12,7 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { Role } from '../auth/role';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
@@ -156,6 +157,49 @@ export class HttpService extends Http {
         }
       });
   }
+
+
+  /**
+  * Method for storing the current user roles in Angular Local Storage.
+  * Params:
+  *   - roleNames: Names of the roles received from WS
+  **/
+  public setUserRoles(roleNames: [string]) {
+    let roles: [number];
+
+    for (let roleName of roleNames) {
+      switch (roleName) {
+        case "Director de cuentas":
+          roles.push(Role.DIRECTOR_CUENTAS);
+          break;
+        case "Ejecutivo":
+          roles.push(Role.EJECUTIVO);
+          break;
+        case "Ventas":
+          roles.push(Role.VENTAS);
+          break;
+        case "Director de arte":
+          roles.push(Role.DIRECTOR_ARTE);
+          break;
+        case "Diseñador SR":
+          roles.push(Role.DISENADOR_SR);
+          break;
+        case "Diseñador JR":
+          roles.push(Role.DISENADOR_JR);
+          break;
+        case "Super usuario":
+          roles.push(Role.SUPER_USUARIO);
+          break;
+        default:
+          break;
+      }
+    }
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    currentUser["roles"] = roles;
+    localStorage.setItem('currentUser', currentUser);
+  }
+  
 
   /**
   * Method to finish the current session.

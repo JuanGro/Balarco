@@ -1,4 +1,4 @@
-var Role;
+export var Role;
 (function (Role) {
     Role[Role["DIRECTOR_CUENTAS"] = 0] = "DIRECTOR_CUENTAS";
     Role[Role["EJECUTIVO"] = 1] = "EJECUTIVO";

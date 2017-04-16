@@ -1,7 +1,7 @@
 /**
 * Enum to keep track of the role the current user might have.
 **/
-enum Role {
+export enum Role {
   DIRECTOR_CUENTAS,
   EJECUTIVO,
   VENTAS,
