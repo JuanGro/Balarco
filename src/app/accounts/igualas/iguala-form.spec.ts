@@ -238,21 +238,4 @@ describe('IgualaFormComponent tests.', () => {
             modalAction.requestWarningModal();
         }));
     });
-
-     describe('Cancel form method is correctly send depending if its current iguala is not empty', () => {
-        /**
-        * Tests that the send of the iguala updated is working correctly.
-        **/
-        it('should send the iguala updated', async(() => {
-            component.iguala = testIguala;
-            component.ngOnChanges();
-            component.cancelForm();
-
-            expect(component.iguala).toBeDefined();
-            expect(component.iguala.name).toBeUndefined();
-            expect(component.iguala.client).toBeUndefined();
-            expect(component.iguala.start_date).toBeUndefined();
-            expect(component.iguala.end_date).toBeUndefined();
-        }));
-    });
 });

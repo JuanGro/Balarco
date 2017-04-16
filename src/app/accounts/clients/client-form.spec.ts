@@ -174,19 +174,4 @@ describe('ClientFormComponent tests.', () => {
             modalAction.requestWarningModal();
         }));
     });
-
-    describe('Cancel form method is correctly send depending if its current client is not empty', () => {
-        /**
-        * Tests that the send of the client updated is working correctly.
-        **/
-        it('should send the client updated', async(() => {
-            component.client = testClient;
-            component.ngOnChanges();
-            component.cancelForm();
-
-            expect(component.client).toBeDefined();
-            expect(component.client.name).toBeUndefined();
-            expect(component.client.address).toBeUndefined();
-        }));
-    });
 });
