@@ -128,6 +128,10 @@ var HttpService = (function (_super) {
         currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
         localStorage.setItem('currentUser', currentUser);
     };
+    HttpService.prototype.getCurrentUserRoles = function () {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser.roles;
+    };
     HttpService.prototype.logout = function () {
         this.token = null;
         localStorage.removeItem('currentUser');
