@@ -164,8 +164,8 @@ export class HttpService extends Http {
   * Params:
   *   - roleNames: Names of the roles received from WS
   **/
-  public setUserRoles(roleNames: [string]) {
-    let roles: [number];
+  public setUserRoles(roleNames: string[]) {
+    let roles: number[] = [];
 
     for (let roleName of roleNames) {
       switch (roleName) {
@@ -196,10 +196,10 @@ export class HttpService extends Http {
     }
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    currentUser["roles"] = roles;
+    currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
     localStorage.setItem('currentUser', currentUser);
   }
-  
+
 
   /**
   * Method to finish the current session.

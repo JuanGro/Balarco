@@ -95,7 +95,7 @@ var HttpService = (function (_super) {
         });
     };
     HttpService.prototype.setUserRoles = function (roleNames) {
-        var roles;
+        var roles = [];
         for (var _i = 0, roleNames_1 = roleNames; _i < roleNames_1.length; _i++) {
             var roleName = roleNames_1[_i];
             switch (roleName) {
@@ -125,7 +125,7 @@ var HttpService = (function (_super) {
             }
         }
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        currentUser["roles"] = roles;
+        currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
         localStorage.setItem('currentUser', currentUser);
     };
     HttpService.prototype.logout = function () {
