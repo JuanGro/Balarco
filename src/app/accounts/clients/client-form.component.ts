@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 
 // Class
 import { Client } from './client-model';
@@ -39,12 +39,8 @@ export class ClientFormComponent implements OnChanges {
   public success: boolean = false;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Initialization of the control form
-  public clientModalForm: FormGroup;
   // Variable to return the old client if cancel the update form
   public oldClient: Client;
-  // Variable to active the form.
-  public active: boolean = true;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -66,7 +62,7 @@ export class ClientFormComponent implements OnChanges {
   * Params:
   *   - object: Client object received from modal.
   **/
-  public submitClientForm(object: Client) {
+  public submitClientForm(form: NgModel, object: Client) {
       if (this.client.id) {
         // Update client
         this.submitUpdatedClient(object, this.client.id);
@@ -74,8 +70,7 @@ export class ClientFormComponent implements OnChanges {
         // Create client
         this.submitNewClient(object);
       }
-      this.active = false;
-      setTimeout(() => this.active = true, 0);
+      form.reset();
       this.success = true;
   }
 
@@ -139,14 +134,13 @@ export class ClientFormComponent implements OnChanges {
   /**
   * Initialize the form and return to the original object the client.
   **/
-  public cancelForm() {
+  public cancelForm(form: NgModel) {
     if (this.oldClient.id) {
       this.client = this.oldClient;
       let updatedContact = new Client(this.oldClient);
       this.clientUpdated.emit(updatedContact);
     }
     this.client = new Client();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 0);
+    form.reset();
   }
 }
