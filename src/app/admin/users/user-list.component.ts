@@ -16,8 +16,6 @@ import { User, Group } from './user-model';
 export class UserListComponent {
   // Receives the user list from parent component.
   @Input('userList') userList: User[];
-  // Receives the group list from parent component.
-  @Input('groupList') groupList: Group[];
   // Sends the request to show the new user modal in parent component.
   @Output() requestShowNewUserModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update user modal in parent component.

@@ -23,7 +23,8 @@ import { UserListComponent  } from './user-list.component';
 import { UserFormComponent } from './user-form.component';
 
 // Models
-import { User, Group } from './user-model';
+import { User } from './user-model';
+import { Group } from './group-model';
 
 describe('UserFormComponent tests.', () => {
     // Fixture for debugging and testing a UsersComponent.
@@ -115,9 +116,9 @@ describe('UserFormComponent tests.', () => {
         });
 
         /**
-        * Tests that the clients object list received from parent component is not empty.
+        * Tests that the group object list received from parent component is not empty.
         **/
-        it('should load correctly clients list in clientsList Input', () => {
+        it('should load correctly group list in groupList Input', () => {
             component.groupList = testGroupList;
             fixtureParent.detectChanges();
             expect(component.groupList).toEqual(testGroupList);

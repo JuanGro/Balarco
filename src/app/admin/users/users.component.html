@@ -25,7 +25,7 @@
             <!-- Common Form -->
             <!-- Child component, it contains the user form -->
             <!-- [user] sends the user empty to the form to avoid problems if the last user is currently saved -->
-            <!-- [clientsList] sends the clients list to the form -->
+            <!-- [groupList] sends the group list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <user-form [groupList]="groupList" (requestCloseModal)="newUserModal.hide()" (userCreated)="onUserCreated($event)"></user-form>
         </div>
@@ -42,7 +42,7 @@
             <!-- Common Form -->
             <!-- Child component, it contains the user form -->
             <!-- [user] sends the user object to the form to display the current values -->
-            <!-- [clientsList] sends the clients list to the form -->
+            <!-- [groupList] sends the group list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <user-form [user]="user" [groupList]="groupList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateUserModal.hide()" (userUpdated)="onUserUpdated($event)"></user-form>
         </div>

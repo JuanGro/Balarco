@@ -2,7 +2,8 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { FormGroup } from '@angular/forms';
 
 // Models
-import { User, Group } from './user-model';
+import { User } from './user-model';
+import { Group } from './group-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -39,8 +40,6 @@ export class UserFormComponent implements OnChanges {
   @Output() userCreated: EventEmitter<User> = new EventEmitter();
   // Event for parent to update the currentUser.
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
-  // Variable to check if the submitForm method finish correctly.
-  public success: boolean = false;
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Initialization of control form.
@@ -108,7 +107,6 @@ export class UserFormComponent implements OnChanges {
       this.currentGroupList.push(group);
     }
     object.groups_complete = this.currentGroupList;
-    console.log(object);
     if (this.user.id) {
       // Update user
       this.submitUpdatedUser(object, this.user.id);
@@ -118,7 +116,6 @@ export class UserFormComponent implements OnChanges {
     }
     this.active = false;
     setTimeout(() => this.active = true, 0);
-    this.success = true;
   }
 
   /**

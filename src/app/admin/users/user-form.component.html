@@ -109,8 +109,8 @@
         <!-- Fourth row -->
         <div class="form-group row">
             <div class="col-md-6">
-                <!-- Client field -->
-                <label for="recipient-client" class="form-control-label">Roles:</label>
+                <!-- Role field -->
+                <label for="user-role" class="form-control-label">Roles:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
                     <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=2 required>
@@ -118,7 +118,7 @@
                     </select>
                 </div>
 
-                <!-- Feedback client -->
+                <!-- Mandatory role feedback -->
                 <div *ngIf="groups_complete.errors && groups_complete.touched" class="alert alert-danger">
                     <div [hidden]="!groups_complete.errors.required">
                         El rol es obligatorio.

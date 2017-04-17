@@ -1,5 +1,6 @@
 // Models
-import { User, Group } from './user-model';
+import { User } from './user-model';
+import { Group } from './group-model';
 
 describe('User object model tests.', () => {
     let contact: User;
