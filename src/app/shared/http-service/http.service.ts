@@ -200,16 +200,7 @@ export class HttpService extends Http {
     currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
     localStorage.setItem('currentUser', currentUser);
   }
-
-  /**
-  * Method that get the current User roles from Angular Local Storage.
-  * Returns:
-  *   - Array of number with the id of role (based on Role enum).
-  **/
-  public getCurrentUserRoles(): number[] {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return currentUser.roles;
-  }
+  
 
   /**
   * Method that returns the currentUser logged.
