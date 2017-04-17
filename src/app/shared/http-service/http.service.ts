@@ -200,7 +200,7 @@ export class HttpService extends Http {
     currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
     localStorage.setItem('currentUser', currentUser);
   }
-  
+
 
   /**
   * Method that returns the currentUser logged.
