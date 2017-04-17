@@ -24,6 +24,9 @@ import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
 
+// Pipes
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
+
 // Models
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
@@ -99,7 +102,7 @@ describe('WorkListComponent tests', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent ],
+            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, CalculateDeliveryDatePipe ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
             providers: [ WorksListComponent,
