@@ -118,7 +118,7 @@ describe('WorksComponent tests', () => {
             // Declare all what the test component has.
             declarations: [ WorksComponent, WorksListComponent , WorkFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), 
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(),
             SelectModule, NgxPaginationModule ],
             providers: [
                 {
