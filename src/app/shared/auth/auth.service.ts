@@ -1,6 +1,10 @@
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 
+// Models
+import { CurrentUser } from '../current-user/current-user-model';
+// Enum
+import { Role } from './role';
 /**
 * Class that deals with redirect to login if user tries to
 * access any route without being logged in.
@@ -15,11 +19,12 @@ export class CanActivateAuthGuard implements CanActivate {
   * if token is stored in Angular Local Storage.
   **/
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserJSON) {
       if (route.data['roles']) {
-        let roles = route.data['roles'] as Array<number>;
-        return this.shareAtLeastOneElement(currentUser.roles, roles);
+        let currentUser = new CurrentUser(currentUserJSON);
+        let roles = route.data['roles'] as Role[];
+        return currentUser.hasRole(roles);
       } else {
         return true;
       }
@@ -27,22 +32,5 @@ export class CanActivateAuthGuard implements CanActivate {
       this.router.navigate(['/login/login']);
       return false;
     }
-  }
-
-  /**
-  * Method to check if two arrays share at least one element.
-  * Params:
-  *   - a1: Array 1
-  *   - a2: Array 2
-  * Returns:
-  *   - true if they share at least one element.
-  **/
-  private shareAtLeastOneElement(a1: number[], a2: number[]): boolean {
-    for (let e of a1) {
-      if (a2.indexOf(e) !== -1) {
-        return true;
-      }
-    }
-    return false;
   }
 }
