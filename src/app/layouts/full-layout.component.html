@@ -314,15 +314,15 @@
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i> Trabajos</a>
                 </li>
 
-                <li *ngIf="userRoles.includes(roleEnum.DIRECTOR_CUENTAS) || userRoles.includes(roleEnum.SUPER_USUARIO)" class="nav-item nav-dropdown" routerLinkActive="open">
+                <li *ngIf="currentUser.hasRole([ roleEnum.DIRECTOR_CUENTAS, roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/contacts-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Contactos</a>
                 </li>
 
-                <li *ngIf="userRoles.includes(roleEnum.DIRECTOR_CUENTAS) || userRoles.includes(roleEnum.SUPER_USUARIO)" class="nav-item nav-dropdown" routerLinkActive="open">
+                <li *ngIf="currentUser.hasRole([ roleEnum.DIRECTOR_CUENTAS, roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/clients-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Compañias</a>
                 </li>
 
-                <li *ngIf="userRoles.includes(roleEnum.DIRECTOR_CUENTAS) || userRoles.includes(roleEnum.SUPER_USUARIO)" class="nav-item nav-dropdown" routerLinkActive="open">
+                <li *ngIf="currentUser.hasRole([ roleEnum.DIRECTOR_CUENTAS, roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/igualas-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Igualas</a>
                 </li>
 

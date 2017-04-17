@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../shared/http-service/http.service';
 // Enum
 import { Role } from '../shared/auth/role';
+// Models
+import { CurrentUser } from '../shared/current-user/current-user-model';
 
 @Component({
     selector: 'app-dashboard',
@@ -15,12 +17,12 @@ export class FullLayoutComponent implements OnInit {
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
 
-    private userRoles: number[];
-    // Variable for using enum in template.
+    private currentUser: CurrentUser;
+    // Variable needed for accessing enum in template.
     private roleEnum = Role;
 
     constructor(private httpService: HttpService) {
-        this.userRoles = httpService.getCurrentUserRoles();
+        this.currentUser = httpService.getCurrentUser();
     }
 
     public toggled(open: boolean): void {

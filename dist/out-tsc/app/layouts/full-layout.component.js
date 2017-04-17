@@ -16,7 +16,7 @@ var FullLayoutComponent = (function () {
         this.disabled = false;
         this.status = { isopen: false };
         this.roleEnum = Role;
-        this.userRoles = httpService.getCurrentUserRoles();
+        this.currentUser = httpService.getCurrentUser();
     }
     FullLayoutComponent.prototype.toggled = function (open) {
         console.log('Dropdown is now: ', open);
