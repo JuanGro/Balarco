@@ -13,6 +13,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { Role } from '../auth/role';
+import { CurrentUser } from '../current-user/current-user-model';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
@@ -208,6 +209,15 @@ export class HttpService extends Http {
   public getCurrentUserRoles(): number[] {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser.roles;
+  }
+
+  /**
+  * Method that returns the currentUser logged.
+  * Returns:
+  *   - The currentUser.
+  **/
+  public getCurrentUser(): CurrentUser {
+    return new CurrentUser(JSON.parse(localStorage.getItem('currentUser')));
   }
 
 

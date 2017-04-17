@@ -18,6 +18,7 @@ import { Http, XHRBackend, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { Role } from '../auth/role';
+import { CurrentUser } from '../current-user/current-user-model';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/map';
@@ -131,6 +132,9 @@ var HttpService = (function (_super) {
     HttpService.prototype.getCurrentUserRoles = function () {
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         return currentUser.roles;
+    };
+    HttpService.prototype.getCurrentUser = function () {
+        return new CurrentUser(JSON.parse(localStorage.getItem('currentUser')));
     };
     HttpService.prototype.logout = function () {
         this.token = null;
