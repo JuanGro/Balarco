@@ -24,7 +24,7 @@ import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
 
 // Pagination
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Services
 import { HttpService } from '../shared/http-service/http.service';
