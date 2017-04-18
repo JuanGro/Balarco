@@ -113,7 +113,7 @@
                 <label for="user-role" class="form-control-label">Roles:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=2 required>
+                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=8 required>
                       <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
                     </select>
                 </div>
