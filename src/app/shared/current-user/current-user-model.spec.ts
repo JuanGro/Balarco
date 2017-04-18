@@ -20,7 +20,7 @@ describe('hasRole method tests.', () => {
   });
 
   it('should return false if user has not the role specified in params', () => {
-    expect(testCurrentUser.hasRole([ Role.EJECUTIVO ])).toBe(false);
+    expect(testCurrentUser.hasRole([ Role.EJECUTIVO_SR ])).toBe(false);
   });
 
   it('should return true if user has the role specified in params', () => {
@@ -28,6 +28,6 @@ describe('hasRole method tests.', () => {
   });
 
   it('should return true if user has at least one role from the ones specified in params', () => {
-    expect(testCurrentUser.hasRole([ Role.EJECUTIVO, Role.DIRECTOR_CUENTAS ])).toBe(true);
+    expect(testCurrentUser.hasRole([ Role.EJECUTIVO_SR, Role.DIRECTOR_CUENTAS ])).toBe(true);
   });
 });

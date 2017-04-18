@@ -173,11 +173,14 @@ export class HttpService extends Http {
         case 'Director de cuentas':
           roles.push(Role.DIRECTOR_CUENTAS);
           break;
-        case 'Ejecutivo':
-          roles.push(Role.EJECUTIVO);
+        case 'Ejecutivo SR':
+          roles.push(Role.EJECUTIVO_SR);
           break;
-        case 'Ventas':
-          roles.push(Role.VENTAS);
+        case 'Ejecutivo JR':
+          roles.push(Role.EJECUTIVO_JR);
+          break;
+        case 'Administración':
+          roles.push(Role.ADMINISTRACION);
           break;
         case 'Director de arte':
           roles.push(Role.DIRECTOR_ARTE);

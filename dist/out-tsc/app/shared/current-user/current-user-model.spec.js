@@ -14,13 +14,13 @@ describe('hasRole method tests.', function () {
         testCurrentUser = new CurrentUser({ username: 'test', token: 'test', roles: [Role.DIRECTOR_CUENTAS] });
     });
     it('should return false if user has not the role specified in params', function () {
-        expect(testCurrentUser.hasRole([Role.EJECUTIVO])).toBe(false);
+        expect(testCurrentUser.hasRole([Role.EJECUTIVO_SR])).toBe(false);
     });
     it('should return true if user has the role specified in params', function () {
         expect(testCurrentUser.hasRole([Role.DIRECTOR_CUENTAS])).toBe(true);
     });
     it('should return true if user has at least one role from the ones specified in params', function () {
-        expect(testCurrentUser.hasRole([Role.EJECUTIVO, Role.DIRECTOR_CUENTAS])).toBe(true);
+        expect(testCurrentUser.hasRole([Role.EJECUTIVO_SR, Role.DIRECTOR_CUENTAS])).toBe(true);
     });
 });
 //# sourceMappingURL=../../../../../src/app/shared/current-user/current-user-model.spec.js.map
