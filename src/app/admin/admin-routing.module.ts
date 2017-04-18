@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Components
-import { CompletedDesignsListComponent } from './completed-designs-list.component';
+import { CompletedDesignsListComponent } from './completed-designs/completed-designs-list.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
         component: CompletedDesignsListComponent,
         data: {
           title: 'Completed Designs List'
+        }
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        data: {
+          title: 'User List'
         }
       }
     ]
