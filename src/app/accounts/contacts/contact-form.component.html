@@ -6,46 +6,48 @@
 
         <!-- First row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!name.errors && name.touched" [class.has-danger]="name.errors && name.touched">
                 <!-- Name field -->
                 <label for="recipient-name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" required>
+                    <input type="text" id="recipient-name" placeholder="Pablo" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="contact.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
+                        required>
                 </div>
                 <!-- Feedback name -->
-                <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                <div *ngIf="name.errors && name.touched">
                     <div [hidden]="!name.errors.required">
-                        El nombre es obligatorio.
+                        <div class="form-control-feedback">El nombre es obligatorio.</div>
                     </div>
                     <div [hidden]="!name.errors.minlength">
-                        El nombre debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!name.errors.maxlength">
-                        El nombre debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!last_name.errors && last_name.touched" [class.has-danger]="last_name.errors && last_name.touched">
                 <!-- Lastname field -->
                 <label for="recipient-last_name" class="form-control-label">Apellido:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" required>
+                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="contact.last_name" #last_name="ngModel" [class.form-control-success]="!last_name.errors && last_name.touched"
+                        [class.form-control-danger]="last_name.errors && last_name.touched" required>
                 </div>
                 <!-- Feedback lastname -->
-                <div *ngIf="last_name.errors && last_name.touched" class="alert alert-danger">
+                <div *ngIf="last_name.errors && last_name.touched">
                     <div [hidden]="!last_name.errors.required">
-                        El apellido es obligatorio.
+                        <div class="form-control-feedback">El apellido es obligatorio.</div>
                     </div>
                     <div [hidden]="!last_name.errors.minlength">
-                        El apellido debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El apellido debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!last_name.errors.maxlength">
-                        El apellido debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El apellido debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -53,41 +55,43 @@
 
         <!-- Second row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!client.errors && client.touched" [class.has-danger]="client.errors && client.touched">
                 <!-- Client field -->
                 <label for="recipient-client" class="form-control-label">Compañía:</label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-suitcase"></i>
+                </span>
                     <select id="client" name="client" class="form-control" [(ngModel)]="contact.client" #client="ngModel" size="1" required>
-                        <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
-                    </select>
+                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                </select>
                 </div>
                 <!-- Feedback client -->
-                <div *ngIf="client.errors && client.touched" class="alert alert-danger">
+                <div *ngIf="client.errors && client.touched">
                     <div [hidden]="!client.errors.required">
-                        La compañía es obligatoria.
+                        <div class="form-control-feedback">La compañía es obligatoria.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!charge.errors && charge.touched" [class.has-danger]="charge.errors && charge.touched">
                 <!-- Charge field -->
                 <label for="recipient-charge" class="form-control-label">Puesto (Departamento):</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                    <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" required>
+                    <input type="text" placeholder="Marketing" class="form-control" id="recipient-charge" minlength="4" maxlength="24" name="charge" [(ngModel)]="contact.charge" #charge="ngModel" [class.form-control-success]="!charge.errors && charge.touched" [class.form-control-danger]="charge.errors && charge.touched"
+                        required>
                 </div>
                 <!-- Feedback charge -->
-                <div *ngIf="charge.errors && charge.touched" class="alert alert-danger">
+                <div *ngIf="charge.errors && charge.touched">
                     <div [hidden]="!charge.errors.required">
-                        El puesto o departamento es obligatorio.
+                        <div class="form-control-feedback">El puesto o departamento es obligatorio.</div>
                     </div>
                     <div [hidden]="!charge.errors.minlength">
-                        El puesto o departamento debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El puesto o departamento debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!charge.errors.maxlength">
-                        El puesto o departamento debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El puesto o departamento debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -95,43 +99,45 @@
 
         <!-- Third row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!landline.errors && landline.touched" [class.has-danger]="landline.errors && landline.touched">
                 <!-- Landline field -->
                 <label for="recipient-landline" class="form-control-label">Teléfono fijo:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                    <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" required>
+                    <input type="tel" placeholder="2221133" class="form-control" id="recipient-landline" minlength="7" maxlength="24" name="landline" [(ngModel)]="contact.landline" #landline="ngModel" [class.form-control-success]="!landline.errors && landline.touched" [class.form-control-danger]="landline.errors && landline.touched"
+                        required>
                 </div>
                 <!-- Feedback landline -->
-                <div *ngIf="landline.errors && landline.touched" class="alert alert-danger">
+                <div *ngIf="landline.errors && landline.touched">
                     <div [hidden]="!landline.errors.required">
-                        El teléfono es requerido.
+                        <div class="form-control-feedback">El teléfono es requerido.</div>
                     </div>
                     <div [hidden]="!landline.errors.minlength">
-                        El teléfono debe ser mayor o igual a 7 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser mayor o igual a 7 caracteres.</div>
                     </div>
                     <div [hidden]="!landline.errors.maxlength">
-                        El teléfono debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!extension.errors && extension.touched" [class.has-danger]="extension.errors && extension.touched">
                 <!-- Extension field -->
                 <label for="recipient-extension" class="form-control-label">Extensión (opcional):</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i>
                 </span>
-                    <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel">
+                    <input type="text" placeholder="33" class="form-control" id="recipient-extension" minlength="1" maxlength="24" name="extension" [(ngModel)]="contact.extension" #extension="ngModel" [class.form-control-success]="!extension.errors && extension.touched"
+                        [class.form-control-danger]="extension.errors && extension.touched">
                 </div>
                 <!-- Feedback extension -->
-                <div *ngIf="extension.errors && extension.touched" class="alert alert-danger">
+                <div *ngIf="extension.errors && extension.touched">
                     <div [hidden]="!extension.errors.minlength">
-                        La extensión es requerida.
+                        <div class="form-control-feedback">La extensión es requerida.</div>
                     </div>
                     <div [hidden]="!extension.errors.maxlength">
-                        La extensión debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">La extensión debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -139,43 +145,45 @@
 
         <!-- Fourth row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!mobile_phone_1.errors && mobile_phone_1.touched" [class.has-danger]="mobile_phone_1.errors && mobile_phone_1.touched">
                 <!-- Mobile phone 1 field -->
                 <label for="recipient-mobile_phone_1" class="form-control-label">Teléfono móvil:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" required>
+                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_1" minlength="10" maxlength="24" name="mobile_phone_1" [(ngModel)]="contact.mobile_phone_1" #mobile_phone_1="ngModel" [class.form-control-success]="!mobile_phone_1.errors && mobile_phone_1.touched"
+                        [class.form-control-danger]="mobile_phone_1.errors && mobile_phone_1.touched" required>
                 </div>
                 <!-- Feedback mobile phone 1 -->
-                <div *ngIf="mobile_phone_1.errors && mobile_phone_1.touched" class="alert alert-danger">
+                <div *ngIf="mobile_phone_1.errors && mobile_phone_1.touched">
                     <div [hidden]="!mobile_phone_1.errors.required">
-                        El teléfono es requerido.
+                        <div class="form-control-feedback">El teléfono es requerido.</div>
                     </div>
                     <div [hidden]="!mobile_phone_1.errors.minlength">
-                        El teléfono debe ser mayor o igual a 10 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser mayor o igual a 10 caracteres.</div>
                     </div>
                     <div [hidden]="!mobile_phone_1.errors.maxlength">
-                        El teléfono debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!mobile_phone_2.errors && mobile_phone_2.touched" [class.has-danger]="mobile_phone_2.errors && mobile_phone_2.touched">
                 <!-- Mobile phone 2 field -->
                 <label for="recipient-mobile_phone_2" class="form-control-label">Teléfono móvil 2 (opcional):</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile-phone"></i>
                 </span>
-                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel">
+                    <input type="tel" placeholder="4441112233" class="form-control" id="recipient-mobile_phone_2" minlength="10" maxlength="24" name="mobile_phone_2" [(ngModel)]="contact.mobile_phone_2" #mobile_phone_2="ngModel" [class.form-control-success]="!mobile_phone_2.errors && mobile_phone_2.touched"
+                        [class.form-control-danger]="mobile_phone_2.errors && mobile_phone_2.touched">
                 </div>
                 <!-- Feedback mobile phone 2 -->
-                <div *ngIf="mobile_phone_2.errors && mobile_phone_2.touched" class="alert alert-danger">
+                <div *ngIf="mobile_phone_2.errors && mobile_phone_2.touched">
                     <div [hidden]="!mobile_phone_2.errors.minlength">
-                        El teléfono debe ser mayor o igual a 10 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser mayor o igual a 10 caracteres.</div>
                     </div>
                     <div [hidden]="!mobile_phone_2.errors.maxlength">
-                        El teléfono debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El teléfono debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -183,50 +191,51 @@
 
         <!-- Fifth row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!email.errors && email.touched" [class.has-danger]="email.errors && email.touched">
                 <!-- Email field -->
                 <label for="recipient-email" class="form-control-label">Email:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
                     <input type="email" placeholder="user@example.com" class="form-control" id="recipient-email" minlength="7" maxlength="24" name="email" [(ngModel)]="contact.email" #email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-                        required>
+                        [class.form-control-success]="!email.errors && email.touched" [class.form-control-danger]="email.errors && email.touched" required>
                 </div>
                 <!-- Feedback email -->
-                <div *ngIf="email.errors && email.touched" class="alert alert-danger">
+                <div *ngIf="email.errors && email.touched">
                     <div [hidden]="!email.errors.required">
-                        El correo electrónico es requerido.
+                        <div class="form-control-feedback">El correo electrónico es requerido.</div>
                     </div>
                     <div [hidden]="!email.errors.pattern">
-                        El correo electrónico no es válido.
+                        <div class="form-control-feedback">El correo electrónico no es válido.</div>
                     </div>
                     <div [hidden]="!email.errors.minlength">
-                        El correo electrónico debe ser mayor o igual a 7 caracteres.
+                        <div class="form-control-feedback">El correo electrónico debe ser mayor o igual a 7 caracteres.</div>
                     </div>
                     <div [hidden]="!email.errors.maxlength">
-                        El correo electrónico debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El correo electrónico debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!alternate_email.errors && alternate_email.touched" [class.has-danger]="alternate_email.errors && alternate_email.touched">
                 <!-- Alternate email field -->
                 <label for="recipient-alternate_email" class="form-control-label">Email alterno (opcional):</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i>
                 </span>
-                    <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" minlength="7" maxlength="24" name="alternate_email" [(ngModel)]="contact.alternate_email" #alternate_email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                    <input type="email" placeholder="user@example.com" class="form-control" id="recipient-alternate_email" minlength="7" maxlength="24" name="alternate_email" [(ngModel)]="contact.alternate_email" #alternate_email="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                        [class.form-control-success]="!alternate_email.errors && alternate_email.touched" [class.form-control-danger]="alternate_email.errors && alternate_email.touched">
                 </div>
                 <!-- Feedback alternate email -->
-                <div *ngIf="alternate_email.errors && alternate_email.touched" class="alert alert-danger">
+                <div *ngIf="alternate_email.errors && alternate_email.touched">
                     <div [hidden]="!alternate_email.errors.pattern">
-                        El correo electrónico no es válido.
+                        <div class="form-control-feedback">El correo electrónico no es válido.</div>
                     </div>
                     <div [hidden]="!alternate_email.errors.minlength">
-                        El correo electrónico debe ser mayor o igual a 7 caracteres.
+                        <div class="form-control-feedback">El correo electrónico debe ser mayor o igual a 7 caracteres.</div>
                     </div>
                     <div [hidden]="!alternate_email.errors.maxlength">
-                        El correo electrónico debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El correo electrónico debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
