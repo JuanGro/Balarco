@@ -21,7 +21,7 @@ export class CalculateDeliveryDatePipe implements PipeTransform {
         } else if (diffDays === 0) {
             return 'Hoy se entrega el proyecto';
         } else {
-            return date.getDay().toString() + '/' + date.getMonth() + '/' + date.getFullYear();
+            return date.getUTCDate().toString() + '/' + (date.getUTCMonth() + 1).toString() + '/' + date.getFullYear().toString();
         }
     } else {
         return 'Proyecto atrasado';
