@@ -46,8 +46,6 @@ export class UserFormComponent implements OnChanges {
   public userModalForm: FormGroup;
   // Variable to return the old user if cancel the update form.
   public oldUser: User;
-  // Variable to active the form.
-  public active: boolean = true;
   // Variable to show the role of the contact selected.
   public array: string = '';
 
@@ -114,8 +112,6 @@ export class UserFormComponent implements OnChanges {
       // Create user
       this.submitNewUser(object);
     }
-    this.active = false;
-    setTimeout(() => this.active = true, 0);
   }
 
   /**
@@ -181,7 +177,5 @@ export class UserFormComponent implements OnChanges {
       this.userUpdated.emit(updatedUser);
     }
     this.user = new User();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 0);
   }
 }

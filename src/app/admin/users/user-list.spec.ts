@@ -43,7 +43,6 @@ describe('UserListComponent  tests.', () => {
     // Save UserListComponent  to test it's methods and variables.
     let component: UserListComponent;
 
-    // let httpServiceStub;
     // Handles on the component's DOM element.
     let de: DebugElement;
     let el: HTMLElement;

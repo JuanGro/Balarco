@@ -9,6 +9,7 @@ export class User {
   last_name: string;
   password?: string;
   groups_complete?: Group[];
+
   /**
   * Constructor to create a User based on server response at POST.
   * Params:

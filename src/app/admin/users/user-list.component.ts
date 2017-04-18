@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Classes
 import { User } from './user-model';
-import { Group } from './group-model';
-
 
 @Component({
   selector: 'user-list',

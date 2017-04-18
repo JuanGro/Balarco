@@ -4,6 +4,7 @@
 export class Group {
   id?: number;
   name?: string;
+
   /**
   * Constructor to create a Group based on server response at POST.
   * Params:
