@@ -21,7 +21,6 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
-import { SelectModule } from 'ng2-select';
 
 // Components
 import { WorksComponent } from './works.component';
