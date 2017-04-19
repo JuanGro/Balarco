@@ -79,7 +79,7 @@
             <!-- [username] sends the username to the form -->
             <!-- (recoverPassword) listens the confirmation to recover the password -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <recover-password-form [username]="username" (requestCloseModal)="recoverPasswordModal.hide()" (recoverPassword)="onRecoverPasword($event)"></recover-password-form>
+            <recover-password-form (requestCloseModal)="recoverPasswordModal.hide()" (recoverPassword)="onRecoverPasword($event)"></recover-password-form>
         </div>
     </div>
 </div>
