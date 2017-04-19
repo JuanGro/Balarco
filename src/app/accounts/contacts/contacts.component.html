@@ -1,0 +1,73 @@
+<!-- Title -->
+<div class="card card-inverse card-danger text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+</div>
+
+<!-- Child component, it contains the table -->
+<!-- [contactsList] sends the contacts list to the table -->
+<!-- [clientsList] sends the clients list to the table -->
+<!-- (requestShowNewContactModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateContactModal) receives the request to show the update modal -->
+<!-- (currentContact) receives the contact who was selected by the user -->
+<!-- (contactsListFiltered) receives the contacts list updated for the filter in the contacts list component -->
+<!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
+<contacts-list [contactsList]="contactsList" [clientsList]="clientsList" (requestShowNewContactModal)="newContactModal.show()" (requestShowNewContactModal)="initializeModal()" (requestShowUpdateContactModal)="updateContactModal.show()" (currentContact)="getContactFromTable($event)"
+    (valueSearch)="getValueSearch($event)"></contacts-list>
+
+<!-- Modal New Contact -->
+<div bsModal #newContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewContactModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleNewModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the contact form -->
+            <!-- [contact] sends the contact empty to the form to avoid problems if the last contact is currently saved -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <contact-form [contact]="contact" [clientsList]="clientsList" (requestCloseModal)="newContactModal.hide()" (contactCreated)="onContactCreated($event)"></contact-form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update Contact -->
+<div bsModal #updateContactModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateContactModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the contact form -->
+            <!-- [contact] sends the contact object to the form to display the current values -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <contact-form [contact]="contact" [clientsList]="clientsList" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateContactModal.hide()" (contactUpdated)="onContactUpdated($event)"></contact-form>
+        </div>
+    </div>
+</div>
+
+<!-- Danger Modal to delete contact -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleDangerModal }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ descriptionDangerModal }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <!-- (click)="removeContact(contact)" executes the removeContact funtion in the component -->
+                <button type="button" class="btn btn-danger" (click)="removeContact(contact)" (click)="dangerModal.hide()" (click)="updateContactModal.hide()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container></toaster-container>

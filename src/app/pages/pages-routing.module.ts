@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundComponent } from './not-found.component';
 import { InternalServerErrorComponent } from './internal-server-error.component';
-import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 
 const routes: Routes = [
@@ -25,13 +24,6 @@ const routes: Routes = [
         component: InternalServerErrorComponent,
         data: {
           title: 'Page 500'
-        }
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-        data: {
-          title: 'Login Page'
         }
       },
       {

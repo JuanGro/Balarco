@@ -1,34 +1,29 @@
-import { Component, OnInit }            from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+// Services
+import { HttpService } from '../shared/http-service/http.service';
+// Enum
+import { Role } from '../shared/auth/role';
+// Models
+import { CurrentUser } from '../shared/current-user/current-user-model';
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './full-layout.component.html'
+    templateUrl: './full-layout.component.html',
+    providers: [ HttpService ]
 })
 
 export class FullLayoutComponent implements OnInit {
-    /* Example */
-
-    public charge: string = 'Cuentas';
-
-    // We are going to make some permissions for the example
-    // public permission: number = 1;
-
-    private designDirector: boolean = true;
-    private designer: boolean = true;
-    private accounts: boolean = true;
-    private admin: boolean = true;
-
-    /* End of example */
-
-    constructor() {
-        this.designDirector = true;
-        this.designer = true;
-        this.accounts = true;
-        this.admin = true;
-    }
 
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
+
+    private currentUser: CurrentUser;
+    // Variable needed for accessing enum in template.
+    private roleEnum = Role;
+
+    constructor(private httpService: HttpService) {
+        this.currentUser = httpService.getCurrentUser();
+    }
 
     public toggled(open: boolean): void {
         console.log('Dropdown is now: ', open);
@@ -41,4 +36,11 @@ export class FullLayoutComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    /**
+    * Calls HttpService logout to delete token and returns user to url Login.
+    **/
+    public logout() {
+      this.httpService.logout();
+    }
 }
