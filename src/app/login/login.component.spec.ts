@@ -4,9 +4,11 @@ import { DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
+
 // Components
 import { LoginComponent } from './login.component';
-import { LoginComplexFormComponent } from './login.complexform';
+import { LoginFormComponent } from './login-form.component';
+
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
@@ -38,7 +40,7 @@ describe('Login Component', () => {
 
     TestBed.configureTestingModule({
       imports: [ FormsModule, ReactiveFormsModule, ToasterModule],
-      declarations: [ LoginComponent, LoginComplexFormComponent ],
+      declarations: [ LoginComponent, LoginFormComponent ],
       providers: [
         {provide: HttpService, useValue: httpServiceStub },
         {provide: Router, useValue: mockRouter },

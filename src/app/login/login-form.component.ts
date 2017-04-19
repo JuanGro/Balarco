@@ -14,10 +14,10 @@ import { Login } from './login';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'login-complex-form',
-  templateUrl: 'login.complexform.html'
+  selector: 'login-form',
+  templateUrl: 'login-form.component.html'
 })
-export class LoginComplexFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
   // Initialization of control form.
   public loginForm: FormGroup;
   // Variable to active the form.
