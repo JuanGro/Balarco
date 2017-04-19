@@ -174,6 +174,8 @@ export class WorkFilterFormComponent implements OnChanges {
             this.currentContacts = this.contactsList.filter(x => x.client === +id);
             if (this.currentContacts.length > 0) {
                 this.contact_id = this.currentContacts[0].id;
+            } else {
+                this.contact_id = null;
             }
         }
     }
@@ -188,6 +190,8 @@ export class WorkFilterFormComponent implements OnChanges {
             this.currentIgualas = this.igualasList.filter(x => x.client === +id);
             if (this.currentIgualas.length > 0) {
                 this.workFilter.iguala = this.currentIgualas[0].id;
+            } else {
+                this.workFilter.iguala = null;
             }
         }
     }
