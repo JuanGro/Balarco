@@ -41,7 +41,8 @@
                                 <th scope="row">{{ work.id }}</th>
                                 <td>{{ work.name }}</td>
                                 <td>{{ work.work_type_complete.name }}</td>
-                                <td>{{ work.expected_delivery_date.toDateString() | date:'mediumDate' }}</td>
+                                <!-- Apply calculateDeliveryDate pipe and determine if apply text-danger style -->
+                                <td [class.text-danger]="(work.expected_delivery_date | calculateDeliveryDate).length > 15">{{ work.expected_delivery_date | calculateDeliveryDate }}</td>
                                 <td>{{ work.current_status_complete.name }}</td>
                             </tr>
                         </tbody>
