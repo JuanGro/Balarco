@@ -13,6 +13,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -145,7 +148,8 @@ describe('Igualas Component tests.', () => {
           // Declare all what the test component has.
           declarations: [ IgualasComponent, IgualasListComponent , IgualaFormComponent ],
           imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-          ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule, ToasterModule ],
+          ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule,
+        ToasterModule, NgxPaginationModule ],
           providers: [
               {
                 provide: HttpService, useFactory: (backend, options) => {

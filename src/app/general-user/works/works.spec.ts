@@ -26,10 +26,14 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { WorkFilterFormComponent } from './work-filter-form.component';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
+
+// Pipes
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
@@ -47,13 +51,17 @@ describe('WorksComponent tests', () => {
     let fixtureChildForm: ComponentFixture<WorkFormComponent>;
     // Fixture for debugging and testing a WorksListComponent .
     let fixtureChildTable: ComponentFixture<WorksListComponent>;
+    // Fixture for debugging and testing a WorksFilterFormComponent .
+    let fixtureChildFilterForm: ComponentFixture<WorkFilterFormComponent>;
 
     // Save WorksComponent to test it's methods and variables.
     let component: WorksComponent;
     // Save WorkFormComponent to test it's methods and variables.
     let componentForm: WorkFormComponent;
     // Save WorksListComponent  to test it's methods and variables.
-    let componentTable: WorksListComponent ;
+    let componentTable: WorksListComponent;
+    // Save WorkFilterFormComponent  to test it's methods and variables.
+    let componentFilterForm: WorkFilterFormComponent;
 
     // Handles on the component's DOM element.
     let de: DebugElement;
@@ -116,7 +124,7 @@ describe('WorksComponent tests', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent ],
+            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
             ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(),
             SelectModule, NgxPaginationModule ],
@@ -136,7 +144,9 @@ describe('WorksComponent tests', () => {
         // Create an instance of the WorkFormComponent.
         fixtureChildForm = TestBed.createComponent(WorkFormComponent);
         // Create an instance of the WorksListComponent.
-        fixtureChildTable = TestBed.createComponent(WorksListComponent );
+        fixtureChildTable = TestBed.createComponent(WorksListComponent);
+        // Create an instance of the WorkFormComponent.
+        fixtureChildFilterForm = TestBed.createComponent(WorkFilterFormComponent);
 
         // WorksComponent test instance.
         component = fixtureParent.componentInstance;
@@ -144,6 +154,8 @@ describe('WorksComponent tests', () => {
         componentForm = fixtureChildForm.componentInstance;
         // WorksListComponent  test instance.
         componentTable = fixtureChildTable.componentInstance;
+        // WorkFilterFormComponent test instance.
+        componentFilterForm = fixtureChildFilterForm.componentInstance;
 
         // Query for the title <h1> by CSS element selector.
         de = fixtureParent.debugElement.query(By.css('h1'));

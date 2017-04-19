@@ -34,7 +34,7 @@
                             <!-- Select Iguala to update -->
                             <!-- Calls the requestShowUpdateIgualaModal method to show the modal-->
                             <!-- Sends the iguala selected by the user -->
-                            <tr data-toggle="modal" *ngFor="let iguala of igualasList" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
+                            <tr data-toggle="modal" *ngFor="let iguala of igualasList | paginate: { itemsPerPage: 10, currentPage: p }" (click)="requestUpdateIgualaModal($event)" (click)="sendCurrentIguala(iguala)">
                                 <th scope="row">{{ iguala.id }}</th>
                                 <td>{{ iguala.name }}</td>
                                 <td>{{ iguala.client_complete.name }}</td>
@@ -43,23 +43,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Prev</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+
+                    <!-- Pagination -->
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>
