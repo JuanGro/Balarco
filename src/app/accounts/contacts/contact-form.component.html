@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #contactsModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitContactForm(contactsModalForm.value)" executes the submitContactForm method sending the values of each field -->
-    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm.value)" *ngIf="active">
+    <form #contactsModalForm="ngForm" novalidate (ngSubmit)="submitContactForm(contactsModalForm, contactsModalForm.value)">
 
         <!-- First row -->
         <div class="form-group row">
@@ -250,7 +250,7 @@
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the contact.id exists because it's used only for update contact modal -->
             <button *ngIf="contact.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(contactsModalForm)">Cancelar</button>
             <!-- Submits updated or new contact -->
             <!-- Calls the submitContactForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!contactsModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
