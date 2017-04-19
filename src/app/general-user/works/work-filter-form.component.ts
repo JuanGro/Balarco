@@ -2,7 +2,7 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
 import { NgForm } from '@angular/forms';
 
 // Models
-import { WorkFilter } from './work-filter.model';
+import { WorkFilter } from './work-filter-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -53,6 +53,8 @@ export class WorkFilterFormComponent implements OnChanges {
     private client_id: number;
     // Variable to set the contact when client dropdown changes.
     private contact_id: number;
+    // Variable to test request url.
+    public urlTesting: string;
 
     public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -150,6 +152,7 @@ export class WorkFilterFormComponent implements OnChanges {
             }
             params++;
         }
+        this.urlTesting = urlFilterWorks;
 
         this.resultSearch.emit(urlFilterWorks);
     }
