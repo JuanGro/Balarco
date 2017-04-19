@@ -11,6 +11,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -127,7 +130,8 @@ describe('WorkFormComponent tests', () => {
           // Declare all what the test component has.
           declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
           imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
-          ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule ],
+          ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(),
+          SelectModule, NgxPaginationModule ],
           providers: [ WorkFormComponent,
               {
                 provide: HttpService, useFactory: (backend, options) => {

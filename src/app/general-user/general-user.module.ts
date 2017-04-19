@@ -22,6 +22,9 @@ import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Pipes
 import { CalculateDeliveryDatePipe } from './works/work-dates-format-table.pipe';
 
@@ -31,6 +34,7 @@ import { CalculateDeliveryDatePipe } from './works/work-dates-format-table.pipe'
     FormsModule,
     GeneralUserRoutingModule,
     ChartsModule,
+    NgxPaginationModule,
     DropdownModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),

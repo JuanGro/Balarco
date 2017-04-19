@@ -37,7 +37,7 @@
                             <!-- Select work to update -->
                             <!-- Calls the requestUpdateWorkModal method, it requests the update work modal -->
                             <!-- Sends the work selected by the user to the function sendCurrentWork -->
-                            <tr data-toggle="modal" *ngFor="let work of worksList" (click)="requestUpdateWorkModal($event)" (click)="sendCurrentWork(work)">
+                            <tr data-toggle="modal" *ngFor="let work of worksList | paginate: { itemsPerPage: 10, currentPage: p }" (click)="requestUpdateWorkModal($event)" (click)="sendCurrentWork(work)">
                                 <th scope="row">{{ work.id }}</th>
                                 <td>{{ work.name }}</td>
                                 <td>{{ work.work_type_complete.name }}</td>
@@ -52,19 +52,7 @@
                     </table>
 
                     <!-- Pagination -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Prev</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>
