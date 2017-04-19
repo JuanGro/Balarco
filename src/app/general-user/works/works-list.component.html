@@ -41,7 +41,7 @@
                                 <td>{{ work.name }}</td>
                                 <td>{{ work.work_type_complete.name }}</td>
                                 <!-- Apply calculateDeliveryDate pipe and determine if apply text-danger style -->
-                                <td [class.text-danger]="(work.expected_delivery_date | calculateDeliveryDate).length > 10">{{ work.expected_delivery_date | calculateDeliveryDate }}</td>
+                                <td [class.text-danger]="(work.expected_delivery_date | calculateDeliveryDate).length > 15">{{ work.expected_delivery_date | calculateDeliveryDate }}</td>
                                 <td>{{ work.current_status_complete.name }}</td>
                             </tr>
                         </tbody>

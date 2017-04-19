@@ -14,14 +14,15 @@ export class CalculateDeliveryDatePipe implements PipeTransform {
     let today = new Date();
     let oneDay = 24 * 60 * 60 * 1000;
     let diffDays = Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay)));
+    let diffHours = Math.round(Math.abs((date.getTime() - today.getTime()) / (oneDay / 24)));
 
     if (today.getTime() < date.getTime()) {
         if (diffDays <= 5 && diffDays > 0) {
-            return 'Quedan ' + diffDays + ' días para la entrega';
+            return 'Quedan ' + diffDays + ' día(s) para la entrega';
         } else if (diffDays === 0) {
-            return 'Hoy se entrega el proyecto';
+            return 'Quedan ' + diffHours + ' hora(s) para la entrega';
         } else {
-            return date.getUTCDate().toString() + '/' + (date.getUTCMonth() + 1).toString() + '/' + date.getFullYear().toString();
+            return date.toDateString();
         }
     } else {
         return 'Proyecto atrasado';
