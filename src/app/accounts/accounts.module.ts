@@ -23,6 +23,9 @@ import { DesignsListComponent } from './designs-list/designs-list.component';
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
@@ -38,7 +41,8 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
     SelectModule,
-    ToasterModule
+    ToasterModule,
+    NgxPaginationModule
   ],
   declarations: [ ContactsComponent, IgualasListComponent, IgualasComponent, IgualaFormComponent,
                   DesignsListComponent, ContactsListComponent, ContactFormComponent, ClientsComponent,

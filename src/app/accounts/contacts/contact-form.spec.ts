@@ -11,6 +11,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -76,7 +79,7 @@ describe('ContactFormComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ ContactsComponent, ContactsListComponent , ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, NgxPaginationModule ],
             providers: [ ContactFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
