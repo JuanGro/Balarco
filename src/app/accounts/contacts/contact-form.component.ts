@@ -60,8 +60,19 @@ export class ContactFormComponent implements OnChanges {
     if (!this.contact) {
       this.contact = new Contact();
       this.oldContact = new Contact();
-    } else {
+    } else if (this.contact && !this.contact.id) {
+      this.initialDropdownSetup();
+    } else if (this.contact && this.contact.id) {
       this.oldContact = new Contact(this.contact);
+    }
+  }
+
+  /**
+  * Method to fill dropdowns initially when the modal is shown and Contact is new.
+  **/
+  private initialDropdownSetup() {
+    if (this.clientsList && this.clientsList.length > 0) {
+      this.contact.client = this.clientsList[0].id;
     }
   }
 

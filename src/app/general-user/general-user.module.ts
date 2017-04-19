@@ -11,6 +11,7 @@ import { GeneralUserRoutingModule } from './general-user-routing.module';
 import { WorksComponent } from './works/works.component';
 import { WorksListComponent } from './works/works-list.component';
 import { WorkFormComponent } from './works/work-form.component';
+import { WorkFilterFormComponent } from './works/work-filter-form.component';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
@@ -36,7 +37,7 @@ import { CalculateDeliveryDatePipe } from './works/work-dates-format-table.pipe'
     SelectModule,
     ToasterModule
   ],
-  declarations: [ WorksComponent, WorksListComponent, WorkFormComponent, CalculateDeliveryDatePipe ],
+  declarations: [ WorksComponent, WorksListComponent, WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
 
   providers: [ CanActivateAuthGuard, HttpService, CustomToastService ]
 })
