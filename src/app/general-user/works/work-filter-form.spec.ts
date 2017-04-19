@@ -159,16 +159,16 @@ describe('WorksComponent tests', () => {
         * Tests that the submitWorkFilterForm method sends the correct request url
         * with four params to search.
         **/
-        it('should send the client to search in an url request', () => {
+        it('should send the four params to search in an url request', () => {
             component.submitWorkFilterForm(testWork2);
             expect(component.urlTesting).toBe('works/works/?client=1&contact=2&iguala=3&current_status=4');
         });
 
         /**
         * Tests that the submitWorkFilterForm method sends the correct request url
-        * with four params to search.
+        * with all the params to search.
         **/
-        it('should send the client to search in an url request', () => {
+        it('should send all the params to search in an url request', () => {
             component.submitWorkFilterForm(testWork3);
             let date: Date = new Date();
             let dateString: string = (date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' +
