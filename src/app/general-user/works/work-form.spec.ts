@@ -25,6 +25,10 @@ import { SelectModule } from 'ng2-select';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { WorkFilterFormComponent } from './work-filter-form.component';
+
+// Pipes
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
@@ -42,13 +46,17 @@ describe('WorkFormComponent tests', () => {
   let fixtureChildForm: ComponentFixture<WorkFormComponent>;
   // Fixture for debugging and testing a WorksListComponent .
   let fixtureChildTable: ComponentFixture<WorksListComponent>;
+  // Fixture for debugging and testing a WorksFilterFormComponent .
+  let fixtureChildFilterForm: ComponentFixture<WorkFilterFormComponent>;
 
   // Save WorksComponent to test it's methods and variables.
   let componentParent: WorksComponent;
   // Save WorkFormComponent to test it's methods and variables.
   let component: WorkFormComponent;
   // Save WorksListComponent  to test it's methods and variables.
-  let componentTable: WorksListComponent ;
+  let componentTable: WorksListComponent;
+  // Save WorkFilterFormComponent  to test it's methods and variables.
+  let componentFilterForm: WorkFilterFormComponent;
 
   // Variable to test which action is executing in modal.
   let modalAction;
@@ -117,7 +125,7 @@ describe('WorkFormComponent tests', () => {
   beforeEach(async(() => {
       TestBed.configureTestingModule({
           // Declare all what the test component has.
-          declarations: [ WorksComponent, WorksListComponent , WorkFormComponent ],
+          declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
           imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
           ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule ],
           providers: [ WorkFormComponent,
@@ -136,7 +144,9 @@ describe('WorkFormComponent tests', () => {
       // Create an instance of the WorkFormComponent.
       fixtureChildForm = TestBed.createComponent(WorkFormComponent);
       // Create an instance of the WorksListComponent.
-      fixtureChildTable = TestBed.createComponent(WorksListComponent );
+      fixtureChildTable = TestBed.createComponent(WorksListComponent);
+      // Create an instance of the WorkFormComponent.
+      fixtureChildFilterForm = TestBed.createComponent(WorkFilterFormComponent);
 
       // WorksComponent test instance.
       componentParent = fixtureParent.componentInstance;
@@ -144,6 +154,8 @@ describe('WorkFormComponent tests', () => {
       component = fixtureChildForm.componentInstance;
       // WorksListComponent  test instance.
       componentTable = fixtureChildTable.componentInstance;
+      // WorkFilterFormComponent test instance.
+      componentFilterForm = fixtureChildFilterForm.componentInstance;
     }));
 
     describe('Components defined for the child works form component', () => {
@@ -300,22 +312,6 @@ describe('WorkFormComponent tests', () => {
            modalAction.requestWarning.subscribe(result => {
                expect(result).toBe('Show warning modal');
            });
-       }));
-   });
-
-   describe('Cancel form method is correctly send depending if its current work is not empty', () => {
-       /**
-       * Tests that the send of the work updated is working correctly.
-       **/
-       it('should send the work updated', async(() => {
-           component.work = testWork1;
-           component.ngOnChanges();
-           component.cancelForm();
-
-           expect(component.work).toBeDefined();
-           expect(component.work.name).toBeDefined();
-           expect(component.work.id).toBeDefined();
-           expect(component.work.contact).toBeDefined();
        }));
    });
 });

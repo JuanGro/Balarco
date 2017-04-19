@@ -5,18 +5,19 @@
             <div class="card">
                 <!-- Header -->
                 <div class="card-header">
-                    <div class="row">
-                        <!-- Add work -->
-                        <!-- Calls the requestNewWorkModal method, it requests the new work modal -->
-                        <div class="col align-self-start" (click)="requestNewWorkModal($event)">
-                            <i class="icon-plus icons font-2xl d-block"></i>
+                    <div class="container">
+                        <div class="row">
+                            <!-- Add work -->
+                            <!-- Calls the requestNewWorkModal method, it requests the new work modal -->
+                            <div class="col-9" (click)="requestNewWorkModal($event)">
+                                <i class="icon-plus icons font-2xl d-block"></i>
+                            </div>
+                            <!-- Search field -->
+                            <div class="col-3 align-self-end">
+                                <button type="button" class="btn btn-danger" [disabled]="stopFilterButton" (click)="requestStopWorkFilterButton($event)">Stop filter</button>
+                                <button type="button" class="btn btn-primary" (click)="requestFilterWorkModal($event)"><i class="fa fa-search"></i> Search</button>
+                            </div>
                         </div>
-                        <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
-                            <span class="input-group-addon"><i class="fa fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
                     </div>
                 </div>
 
@@ -40,7 +41,8 @@
                                 <th scope="row">{{ work.id }}</th>
                                 <td>{{ work.name }}</td>
                                 <td>{{ work.work_type_complete.name }}</td>
-                                <td>{{ work.expected_delivery_date.toDateString() }}</td>
+                                <!-- Apply calculateDeliveryDate pipe and determine if apply text-danger style -->
+                                <td [class.text-danger]="(work.expected_delivery_date | calculateDeliveryDate).length > 15">{{ work.expected_delivery_date | calculateDeliveryDate }}</td>
                                 <td [class.text-primary]="work.current_status_complete.id == 1 || work.current_status_complete.id == 5" [class.text-success]="work.current_status_complete.id == 2" [class.text-info]="work.current_status_complete.id == 3" [class.text-warning]="work.current_status_complete.id == 4"
                                     [class.text-danger]="work.current_status_complete.id == 6 || work.current_status_complete.id == 7">
                                     {{ work.current_status_complete.name }}

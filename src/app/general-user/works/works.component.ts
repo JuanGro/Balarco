@@ -35,6 +35,8 @@ export class WorksComponent implements OnInit {
   public work: Work;
   // Variable that saves all works from DB.
   public worksList: Work[];
+  // Variable to save the complete work list.
+  public completeWorksList: Work[];
   // Variable that saves all clients from DB.
   public clientsList: Client[];
   // Variable that saves all contacts from DB.
@@ -51,10 +53,14 @@ export class WorksComponent implements OnInit {
   public titleNewModal: string;
   // Title of update work modal.
   public titleUpdateModal: string;
+  // Title of filter work modal.
+  public titleFilterModal: string;
   // Title of danger work modal.
   public titleDangerModal: string;
   // Description for danger work modal.
   public descriptionDangerModal: string;
+  // Variable to disable stop filter button.
+  public stopFilterButton: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -68,7 +74,9 @@ export class WorksComponent implements OnInit {
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
     this.titleDangerModal = 'Eliminar Trabajo';
+    this.titleFilterModal = 'Filtrar trabajo(s)';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
+    this.stopFilterButton = true;
 
     this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
@@ -89,8 +97,10 @@ export class WorksComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
+                      this.completeWorksList = [];
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
+                        this.completeWorksList.push(new Work(workJSON));
                       }
                     },
                     error => {
@@ -221,23 +231,52 @@ export class WorksComponent implements OnInit {
                     });
   }
 
+  /**
+  * Recieves the work which is selected by the user.
+  * Params:
+  *   - object: Work selected.
+  **/
   public getWorkFromTable(object: Work) {
     this.work = object;
   }
 
   /**
-  * Clears the work variable to get an empty modal.
-  **/
-  public initializeModal() {}
-
-  /**
-  * Recieves event when a new work is created in the form.
+  * Receives event when a new work is created in the form.
   * It pushes the new work to the list.
   * Params:
   *   - event: New Work received from the event.
   **/
   public onWorkCreated(event: Work) {
     this.worksList.push(event);
+  }
+
+  /**
+  * Get the url to get the contact list filtered.
+  * Params:
+  *   - urlFilterWorks: String with all the params to request the search to the API.
+  **/
+  public getResultSearch(urlFilterWorks: string) {
+    this.httpService.getObject(urlFilterWorks)
+                    .map((data: any) => data.json())
+                    .subscribe(worksListJSON => {
+                      this.worksList = [];
+                      for (let workJSON of worksListJSON) {
+                        this.worksList.push(new Work(workJSON));
+                      }
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos filtrados');
+                    });
+
+    this.stopFilterButton = false;
+  }
+
+  /**
+  * Back to the complete work list and disable the stop filter button.
+  **/
+  public stopWorkFilter() {
+    this.worksList = this.completeWorksList;
+    this.stopFilterButton = true;
   }
 
   /**
