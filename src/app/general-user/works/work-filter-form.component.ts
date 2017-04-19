@@ -51,8 +51,6 @@ export class WorkFilterFormComponent implements OnChanges {
     private client_id: number;
     // Variable to set the contact when client dropdown changes.
     private contact_id: number;
-    // Array to keep track of the possible status the work can get into.
-    private possibleStatus: Status[];
 
     public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -63,9 +61,6 @@ export class WorkFilterFormComponent implements OnChanges {
      **/
     public ngOnChanges() {
         this.workFilter = new WorkFilter();
-        if (this.statusList) {
-            this.possibleStatus =  this.getPossibleStatusForProject();
-        }
         this.initialDropdownSetup();
     }
 
@@ -78,8 +73,8 @@ export class WorkFilterFormComponent implements OnChanges {
             this.filterContactsByClientId(this.client_id);
         }
 
-        if (this.possibleStatus && this.possibleStatus.length > 0) {
-            this.workFilter.current_status = this.possibleStatus[0].id;
+        if (this.statusList && this.statusList.length > 0) {
+            this.workFilter.current_status = this.statusList[0].id;
         }
     }
 

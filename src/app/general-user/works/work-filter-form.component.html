@@ -96,7 +96,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-check"></i></span>
                     <select id="current_status" name="current_status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #current_status="ngModel">
-                    <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
+                    <option *ngFor="let status of statusList" value="{{ status.id }}">{{ status.name }}</option>
                     </select>
                 </div>
                 <!-- Feedback status -->
