@@ -178,6 +178,11 @@ export class WorkFilterFormComponent implements OnChanges {
         }
     }
 
+    /**
+     * Method that filters the igualas by the client id.
+     * Params:
+     *   - id: Id of the client from which the igualas will be filtered.
+     **/
     private filterIgualasByClientId(id: number) {
         if (this.igualasList) {
             this.currentIgualas = this.igualasList.filter(x => x.client === +id);
