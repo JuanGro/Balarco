@@ -76,6 +76,10 @@ export class WorkFilterFormComponent implements OnChanges {
         if (this.statusList && this.statusList.length > 0) {
             this.workFilter.current_status = this.statusList[0].id;
         }
+
+        if (this.igualasList && this.igualasList.length > 0) {
+            this.workFilter.iguala = this.igualasList[0].id;
+        }
     }
 
     /**
@@ -145,15 +149,6 @@ export class WorkFilterFormComponent implements OnChanges {
         }
 
         this.resultSearch.emit(urlFilterWorks);
-    }
-
-    /**
-     * Function that returns an array of possible status if the project is new.
-     * Returns:
-     *   - Array of Status.
-     **/
-    private getPossibleStatusForProject(): Status[] {
-        return this.statusList.filter(status => status.status_id === 0 || status.status_id === 1);
     }
 
     /**
