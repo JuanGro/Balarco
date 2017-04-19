@@ -71,7 +71,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
                     <select id="iguala" name="iguala" class="form-control" size="1" [(ngModel)]="workFilter.iguala" #iguala="ngModel">
-                    <option *ngFor="let iguala of igualasList" value="{{ iguala.id }}">{{ iguala.name }}</option>
+                    <option *ngFor="let iguala of currentIgualas" value="{{ iguala.id }}">{{ iguala.name }}</option>
                     </select>
                 </div>
                 <!-- Feedback iguala -->

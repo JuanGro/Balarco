@@ -47,6 +47,8 @@ export class WorkFilterFormComponent implements OnChanges {
     public workFilter: WorkFilter;
     // Variable for filtering Contacts by Client selected in dropdown.
     private currentContacts: Contact[];
+    // Variable for filtering Igualas by Client selected in dropdown.
+    private currentIgualas: Iguala[];
     // Variable to set the client when an existing work is received.
     private client_id: number;
     // Variable to set the contact when client dropdown changes.
@@ -79,6 +81,7 @@ export class WorkFilterFormComponent implements OnChanges {
 
         if (this.igualasList && this.igualasList.length > 0) {
             this.workFilter.iguala = this.igualasList[0].id;
+            this.filterIgualasByClientId(this.client_id);
         }
     }
 
@@ -158,6 +161,7 @@ export class WorkFilterFormComponent implements OnChanges {
      **/
     public onClientChange(id: number) {
         this.filterContactsByClientId(id);
+        this.filterIgualasByClientId(id);
     }
 
     /**
@@ -170,6 +174,15 @@ export class WorkFilterFormComponent implements OnChanges {
             this.currentContacts = this.contactsList.filter(x => x.client === +id);
             if (this.currentContacts.length > 0) {
                 this.contact_id = this.currentContacts[0].id;
+            }
+        }
+    }
+
+    private filterIgualasByClientId(id: number) {
+        if (this.igualasList) {
+            this.currentIgualas = this.igualasList.filter(x => x.client === +id);
+            if (this.currentIgualas.length > 0) {
+                this.workFilter.iguala = this.currentIgualas[0].id;
             }
         }
     }
