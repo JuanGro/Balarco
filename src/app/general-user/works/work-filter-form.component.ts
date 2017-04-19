@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Models
@@ -28,7 +28,7 @@ import { environment } from '../../../environments/environment';
 * - Request save the work.
 * - Request actions in modals to the parent component.
 **/
-export class WorkFilterFormComponent implements OnChanges, OnInit {
+export class WorkFilterFormComponent implements OnChanges {
     // Receives the contacts list from parent component.
     @Input('contactsList') contactsList: Contact[];
     // Receives the clients list from parent component.
@@ -57,27 +57,16 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
     public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
     /**
-     * Builds the component for first time each time when it's called.
-     **/
-    public ngOnInit() {
-        this.workFilter = new WorkFilter();
-        this.initialDropdownSetup();
-        if (this.statusList) {
-        this.possibleStatus =  this.getPossibleStatusForProject();
-        }
-    }
-
-    /**
      * Builds the component each time when it's called.
      *   - Initialize the form depending if the new or update work form is called.
      *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
      **/
     public ngOnChanges() {
         this.workFilter = new WorkFilter();
-        this.initialDropdownSetup();
         if (this.statusList) {
             this.possibleStatus =  this.getPossibleStatusForProject();
         }
+        this.initialDropdownSetup();
     }
 
     /**
@@ -87,6 +76,10 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
             this.client_id = this.clientsList[0].id;
             this.filterContactsByClientId(this.client_id);
+        }
+
+        if (this.possibleStatus && this.possibleStatus.length > 0) {
+            this.workFilter.current_status = this.possibleStatus[0].id;
         }
     }
 
@@ -203,7 +196,6 @@ export class WorkFilterFormComponent implements OnChanges, OnInit {
      * Reset the current form.
      **/
     public cancelForm(form: NgForm) {
-        this.workFilter = new WorkFilter();
         form.control.markAsUntouched();
     }
 }
