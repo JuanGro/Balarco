@@ -25,7 +25,7 @@ export class LoginFormComponent implements OnInit {
   // Login object for the ngForm handle.
   public login: Login;
   // Variable for recover title modal
-  public titleRecoverPassword: string = 'Recover password';
+  public titleRecoverPasswordModal: string = 'Recover password';
 
   constructor(private loginService: HttpService, private router: Router, private toaster: CustomToastService) { }
 

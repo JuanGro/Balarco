@@ -10,6 +10,7 @@ import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 // Components
 import { LoginComponent } from './login.component';
 import { LoginFormComponent } from './login-form.component';
+import { RecoverPasswordFormComponent } from './recover-password-form.component';
 
 // Services
 import { HttpService } from '../shared/http-service/http.service';
@@ -23,7 +24,7 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ToasterModule,
     ModalModule.forRoot(),
   ],
-  declarations: [ LoginComponent, LoginFormComponent ],
+  declarations: [ LoginComponent, LoginFormComponent, RecoverPasswordFormComponent ],
   providers: [ HttpService, CustomToastService ]
 })
 export class LoginModule {
