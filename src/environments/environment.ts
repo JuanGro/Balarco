@@ -15,4 +15,5 @@ export const environment = {
   'WORK_TYPES_URL': 'works/work_types/',
   'WORKS_URL': 'works/works/',
   'STATUS_URL': 'works/status/',
+  'USERS_URL': 'users/users/',
 };

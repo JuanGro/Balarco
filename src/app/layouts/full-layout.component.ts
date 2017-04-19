@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 // Services
 import { HttpService } from '../shared/http-service/http.service';
+// Enum
+import { Role } from '../shared/auth/role';
+// Models
+import { CurrentUser } from '../shared/current-user/current-user-model';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,24 +14,15 @@ import { HttpService } from '../shared/http-service/http.service';
 
 export class FullLayoutComponent implements OnInit {
 
-    public charge: string = 'Cuentas';
-
-    // We are going to make some permissions for the example
-    // public permission: number = 1;
-
-    private designDirector: boolean = true;
-    private designer: boolean = true;
-    private accounts: boolean = true;
-    private admin: boolean = true;
-
     public disabled: boolean = false;
     public status: {isopen: boolean} = {isopen: false};
 
+    private currentUser: CurrentUser;
+    // Variable needed for accessing enum in template.
+    private roleEnum = Role;
+
     constructor(private httpService: HttpService) {
-        this.designDirector = true;
-        this.designer = true;
-        this.accounts = true;
-        this.admin = true;
+        this.currentUser = httpService.getCurrentUser();
     }
 
     public toggled(open: boolean): void {
