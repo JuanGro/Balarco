@@ -64,4 +64,22 @@
         </div>
     </div>
 </form>
+
 <toaster-container></toaster-container>
+
+<!-- Modal recover password -->
+<div bsModal #recoverPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myRecoverPasswordModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleRecoverPasswordModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the client form -->
+            <!-- [username] sends the username to the form -->
+            <!-- (recoverPassword) listens the confirmation to recover the password -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <recover-password-form [username]="username" (requestCloseModal)="recoverPasswordModal.hide()" (recoverPassword)="onRecoverPasword($event)"></recover-password-form>
+        </div>
+    </div>
+</div>
