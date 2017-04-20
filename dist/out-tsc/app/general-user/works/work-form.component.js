@@ -98,7 +98,6 @@ var WorkFormComponent = (function () {
         this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 var newWork = new Work(result.json());
-                console.log(newWork);
                 _this.workCreated.emit(newWork);
                 _this.toaster.show(result, 'Trabajo creado', 'El trabajo se creó con éxito');
             }
