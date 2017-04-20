@@ -86,9 +86,11 @@ export class Work {
 
       this.work_designers = [];
       if (this.work_designers) {
-        for (let work_design of object.work_designers) {
-          this.work_designers.push(new Designer(work_design));
-        }
+        // if (this.work_designers.length > 0) {
+        //   for (let work_design of object.work_designers) {
+        //     this.work_designers.push(new Designer(work_design));
+        //   }
+        // }
       }
     }
   }
@@ -133,9 +135,11 @@ export class Work {
 
     // TODO: Designers assignation.
     let workDesignersArray = [];
-    if (this.work_designers.length > 0) {
-      for (let work_design of this.work_designers) {
-        workDesignersArray.push({ id: work_design.id, active_work: work_design.active_work })
+    if (this.work_designers) {
+      if (this.work_designers.length > 0) {
+        for (let work_design of this.work_designers) {
+          workDesignersArray.push({ id: work_design.id, active_work: work_design.active_work })
+        }
       }
     }
     newWorkJSON['work_designers'] = workDesignersArray;

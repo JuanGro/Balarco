@@ -16,6 +16,7 @@ import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
+import { Designer } from './designer/designer-model';
 
 @Component({
   selector: 'work-form',
@@ -147,7 +148,11 @@ export class WorkFormComponent implements OnChanges {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
     // TODO: Remove when Users module is ready.
-    this.work.executive_id = 1;
+    this.work.executive_id = 9;
+    let designer: Designer = { id: 9, active_work: true };
+    // let designer2: Array = { id: 10, active_work: true };
+    this.work.work_designers = [ designer ];
+    console.log(this.work);
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();
