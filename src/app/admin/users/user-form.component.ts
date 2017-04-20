@@ -149,7 +149,6 @@ export class UserFormComponent implements OnChanges {
     error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el usuario');
     });
-    this.user = new User();
   }
 
   /**
@@ -177,7 +176,6 @@ export class UserFormComponent implements OnChanges {
       let updatedUser = new User(this.oldUser);
       this.userUpdated.emit(updatedUser);
     }
-    this.user = new User();
     form.reset();
   }
 }
