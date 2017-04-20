@@ -217,6 +217,10 @@ __decorate([
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "statusList", void 0);
 __decorate([
+    Input('userExecutivesList'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "userExecutivesList", void 0);
+__decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], WorkFormComponent.prototype, "requestCloseModal", void 0);

@@ -27,7 +27,7 @@
             <!-- [work] sends the work empty to the form to avoid problems if the last work is currently saved -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <work-form [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
+            <work-form [userExecutivesList]="userExecutivesList" [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
             <!-- [work] sends the work object to the form to display the current values -->
             <!-- [clientsList] sends the clients list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <work-form [work]="work" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()" (workUpdated)="onWorkUpdated($event)"></work-form>
+            <work-form [work]="work" [userExecutivesList]="userExecutivesList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()" (workUpdated)="onWorkUpdated($event)"></work-form>
         </div>
     </div>
 </div>
