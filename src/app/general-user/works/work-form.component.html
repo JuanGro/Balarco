@@ -35,7 +35,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <select id="executive" name="executive" class="form-control" size="1" required>
+                    <select id="executive" name="executive" class="form-control" size="1" [(ngModel)]="work.executive" #executive="ngModel" required>
                     <option *ngFor="let executive of userExecutivesList" value="{{ executive.id }}">{{ executive.first_name + ' ' + executive.last_name }}</option>
                 </select>
                 </div>

@@ -3,6 +3,7 @@ import { Contact } from '../../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work-model';
 import { WorkType } from './work-type/work-type-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 var Work = (function () {
     function Work(object) {
         if (object) {
@@ -45,6 +46,8 @@ var Work = (function () {
             this.current_status_complete = new Status(object.current_status_complete);
             this.iguala = object.iguala;
             this.iguala_complete = new Iguala(object.iguala_complete);
+            this.executive = object.executive;
+            this.executive_complete = new User(object.executive_complete);
             this.art_works = [];
             if (object.art_works) {
                 for (var _i = 0, _a = object.art_works; _i < _a.length; _i++) {
@@ -65,7 +68,7 @@ var Work = (function () {
         newWorkJSON['expected_delivery_date'] = this.expected_delivery_date.getUTCFullYear() + '-' +
             (this.expected_delivery_date.getUTCMonth() + 1) + '-' +
             this.expected_delivery_date.getUTCDate();
-        newWorkJSON['executive'] = this.executive_id;
+        newWorkJSON['executive'] = this.executive;
         newWorkJSON['contact'] = +this.contact;
         newWorkJSON['current_status'] = +this.current_status;
         newWorkJSON['work_type'] = +this.work_type;

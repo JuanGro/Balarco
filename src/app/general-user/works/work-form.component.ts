@@ -111,6 +111,9 @@ export class WorkFormComponent implements OnChanges {
     if (this.igualasList && this.igualasList.length > 0) {
       this.filterArtWorksByIgualaId(this.igualasList[0].id);
     }
+    if (this.userExecutivesList && this.userExecutivesList.length > 0) {
+      this.work.executive = this.userExecutivesList[0].id;
+    }
     if (this.workTypesList && this.workTypesList.length > 0) {
       this.currentWorkTypeId = this.workTypesList[0].work_type_id;
     } else {
@@ -153,8 +156,6 @@ export class WorkFormComponent implements OnChanges {
   public submitWorkForm() {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
-    // TODO: Remove when Users module is ready.
-    this.work.executive_id = 1;
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();
@@ -173,6 +174,7 @@ export class WorkFormComponent implements OnChanges {
     this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         let newWork = new Work(result.json());
+        console.log(newWork);
         this.workCreated.emit(newWork);
         this.toaster.show(result, 'Trabajo creado', 'El trabajo se creó con éxito');
       }
