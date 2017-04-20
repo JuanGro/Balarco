@@ -115,11 +115,7 @@ describe('WorkListComponent tests', () => {
             // Declare all what the test component has.
             declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-<<<<<<< HEAD
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, NgxPaginationModule ],
-=======
-            ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), ToasterModule ],
->>>>>>> develop
+                    ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), ToasterModule, NgxPaginationModule ],
             providers: [ WorksListComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {

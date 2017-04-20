@@ -13,6 +13,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -25,6 +28,9 @@ import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
 import { WorkFilterFormComponent } from './work-filter-form.component';
 
+// Pipes
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
+
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
@@ -33,7 +39,7 @@ import { SelectModule } from 'ng2-select';
 import { WorkFilter } from './work-filter-model';
 
 
-describe('WorksComponent tests', () => {
+describe('WorksFilterFormComponent tests', () => {
   // Fixture for debugging and testing a WorksComponent.
     let fixtureParent: ComponentFixture<WorksComponent>;
     // Fixture for debugging and testing a WorkFormComponent.
@@ -107,8 +113,8 @@ describe('WorksComponent tests', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
-            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent ],
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
+            declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule, NgxPaginationModule,
             ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule ],
             providers: [
                 {
