@@ -15,6 +15,8 @@ export class RecoverPasswordFormComponent implements OnInit {
     public modalAction: string = '';
     // Requests close of the current modal to parent component.
     @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
+    // Requests to show succesful modal if it's necessary.
+    @Output() passwordRecovered: EventEmitter<string> = new EventEmitter();
 
     /**
       * Builds the component for first time each time when it's called.
@@ -40,6 +42,14 @@ export class RecoverPasswordFormComponent implements OnInit {
     public requestCloseThisModal() {
         this.modalAction = 'Close modal';
         this.requestCloseModal.emit(this.modalAction);
+    }
+
+    /**
+      * Requests to parent component to close the current modal.
+      **/
+    public requestShowSuccessfulModal() {
+        this.modalAction = 'Show successful modal';
+        this.passwordRecovered.emit(this.modalAction);
     }
 
     /**

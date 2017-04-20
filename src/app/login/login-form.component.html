@@ -79,7 +79,27 @@
             <!-- [username] sends the username to the form -->
             <!-- (recoverPassword) listens the confirmation to recover the password -->
             <!-- (requestCloseModal) listens for the close of the modal -->
-            <recover-password-form (requestCloseModal)="recoverPasswordModal.hide()" (recoverPassword)="onRecoverPasword($event)"></recover-password-form>
+            <recover-password-form (requestCloseModal)="recoverPasswordModal.hide()" (passwordRecovered)="successfulModal.show()"></recover-password-form>
+        </div>
+    </div>
+</div>
+
+<!-- Succesful modal for recover password -->
+<div bsModal #successfulModal="bs-modal" class="modal fade" id="mySuccessfulModal" tabindex="-1" role="dialog" aria-labelledby="successfulModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¡Correo enviado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="successfulModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p>Sí el correo está asociado en nuestro sistema, se te enviará un correo para recuperar tu contraseña. No olvides revisar tu carpeta de correo no deseado en caso de no recibirlo.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="successfulModal.hide()">Close</button>
+            </div>
         </div>
     </div>
 </div>
