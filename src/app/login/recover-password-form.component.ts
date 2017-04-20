@@ -34,6 +34,7 @@ export class RecoverPasswordFormComponent implements OnInit {
     submitRecoverPasswordForm(form: NgModel, object: Login) {
         console.log(object);
         form.reset();
+        this.requestShowSuccessfulModal();
     }
 
     /**
