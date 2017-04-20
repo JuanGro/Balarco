@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <!-- Feedback client -->
-                <div *ngIf="workFilter.searchByClient == true && client.touched">
+                <div *ngIf="workFilter.searchByClient == true && client.touched" [class.has-danger]="workFilter.searchByClient == true">
                     <div [hidden]="client_id != null">
                         <div class="form-control-feedback">No has seleccionado ningún cliente.</div>
                     </div>
@@ -37,7 +37,7 @@
                     </select>
                 </div>
                 <!-- Feedback contact -->
-                <div *ngIf="workFilter.searchByContact == true && contact.touched">
+                <div *ngIf="workFilter.searchByContact == true && contact.touched" [class.has-danger]="workFilter.searchByContact == true">
                     <div [hidden]="contact_id != null">
                         <div class="form-control-feedback">No has seleccionado ningún contacto.</div>
                     </div>
@@ -80,7 +80,7 @@
                     </select>
                 </div>
                 <!-- Feedback status -->
-                <div *ngIf="workFilter.searchByStatus == true && current_status.touched">
+                <div *ngIf="workFilter.searchByStatus == true && current_status.touched" [class.has-danger]="workFilter.searchByStatus == true">
                     <div [hidden]="workFilter.current_status != null">
                         <div class="form-control-feedback">No has seleccionado ningún estado.</div>
                     </div>
@@ -90,16 +90,22 @@
 
         <!-- Third row -->
         <div class="form-group row">
-            <div class=" col-lg-offset-2 col-md-6 form-check">
+            <div class="col-md-6 form-check">
                 <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id="checkboxSuccess" name="searchByCreationDate" [(ngModel)]="workFilter.searchByCreationDate" #searchByCreationDate="ngModel">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByCreationDate" [(ngModel)]="workFilter.searchByCreationDate" #searchByCreationDate="ngModel">
                     </span>
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="true">
-                        Buscar por fecha de creación
+                    <span class="input-group-btn btn-block">
+                        <button class="btn btn-secondary" type="button">
+                            Buscar por fecha de creación
                         </button>
                     </span>
+                </div>
+                <!-- Feedback StartDate -->
+                <div *ngIf="workFilter.searchByCreationDate == true" [class.has-danger]="workFilter.searchByCreationDate == true">
+                    <div [hidden]="workFilter.creation_date != null">
+                        <div class="form-control-feedback">No has seleccionado ninguna fecha de creación.</div>
+                    </div>
                 </div>
                 <!-- StartDate Field -->
                 <div class="card-block">
@@ -107,31 +113,29 @@
                         <datepicker name="creation_date" [(ngModel)]="workFilter.creation_date"></datepicker>
                     </div>
                 </div>
-                <!-- Feedback StartDate -->
-                <div *ngIf="workFilter.searchByCreationDate == true">
-                    <div [hidden]="workFilter.creation_date != null" [class.has-danger]="workFilter.searchByCreationDate == null">
-                        <div class="form-control-feedback">No has seleccionado ninguna fecha de creación.</div>
-                    </div>
-                </div>
             </div>
 
             <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByDeliveryDate == true" [class.has-danger]="workFilter.searchByDeliveryDate == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByDeliveryDate" [(ngModel)]="workFilter.searchByDeliveryDate" #searchByDeliveryDate="ngModel">
-                <div>
-                    Buscar por fecha de entrega
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByDeliveryDate" [(ngModel)]="workFilter.searchByDeliveryDate" #searchByDeliveryDate="ngModel">
+                    </span>
+                    <span class="input-group-btn btn-block">
+                        <button class="btn btn-secondary" type="button">
+                            Buscar por fecha de entrega
+                        </button>
+                    </span>
                 </div>
-                </label>
+                <!-- Feedback DeliveryDate -->
+                <div *ngIf="workFilter.searchByDeliveryDate == true" [class.has-danger]="workFilter.searchByDeliveryDate == true">
+                    <div [hidden]="workFilter.expected_delivery_date != null">
+                        <div class="form-control-feedback">No has seleccionado ninguna fecha de entrega.</div>
+                    </div>
+                </div>
                 <!-- EndDate Field -->
                 <div class="card-block">
                     <div id="iguala-end-date" style="display:inline-block; min-height:290px;">
                         <datepicker name="expected_delivery_date" [(ngModel)]="workFilter.expected_delivery_date" [minDate]="workFilter.creation_date"></datepicker>
-                    </div>
-                </div>
-                <!-- Feedback DeliveryDate -->
-                <div *ngIf="workFilter.searchByDeliveryDate == true">
-                    <div [hidden]="workFilter.expected_delivery_date != null">
-                        <div class="form-control-feedback">No has seleccionado ninguna fecha de entrega.</div>
                     </div>
                 </div>
             </div>
