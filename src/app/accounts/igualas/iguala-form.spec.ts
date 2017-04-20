@@ -11,6 +11,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -97,7 +100,7 @@ describe('IgualaFormComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ IgualasComponent, IgualasListComponent , IgualaFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule, ToasterModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), SelectModule, NgxPaginationModule ],
             providers: [ IgualaFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
@@ -236,23 +239,6 @@ describe('IgualaFormComponent tests.', () => {
                 expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();
-        }));
-    });
-
-     describe('Cancel form method is correctly send depending if its current iguala is not empty', () => {
-        /**
-        * Tests that the send of the iguala updated is working correctly.
-        **/
-        it('should send the iguala updated', async(() => {
-            component.iguala = testIguala;
-            component.ngOnChanges();
-            component.cancelForm();
-
-            expect(component.iguala).toBeDefined();
-            expect(component.iguala.name).toBeUndefined();
-            expect(component.iguala.client).toBeUndefined();
-            expect(component.iguala.start_date).toBeUndefined();
-            expect(component.iguala.end_date).toBeUndefined();
         }));
     });
 });

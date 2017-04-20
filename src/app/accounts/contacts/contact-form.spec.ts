@@ -11,6 +11,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -76,7 +79,7 @@ describe('ContactFormComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ ContactsComponent, ContactsListComponent , ContactFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, NgxPaginationModule ],
             providers: [ ContactFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
@@ -243,31 +246,6 @@ describe('ContactFormComponent tests.', () => {
             modalAction.requestWarning.subscribe(result => {
                 expect(result).toBe('Show warning modal');
             });
-        }));
-    });
-
-    describe('Cancel form method is correctly send depending if its current contact is not empty', () => {
-        /**
-        * Tests that the send of the contact updated is working correctly.
-        **/
-        it('should send the contact updated', async(() => {
-            component.contact = testContact;
-            component.ngOnChanges();
-            component.cancelForm();
-
-            expect(component.contact).toBeDefined();
-            expect(component.contact.id).toBeUndefined();
-            expect(component.contact.name).toBeUndefined();
-            expect(component.contact.last_name).toBeUndefined();
-            expect(component.contact.client).toBeUndefined();
-            expect(component.contact.charge).toBeUndefined();
-            expect(component.contact.landline).toBeUndefined();
-            expect(component.contact.extension).toBeUndefined();
-            expect(component.contact.mobile_phone_1).toBeUndefined();
-            expect(component.contact.mobile_phone_2).toBeUndefined();
-            expect(component.contact.email).toBeUndefined();
-            expect(component.contact.alternate_email).toBeUndefined();
-            expect(component.contact.client_complete).toBeUndefined();
         }));
     });
 });

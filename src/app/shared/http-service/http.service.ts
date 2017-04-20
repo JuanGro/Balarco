@@ -12,6 +12,8 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { Role } from '../auth/role';
+import { CurrentUser } from '../current-user/current-user-model';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
@@ -156,6 +158,62 @@ export class HttpService extends Http {
         }
       });
   }
+
+
+  /**
+  * Method for storing the current user roles in Angular Local Storage.
+  * Params:
+  *   - roleNames: Names of the roles received from WS
+  **/
+  public setUserRoles(roleNames: string[]) {
+    let roles: number[] = [];
+
+    for (let roleName of roleNames) {
+      switch (roleName) {
+        case 'Director de cuentas':
+          roles.push(Role.DIRECTOR_CUENTAS);
+          break;
+        case 'Ejecutivo SR':
+          roles.push(Role.EJECUTIVO_SR);
+          break;
+        case 'Ejecutivo JR':
+          roles.push(Role.EJECUTIVO_JR);
+          break;
+        case 'Administración':
+          roles.push(Role.ADMINISTRACION);
+          break;
+        case 'Director de arte':
+          roles.push(Role.DIRECTOR_ARTE);
+          break;
+        case 'Diseñador SR':
+          roles.push(Role.DISENADOR_SR);
+          break;
+        case 'Diseñador JR':
+          roles.push(Role.DISENADOR_JR);
+          break;
+        case 'Super usuario':
+          roles.push(Role.SUPER_USUARIO);
+          break;
+        default:
+          break;
+      }
+    }
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
+    localStorage.setItem('currentUser', currentUser);
+  }
+
+
+  /**
+  * Method that returns the currentUser logged.
+  * Returns:
+  *   - The currentUser.
+  **/
+  public getCurrentUser(): CurrentUser {
+    return new CurrentUser(JSON.parse(localStorage.getItem('currentUser')));
+  }
+
 
   /**
   * Method to finish the current session.

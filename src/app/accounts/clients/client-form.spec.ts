@@ -11,6 +11,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule }  from '@angular/forms';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -53,7 +56,7 @@ describe('ClientFormComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ ClientsComponent, ClientsListComponent , ClientFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, NgxPaginationModule ],
             providers: [ ClientFormComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
@@ -172,21 +175,6 @@ describe('ClientFormComponent tests.', () => {
                 expect(result).toBe('Show warning modal');
             });
             modalAction.requestWarningModal();
-        }));
-    });
-
-    describe('Cancel form method is correctly send depending if its current client is not empty', () => {
-        /**
-        * Tests that the send of the client updated is working correctly.
-        **/
-        it('should send the client updated', async(() => {
-            component.client = testClient;
-            component.ngOnChanges();
-            component.cancelForm();
-
-            expect(component.client).toBeDefined();
-            expect(component.client.name).toBeUndefined();
-            expect(component.client.address).toBeUndefined();
         }));
     });
 });

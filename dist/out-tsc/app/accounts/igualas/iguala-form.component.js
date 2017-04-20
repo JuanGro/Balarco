@@ -27,8 +27,16 @@ var IgualaFormComponent = (function () {
         if (!this.iguala) {
             this.iguala = new Iguala();
         }
-        else {
+        else if (this.iguala && !this.iguala.id) {
+            this.initialDropdownSetup();
+        }
+        else if (this.iguala && this.iguala.id) {
             this.oldIguala = new Iguala(this.iguala);
+        }
+    };
+    IgualaFormComponent.prototype.initialDropdownSetup = function () {
+        if (this.clientsList && this.clientsList.length > 0) {
+            this.iguala.client = this.clientsList[0].id;
         }
     };
     IgualaFormComponent.prototype.submitIgualaForm = function () {
@@ -54,6 +62,7 @@ var IgualaFormComponent = (function () {
         }, function (error) {
             _this.toaster.show(error, 'Error', 'Ocurrió un error al guardar la iguala');
         });
+        this.iguala = new Iguala();
     };
     IgualaFormComponent.prototype.submitUpdatedIguala = function () {
         var _this = this;
@@ -87,7 +96,7 @@ var IgualaFormComponent = (function () {
     return IgualaFormComponent;
 }());
 __decorate([
-    Input(),
+    Input('iguala'),
     __metadata("design:type", Iguala)
 ], IgualaFormComponent.prototype, "iguala", void 0);
 __decorate([

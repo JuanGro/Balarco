@@ -6,13 +6,16 @@ import { ClientsComponent } from './clients/clients.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { IgualasComponent } from './igualas/igualas.component';
 import { DesignsListComponent } from './designs-list/designs-list.component';
+// Enum
+import { Role } from '../shared/auth/role';
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [CanActivateAuthGuard],
     data: {
-      title: 'Accounts'
+      title: 'Accounts',
+      roles: [ Role.DIRECTOR_CUENTAS, Role.SUPER_USUARIO ]
     },
     children: [
       {

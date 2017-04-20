@@ -37,7 +37,7 @@
                             <!-- Select contact to update -->
                             <!-- Calls the requestUpdateContactModal method, it requests the update contact modal -->
                             <!-- Sends the user selected by the user to the function sendCurrentContact -->
-                            <tr data-toggle="modal" *ngFor="let contact of contactsList" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
+                            <tr data-toggle="modal" *ngFor="let contact of contactsList | paginate: { itemsPerPage: 10, currentPage: p }" (click)="requestUpdateContactModal($event)" (click)="sendCurrentContact(contact)">
                                 <th scope="row">{{ contact.id }}</th>
                                 <td>{{ contact.name }}</td>
                                 <td>{{ contact.last_name }}</td>
@@ -49,19 +49,7 @@
                     </table>
 
                     <!-- Pagination -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Prev</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>
