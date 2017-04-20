@@ -4,6 +4,13 @@ import { NgModel } from '@angular/forms';
 // Components
 import { Login } from './login';
 
+// Services
+import { HttpService } from './../shared/http-service/http.service';
+import { CustomToastService } from '../shared/toast/custom-toast.service';
+
+// Environment
+import { environment } from '../../environments/environment';
+
 @Component({
     selector: 'recover-password-form',
     templateUrl: 'recover-password-form.component.html'
@@ -17,6 +24,8 @@ export class RecoverPasswordFormComponent implements OnInit {
     @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
     // Requests to show succesful modal if it's necessary.
     @Output() passwordRecovered: EventEmitter<string> = new EventEmitter();
+
+    constructor(private httpService: HttpService, private toaster: CustomToastService) {}
 
     /**
       * Builds the component for first time each time when it's called.
@@ -32,9 +41,20 @@ export class RecoverPasswordFormComponent implements OnInit {
       *   - object: Takes the username from form.
       **/
     submitRecoverPasswordForm(form: NgModel, object: Login) {
-        console.log(object);
+        console.log(object.username);
         form.reset();
         this.requestShowSuccessfulModal();
+        this.httpService.postObject(environment.RECOVER_PASSWORD_URL, object.username).subscribe(result => {
+            if (result.ok) {
+            //   let newClient = new Client(result.json());
+            //   this.clientCreated.emit(newClient);
+              this.toaster.show(result, 'Éxito', 'éxito');
+            }
+            console.log(result);
+        },
+        error => {
+          this.toaster.show(error, 'Error', 'Ocurrió un error');
+        });
     }
 
     /**
