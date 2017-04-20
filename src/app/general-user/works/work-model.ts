@@ -4,6 +4,7 @@ import { Contact } from '../../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work-model';
 import { WorkType } from './work-type/work-type-model';
 import { Status } from './status/status-model';
+import { Designer } from './designer/designer-model';
 
 export class Work {
   id?: number;
@@ -22,6 +23,7 @@ export class Work {
   art_works?: ArtWork[];
   current_status: number;
   current_status_complete?: Status;
+  work_designers?: Designer[];
   // TODO: Executive.
   executive_id: number;
 
@@ -81,6 +83,13 @@ export class Work {
           }
         }
       }
+
+      this.work_designers = [];
+      if (this.work_designers) {
+        for (let work_design of object.work_designers) {
+          this.work_designers.push(new Designer(work_design));
+        }
+      }
     }
   }
 
@@ -123,7 +132,13 @@ export class Work {
     newWorkJSON['art_works'] = artWorksArray;
 
     // TODO: Designers assignation.
-    newWorkJSON['work_designers'] = [];
+    let workDesignersArray = [];
+    if (this.work_designers.length > 0) {
+      for (let work_design of this.work_designers) {
+        workDesignersArray.push({ id: work_design.id, active_work: work_design.active_work })
+      }
+    }
+    newWorkJSON['work_designers'] = workDesignersArray;
 
     return newWorkJSON;
   }
