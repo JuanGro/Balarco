@@ -24,7 +24,7 @@ import { environment } from '../../../environments/environment';
 **/
 export class UsersComponent implements OnInit {
   // Received from table component, it returns the user that was selected to see in detail.
-  @Input() currentUser: User;
+  @Input('currentUser') currentUser: User;
   // Received from table component, it gives me the value that the user is typing in the search.
   @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
