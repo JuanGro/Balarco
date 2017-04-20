@@ -2,11 +2,11 @@
 * Class that represents a Designer of a work.
 **/
 export class Designer {
-  id?: number;
+  designer?: number;
   active_work?: boolean;
 
   constructor(object?: any) {
-    this.id = object && object.id;
+    this.designer = object && object.designer;
     this.active_work = object && object.active_work;
   }
 }

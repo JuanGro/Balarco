@@ -149,8 +149,8 @@ export class WorkFormComponent implements OnChanges {
     this.work.contact = this.contact_id;
     // TODO: Remove when Users module is ready.
     this.work.executive_id = 9;
-    let designer: Designer = { id: 9, active_work: true };
-    let designer2: Designer = { id: 10, active_work: true };
+    let designer: Designer = { designer: 9, active_work: true };
+    let designer2: Designer = { designer: 10, active_work: true };
     this.work.work_designers = [ designer, designer2 ];
     console.log(this.work);
     if (this.work.id) {

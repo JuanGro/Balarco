@@ -138,7 +138,7 @@ export class Work {
     if (this.work_designers) {
       if (this.work_designers.length > 0) {
         for (let work_design of this.work_designers) {
-          workDesignersArray.push({ id: work_design.id, active_work: work_design.active_work })
+          workDesignersArray.push({ designer: work_design.designer, active_work: work_design.active_work })
         }
       }
     }
