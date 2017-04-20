@@ -6,20 +6,15 @@
         <!-- First row -->
         <div class="form-group row">
             <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByClient == true" [class.has-danger]="workFilter.searchByClient == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByClient" [(ngModel)]="workFilter.searchByClient" #searchByClient="ngModel">
-                <div [hidden]="workFilter.searchByClient == false" [class.form-control-success]="workFilter.searchByClient == true">
-                    Buscar por compañía
-                </div>
-                <div [hidden]="workFilter.searchByClient == true" [class.form-control-danger]="workFilter.searchByClient == false">
-                    Buscar por compañía
-                </div>
-                </label>
+                <label>Buscar por cliente</label>
                 <!-- Client field -->
                 <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByClient" [(ngModel)]="workFilter.searchByClient" #searchByClient="ngModel">
+                    </span>
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
                     <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel">
-                    <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
+                        <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                     </select>
                 </div>
                 <!-- Feedback client -->
@@ -30,17 +25,12 @@
                 </div>
             </div>
             <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByContact == true" [class.has-danger]="workFilter.searchByContact == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByContact" [(ngModel)]="workFilter.searchByContact" #searchByContact="ngModel">
-                <div [hidden]="workFilter.searchByContact == false" [class.form-control-success]="workFilter.searchByContact == true">
-                    Buscar por contacto
-                </div>
-                <div [hidden]="workFilter.searchByContact == true" [class.form-control-danger]="workFilter.searchByContact == false">
-                    Buscar por contacto
-                </div>
-                </label>
+                <label>Buscar por contacto</label>
                 <!-- Contact field -->
                 <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByContact" [(ngModel)]="workFilter.searchByContact" #searchByContact="ngModel">
+                    </span>
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel">
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
@@ -58,24 +48,19 @@
         <!-- Second row -->
         <div class="form-group row">
             <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByIguala == true" [class.has-danger]="workFilter.searchByIguala == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByIguala" [(ngModel)]="workFilter.searchByIguala" #searchByIguala="ngModel">
-                <div [hidden]="workFilter.searchByIguala == false" [class.form-control-success]="workFilter.searchByIguala == true">
-                    Buscar por iguala
-                </div>
-                <div [hidden]="workFilter.searchByIguala == true" [class.form-control-danger]="workFilter.searchByIguala == false">
-                    Buscar por iguala
-                </div>
-                </label>
+                <label>Buscar por iguala</label>
                 <!-- Iguala field -->
                 <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByIguala" [(ngModel)]="workFilter.searchByIguala" #searchByIguala="ngModel">
+                    </span>
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i></span>
                     <select id="iguala" name="iguala" class="form-control" size="1" [(ngModel)]="workFilter.iguala" #iguala="ngModel">
-                    <option *ngFor="let iguala of currentIgualas" value="{{ iguala.id }}">{{ iguala.name }}</option>
+                        <option *ngFor="let iguala of currentIgualas" value="{{ iguala.id }}">{{ iguala.name }}</option>
                     </select>
                 </div>
                 <!-- Feedback iguala -->
-                <div *ngIf="workFilter.searchByIguala == true && iguala.touched">
+                <div *ngIf="workFilter.searchByIguala == true && iguala.touched" [class.has-danger]="workFilter.searchByIguala == true">
                     <div [hidden]="workFilter.iguala != null">
                         <div class="form-control-feedback">No has seleccionado ninguna iguala.</div>
                     </div>
@@ -83,17 +68,12 @@
             </div>
 
             <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByStatus == true" [class.has-danger]="workFilter.searchByStatus == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByStatus" [(ngModel)]="workFilter.searchByStatus" #searchByStatus="ngModel">
-                <div [hidden]="workFilter.searchByStatus == false" [class.form-control-success]="workFilter.searchByStatus == true">
-                    Buscar por estado
-                </div>
-                <div [hidden]="workFilter.searchByStatus == true" [class.form-control-danger]="workFilter.searchByStatus == false">
-                    Buscar por estado
-                </div>
-                </label>
+                <label>Buscar por estado</label>
                 <!-- Status field -->
                 <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id="checkboxSuccess" name="searchByStatus" [(ngModel)]="workFilter.searchByStatus" #searchByStatus="ngModel">
+                    </span>
                     <span class="input-group-addon"><i class="fa fa-check"></i></span>
                     <select id="current_status" name="current_status" class="form-control" size="1" [(ngModel)]="workFilter.current_status" #current_status="ngModel">
                     <option *ngFor="let status of statusList" value="{{ status.id }}">{{ status.name }}</option>
@@ -110,16 +90,17 @@
 
         <!-- Third row -->
         <div class="form-group row">
-            <div class="col-md-6 form-check">
-                <label class="form-check-label" [class.has-success]="workFilter.searchByCreationDate == true" [class.has-danger]="workFilter.searchByCreationDate == false">
-                <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByCreationDate" [(ngModel)]="workFilter.searchByCreationDate" #searchByCreationDate="ngModel">
-                <div [hidden]="workFilter.searchByCreationDate == false" [class.form-control-success]="workFilter.searchByCreationDate == true">
-                    Buscar por fecha de creación
+            <div class=" col-lg-offset-2 col-md-6 form-check">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                    <input type="checkbox" id="checkboxSuccess" name="searchByCreationDate" [(ngModel)]="workFilter.searchByCreationDate" #searchByCreationDate="ngModel">
+                    </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="true">
+                        Buscar por fecha de creación
+                        </button>
+                    </span>
                 </div>
-                <div [hidden]="workFilter.searchByCreationDate == true" [class.form-control-danger]="workFilter.searchByCreationDate == false">
-                    Buscar por fecha de creación
-                </div>
-                </label>
                 <!-- StartDate Field -->
                 <div class="card-block">
                     <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
@@ -128,7 +109,7 @@
                 </div>
                 <!-- Feedback StartDate -->
                 <div *ngIf="workFilter.searchByCreationDate == true">
-                    <div [hidden]="workFilter.creation_date != null">
+                    <div [hidden]="workFilter.creation_date != null" [class.has-danger]="workFilter.searchByCreationDate == null">
                         <div class="form-control-feedback">No has seleccionado ninguna fecha de creación.</div>
                     </div>
                 </div>
@@ -137,10 +118,7 @@
             <div class="col-md-6 form-check">
                 <label class="form-check-label" [class.has-success]="workFilter.searchByDeliveryDate == true" [class.has-danger]="workFilter.searchByDeliveryDate == false">
                 <input type="checkbox" class="form-check-input" id="checkboxSuccess" name="searchByDeliveryDate" [(ngModel)]="workFilter.searchByDeliveryDate" #searchByDeliveryDate="ngModel">
-                <div [hidden]="workFilter.searchByDeliveryDate == false" [class.form-control-success]="workFilter.searchByDeliveryDate == true">
-                    Buscar por fecha de entrega
-                </div>
-                <div [hidden]="workFilter.searchByDeliveryDate == true" [class.form-control-danger]="workFilter.searchByDeliveryDate == false">
+                <div>
                     Buscar por fecha de entrega
                 </div>
                 </label>
