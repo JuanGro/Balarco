@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 
 // Models
 import { User } from './user-model';
@@ -42,8 +42,6 @@ export class UserFormComponent implements OnChanges {
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Initialization of control form.
-  public userModalForm: FormGroup;
   // Variable to return the old user if cancel the update form.
   public oldUser: User;
   // Variable to active the form.
@@ -97,7 +95,7 @@ export class UserFormComponent implements OnChanges {
   *   - object: User object received from modal.
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
-  public submitUserForm(object: User) {
+  public submitUserForm(form: NgModel, object: User) {
     this.currentGroupList = [];
     for (let group of object.groups_complete) {
       let id: number = +group;
@@ -114,8 +112,7 @@ export class UserFormComponent implements OnChanges {
       // Create user
       this.submitNewUser(object);
     }
-    this.active = false;
-    setTimeout(() => this.active = true, 0);
+    form.reset();
   }
 
   /**
@@ -174,14 +171,13 @@ export class UserFormComponent implements OnChanges {
   /**
   * Initialize the form and return to the original object the user.
   **/
-  public cancelForm() {
+  public cancelForm(form: NgModel) {
     if (this.oldUser.id) {
       this.user = this.oldUser;
       let updatedUser = new User(this.oldUser);
       this.userUpdated.emit(updatedUser);
     }
     this.user = new User();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 0);
+    form.reset();
   }
 }

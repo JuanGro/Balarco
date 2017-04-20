@@ -2,7 +2,7 @@
     <!-- Start form -->
     <!-- #userModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitUserForm(userModalForm.value)" executes the submitUserForm method sending the values of each field -->
-    <form #userModalForm="ngForm" novalidate (ngSubmit)="submitUserForm(userModalForm.value)" *ngIf="active">
+    <form #userModalForm="ngForm" novalidate (ngSubmit)="submitUserForm(userModalForm, userModalForm.value)">
 
         <!-- First row -->
         <div class="form-group row">
@@ -141,7 +141,7 @@
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the user.id exists because it's used only for update user modal -->
             <button *ngIf="user.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(userModalForm)">Cancelar</button>
             <!-- Submits updated or new user -->
             <!-- Calls the submitUserForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
