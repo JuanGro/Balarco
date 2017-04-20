@@ -232,19 +232,17 @@ export class WorksComponent implements OnInit {
   **/
   private loadUserExecutivesList(url: string) {
     let params = new URLSearchParams();
-    params.append('groups_name', 'Super usuario');
-    params.append('groups_name', 'Director de cuentas');
-    // TODO: Uncomment appends after Julian fix the user's filter
-    //params.append('groups_name', 'Ejecutivo SR');
-    //params.append('groups_name', 'Ejecutivo JR');
+    params.append('group_name', 'Super usuario');
+    params.append('group_name', 'Director de cuentas');
+    params.append('group_name', 'Ejecutivo SR');
+    params.append('group_name', 'Ejecutivo JR');
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(usersListJSON => {
                       this.userExecutivesList = [];
                       for (let user of usersListJSON) {
                         this.userExecutivesList.push(new User(user));
-                      }
-                      console.log(this.userExecutivesList);
+                      }                      
                     }, error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los ejecutivos');
                     });

@@ -144,8 +144,10 @@ var WorksComponent = (function () {
     WorksComponent.prototype.loadUserExecutivesList = function (url) {
         var _this = this;
         var params = new URLSearchParams();
-        params.append('groups_name', 'Super usuario');
-        params.append('groups_name', 'Director de cuentas');
+        params.append('group_name', 'Super usuario');
+        params.append('group_name', 'Director de cuentas');
+        params.append('group_name', 'Ejecutivo SR');
+        params.append('group_name', 'Ejecutivo JR');
         this.httpService.getObject(url, params)
             .map(function (data) { return data.json(); })
             .subscribe(function (usersListJSON) {
@@ -154,7 +156,6 @@ var WorksComponent = (function () {
                 var user = usersListJSON_1[_i];
                 _this.userExecutivesList.push(new User(user));
             }
-            console.log(_this.userExecutivesList);
         }, function (error) {
             _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los ejecutivos');
         });
