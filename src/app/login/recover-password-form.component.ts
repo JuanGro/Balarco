@@ -36,22 +36,24 @@ export class RecoverPasswordFormComponent implements OnInit {
     }
 
     /**
-      * Method for sending the username to request password and reset the form.
+      * Method for sending the email to request to recover the password and reset the form.
       * Params:
+      *   - form: Form to handle it.
       *   - object: Takes the username from form.
       **/
     submitRecoverPasswordForm(form: NgModel, object: Login) {
-        let object_aux = new Login();
-        object_aux.email = object.username;
-        console.log(object_aux);
-        this.httpService.postObject(environment.RECOVER_PASSWORD_URL, object_aux).subscribe(result => {
+        console.log(object);
+        this.httpService.postObject(environment.RECOVER_PASSWORD_URL, object).subscribe(result => {
             if (result.ok) {
-              this.requestShowSuccessfulModal();
+                this.requestShowSuccessfulModal();
             }
         },
         error => {
-            if (error === '404') {
-                console.log('error');
+            // Avoid that the user knows if an email is in database or not.
+            if (error.status === 400) {
+                this.requestShowSuccessfulModal();
+            } else {
+                this.toaster.show(error, 'Error', 'Hubo un error al intentar recuperar la contraseña');
             }
         });
         form.reset();
