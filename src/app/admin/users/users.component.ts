@@ -11,6 +11,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'users',
   templateUrl: 'users.component.html'
@@ -57,6 +61,7 @@ export class UsersComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este usuario?';
     this.loadUserList(environment.USERS_URL);
     this.loadGroupList(environment.GROUPS_URL);
+    this.receiveNotifications("2", "localhost:8000/dashboard/", this.loadUserList(environment.USERS_URL));
   }
 
   /**
@@ -163,4 +168,21 @@ export class UsersComponent implements OnInit {
       this.userList[index] = event;
     }
   }
+  
+  /**
+  * Opens websocket connection to specified url and current userId
+  * to receive notification of changes to the database.
+  * Params:
+  **/
+  public receiveNotifications(userId: string, url: string, action) {
+    var ws_path = "ws" + '://' + url  + userId + "/" + "stream/";
+    console.log("Connecting to " + ws_path);
+    var socket = new ReconnectingWebSocket(ws_path);
+    socket.onmessage = function(message, action) {
+        console.log(message.data);
+    };
+    socket.onopen = function() { console.log("Connected to notification socket"); }
+    socket.onclose = function() { console.log("Disconnected to notification socket"); }
+  };
+
 }
