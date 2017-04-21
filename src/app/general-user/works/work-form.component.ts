@@ -223,13 +223,13 @@ export class WorkFormComponent implements OnChanges {
   **/
   private filterIgualasByClientId(id: number) {
     if (this.igualasList) {
-      this.currentIgualas = this.igualasList.filter(x => x.client == +id);
+      this.currentIgualas = this.igualasList.filter(x => x.client === +id);
       if (this.currentIgualas.length > 0) {
         this.work.iguala = this.currentIgualas[0].id;
         this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
       } else {
         this.work.iguala = null;
-        this.currentArtWorkList = [];  
+        this.currentArtWorkList = [];
       }
     }
   }

@@ -126,7 +126,7 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.filterIgualasByClientId = function (id) {
         if (this.igualasList) {
-            this.currentIgualas = this.igualasList.filter(function (x) { return x.client == +id; });
+            this.currentIgualas = this.igualasList.filter(function (x) { return x.client === +id; });
             if (this.currentIgualas.length > 0) {
                 this.work.iguala = this.currentIgualas[0].id;
                 this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
