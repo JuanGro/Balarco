@@ -27,8 +27,4 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
   declarations: [ LoginComponent, LoginFormComponent, RecoverPasswordFormComponent ],
   providers: [ HttpService, CustomToastService ]
 })
-export class LoginModule {
-  constructor() {
-
-  }
-}
+export class LoginModule {}
