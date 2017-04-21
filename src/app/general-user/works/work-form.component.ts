@@ -164,7 +164,6 @@ export class WorkFormComponent implements OnChanges {
   * Requests the API to create a new Work.
   **/
   private submitNewWork() {
-    console.log(this.work.generateJSONForPOST());
     this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(result => {
       if (result.ok) {
         let newWork = new Work(result.json());
@@ -228,11 +227,9 @@ export class WorkFormComponent implements OnChanges {
       if (this.currentIgualas.length > 0) {
         this.work.iguala = this.currentIgualas[0].id;
         this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
-        console.log('All FILLED');
       } else {
         this.work.iguala = null;
-        this.currentArtWorkList = [];
-        console.log('All null');
+        this.currentArtWorkList = [];  
       }
     }
   }

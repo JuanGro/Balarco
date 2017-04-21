@@ -90,7 +90,6 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.submitNewWork = function () {
         var _this = this;
-        console.log(this.work.generateJSONForPOST());
         this.httpService.postObject(environment.WORKS_URL, this.work.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 var newWork = new Work(result.json());
@@ -131,12 +130,10 @@ var WorkFormComponent = (function () {
             if (this.currentIgualas.length > 0) {
                 this.work.iguala = this.currentIgualas[0].id;
                 this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
-                console.log('All FILLED');
             }
             else {
                 this.work.iguala = null;
                 this.currentArtWorkList = [];
-                console.log('All null');
             }
         }
     };
