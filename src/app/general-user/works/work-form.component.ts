@@ -17,6 +17,7 @@ import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { Designer } from './designer/designer-model';
+import { User } from '../../admin/users/user-model';
 
 @Component({
   selector: 'work-form',
@@ -45,6 +46,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
   // Receives status list from parent component.
   @Input('statusList') statusList: Status[];
+  // Receives user list from parent component.
+  @Input('userList') userList: User[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.

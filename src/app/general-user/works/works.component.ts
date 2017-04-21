@@ -7,6 +7,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Models
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
+import { User } from '../../admin/users/user-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
@@ -47,6 +48,8 @@ export class WorksComponent implements OnInit {
   public workTypesList: WorkType[];
   // List of Work Types of graduation only.
   public graduationArtTypes: ArtWork[];
+  // Variable that saves all users from DB.
+  public userList: User[];
   // List of Status.
   public statusList: Status[];
   // Title of new work modal.
@@ -82,6 +85,7 @@ export class WorksComponent implements OnInit {
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadUserList(environment.USERS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
@@ -167,6 +171,26 @@ export class WorksComponent implements OnInit {
                         this.toaster.show(error, 'Error', 'Ocurrió un error al cargar las igualas');
                       });
 
+  }
+
+  /**
+  * Loads all the users from the get method in httpService to use it the user attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the User object.
+  **/
+  private loadUserList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(userListJSON => {
+                      // Creates clients objects from JSON.
+                      this.userList = [];
+                      for (let userJSON of userListJSON) {
+                        this.userList.push(new User(userJSON));
+                      }
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los usuarios');
+                    });
   }
 
   /**
