@@ -41,20 +41,20 @@ export class RecoverPasswordFormComponent implements OnInit {
       *   - object: Takes the username from form.
       **/
     submitRecoverPasswordForm(form: NgModel, object: Login) {
-        console.log(object.username);
-        form.reset();
-        this.requestShowSuccessfulModal();
-        this.httpService.postObject(environment.RECOVER_PASSWORD_URL, object.username).subscribe(result => {
+        let object_aux = new Login();
+        object_aux.email = object.username;
+        console.log(object_aux);
+        this.httpService.postObject(environment.RECOVER_PASSWORD_URL, object_aux).subscribe(result => {
             if (result.ok) {
-            //   let newClient = new Client(result.json());
-            //   this.clientCreated.emit(newClient);
-              this.toaster.show(result, 'Éxito', 'éxito');
+              this.requestShowSuccessfulModal();
             }
-            console.log(result);
         },
         error => {
-          this.toaster.show(error, 'Error', 'Ocurrió un error');
+            if (error === '404') {
+                console.log('error');
+            }
         });
+        form.reset();
     }
 
     /**
