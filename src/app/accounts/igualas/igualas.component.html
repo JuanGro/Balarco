@@ -1,0 +1,72 @@
+<!-- Title -->
+<div class="card card-inverse card-warning text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+</div>
+
+<!-- Child component, it contains the table -->
+<!-- [igualasList] sends the igualas list to the table -->
+<!-- [clientsList] sends the clients list to the table -->
+<!-- (requestShowNewIgualaModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateIgualaModal) receives the request to show the update modal -->
+<!-- (currentIguala) receives the contact who was selected by the user -->
+<!-- (igualaListFiltered) receives the iguala list updated for the filter in the iguala list component -->
+<!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
+<igualas-list-table [igualasList]="igualasList" (requestShowNewIgualaModal)="newIgualaModal.show()" (requestShowNewIgualaModal)="initializeModal()" (requestShowUpdateIgualaModal)="updateIgualaModal.show()" (currentIguala)="getIgualaFromTable($event)"
+    (valueSearch)="getValueSearch($event)"></igualas-list-table>
+
+<!-- Modal New Iguala -->
+<div bsModal #newIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewIgualaModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleNewModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the contact form -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <iguala-form [clientsList]="clientsList" [artWorkList]="artWorkList" (requestCloseModal)="newIgualaModal.hide()" (igualaCreated)="onIgualaCreated($event)"></iguala-form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update Iguala -->
+<div bsModal #updateIgualaModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateIgualaModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the contact form -->
+            <!-- [iguala] sends the iguala to form component -->
+            <!-- [clientsList] sends the clients list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <iguala-form [iguala]="iguala" [clientsList]="clientsList" [artWorkList]="currentArtWorkList" (requestCloseModal)="updateIgualaModal.hide()" (requestWarning)="dangerModal.show()" (igualaUpdated)="onIgualaUpdated($event)"></iguala-form>
+        </div>
+    </div>
+</div>
+
+<!-- Danger Modal to delete iguala -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleDangerModal }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ descriptionDangerModal }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <!-- (click)="removeContact(contact)" executes the removeIguala funtion in the component -->
+                <button type="button" class="btn btn-danger" (click)="removeIguala(iguala)" (click)="dangerModal.hide()" (click)="updateIgualaModal.hide()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container></toaster-container>

@@ -1,0 +1,69 @@
+<!-- Title -->
+<div class="card card-inverse card-success text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+</div>
+
+<!-- Child component, it contains the table -->
+<!-- [clientsList] sends the clients list to the table -->
+<!-- (requestShowNewClientModal) receives the request to show the new modal and initialize it -->
+<!-- (requestShowUpdateClientModal) receives the request to show the update modal -->
+<!-- (currentClient) receives the client who was selected by the user -->
+<!-- (clientListFiltered) receives the client list updated for the filter in the client list component -->
+<!-- (valueSearch) receives the value of the search if the user is typing something in the form -->
+<clients-list [clientsList]="clientsList" (requestShowNewClientModal)="newClientModal.show()" (requestShowNewClientModal)="initializeModal()" (requestShowUpdateClientModal)="updateClientModal.show()" (currentClient)="getClientFromTable($event)" (valueSearch)="getValueSearch($event)"></clients-list>
+
+<!-- Modal New Client -->
+<div bsModal #newClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myNewClientModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleNewModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the client form -->
+            <!-- [client] sends the client empty to the form to avoid problems if the last client is currently saved -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <client-form [client]="client" (requestCloseModal)="newClientModal.hide()" (clientCreated)="onClientCreated($event)"></client-form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update Client -->
+<div bsModal #updateClientModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateClientModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the client form -->
+            <!-- [client] sends the client object to the form to display the current values -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <client-form [client]="client" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateClientModal.hide()" (clientUpdated)="onClientUpdated($event)"></client-form>
+        </div>
+    </div>
+</div>
+
+<!-- Danger Modal to delete client -->
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleDangerModal }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ descriptionDangerModal }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cancelar</button>
+                <!-- (click)="removeClient(client)" executes the removeClient funtion in the component -->
+                <button type="button" class="btn btn-danger" (click)="removeClient(client)" (click)="dangerModal.hide()" (click)="updateClientModal.hide()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container></toaster-container>

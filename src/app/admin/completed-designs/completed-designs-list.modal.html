@@ -1,0 +1,48 @@
+<div class="animated fadeIn">
+
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="icon-plus icons font-2xl d-block mt-2"></i>
+                </div>
+                <div class="card-block">
+                    <table class="table">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>#</th>
+                                <th>Diseño</th>
+                                <th>Cliente</th>
+                                <th>Terminado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-toggle="modal" *ngFor="let design of docs" (click)="uploadComplete($event)" (click)="onClick(design)">
+                                <th scope="row">{{ design.userId }}</th>
+                                <td>{{ design.id }}</td>
+                                <td>{{ design.title }}</td>
+                                <td>{{ design.body }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Prev</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
