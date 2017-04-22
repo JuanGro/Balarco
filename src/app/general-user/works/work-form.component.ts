@@ -72,6 +72,7 @@ export class WorkFormComponent implements OnChanges {
   private contact_id: number;
   // Variable to store Work before starting to update.
   public oldWork: Work;
+  public userStringList: Array<string>;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -94,6 +95,16 @@ export class WorkFormComponent implements OnChanges {
       this.oldWork = new Work(this.work);
       this.loadPossibleStatusForExistingProject();
       this.setValuesWithExistingWork();
+    }
+    if (this.userList) {
+      this.userListToString(this.userList);
+    }
+  }
+
+  public userListToString(userList: User[]) {
+    this.userStringList = [];
+    for (let user of userList) {
+      this.userStringList.push(user.first_name + ' ' + user.last_name);
     }
   }
 
