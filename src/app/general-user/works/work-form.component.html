@@ -216,6 +216,17 @@
         </div>
 
         <!-- Seventh row -->
+        <div class="row">
+            <div class="col-md-12">
+                <label for="recipient-assignments" class="form-control-label">Asignaciones:</label>
+                <ng-select [multiple]="true" [items]="items" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No designers selected">
+                </ng-select>
+                <br/>
+                <pre class="alert alert-info">{{itemsToString(value)}}</pre>
+            </div>
+        </div>
+
+        <!-- Eighth row -->
         <div class="form-group row">
             <div class="col-md-6">
                 <!-- StartDate Field -->
@@ -236,25 +247,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Eighth row -->
-        <div class="row">
-            <div class="col-md-12">
-                <label for="recipient-assignments" class="form-control-label">Asignaciones:</label>
-            </div>
-        </div>
-        <div class="input-group">
-            <!-- <div class="row">
-                <div *ngFor="let user of userList; let i = index">
-                    <div class="col-md-12">
-                        <label class="form-check-label">
-                        <input type="checkbox" id="checkboxSuccess" class="form-check-input"> 
-                        <div>{{ i }} {{ user.first_name }} {{ user.last_name }}</div>
-                        </label>
-                    </div>
-                </div>
-            </div> -->
         </div>
 
         <!-- Buttons -->
