@@ -219,7 +219,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="recipient-assignments" class="form-control-label">Asignaciones:</label>
-                <ng-select [multiple]="true" [items]="userStringList" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No designers selected">
+                <ng-select [multiple]="true" [items]="userStringList" [initData]="selectedItems" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No designers selected">
                 </ng-select>
                 <br/>
                 <pre class="alert alert-info">{{ itemsToString(value) }}</pre>

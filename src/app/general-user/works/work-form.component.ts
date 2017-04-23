@@ -74,6 +74,7 @@ export class WorkFormComponent implements OnChanges {
   public oldWork: Work;
   public userStringList: Array<string>;
   public value: string;
+  public selectedItems: Array<string>;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -84,12 +85,14 @@ export class WorkFormComponent implements OnChanges {
   **/
   public ngOnChanges() {
     // UserList for ng2-select field
+    this.userStringList = [];
     if (this.userList) {
-      this.userStringList = [];
       for (let user of this.userList) {
         this.userStringList.push(user.first_name + ' ' + user.last_name + ' (' + user.groups_complete[0].name + ')');
       };
     }
+    this.selectedItems = this.userStringList;
+
 
     if (!this.work) {
       // New work
