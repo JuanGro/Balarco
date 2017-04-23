@@ -73,6 +73,7 @@ export class WorkFormComponent implements OnChanges {
   // Variable to store Work before starting to update.
   public oldWork: Work;
   public userStringList: Array<string>;
+  public value: string;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -82,6 +83,14 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    // UserList for ng2-select field
+    if (this.userList) {
+      this.userStringList = [];
+      for (let user of this.userList) {
+        this.userStringList.push(user.first_name + ' ' + user.last_name + ' (' + user.groups_complete[0].name + ')');
+      };
+    }
+
     if (!this.work) {
       // New work
       this.work = new Work();
@@ -95,16 +104,6 @@ export class WorkFormComponent implements OnChanges {
       this.oldWork = new Work(this.work);
       this.loadPossibleStatusForExistingProject();
       this.setValuesWithExistingWork();
-    }
-    if (this.userList) {
-      this.userListToString(this.userList);
-    }
-  }
-
-  public userListToString(userList: User[]) {
-    this.userStringList = [];
-    for (let user of userList) {
-      this.userStringList.push(user.first_name + ' ' + user.last_name);
     }
   }
 
@@ -335,36 +334,22 @@ export class WorkFormComponent implements OnChanges {
     form.control.markAsUntouched();
   }
 
-  // ng2-select
-
-  public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin', 'Düsseldorf',
-    'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg', 'Hamburg', 'Hannover',
-    'Helsinki', 'Leeds', 'Leipzig', 'Lisbon', 'Łódź', 'London', 'Kraków', 'Madrid',
-    'Málaga', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Naples', 'Palermo',
-    'Paris', 'Poznań', 'Prague', 'Riga', 'Rome', 'Rotterdam', 'Seville', 'Sheffield',
-    'Sofia', 'Stockholm', 'Stuttgart', 'The Hague', 'Turin', 'Valencia', 'Vienna',
-    'Vilnius', 'Warsaw', 'Wrocław', 'Zagreb', 'Zaragoza'];
-
-  private value:any = ['Athens'];
-
-  public selected(value:any):void {
+  public selected(value: any): void {
     console.log('Selected value is: ', value);
   }
 
-  public removed(value:any):void {
+  public removed(value: any): void {
     console.log('Removed value is: ', value);
   }
 
-  public refreshValue(value:any):void {
+  public refreshValue(value: any): void {
     this.value = value;
   }
 
-  public itemsToString(value:Array<any> = []):string {
+  public itemsToString(value: Array<any> = []): string {
     return value
-      .map((item:any) => {
+      .map((item: any) => {
         return item.text;
-      }).join(',');
+      }).join(', ');
   }
 }
