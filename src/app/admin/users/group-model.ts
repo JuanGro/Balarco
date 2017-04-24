@@ -21,6 +21,6 @@ export class Group {
 * to submit the user object to the API.
 **/
 export class Role {
-  id : number;
+  id: number;
   text: string;
 }
