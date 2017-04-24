@@ -74,7 +74,7 @@ export class LoginFormComponent implements OnInit {
                            groupNames.push(group.name);
                          }
                          this.loginService.setUserRoles(groupNames);
-                         this.router.navigateByUrl(environment.HOME_URL); // Mock dashboard route.
+                         this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
                        }
                      });
   }
