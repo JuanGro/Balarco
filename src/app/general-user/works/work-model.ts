@@ -85,12 +85,10 @@ export class Work {
       }
 
       this.work_designers = [];
-      if (this.work_designers) {
-        // if (this.work_designers.length > 0) {
-        //   for (let work_design of object.work_designers) {
-        //     this.work_designers.push(new Designer(work_design));
-        //   }
-        // }
+      if (object.work_designers) {
+        for (let work_design of object.work_designers) {
+          this.work_designers.push(new Designer(work_design));
+        }
       }
     }
   }

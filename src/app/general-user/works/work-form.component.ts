@@ -135,8 +135,10 @@ export class WorkFormComponent implements OnChanges {
           }
 
           let designerObject: DesignerString = new DesignerString();
+          console.log(designerObject);
           designerObject.id = designer.designer;
           designerObject.text = designer_name;
+          console.log(designerObject);
           this.value.push(designerObject);
         }
       }
@@ -196,7 +198,6 @@ export class WorkFormComponent implements OnChanges {
   public submitWorkForm(form: NgForm, object: Work) {
 
     this.work.work_designers = this.designerListToSend;
-    console.log(this.designerListToSend);
 
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
