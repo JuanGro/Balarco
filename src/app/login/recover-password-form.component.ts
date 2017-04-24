@@ -17,7 +17,7 @@ import { environment } from '../../environments/environment';
 })
 export class RecoverPasswordFormComponent implements OnInit {
     // Login object for the ngForm handle.
-    public recoverPassword: Login;
+    public recoverPasswordForm: Login;
     // Variable to check in test what action is executed between components.
     public modalAction: string = '';
     // Requests close of the current modal to parent component.
@@ -29,10 +29,10 @@ export class RecoverPasswordFormComponent implements OnInit {
 
     /**
       * Builds the component for first time each time when it's called.
-      *   - Initialize the recoverPassword object for the form.
+      *   - Initialize the recoverPasswordForm object for the form.
       **/
     ngOnInit() {
-        this.recoverPassword = new Login();
+        this.recoverPasswordForm = new Login();
     }
 
     /**
