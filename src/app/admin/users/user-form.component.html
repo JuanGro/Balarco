@@ -105,31 +105,7 @@
             </div>
         </div>
 
-
         <!-- Fourth row -->
-        <!-- <div class="form-group row">
-            <div class="col-md-6">
-                <label for="user-role" class="form-control-label">Roles:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=8 required>
-                      <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
-                    </select>
-                </div>
-
-                <div *ngIf="groups_complete.errors && groups_complete.touched" class="alert alert-danger">
-                    <div [hidden]="!groups_complete.errors.required">
-                        El rol es obligatorio.
-                    </div>
-                </div>
-
-                <div *ngIf="user && array !== ''" class="alert alert-info" role="alert">
-                    <strong>Roles actuales: </strong>{{ array }}
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Seventh row -->
         <!-- NG2-SELECT -->
         <div class="row">
             <div class="col-md-12">
