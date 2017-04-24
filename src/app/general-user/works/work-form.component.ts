@@ -17,6 +17,7 @@ import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { Designer } from './designer/designer-model';
+import { DesignerString } from './designer/designer-model';
 import { User } from '../../admin/users/user-model';
 
 @Component({
@@ -33,7 +34,7 @@ import { User } from '../../admin/users/user-model';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
-  @Input() work: Work;
+  @Input('work') work: Work;
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
@@ -72,9 +73,14 @@ export class WorkFormComponent implements OnChanges {
   private contact_id: number;
   // Variable to store Work before starting to update.
   public oldWork: Work;
-  public userStringList: Array<string>;
-  public value: string;
-  public selectedItems: Array<string>;
+  // Variable to save which designer is selecting the user in the Ng2-Select.
+  public value: Array<any>;
+  // List which saves all the users in strings to handle in the Ng2-Select.
+  public designerStringList: DesignerString[];
+  // List of designers which will be sent to create/update a user.
+  public designerListToSend: Designer[];
+  // Variable to identify if the ng2-select is used or not to change or assign designers.
+  public designersChanges: boolean;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -84,14 +90,23 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    // UserList for ng2-select field
-    this.userStringList = [];
+    // Initialize lists.
+    this.designerStringList = [];
+    this.designerListToSend = [];
+    this.value = [];
+    let designer_name = '';
+
+    // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
+    this.designersChanges = false;
+
     if (this.userList) {
-      for (let user of this.userList) {
-        this.userStringList.push(user.first_name + ' ' + user.last_name + ' (' + user.groups_complete[0].name + ')');
+      for (let designer of this.userList) {
+        let designerObject: DesignerString = new DesignerString();
+        designerObject.id = designer.id;
+        designerObject.text = designer.first_name + ' ' + designer.last_name + ' (' + designer.groups_complete[0].name + ')';
+        this.designerStringList.push(designerObject);
       };
     }
-    this.selectedItems = this.userStringList;
 
 
     if (!this.work) {
@@ -107,6 +122,24 @@ export class WorkFormComponent implements OnChanges {
       this.oldWork = new Work(this.work);
       this.loadPossibleStatusForExistingProject();
       this.setValuesWithExistingWork();
+
+      // Saves in the list the designers for the current work.
+      if (this.work.work_designers) {
+        for (let designer of this.work.work_designers) {
+          this.designerListToSend.push(designer);
+
+          let designer_complete = this.userList.filter(x => x.id === +designer.designer);
+          if (designer_complete.length > 0) {
+            designer_name = designer_complete[0].first_name + ' ' + designer_complete[0].last_name +
+            ' (' + designer_complete[0].groups_complete[0].name + ')';
+          }
+
+          let designerObject: DesignerString = new DesignerString();
+          designerObject.id = designer.designer;
+          designerObject.text = designer_name;
+          this.value.push(designerObject);
+        }
+      }
     }
   }
 
@@ -161,14 +194,21 @@ export class WorkFormComponent implements OnChanges {
   * received when the modal was called is empty or not.
   **/
   public submitWorkForm(form: NgForm, object: Work) {
+
+    this.work.work_designers = this.designerListToSend;
+    console.log(this.designerListToSend);
+
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
+
     // TODO: Remove when Users module is ready.
     this.work.executive_id = 9;
-    let designer: Designer = { designer: 9, active_work: true };
-    let designer2: Designer = { designer: 10, active_work: true };
-    this.work.work_designers = [ designer, designer2 ];
+    // let designer: Designer = { designer: 9, active_work: true };
+    // let designer2: Designer = { designer: 10, active_work: true };
+    // this.work.work_designers = [ designer, designer2 ];
+
     console.log(this.work);
+
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();
@@ -337,18 +377,37 @@ export class WorkFormComponent implements OnChanges {
     form.control.markAsUntouched();
   }
 
-  public selected(value: any): void {
-    console.log('Selected value is: ', value);
+  /**
+  * Adds the selected element to the designerListToSend list.
+  **/
+  public selected(value: DesignerString): void {
+    let object: Designer = new Designer();
+    object.designer = value.id;
+    object.active_work = true;
+    this.designerListToSend.push(object);
   }
 
-  public removed(value: any): void {
-    console.log('Removed value is: ', value);
+/**
+  * Removes the selected element in the designerListToSend list.
+  **/
+  public removed(value: DesignerString): void {
+    let index = this.designerListToSend.indexOf(value);
+    if (index >= 0) {
+      this.designerListToSend.splice(index, 1);
+    }
   }
 
   public refreshValue(value: any): void {
+    if (!this.designersChanges) {
+      this.designerListToSend = [];
+      this.designersChanges = true;
+    }
     this.value = value;
   }
 
+  /**
+  * Method to show like an string the current user group list.
+  **/
   public itemsToString(value: Array<any> = []): string {
     return value
       .map((item: any) => {
