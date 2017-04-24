@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 // Models
 import { User } from './user-model';
 import { Group } from './group-model';
+import { Role } from './group-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -30,8 +31,6 @@ export class UserFormComponent implements OnChanges {
   @Input('user') user: User;
   // Receives the group list from parent component.
   @Input('groupList') groupList: Group[];
-  // List containing the users's current groups
-  public currentGroupList: Group[] = [];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the user is permanent removed.
@@ -40,6 +39,8 @@ export class UserFormComponent implements OnChanges {
   @Output() userCreated: EventEmitter<User> = new EventEmitter();
   // Event for parent to update the currentUser.
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
+  // List containing the users's current groups
+  public currentGroupList: Group[] = [];
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Initialization of control form.
@@ -50,6 +51,14 @@ export class UserFormComponent implements OnChanges {
   public active: boolean = true;
   // Variable to show the role of the contact selected.
   public array: string = '';
+  // Variable to save which group is selecting the user in the Ng2-Select.
+  public value: Array<any>;
+  // List which saves all the groups in strings to handle in the Ng2-Select.
+  public groupStringList: Role[];
+  // List of groups which will be sent to create/update a user.
+  public userGroupsComplete: Group[];
+  // Variable to identify if the ng2-select is used or not to change or assign a group.
+  public groupsChanges: boolean;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -59,36 +68,40 @@ export class UserFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.array = '';
+    // Initialize lists.
+    this.userGroupsComplete = [];
+    this.groupStringList = [];
+    this.value = [];
+
+    // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
+    this.groupsChanges = false;
+
+    // Get the entire group list and convert to ng2-select format.
+    if (this.groupList) {
+      for (let group of this.groupList) {
+        let groupObject: Role = new Role();
+        groupObject.id = group.id;
+        groupObject.text = group.name;
+        this.groupStringList.push(groupObject);
+      };
+    }
+
     if (!this.user) {
       this.user = new User();
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
-      this.showRoles(this.array);
-    }
-  }
-
-  /**
-  * Builds an string containing all the roles for the current contact.
-  *   Params:
-  *   - roles: String where it's saved the roles for the current contact.
-  **/
-  public showRoles(roles) {
-    if (this.user.groups_complete && roles === '') {
-      for (let group of this.user.groups_complete) {
-        if (group) {
-          group = new Group(group);
-          if (roles === '') {
-            roles = group.name;
-          } else {
-            roles += ', ' + group.name;
-          }
+      // Save in the list the current groups if is selected an existent user.
+      if (this.user.groups_complete) {
+        for (let group of this.user.groups_complete) {
+          this.userGroupsComplete.push(group);
+          let groupObject: Role = new Role();
+          groupObject.id = group.id;
+          groupObject.text = group.name;
+          this.value.push(groupObject);
         }
       }
-      roles += '.';
     }
-    this.array = roles;
   }
 
   /**
@@ -99,14 +112,8 @@ export class UserFormComponent implements OnChanges {
   **/
   public submitUserForm(object: User) {
     this.currentGroupList = [];
-    for (let group of object.groups_complete) {
-      let id: number = +group;
-      group = new Group();
-      group.id = id;
-      group.name = '';
-      this.currentGroupList.push(group);
-    }
-    object.groups_complete = this.currentGroupList;
+    object.groups_complete = this.userGroupsComplete;
+
     if (this.user.id) {
       // Update user
       this.submitUpdatedUser(object, this.user.id);
@@ -114,6 +121,7 @@ export class UserFormComponent implements OnChanges {
       // Create user
       this.submitNewUser(object);
     }
+
     this.active = false;
     setTimeout(() => this.active = true, 0);
   }
@@ -183,5 +191,43 @@ export class UserFormComponent implements OnChanges {
     this.user = new User();
     setTimeout(() => this.active = false, 1);
     setTimeout(() => this.active = true, 0);
+  }
+
+  /**
+  * Adds the selected element to the userGroupsComplete list.
+  **/
+  public selected(value: any): void {
+    this.userGroupsComplete.push(value);
+  }
+
+  /**
+  * Removes the selected element in the userGroupsComplete list.
+  **/
+  public removed(value: any): void {
+    let index = this.userGroupsComplete.indexOf(value);
+    if (index >= 0) {
+      this.userGroupsComplete.splice(index, 1);
+    }
+  }
+
+  /**
+  * Identiies if the user is changing the groups to reset the userGroupsComplete list.
+  **/
+  public refreshValue(value: any): void {
+    if (!this.groupsChanges) {
+      this.userGroupsComplete = [];
+      this.groupsChanges = true;
+    }
+    this.value = value;
+  }
+
+  /**
+  * Method to show like an string the current user group list.
+  **/
+  public itemsToString(value: Array<any> = []): string {
+    return value
+      .map((item: any) => {
+        return item.text;
+      }).join(', ');
   }
 }

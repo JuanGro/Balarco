@@ -17,6 +17,9 @@ import { UsersComponent } from './users/users.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserFormComponent } from './users/user-form.component';
 
+// Ng2-select
+import { SelectModule } from 'ng2-select';
+
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
@@ -30,7 +33,8 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ChartsModule,
     DropdownModule,
     ModalModule.forRoot(),
-    ToasterModule
+    ToasterModule,
+    SelectModule
   ],
   declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, UsersComponent,
   UserListComponent, UserFormComponent],
