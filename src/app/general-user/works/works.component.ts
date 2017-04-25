@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -65,7 +66,7 @@ export class WorksComponent implements OnInit {
   // Variable to disable stop filter button.
   public stopFilterButton: boolean;
 
-  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
+  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time.
@@ -73,6 +74,7 @@ export class WorksComponent implements OnInit {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
+    this.route.data.subscribe(v => console.log(v));
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
