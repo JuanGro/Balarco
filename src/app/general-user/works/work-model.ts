@@ -4,6 +4,7 @@ import { Contact } from '../../accounts/contacts/contact-model';
 import { ArtWork } from './art-works/art-work-model';
 import { WorkType } from './work-type/work-type-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 
 export class Work {
   id?: number;
@@ -22,8 +23,8 @@ export class Work {
   art_works?: ArtWork[];
   current_status: number;
   current_status_complete?: Status;
-  // TODO: Executive.
-  executive_id: number;
+  executive: number;
+  executive_complete: User;
 
   constructor(object?: any) {
     if (object) {
@@ -69,6 +70,8 @@ export class Work {
       this.current_status_complete = new Status(object.current_status_complete);
       this.iguala = object.iguala;
       this.iguala_complete = new Iguala(object.iguala_complete);
+      this.executive = object.executive;
+      this.executive_complete = new User(object.executive_complete);
 
       // Add ArtWorks collection to the Work.
       this.art_works = [];
@@ -97,7 +100,7 @@ export class Work {
     newWorkJSON['expected_delivery_date'] = this.expected_delivery_date.getUTCFullYear() + '-' +
                                             (this.expected_delivery_date.getUTCMonth() + 1) + '-' +
                                             this.expected_delivery_date.getUTCDate();
-    newWorkJSON['executive'] = this.executive_id;
+    newWorkJSON['executive'] = this.executive;
     newWorkJSON['contact'] = +this.contact;
     newWorkJSON['current_status'] = +this.current_status;
     newWorkJSON['work_type'] = +this.work_type;
