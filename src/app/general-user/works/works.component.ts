@@ -97,6 +97,8 @@ export class WorksComponent implements OnInit {
       this.loadWorksList(environment.WORKS_URL);
     } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
       this.loadWorksList(environment.MY_ASSIGNMENTS);
+    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+
     }
   }
 
@@ -106,6 +108,28 @@ export class WorksComponent implements OnInit {
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
   private loadWorksList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(worksListJSON => {
+                      this.worksList = [];
+                      this.completeWorksList = [];
+                      for (let workJSON of worksListJSON) {
+                        this.worksList.push(new Work(workJSON));
+                        this.completeWorksList.push(new Work(workJSON));
+                      }
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
+                    });
+  }
+
+  /**
+  * Loads all the works which are in the state of Payment from the get method in httpService
+  * Params:
+  *   - url: The url where the service will comunicate to get the Work objects.
+  **/
+  private loadWorksToBePaid(url: string) {
+
     this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
