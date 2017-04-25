@@ -20,6 +20,14 @@ const routes: Routes = [
           title: 'Works',
           type: AssignmentFilter.ALL_WORKS
         }
+      },
+      {
+        path: 'my_assignments',
+        component: WorksComponent,
+        data: {
+          title: 'My Assignments',
+          type: AssignmentFilter.MY_ASSIGNMENTS
+        }
       }
     ]
   }
