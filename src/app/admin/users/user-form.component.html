@@ -2,32 +2,32 @@
     <!-- Start form -->
     <!-- #userModalForm="ngForm" calls the form methods to the component -->
     <!-- (ngSubmit)="submitUserForm(userModalForm.value)" executes the submitUserForm method sending the values of each field -->
-    <form #userModalForm="ngForm" novalidate (ngSubmit)="submitUserForm(userModalForm.value)" *ngIf="active">
+    <form #userModalForm="ngForm" novalidate (ngSubmit)="submitUserForm(userModalForm, userModalForm.value)">
 
         <!-- First row -->
         <div class="form-group row">
-            <div class="col-md-12">
+            <div class="col-md-12" [class.has-success]="!username.errors && username.touched" [class.has-danger]="username.errors && username.touched">
                 <!-- Username field -->
                 <label for="recipient-name" class="form-control-label">Correo:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-user"></i>
                 </span>
                     <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="50" name="username" [(ngModel)]="user.username" #username="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-                        required>
+                        [class.form-control-success]="!username.errors && username.touched" [class.form-control-danger]="username.errors && username.touched" required>
                 </div>
                 <!-- Feedback name -->
-                <div *ngIf="username.errors && username.touched" class="alert alert-danger">
+                <div *ngIf="username.errors && username.touched">
                     <div [hidden]="!username.errors.required">
-                        El correo es obligatorio.
+                        <div class="form-control-feedback">El correo es obligatorio.</div>
                     </div>
                     <div [hidden]="!username.errors.minlength">
-                        El correo debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El correo debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!username.errors.maxlength">
-                        El correo debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El correo debe ser menor a 25 caracteres.</div>
                     </div>
                     <div [hidden]="!username.errors.pattern">
-                        El correo no es válido.
+                        <div class="form-control-feedback">El correo no es válido.</div>
                     </div>
                 </div>
             </div>
@@ -35,46 +35,48 @@
 
         <!-- Second row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!first_name.errors && first_name.touched" [class.has-danger]="first_name.errors && first_name.touched">
                 <!-- Lastname field -->
                 <label for="recipient-first_name" class="form-control-label">Nombre:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-first_name" placeholder="Juan" class="form-control" minlength="3" maxlength="24" name="first_name" [(ngModel)]="user.first_name" #first_name="ngModel" required>
+                    <input type="text" id="recipient-first_name" placeholder="Juan" class="form-control" minlength="3" maxlength="24" name="first_name" [(ngModel)]="user.first_name" #first_name="ngModel" [class.form-control-success]="!first_name.errors && first_name.touched"
+                        [class.form-control-danger]="first_name.errors && first_name.touched" required>
                 </div>
                 <!-- Feedback lastname -->
-                <div *ngIf="first_name.errors && first_name.touched" class="alert alert-danger">
+                <div *ngIf="first_name.errors && first_name.touched">
                     <div [hidden]="!first_name.errors.required">
-                        El nombre es obligatorio.
+                        <div class="form-control-feedback">El nombre es obligatorio.</div>
                     </div>
                     <div [hidden]="!first_name.errors.minlength">
-                        El nombre debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!first_name.errors.maxlength">
-                        El nombre debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El nombre debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!last_name.errors && last_name.touched" [class.has-danger]="last_name.errors && last_name.touched">
                 <!-- Lastname field -->
                 <label for="recipient-last_name" class="form-control-label">Apellido:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="user.last_name" #last_name="ngModel" required>
+                    <input type="text" id="recipient-last_name" placeholder="Hernández" class="form-control" minlength="3" maxlength="24" name="last_name" [(ngModel)]="user.last_name" #last_name="ngModel" [class.form-control-success]="!last_name.errors && last_name.touched"
+                        [class.form-control-danger]="last_name.errors && last_name.touched" required>
                 </div>
                 <!-- Feedback lastname -->
-                <div *ngIf="last_name.errors && last_name.touched" class="alert alert-danger">
+                <div *ngIf="last_name.errors && last_name.touched">
                     <div [hidden]="!last_name.errors.required">
-                        El apellido es obligatorio.
+                        <div class="form-control-feedback">El apellido es obligatorio.</div>
                     </div>
                     <div [hidden]="!last_name.errors.minlength">
-                        El apellido debe ser mayor o igual a 3 caracteres.
+                        <div class="form-control-feedback">El apellido debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!last_name.errors.maxlength">
-                        El apellido debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">El apellido debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -82,24 +84,25 @@
 
         <!-- Third row -->
         <div *ngIf="!user.id" class="form-group row">
-            <div class="col-md-12">
+            <div class="col-md-12" [class.has-success]="!password.errors && password.touched" [class.has-danger]="password.errors && password.touched">
                 <!-- Password field -->
                 <label for="recipient-landline" class="form-control-label">Password:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-lock"></i>
                 </span>
-                    <input type="password" class="form-control" id="recipient-password" minlength="7" maxlength="24" name="password" [(ngModel)]="user.password" #password="ngModel" required>
+                    <input type="password" class="form-control" id="recipient-password" minlength="7" maxlength="24" name="password" [(ngModel)]="user.password" #password="ngModel" [class.form-control-success]="!password.errors && password.touched" [class.form-control-danger]="password.errors && password.touched"
+                        required>
                 </div>
                 <!-- Feedback password -->
-                <div *ngIf="password.errors && password.touched" class="alert alert-danger">
+                <div *ngIf="password.errors && password.touched">
                     <div [hidden]="!password.errors.required">
-                        La contraseña es obligatoria.
+                        <div class="form-control-feedback">La contraseña es obligatoria.</div>
                     </div>
                     <div [hidden]="!password.errors.minlength">
-                        La contraseña debe ser mayor o igual a 6 caracteres.
+                        <div class="form-control-feedback">La contraseña debe ser mayor o igual a 6 caracteres.</div>
                     </div>
                     <div [hidden]="!password.errors.maxlength">
-                        La contraseña debe ser menor a 25 caracteres.
+                        <div class="form-control-feedback">La contraseña debe ser menor a 25 caracteres.</div>
                     </div>
                 </div>
             </div>
@@ -108,20 +111,21 @@
 
         <!-- Fourth row -->
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-6" [class.has-success]="!groups_complete.errors && groups_complete.touched" [class.has-danger]="groups_complete.errors && groups_complete.touched">
                 <!-- Role field -->
                 <label for="user-role" class="form-control-label">Roles:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=8 required>
+                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=8 [class.form-control-success]="!groups_complete.errors && groups_complete.touched" [class.form-control-danger]="groups_complete.errors && groups_complete.touched"
+                        required>
                       <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
                     </select>
                 </div>
 
                 <!-- Mandatory role feedback -->
-                <div *ngIf="groups_complete.errors && groups_complete.touched" class="alert alert-danger">
+                <div *ngIf="groups_complete.errors && groups_complete.touched">
                     <div [hidden]="!groups_complete.errors.required">
-                        El rol es obligatorio.
+                        <div class="form-control-feedback">El rol es obligatorio.</div>
                     </div>
                 </div>
 
@@ -141,7 +145,7 @@
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the user.id exists because it's used only for update user modal -->
             <button *ngIf="user.id" type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
             <!-- Hides modal -->
-            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(userModalForm)">Cancelar</button>
             <!-- Submits updated or new user -->
             <!-- Calls the submitUserForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>

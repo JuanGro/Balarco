@@ -47,6 +47,9 @@ var WorkFormComponent = (function () {
             this.filterContactsByClientId(this.client_id);
             this.filterIgualasByClientId(this.client_id);
         }
+        if (this.userExecutivesList && this.userExecutivesList.length > 0) {
+            this.work.executive = this.userExecutivesList[0].id;
+        }
         if (this.workTypesList && this.workTypesList.length > 0) {
             this.currentWorkTypeId = this.workTypesList[0].work_type_id;
         }
@@ -78,7 +81,6 @@ var WorkFormComponent = (function () {
     WorkFormComponent.prototype.submitWorkForm = function (form, object) {
         this.work.art_works = this.currentArtWorkList;
         this.work.contact = this.contact_id;
-        this.work.executive_id = 1;
         if (this.work.id) {
             this.submitUpdatedWork();
         }
@@ -225,6 +227,10 @@ __decorate([
     Input('statusList'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "statusList", void 0);
+__decorate([
+    Input('userExecutivesList'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "userExecutivesList", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

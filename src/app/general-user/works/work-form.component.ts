@@ -14,6 +14,7 @@ import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 
@@ -44,6 +45,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
   // Receives status list from parent component.
   @Input('statusList') statusList: Status[];
+  // Receives executives list.
+  @Input('userExecutivesList') userExecutivesList: User[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -104,6 +107,9 @@ export class WorkFormComponent implements OnChanges {
       this.filterContactsByClientId(this.client_id);
       this.filterIgualasByClientId(this.client_id);
     }
+    if (this.userExecutivesList && this.userExecutivesList.length > 0) {
+      this.work.executive = this.userExecutivesList[0].id;
+    }
     if (this.workTypesList && this.workTypesList.length > 0) {
       this.currentWorkTypeId = this.workTypesList[0].work_type_id;
     } else {
@@ -147,8 +153,6 @@ export class WorkFormComponent implements OnChanges {
   public submitWorkForm(form: NgForm, object: Work) {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
-    // TODO: Remove when Users module is ready.
-    this.work.executive_id = 1;
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();

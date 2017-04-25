@@ -24,11 +24,15 @@ import { environment } from '../../../environments/environment';
 **/
 export class UsersComponent implements OnInit {
   // Received from table component, it returns the user that was selected to see in detail.
-  @Input() currentUser: User;
+  @Input('currentUser') currentUser: User;
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
   // List of users received from httpService.
   public userList: User[];
+  // List of users received from httpService.
+  public completeUserList: User[];
   // List of groups received from httpService
   public groupList: Group[];
   // Variable for save the object received from child component and manage if the form is for update or create user.
@@ -69,10 +73,13 @@ export class UsersComponent implements OnInit {
                     .map((data: any) => data.json())
                     .subscribe(userListJSON => {
                       // Creates user objetc list from JSON.
+                      this.completeUserList = [];
                       this.userList = [];
                       for (let userJSON of userListJSON) {
+                        this.completeUserList.push(new User(userJSON));
                         this.userList.push(new User(userJSON));
                       }
+                      this.completeUserList.sort();
                     },
                       err => {
                         this.toaster.show(err, 'Error', 'Ocurrió un error al cargar usuarios');
@@ -138,6 +145,28 @@ export class UsersComponent implements OnInit {
   **/
   public getUserFromTable(object: User): void {
     this.user = object;
+  }
+
+  /**
+  * Shows the user list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.userList = [];
+    if (this.valueSearch === '') {
+      this.userList = this.completeUserList;
+    } else {
+      for (let userFromList of this.completeUserList) {
+        if (userFromList.username.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            userFromList.first_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            userFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let user = new User(userFromList);
+            this.userList.push(user);
+        }
+      }
+    }
   }
 
   /**
