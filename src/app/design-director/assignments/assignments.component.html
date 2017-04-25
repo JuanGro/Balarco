@@ -1,0 +1,42 @@
+<!-- Title -->
+<div class="card card-inverse card-primary text-center">
+    <div class="card-block">
+        <blockquote class="card-blockquote">
+            <h1>{{ title }}</h1>
+        </blockquote>
+    </div>
+</div>
+
+<!-- Child component, it contains the table -->
+<!-- [worksList] sends the works list to the table -->
+<!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
+<!-- (currentWork) receives the work who was selected by the user -->
+<assignment-list [worksList]="worksList" (requestShowUpdateWorkModal)="updateWorkModal.show()" (currentWork)="getWorkFromTable($event)">
+</assignment-list>
+
+
+<!-- Modal Update Work -->
+<div bsModal #updateWorkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myUpdateWorkModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleUpdateModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the work form -->
+            <!-- [work] sends the work object to the form to display the current values -->
+            <!-- [clientsList] sends the client list to the form -->
+            <!-- [contactsList] sends the contact list to the form -->
+            <!-- [igualasList] sends the igualas list to the form -->
+            <!-- [workTypesList] sends the work types list to the form -->
+            <!-- [graduationArtTypes] sends the graduation art types list to the form -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <!-- (workUpdated) listens to update the work -->
+            <assignment-form [userList]="userList" [work]="work" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="updateWorkModal.hide()"
+                (workUpdated)="onWorkUpdated($event)" (titleModal)="changeTitle($event)">
+            </assignment-form>
+        </div>
+    </div>
+</div>
+
+<toaster-container></toaster-container>
