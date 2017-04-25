@@ -9,6 +9,9 @@ import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 // Router
 import { AdminRoutingModule } from './admin-routing.module';
 
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Components
 import { CompletedDesignsListService } from './completed-designs/completed-designs-list.service';
 import { CompletedDesignsListComponent } from './completed-designs/completed-designs-list.component';
@@ -30,7 +33,8 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
     ChartsModule,
     DropdownModule,
     ModalModule.forRoot(),
-    ToasterModule
+    ToasterModule,
+    NgxPaginationModule
   ],
   declarations: [ CompletedDesignsListComponent, CompletedDesignsListModalComponent, UsersComponent,
   UserListComponent, UserFormComponent],
