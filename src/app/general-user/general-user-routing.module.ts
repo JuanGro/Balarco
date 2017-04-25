@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { WorksComponent } from './works/works.component';
+import { AssignmentFilter } from './works/works.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
         path: 'works',
         component: WorksComponent,
         data: {
-          title: 'Works'
+          title: 'Works',
+          type: AssignmentFilter.ALL_WORKS
         }
       }
     ]

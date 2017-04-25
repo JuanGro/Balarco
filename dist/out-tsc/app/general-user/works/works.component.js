@@ -28,7 +28,8 @@ var WorksComponent = (function () {
         this.toaster = toaster;
     }
     WorksComponent.prototype.ngOnInit = function () {
-        this.route.data.subscribe(function (v) { return console.log(v); });
+        var _this = this;
+        this.route.data.subscribe(function (data) { return _this.assignmentFilter = data['type']; });
         this.title = 'Lista de Trabajos';
         this.titleNewModal = 'Nuevo Trabajo';
         this.titleUpdateModal = 'Modificar Trabajo';
@@ -36,7 +37,6 @@ var WorksComponent = (function () {
         this.titleFilterModal = 'Filtrar trabajo(s)';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
         this.stopFilterButton = true;
-        this.loadWorksList(environment.WORKS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
         this.loadContactsList(environment.CONTACTS_URL);
         this.loadIgualasList(environment.IGUALAS_URL);
@@ -44,6 +44,9 @@ var WorksComponent = (function () {
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
         this.loadStatusList(environment.STATUS_URL);
         this.loadUserExecutivesList(environment.USERS_URL);
+        if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+            this.loadWorksList(environment.WORKS_URL);
+        }
     };
     WorksComponent.prototype.loadWorksList = function (url) {
         var _this = this;
@@ -223,4 +226,11 @@ WorksComponent = __decorate([
     __metadata("design:paramtypes", [ActivatedRoute, HttpService, CustomToastService])
 ], WorksComponent);
 export { WorksComponent };
+export var AssignmentFilter;
+(function (AssignmentFilter) {
+    AssignmentFilter[AssignmentFilter["ALL_WORKS"] = 0] = "ALL_WORKS";
+    AssignmentFilter[AssignmentFilter["MY_ASSIGNMENTS"] = 1] = "MY_ASSIGNMENTS";
+    AssignmentFilter[AssignmentFilter["TO_BE_PAID"] = 2] = "TO_BE_PAID";
+})(AssignmentFilter || (AssignmentFilter = {}));
+;
 //# sourceMappingURL=../../../../../src/app/general-user/works/works.component.js.map

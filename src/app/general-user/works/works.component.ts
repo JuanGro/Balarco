@@ -65,6 +65,8 @@ export class WorksComponent implements OnInit {
   public descriptionDangerModal: string;
   // Variable to disable stop filter button.
   public stopFilterButton: boolean;
+  // Variable to catch the enum that the router sends.
+  private assignmentFilter: AssignmentFilter;
 
   public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -74,7 +76,7 @@ export class WorksComponent implements OnInit {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
-    this.route.data.subscribe(v => console.log(v));
+    this.route.data.subscribe(data => this.assignmentFilter = data['type'] as AssignmentFilter);
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
@@ -83,7 +85,6 @@ export class WorksComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
     this.stopFilterButton = true;
 
-    this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
@@ -91,6 +92,10 @@ export class WorksComponent implements OnInit {
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
     this.loadUserExecutivesList(environment.USERS_URL);
+
+    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+      this.loadWorksList(environment.WORKS_URL);
+    }
   }
 
   /**
@@ -340,3 +345,12 @@ export class WorksComponent implements OnInit {
   });
   }
 }
+
+/**
+* Enum to keep track of the behaivour that WorkComponent will have.
+**/
+export enum AssignmentFilter {
+  ALL_WORKS,
+  MY_ASSIGNMENTS,
+  TO_BE_PAID
+};
