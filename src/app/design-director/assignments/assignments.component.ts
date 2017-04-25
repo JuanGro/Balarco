@@ -68,7 +68,7 @@ export class AssignmentsComponent implements OnInit {
     this.titleUpdateModal = 'Asignar diseñadores a trabajo';
     this.designerListDefault = [];
 
-    this.loadWorksList(environment.WORKS_URL);
+    this.loadWorksList(environment.WORKS_UNASSIGNED_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);

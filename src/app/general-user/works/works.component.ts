@@ -104,10 +104,10 @@ export class WorksComponent implements OnInit {
                       this.completeWorksList = [];
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
-                        let object: Work = new Work(workJSON);
-                        console.log(object.work_designers);
                         this.completeWorksList.push(new Work(workJSON));
                       }
+                      console.log(this.worksList);
+                      console.log(this.completeWorksList);
                     },
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');

@@ -217,6 +217,15 @@
 
         <!-- Seventh row -->
         <div class="form-group row">
+            <div class="col-md-12">
+                <div *ngFor="let designer of this.work.work_designers">
+                    {{ designer.designer }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Eight row -->
+        <div class="form-group row">
             <div class="col-md-6">
                 <!-- StartDate Field -->
                 <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
