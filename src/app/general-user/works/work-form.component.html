@@ -216,17 +216,6 @@
         </div>
 
         <!-- Seventh row -->
-        <div class="row">
-            <div class="col-md-12">
-                <label for="recipient-assignments" class="form-control-label">Asignaciones:</label>
-                <ng-select [multiple]="true" [items]="designerStringList" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No designers selected">
-                </ng-select>
-                <br/>
-                <pre class="alert alert-info">{{ itemsToString(value) }}</pre>
-            </div>
-        </div>
-
-        <!-- Eighth row -->
         <div class="form-group row">
             <div class="col-md-6">
                 <!-- StartDate Field -->
@@ -261,7 +250,7 @@
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(worksModalForm)">Cancelar</button>
             <!-- Submits updated or new work -->
             <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid and at least one designer is selected, then it closes the current modal -->
-            <button type="submit" class="btn btn-primary" [disabled]="!worksModalForm.form.valid || designerListToSend.length < 1" (click)="requestCloseThisModal($event)">Guardar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!worksModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
         </div>
 
     </form>
