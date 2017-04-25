@@ -9,13 +9,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
 
 // Models
-import { ArtWork } from '../../general-user/works/art-works/art-work-model';
-import { Client } from '../../accounts/clients/client-model';
-import { Contact } from '../../accounts/contacts/contact-model';
-import { Iguala } from '../../accounts/igualas/iguala-model';
-import { Status } from '../../general-user/works/status/status-model';
 import { Work } from '../../general-user/works/work-model';
-import { WorkType } from '../../general-user/works/work-type/work-type-model';
 import { Designer } from '../../general-user/works/designer/designer-model';
 import { DesignerString } from '../../general-user/works/designer/designer-model';
 import { User } from '../../admin/users/user-model';
@@ -29,24 +23,12 @@ import { User } from '../../admin/users/user-model';
 * - Use OnChanges feature because it's important to know if the user opens a new modal or update modal depending
 * in the work object value, the component is listening for each change in that variable.
 * - Initialize form.
-* - Create validations.
 * - Request save the work.
 * - Request actions in modals to the parent component.
 **/
 export class AssignmentFormComponent implements OnChanges {
+  // Receives the current work from parent component.
   @Input('work') work: Work;
-  // Receives the contacts list from parent component.
-  @Input('contactsList') contactsList: Contact[];
-  // Receives the clients list from parent component.
-  @Input('clientsList') clientsList: Client[];
-  // Receives the igualas list from parent component.
-  @Input('igualasList') igualasList: Iguala[];
-  // Receives the workTypes list from parent component.
-  @Input('workTypesList') workTypesList: WorkType[];
-  // Receives workTypes for Graduation only from parent component.
-  @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
-  // Receives status list from parent component.
-  @Input('statusList') statusList: Status[];
   // Receives user list from parent component.
   @Input('userList') userList: User[];
   // Requests close of the current modal to parent component.
