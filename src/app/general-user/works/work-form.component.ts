@@ -80,7 +80,6 @@ export class WorkFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    console.log(this.work);
     if (!this.work) {
       // New work
       this.work = new Work();
@@ -153,11 +152,6 @@ export class WorkFormComponent implements OnChanges {
 
     // TODO: Remove when Users module is ready.
     this.work.executive_id = 9;
-    // let designer: Designer = { designer: 9, active_work: true };
-    // let designer2: Designer = { designer: 10, active_work: true };
-    // this.work.work_designers = [ designer, designer2 ];
-
-    console.log(this.work);
 
     if (this.work.id) {
       // Update work

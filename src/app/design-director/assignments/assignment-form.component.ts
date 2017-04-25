@@ -31,6 +31,8 @@ export class AssignmentFormComponent implements OnChanges {
   @Input('work') work: Work;
   // Receives user list from parent component.
   @Input('userList') userList: User[];
+  // Receives designer list from parent component.
+  @Input('designerListDefault') designerListDefault: Designer[];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Event for the parent to push updated Work to the list.
@@ -67,6 +69,7 @@ export class AssignmentFormComponent implements OnChanges {
     // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
     this.designersChanges = false;
 
+    // Get the user list and convert to string showing his group.
     if (this.userList) {
       for (let designer of this.userList) {
         let designerObject: DesignerString = new DesignerString();
@@ -94,10 +97,13 @@ export class AssignmentFormComponent implements OnChanges {
             ' (' + designer_complete[0].groups_complete[0].name + ')';
           }
 
-          let designerObject: DesignerString = new DesignerString();
-          designerObject.id = designer.designer;
-          designerObject.text = designer_name;
-          this.value.push(designerObject);
+          // Show the designers assigned to the work
+          if (designer.active_work === true) {
+            let designerObject: DesignerString = new DesignerString();
+            designerObject.id = designer.designer;
+            designerObject.text = designer_name;
+            this.value.push(designerObject);
+          }
         }
       }
     }
@@ -156,19 +162,21 @@ export class AssignmentFormComponent implements OnChanges {
   * Adds the selected element to the designerListToSend list.
   **/
   public selected(value: DesignerString): void {
-    let object: Designer = new Designer();
-    object.designer = value.id;
-    object.active_work = true;
-    this.designerListToSend.push(object);
+    let designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
+    let index = this.designerListToSend.indexOf(designer);
+    if (index >= 0) {
+      this.designerListToSend[index].active_work = true;
+    }
   }
 
   /**
   * Removes the selected element in the designerListToSend list.
   **/
   public removed(value: DesignerString): void {
-    let index = this.designerListToSend.indexOf(value);
+    let designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
+    let index = this.designerListToSend.indexOf(designer);
     if (index >= 0) {
-      this.designerListToSend.splice(index, 1);
+      this.designerListToSend[index].active_work = false;
     }
   }
 
@@ -177,7 +185,7 @@ export class AssignmentFormComponent implements OnChanges {
   **/
   public refreshValue(value: any): void {
     if (!this.designersChanges) {
-      this.designerListToSend = [];
+      this.designerListToSend = this.designerListDefault;
       this.designersChanges = true;
     }
     this.value = value;

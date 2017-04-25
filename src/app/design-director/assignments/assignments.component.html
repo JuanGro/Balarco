@@ -32,7 +32,7 @@
             <!-- [graduationArtTypes] sends the graduation art types list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <!-- (workUpdated) listens to update the work -->
-            <assignment-form [userList]="userList" [work]="work" (requestCloseModal)="updateWorkModal.hide()" (workUpdated)="onWorkUpdated($event)" (titleModal)="changeTitle($event)">
+            <assignment-form [designerListDefault]="designerListDefault" [userList]="userList" [work]="work" (requestCloseModal)="updateWorkModal.hide()" (workUpdated)="onWorkUpdated($event)" (titleModal)="changeTitle($event)">
             </assignment-form>
         </div>
     </div>

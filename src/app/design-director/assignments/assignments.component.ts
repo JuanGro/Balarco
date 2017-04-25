@@ -13,6 +13,7 @@ import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from '../../general-user/works/status/status-model';
 import { Work } from '../../general-user/works/work-model';
 import { WorkType } from '../../general-user/works/work-type/work-type-model';
+import { Designer } from '../../general-user/works/designer/designer-model';
 import { URLSearchParams } from '@angular/http';
 
 // Environment
@@ -50,6 +51,8 @@ export class AssignmentsComponent implements OnInit {
   public userList: User[];
   // List of Status.
   public statusList: Status[];
+  // List of designers
+  public designerListDefault: Designer[];
   // Title of update work modal.
   public titleUpdateModal: string;
 
@@ -63,8 +66,9 @@ export class AssignmentsComponent implements OnInit {
   public ngOnInit() {
     this.title = 'Trabajos por asignar';
     this.titleUpdateModal = 'Asignar diseñadores a trabajo';
+    this.designerListDefault = [];
 
-    this.loadWorksList(environment.WORKS_UNASSIGNED_URL);
+    this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
@@ -174,8 +178,13 @@ export class AssignmentsComponent implements OnInit {
                     .subscribe(userListJSON => {
                       // Creates clients objects from JSON.
                       this.userList = [];
-                      for (let userJSON of userListJSON) {
+                      let userJSON: User;
+                      for (userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
+                        let designer: Designer = new Designer();
+                        designer.designer = userJSON.id;
+                        designer.active_work = false;
+                        this.designerListDefault.push(designer);
                       }
                     },
                     error => {
