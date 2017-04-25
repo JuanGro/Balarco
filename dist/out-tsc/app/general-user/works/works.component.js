@@ -15,6 +15,7 @@ import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
@@ -29,7 +30,9 @@ var WorksComponent = (function () {
         this.titleNewModal = 'Nuevo Trabajo';
         this.titleUpdateModal = 'Modificar Trabajo';
         this.titleDangerModal = 'Eliminar Trabajo';
+        this.titleFilterModal = 'Filtrar trabajo(s)';
         this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
+        this.stopFilterButton = true;
         this.loadWorksList(environment.WORKS_URL);
         this.loadClientsList(environment.CLIENTS_URL);
         this.loadContactsList(environment.CONTACTS_URL);
@@ -37,6 +40,7 @@ var WorksComponent = (function () {
         this.loadWorkTypesList(environment.WORK_TYPES_URL);
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
         this.loadStatusList(environment.STATUS_URL);
+        this.loadUserExecutivesList(environment.USERS_URL);
     };
     WorksComponent.prototype.loadWorksList = function (url) {
         var _this = this;
@@ -44,9 +48,11 @@ var WorksComponent = (function () {
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             _this.worksList = [];
+            _this.completeWorksList = [];
             for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
                 var workJSON = worksListJSON_1[_i];
                 _this.worksList.push(new Work(workJSON));
+                _this.completeWorksList.push(new Work(workJSON));
             }
         }, function (error) {
             _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
@@ -139,12 +145,49 @@ var WorksComponent = (function () {
             _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los estados');
         });
     };
+    WorksComponent.prototype.loadUserExecutivesList = function (url) {
+        var _this = this;
+        var params = new URLSearchParams();
+        params.append('group_name', 'Super usuario');
+        params.append('group_name', 'Director de cuentas');
+        params.append('group_name', 'Ejecutivo SR');
+        params.append('group_name', 'Ejecutivo JR');
+        this.httpService.getObject(url, params)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (usersListJSON) {
+            _this.userExecutivesList = [];
+            for (var _i = 0, usersListJSON_1 = usersListJSON; _i < usersListJSON_1.length; _i++) {
+                var user = usersListJSON_1[_i];
+                _this.userExecutivesList.push(new User(user));
+            }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los ejecutivos');
+        });
+    };
     WorksComponent.prototype.getWorkFromTable = function (object) {
         this.work = object;
     };
-    WorksComponent.prototype.initializeModal = function () { };
     WorksComponent.prototype.onWorkCreated = function (event) {
         this.worksList.push(event);
+    };
+    WorksComponent.prototype.getResultSearch = function (urlFilterWorks) {
+        var _this = this;
+        this.httpService.getObject(urlFilterWorks)
+            .map(function (data) { return data.json(); })
+            .subscribe(function (worksListJSON) {
+            _this.worksList = [];
+            for (var _i = 0, worksListJSON_2 = worksListJSON; _i < worksListJSON_2.length; _i++) {
+                var workJSON = worksListJSON_2[_i];
+                _this.worksList.push(new Work(workJSON));
+            }
+        }, function (error) {
+            _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos filtrados');
+        });
+        this.stopFilterButton = false;
+    };
+    WorksComponent.prototype.stopWorkFilter = function () {
+        this.worksList = this.completeWorksList;
+        this.stopFilterButton = true;
     };
     WorksComponent.prototype.onWorkUpdated = function (event) {
         var oldWork = this.worksList.filter(function (work) { return work.id === event.id; })[0];
