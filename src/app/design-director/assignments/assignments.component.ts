@@ -64,7 +64,7 @@ export class AssignmentsComponent implements OnInit {
     this.title = 'Trabajos por asignar';
     this.titleUpdateModal = 'Asignar diseñadores a trabajo';
 
-    this.loadWorksList(environment.WORKS_URL);
+    this.loadWorksList(environment.WORKS_UNASSIGNED_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
@@ -80,12 +80,7 @@ export class AssignmentsComponent implements OnInit {
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
   private loadWorksList(url: string) {
-    let params = new URLSearchParams();
-    params.append('group_name', 'Super usuario');
-    params.append('group_name', 'Director de diseño');
-    params.append('group_name', 'Diseñador SR');
-    params.append('group_name', 'Diseñador JR');
-    this.httpService.getObject(url, params)
+    this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
@@ -108,7 +103,12 @@ export class AssignmentsComponent implements OnInit {
   *   - url: The url where the service will comunicate to get the Client object.
   **/
   private loadClientsList(url: string) {
-    this.httpService.getObject(url)
+    let params = new URLSearchParams();
+    params.append('group_name', 'Super usuario');
+    params.append('group_name', 'Director de diseño');
+    params.append('group_name', 'Diseñador SR');
+    params.append('group_name', 'Diseñador JR');
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(clientsListJSON => {
                       // Creates clients objects from JSON.

@@ -140,6 +140,7 @@ export class Work {
         }
       }
     }
+    
     newWorkJSON['work_designers'] = workDesignersArray;
 
     return newWorkJSON;
