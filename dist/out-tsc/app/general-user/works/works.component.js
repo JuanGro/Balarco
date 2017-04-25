@@ -47,6 +47,9 @@ var WorksComponent = (function () {
         if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
             this.loadWorksList(environment.WORKS_URL);
         }
+        else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+            this.loadWorksList(environment.MY_ASSIGNMENTS);
+        }
     };
     WorksComponent.prototype.loadWorksList = function (url) {
         var _this = this;
