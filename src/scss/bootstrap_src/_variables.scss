@@ -111,7 +111,7 @@ $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
 // Reassign color vars to semantic color scheme
-$brand-primary:             $blue !default;
+$brand-primary:             $orange;
 $brand-success:             $green !default;
 $brand-info:                $teal !default;
 $brand-warning:             $orange !default;
@@ -341,8 +341,8 @@ $table-sm-cell-padding:         .3rem !default;
 
 $table-bg:                      transparent !default;
 
-$table-inverse-bg:              $gray-dark !default;
-$table-inverse-color:           $body-bg !default;
+$table-inverse-bg:              $orange;
+$table-inverse-color:           $white;
 
 $table-bg-accent:               rgba($black,.05) !default;
 $table-bg-hover:                rgba($black,.075) !default;
