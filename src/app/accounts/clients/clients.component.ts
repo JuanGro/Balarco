@@ -25,7 +25,7 @@ declare var ReconnectingWebSocket: any;
 * - Update an specific client.
 * - Remove a client.
 **/
-export class ClientsComponent implements OnInit, OnChanges{
+export class ClientsComponent implements OnInit, OnChanges {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentClient') currentClient: Client;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -70,7 +70,7 @@ export class ClientsComponent implements OnInit, OnChanges{
   /**
   * Implements needed method to observ changes on inputs
   **/
-  public ngOnChanges(){
+  public ngOnChanges() {
   }
 
   /**
@@ -201,21 +201,18 @@ export class ClientsComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    var ws_path = environment.WS_URL + url;
-    console.log("Connecting to " + ws_path);
-    var socket = new ReconnectingWebSocket(ws_path);
-    var self = this;
+    let ws_path = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(ws_path);
+    let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
     };
-    socket.onopen = function() { console.log("Connected to notification socket"); }
-    socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
 
   /**
   * Reloads user list after
   **/
-  public reloadClientList(){
+  public reloadClientList() {
     this.notificationBannerIsActive = false;
     this.loadClientsList(environment.CLIENTS_URL);
   }

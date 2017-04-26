@@ -26,7 +26,7 @@ declare var ReconnectingWebSocket: any;
 * - Update an specific contact.
 * - Remove a contact.
 **/
-export class ContactsComponent implements OnInit, OnChanges{
+export class ContactsComponent implements OnInit, OnChanges {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentContact') currentContact: Contact;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -74,7 +74,7 @@ export class ContactsComponent implements OnInit, OnChanges{
   /**
   * Implements needed method to observ changes on inputs
   **/
-  public ngOnChanges(){
+  public ngOnChanges() {
   }
 
   /**
@@ -185,7 +185,12 @@ export class ContactsComponent implements OnInit, OnChanges{
       }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar contacto');
+      let errorBody = JSON.parse(error['_body']);
+      if (error.status === 400) {
+        this.toaster.show(error, 'Error', errorBody);
+      } else {
+        this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar el contacto');
+      }
     });
   }
 
@@ -227,21 +232,18 @@ export class ContactsComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    var ws_path = environment.WS_URL + url;
-    console.log("Connecting to " + ws_path);
-    var socket = new ReconnectingWebSocket(ws_path);
-    var self = this;
+    let ws_path = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(ws_path);
+    let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
     };
-    socket.onopen = function() { console.log("Connected to notification socket"); }
-    socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
 
   /**
   * Reloads user list after
   **/
-  public reloadContactList(){
+  public reloadContactList() {
     this.notificationBannerIsActive = false;
     this.loadContactsList(environment.CONTACTS_URL);
   }

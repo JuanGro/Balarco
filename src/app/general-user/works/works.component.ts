@@ -34,7 +34,7 @@ declare var ReconnectingWebSocket: any;
 * - Update an specific work.
 * - Remove a work.
 **/
-export class WorksComponent implements OnInit, OnChanges{
+export class WorksComponent implements OnInit, OnChanges {
   // Variable that saves the title to show in the template.
   public title: string;
   // Variable to keep track of current work.
@@ -104,7 +104,7 @@ export class WorksComponent implements OnInit, OnChanges{
   /**
   * Implements needed method to observ changes on inputs
   **/
-  public ngOnChanges(){
+  public ngOnChanges() {
   }
 
   /**
@@ -362,27 +362,22 @@ export class WorksComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string, userId: string) {
-    var ws_path = environment.WS_URL + url + userId;
-    console.log("Connecting to " + ws_path);
-    var socket = new ReconnectingWebSocket(ws_path);
-    var self = this;
+    let ws_path = environment.WS_URL + url + userId;
+    let socket = new ReconnectingWebSocket(ws_path);
+    let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
-        var messageData = JSON.parse(message.data);
-        var messageString = messageData["text"];
-        self.showToast("Trabajos", messageString);
-        console.log(message)
+        let messageData = JSON.parse(message.data);
+        let messageString = messageData['text'];
+        self.showToast('Trabajos', messageString);
     };
-    socket.onopen = function() { console.log("Connected to notification socket"); }
-    socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
 
   /**
   * Reloads user list after
   **/
-  public reloadWorkList(){
+  public reloadWorkList() {
     this.notificationBannerIsActive = false;
-    
     this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
@@ -396,12 +391,11 @@ export class WorksComponent implements OnInit, OnChanges{
   /**
   * Returns current user's id.
   **/
-  public getCurrentUserId(){
+  public getCurrentUserId() {
     let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUserJSON) {
-      return currentUserJSON["id"];
-    }
-    else {
+      return currentUserJSON['id'];
+    } else {
       return null;
     }
   }
@@ -417,7 +411,6 @@ export class WorksComponent implements OnInit, OnChanges{
   **/
   public createToast(title?: string, message?: string): Toast {
     let type: string;
-    title = ''
     type = 'success';
     let toast: Toast = {
         type: type,

@@ -26,7 +26,7 @@ declare var ReconnectingWebSocket: any;
 * - Update an specific user.
 * - Remove a user.
 **/
-export class UsersComponent implements OnInit, OnChanges{
+export class UsersComponent implements OnInit, OnChanges {
   // Received from table component, it returns the user that was selected to see in detail.
   @Input('currentUser') currentUser: User;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -74,7 +74,7 @@ export class UsersComponent implements OnInit, OnChanges{
   /**
   * Implements needed method to observ changes on inputs
   **/
-  public ngOnChanges(){
+  public ngOnChanges() {
   }
 
   /**
@@ -148,7 +148,12 @@ export class UsersComponent implements OnInit, OnChanges{
       }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar usuario');
+      let errorBody = JSON.parse(error['_body']);
+      if (error.status === 400) {
+        this.toaster.show(error, 'Error', errorBody);
+      } else {
+        this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar usuario');
+      }
     });
   }
 
@@ -206,7 +211,7 @@ export class UsersComponent implements OnInit, OnChanges{
       this.userList[index] = event;
     }
   }
-  
+
   /**
   * Opens websocket connection to specified url
   * to receive notification of changes to the database.
@@ -215,21 +220,18 @@ export class UsersComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    var ws_path = environment.WS_URL + url;
-    console.log("Connecting to " + ws_path);
-    var socket = new ReconnectingWebSocket(ws_path);
-    var self = this;
+    let ws_path = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(ws_path);
+    let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
     };
-    socket.onopen = function() { console.log("Connected to notification socket"); }
-    socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
 
   /**
   * Reloads user list after
   **/
-  public reloadUserList(){
+  public reloadUserList() {
     this.notificationBannerIsActive = false;
     this.loadUserList(environment.USERS_URL);
   }
