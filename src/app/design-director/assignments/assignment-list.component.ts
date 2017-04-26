@@ -20,6 +20,8 @@ export class AssignmentsListComponent {
   @Output() requestShowUpdateWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the work selected by the user to parent component.
   @Output() currentWork: EventEmitter<Work> = new EventEmitter<Work>();
+  // Sends the value of the search to parent component.
+  @Output() valueSearch: EventEmitter<string> = new EventEmitter<string>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
 
@@ -40,5 +42,13 @@ export class AssignmentsListComponent {
   **/
   public sendCurrentWork(object: Work) {
     this.currentWork.emit(object);
+  }
+
+  /**
+  * Search specific items in the work list,
+  * making all the strings to lower case and checks substrings.
+  **/
+  public filterItem(value: string) {
+    this.valueSearch.emit(value);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -29,6 +29,8 @@ import { environment } from '../../../environments/environment';
 * - Update an specific work.
 **/
 export class AssignmentsComponent implements OnInit {
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
   // Variable to keep track of current work.
@@ -91,7 +93,6 @@ export class AssignmentsComponent implements OnInit {
                       this.completeWorksList = [];
                       for (let workJSON of worksListJSON) {
                         this.worksList.push(new Work(workJSON));
-                        let object: Work = new Work(workJSON);
                         this.completeWorksList.push(new Work(workJSON));
                       }
                     },
@@ -251,6 +252,28 @@ export class AssignmentsComponent implements OnInit {
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los estados');
                     });
+  }
+
+  /**
+  * Shows the client list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.worksList = [];
+    this.completeWorksList.sort();
+    if (this.valueSearch === '') {
+      this.worksList = this.completeWorksList;
+    } else {
+      for (let workFromList of this.completeWorksList) {
+        if (workFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            workFromList.current_status_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let work = new Work(workFromList);
+            this.worksList.push(work);
+        }
+      }
+    }
   }
 
   /**

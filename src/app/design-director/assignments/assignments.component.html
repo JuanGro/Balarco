@@ -11,7 +11,7 @@
 <!-- [worksList] sends the works list to the table -->
 <!-- (requestShowUpdateWorkModal) receives the request to show the update modal -->
 <!-- (currentWork) receives the work who was selected by the user -->
-<assignment-list [worksList]="worksList" (requestShowUpdateWorkModal)="updateWorkModal.show()" (currentWork)="getWorkFromTable($event)">
+<assignment-list [worksList]="worksList" (requestShowUpdateWorkModal)="updateWorkModal.show()" (currentWork)="getWorkFromTable($event)" (valueSearch)="getValueSearch($event)">
 </assignment-list>
 
 
