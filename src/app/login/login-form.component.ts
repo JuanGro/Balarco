@@ -57,7 +57,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   /**
-  * Method to get the complete current user from API and set the roles.
+  * Method to get the complete current user from API and set the roles with user id.
   * Params:
   *   - username: Username of current user.
   **/
@@ -73,7 +73,7 @@ export class LoginFormComponent implements OnInit {
                          for (let group of usersList[0].groups_complete) {
                            groupNames.push(group.name);
                          }
-                         this.loginService.setUserRoles(groupNames);
+                         this.loginService.setUserRolesAndId(groupNames, usersList[0].id);
                          this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
                        }
                      });
