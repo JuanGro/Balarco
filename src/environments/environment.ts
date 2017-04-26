@@ -17,4 +17,6 @@ export const environment = {
   'STATUS_URL': 'works/status/',
   'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
   'USER_LIST_NOTIFICATIONS_URL': 'ws://localhost:8000/users/stream/',
+  'CLIENT_LIST_NOTIFICATIONS_URL': 'ws://localhost:8000/clients/stream/',
+  'CONTACT_LIST_NOTIFICATIONS_URL': 'ws://localhost:8000/contacts/stream/',
 };

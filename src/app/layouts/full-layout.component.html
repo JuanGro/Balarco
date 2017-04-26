@@ -304,10 +304,9 @@
                 <li class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/completed-designs-list']"><i class="glyphicons glyphicons-crown"></i> Diseños terminados</a>
                 </li>
-                <li class="nav-item nav-dropdown" routerLinkActive="open">
+                <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/users']"><i class="glyphicons glyphicons-crown"></i> Usuarios</a>
                 </li>
-
                 <!-- Account -->
                 <li class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/designs-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Diseños activos</a>

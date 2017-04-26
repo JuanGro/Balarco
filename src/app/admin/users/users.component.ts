@@ -71,9 +71,10 @@ export class UsersComponent implements OnInit, OnChanges{
     this.receiveNotifications(environment.USER_LIST_NOTIFICATIONS_URL);
   }
 
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
   public ngOnChanges(){
-    //this.notificationBannerIsActive = false;
-    console.log("On changes");
   }
 
   /**
@@ -207,7 +208,7 @@ export class UsersComponent implements OnInit, OnChanges{
   }
   
   /**
-  * Opens websocket connection to specified url and current userId
+  * Opens websocket connection to specified url
   * to receive notification of changes to the database.
   * Params:
   *   - userId: Current user id to connect to correct channel
