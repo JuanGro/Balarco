@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 // Models
 import { User } from './user-model';
 import { Group } from './group-model';
-import { Role } from './group-model';
+import { GroupString } from './group-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -20,7 +20,7 @@ import { environment } from '../../../environments/environment';
 /**
 * Component which manage the forms for update and create a user:
 * - Use OnChanges feature because it's important to know if the user opens a new modal or update modal depending
-* in the user object value, the component is listening for each change in that variable.
+* in the user object currentGroupNameList, the component is listening for each change in that variable.
 * - Initialize form.
 * - Create validations.
 * - Request save the user.
@@ -52,9 +52,9 @@ export class UserFormComponent implements OnChanges {
   // Variable to show the role of the contact selected.
   public array: string = '';
   // Variable to save which group is selecting the user in the Ng2-Select.
-  public value: Array<any>;
+  public currentGroupNameList: Array<any>;
   // List which saves all the groups in strings to handle in the Ng2-Select.
-  public groupStringList: Role[];
+  public groupStringList: GroupString[];
   // List of groups which will be sent to create/update a user.
   public userGroupsComplete: Group[];
   // Variable to identify if the ng2-select is used or not to change or assign a group.
@@ -65,13 +65,13 @@ export class UserFormComponent implements OnChanges {
   /**
   * Builds the component for first time each time when it's called.
   *   - Initialize the form depending wether the new or update user form is called.
-  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
+  *   - Use an auxiliary variable to select a default currentGroupNameList for the dropdown used in the form.
   **/
   public ngOnChanges() {
     // Initialize lists.
     this.userGroupsComplete = [];
     this.groupStringList = [];
-    this.value = [];
+    this.currentGroupNameList = [];
 
     // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
     this.groupsChanges = false;
@@ -79,7 +79,7 @@ export class UserFormComponent implements OnChanges {
     // Get the entire group list and convert to ng2-select format.
     if (this.groupList) {
       for (let group of this.groupList) {
-        let groupObject: Role = new Role();
+        let groupObject: GroupString = new GroupString();
         groupObject.id = group.id;
         groupObject.text = group.name;
         this.groupStringList.push(groupObject);
@@ -95,10 +95,10 @@ export class UserFormComponent implements OnChanges {
       if (this.user.groups_complete) {
         for (let group of this.user.groups_complete) {
           this.userGroupsComplete.push(group);
-          let groupObject: Role = new Role();
+          let groupObject: GroupString = new GroupString();
           groupObject.id = group.id;
           groupObject.text = group.name;
-          this.value.push(groupObject);
+          this.currentGroupNameList.push(groupObject);
         }
       }
     }
@@ -196,15 +196,15 @@ export class UserFormComponent implements OnChanges {
   /**
   * Adds the selected element to the userGroupsComplete list.
   **/
-  public selected(value: any): void {
-    this.userGroupsComplete.push(value);
+  public selected(currentGroupNameList: any): void {
+    this.userGroupsComplete.push(currentGroupNameList);
   }
 
   /**
   * Removes the selected element in the userGroupsComplete list.
   **/
-  public removed(value: any): void {
-    let index = this.userGroupsComplete.indexOf(value);
+  public removed(currentGroupNameList: any): void {
+    let index = this.userGroupsComplete.indexOf(currentGroupNameList);
     if (index >= 0) {
       this.userGroupsComplete.splice(index, 1);
     }
@@ -213,19 +213,19 @@ export class UserFormComponent implements OnChanges {
   /**
   * Identiies if the user is changing the groups to reset the userGroupsComplete list.
   **/
-  public refreshValue(value: any): void {
+  public refreshValue(currentGroupNameList: any): void {
     if (!this.groupsChanges) {
       this.userGroupsComplete = [];
       this.groupsChanges = true;
     }
-    this.value = value;
+    this.currentGroupNameList = currentGroupNameList;
   }
 
   /**
   * Method to show like an string the current user group list.
   **/
-  public itemsToString(value: Array<any> = []): string {
-    return value
+  public itemsToString(currentGroupNameList: Array<any> = []): string {
+    return currentGroupNameList
       .map((item: any) => {
         return item.text;
       }).join(', ');

@@ -20,7 +20,7 @@ export class Group {
 * Class that declares all the attributes used in the roles for ng-select field and use them
 * to submit the user object to the API.
 **/
-export class Role {
+export class GroupString {
   id: number;
   text: string;
 }
