@@ -227,7 +227,7 @@ export class ContactsComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    var ws_path = url
+    var ws_path = environment.WS_URL + url;
     console.log("Connecting to " + ws_path);
     var socket = new ReconnectingWebSocket(ws_path);
     var self = this;

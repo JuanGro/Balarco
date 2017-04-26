@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges} from '@angular/core';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -18,6 +18,10 @@ import { URLSearchParams } from '@angular/http';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'works',
   templateUrl: 'works.component.html'
@@ -29,7 +33,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific work.
 * - Remove a work.
 **/
-export class WorksComponent implements OnInit {
+export class WorksComponent implements OnInit, OnChanges{
   // Variable that saves the title to show in the template.
   public title: string;
   // Variable to keep track of current work.
@@ -64,6 +68,9 @@ export class WorksComponent implements OnInit {
   public descriptionDangerModal: string;
   // Variable to disable stop filter button.
   public stopFilterButton: boolean;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
+  public userId: string;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -80,7 +87,6 @@ export class WorksComponent implements OnInit {
     this.titleFilterModal = 'Filtrar trabajo(s)';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
     this.stopFilterButton = true;
-
     this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
@@ -89,6 +95,15 @@ export class WorksComponent implements OnInit {
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
     this.loadUserExecutivesList(environment.USERS_URL);
+    this.notificationBannerIsActive = false;
+    this.userId = this.getCurrentUserId();
+    this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.userId);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges(){
   }
 
   /**
@@ -333,8 +348,56 @@ export class WorksComponent implements OnInit {
         this.toaster.show(result, 'Trabajo eliminado', 'El trabajo se eliminó con éxito');
       }
     },
-  error => {
-    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
-  });
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
+    });
+  }
+
+  /**
+  * Opens websocket connection to specified url
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string, userId: string) {
+    var ws_path = environment.WS_URL + url + userId;
+    console.log("Connecting to " + ws_path);
+    var socket = new ReconnectingWebSocket(ws_path);
+    var self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+    };
+    socket.onopen = function() { console.log("Connected to notification socket"); }
+    socket.onclose = function() { console.log("Disconnected to notification socket"); }
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadWorkList(){
+    this.notificationBannerIsActive = false;
+    
+    this.loadWorksList(environment.WORKS_URL);
+    this.loadClientsList(environment.CLIENTS_URL);
+    this.loadContactsList(environment.CONTACTS_URL);
+    this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadWorkTypesList(environment.WORK_TYPES_URL);
+    this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+    this.loadStatusList(environment.STATUS_URL);
+    this.loadUserExecutivesList(environment.USERS_URL);
+  }
+
+  /**
+  * Returns current user's id.
+  **/
+  public getCurrentUserId(){
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserJSON) {
+      return currentUserJSON["id"];
+    }
+    else {
+      return null;
+    }
   }
 }

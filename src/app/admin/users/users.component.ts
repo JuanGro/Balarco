@@ -215,7 +215,7 @@ export class UsersComponent implements OnInit, OnChanges{
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    var ws_path = url
+    var ws_path = environment.WS_URL + url;
     console.log("Connecting to " + ws_path);
     var socket = new ReconnectingWebSocket(ws_path);
     var self = this;
@@ -232,19 +232,6 @@ export class UsersComponent implements OnInit, OnChanges{
   public reloadUserList(){
     this.notificationBannerIsActive = false;
     this.loadUserList(environment.USERS_URL);
-  }
-
-  /**
-  * Returns current user's id.
-  **/
-  public getCurrentUserId(){
-    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUserJSON) {
-      return currentUserJSON["id"];
-    }
-    else {
-      return null;
-    }
   }
 
 }
