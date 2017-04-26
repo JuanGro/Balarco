@@ -268,7 +268,8 @@ export class AssignmentsComponent implements OnInit {
     } else {
       for (let workFromList of this.completeWorksList) {
         if (workFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            workFromList.current_status_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            workFromList.current_status_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            workFromList.work_type_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
             let work = new Work(workFromList);
             this.worksList.push(work);
         }
