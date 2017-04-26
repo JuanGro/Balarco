@@ -6,7 +6,10 @@
         </blockquote>
     </div>
 </div>
-
+<!-- Notifications banner -->
+<div *ngIf="notificationBannerIsActive" class="alert alert-info" role="role">
+    Se realizaron cambios en la lista de compañías. <a href="javascript:;" (click)="reloadWorkList($event)">Actualizar lista</a>
+</div>
 <!-- Child component, it contains the table -->
 <!-- [stopFilterButton] sends the variable to know if the stop filter button should be disabled -->
 <!-- [worksList] sends the works list to the table -->
