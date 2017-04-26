@@ -8,6 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
+import { Role } from '../../shared/auth/role';
 import { AssignmentFilter } from './works.component';
 var WorksListComponent = (function () {
     function WorksListComponent() {
@@ -18,6 +20,7 @@ var WorksListComponent = (function () {
         this.currentWork = new EventEmitter();
         this.modalAction = '';
         this.staticEnum = AssignmentFilter;
+        this.roleEnum = Role;
     }
     WorksListComponent.prototype.requestNewWorkModal = function () {
         this.modalAction = 'Open new Work modal';
@@ -51,6 +54,10 @@ __decorate([
     Input('assignmentFilter'),
     __metadata("design:type", Number)
 ], WorksListComponent.prototype, "assignmentFilter", void 0);
+__decorate([
+    Input('currentUser'),
+    __metadata("design:type", CurrentUser)
+], WorksListComponent.prototype, "currentUser", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

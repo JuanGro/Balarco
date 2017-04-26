@@ -15,7 +15,7 @@
 <!-- (requestShowFilterWorkModal) receives the request to show the works filter modal -->
 <!-- (requestStopWorkFilter) receives the request to stop the works filter -->
 <!-- (currentWork) receives the work who was selected by the user -->
-<works-list [assignmentFilter]="assignmentFilter" [stopFilterButton]="stopFilterButton" [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()"
+<works-list [currentUser]="currentUser" [assignmentFilter]="assignmentFilter" [stopFilterButton]="stopFilterButton" [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()"
     (currentWork)="getWorkFromTable($event)"></works-list>
 
 <!-- Modal New Work -->
