@@ -26,6 +26,7 @@ var WorksComponent = (function () {
         this.route = route;
         this.httpService = httpService;
         this.toaster = toaster;
+        this.currentUser = this.httpService.getCurrentUser();
     }
     WorksComponent.prototype.ngOnInit = function () {
         var _this = this;

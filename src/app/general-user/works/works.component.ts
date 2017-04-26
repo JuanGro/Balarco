@@ -9,6 +9,7 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { User } from '../../admin/users/user-model';
@@ -67,8 +68,12 @@ export class WorksComponent implements OnInit {
   public stopFilterButton: boolean;
   // Variable to catch the enum that the router sends.
   private assignmentFilter: AssignmentFilter;
+  // Variable to store the current User logged.
+  private currentUser: CurrentUser;
 
-  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) { }
+  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) {
+    this.currentUser = this.httpService.getCurrentUser();
+  }
 
   /**
   * Builds the component for first time.
