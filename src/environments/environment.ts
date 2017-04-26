@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   'API_URL': 'http://127.0.0.1:8000/api/',
+  'WS_URL': 'ws://127.0.0.1:8000/',
   'CLIENTS_URL': 'clients/clients/',
   'CONTACTS_URL': 'clients/contacts/',
   'IGUALAS_URL': 'works/igualas/',
@@ -16,5 +17,10 @@ export const environment = {
   'WORKS_URL': 'works/works/',
   'STATUS_URL': 'works/status/',
   'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
-  'MY_ASSIGNMENTS': 'works/works/my_assignments/'
+  'MY_ASSIGNMENTS': 'works/works/my_assignments/', 
+  'USER_LIST_NOTIFICATIONS_URL': 'users/stream/',
+  'CLIENT_LIST_NOTIFICATIONS_URL': 'clients/stream/',
+  'CONTACT_LIST_NOTIFICATIONS_URL': 'contacts/stream/',
+  'IGUALAS_LIST_NOTIFICATIONS_URL': 'igualas/stream/',
+  'WORK_LIST_NOTIFICATIONS_URL': 'works/stream/',
 };

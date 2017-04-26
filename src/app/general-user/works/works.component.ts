@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
@@ -20,6 +21,10 @@ import { URLSearchParams } from '@angular/http';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'works',
   templateUrl: 'works.component.html'
@@ -31,7 +36,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific work.
 * - Remove a work.
 **/
-export class WorksComponent implements OnInit {
+export class WorksComponent implements OnInit, OnChanges {
   // Variable that saves the title to show in the template.
   public title: string;
   // Variable to keep track of current work.
@@ -70,8 +75,10 @@ export class WorksComponent implements OnInit {
   private assignmentFilter: AssignmentFilter;
   // Variable to store the current User logged.
   public currentUser: CurrentUser;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
-  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) {
+  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService, private toasterService: ToasterService) {
     this.currentUser = this.httpService.getCurrentUser();
   }
 
@@ -105,6 +112,15 @@ export class WorksComponent implements OnInit {
     } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
       this.loadWorksList(environment.WORKS_URL, ['5', '6']);
     }
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
+
   }
 
   /**
@@ -357,9 +373,74 @@ export class WorksComponent implements OnInit {
         this.toaster.show(result, 'Trabajo eliminado', 'El trabajo se eliminó con éxito');
       }
     },
-  error => {
-    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
-  });
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
+    });
+  }
+
+  /**
+  * Opens websocket connection to specified url
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string, userId: string) {
+    let wsPath = environment.WS_URL + url + userId;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+        let messageData = JSON.parse(message.data);
+        let messageString = messageData['text'];
+        self.showToast('Trabajos', messageString);
+    };
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadWorkList() {
+    this.notificationBannerIsActive = false;
+    this.loadWorksList(environment.WORKS_URL);
+    this.loadClientsList(environment.CLIENTS_URL);
+    this.loadContactsList(environment.CONTACTS_URL);
+    this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadWorkTypesList(environment.WORK_TYPES_URL);
+    this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
+    this.loadStatusList(environment.STATUS_URL);
+    this.loadUserExecutivesList(environment.USERS_URL);
+  }
+
+  /**
+  * Creates a toast
+  * Parameters:
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  * Returns:
+  *   - toast created.
+  **/
+  public createToast(title?: string, message?: string): Toast {
+    let type: string;
+    type = 'success';
+    let toast: Toast = {
+        type: type,
+        title: title,
+        body: message,
+        showCloseButton: false
+    };
+    return toast;
+  }
+
+  /**
+  * Shows a toast
+  * Parameters:
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  **/
+  public showToast(title?: string, message?: string) {
+    let toast = this.createToast(title, message);
+    this.toasterService.pop(toast);
   }
 }
 

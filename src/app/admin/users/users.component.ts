@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges} from '@angular/core';
 
 // Classes
 import { User } from './user-model';
@@ -11,6 +11,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'users',
   templateUrl: 'users.component.html'
@@ -22,7 +26,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific user.
 * - Remove a user.
 **/
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnChanges {
   // Received from table component, it returns the user that was selected to see in detail.
   @Input('currentUser') currentUser: User;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -45,6 +49,8 @@ export class UsersComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger user modal.
   public descriptionDangerModal: string;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -61,6 +67,14 @@ export class UsersComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este usuario?';
     this.loadUserList(environment.USERS_URL);
     this.loadGroupList(environment.GROUPS_URL);
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.USER_LIST_NOTIFICATIONS_URL);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
   }
 
   /**
@@ -134,7 +148,12 @@ export class UsersComponent implements OnInit {
       }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar usuario');
+      let errorBody = JSON.parse(error['_body']);
+      if (error.status === 400) {
+        this.toaster.show(error, 'Error', errorBody);
+      } else {
+        this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar usuario');
+      }
     });
   }
 
@@ -192,4 +211,29 @@ export class UsersComponent implements OnInit {
       this.userList[index] = event;
     }
   }
+
+  /**
+  * Opens websocket connection to specified url
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string) {
+    let wsPath = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+    };
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadUserList() {
+    this.notificationBannerIsActive = false;
+    this.loadUserList(environment.USERS_URL);
+  }
+
 }
