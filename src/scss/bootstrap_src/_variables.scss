@@ -95,7 +95,7 @@
 $white:  #fff !default;
 $black:  #000 !default;
 $red:    #d9534f !default;
-$orange: #f0ad4e !default;
+$orange: #e3620d !default;
 $yellow: #ffd500 !default;
 $green:  #5cb85c !default;
 $blue:   #0275d8 !default;
@@ -341,8 +341,8 @@ $table-sm-cell-padding:         .3rem !default;
 
 $table-bg:                      transparent !default;
 
-$table-inverse-bg:              $orange;
-$table-inverse-color:           $white;
+$table-inverse-bg:              $brand-inverse;
+$table-inverse-color:           $brand-primary;
 
 $table-bg-accent:               rgba($black,.05) !default;
 $table-bg-hover:                rgba($black,.075) !default;
