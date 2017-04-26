@@ -5,6 +5,7 @@ import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 // Modals
 import  * as ng2Bootstrap from 'ng2-bootstrap';
@@ -123,6 +124,7 @@ describe('WorkListComponent tests', () => {
                   },
                   deps: [MockBackend, BaseRequestOptions]
                 },
+                { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy("navigate"); } },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });

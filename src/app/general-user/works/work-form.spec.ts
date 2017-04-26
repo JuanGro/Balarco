@@ -3,6 +3,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 // Modals
 import  * as ng2Bootstrap from 'ng2-bootstrap';
@@ -139,6 +140,7 @@ describe('WorkFormComponent tests', () => {
                 },
                 deps: [MockBackend, BaseRequestOptions]
               },
+              { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy("navigate"); } },
               MockBackend, BaseRequestOptions, CustomToastService
           ]
       });

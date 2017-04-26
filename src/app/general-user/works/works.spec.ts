@@ -5,6 +5,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 // Modals
 import * as ng2Bootstrap from 'ng2-bootstrap';
@@ -42,6 +43,7 @@ import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 
 
 describe('WorksComponent tests', () => {
@@ -135,6 +137,7 @@ describe('WorksComponent tests', () => {
                   },
                   deps: [MockBackend, BaseRequestOptions]
                 },
+                { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy("navigate"); } },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
@@ -150,10 +153,14 @@ describe('WorksComponent tests', () => {
 
         // WorksComponent test instance.
         component = fixtureParent.componentInstance;
+        component.currentUser = new CurrentUser({ id: 1, username: 'hi'});
+        console.log(component.currentUser);
         // WorkFormComponent test instance.
         componentForm = fixtureChildForm.componentInstance;
+        componentForm.currentUser = component.currentUser;
         // WorksListComponent  test instance.
         componentTable = fixtureChildTable.componentInstance;
+        componentTable.currentUser = component.currentUser;
         // WorkFilterFormComponent test instance.
         componentFilterForm = fixtureChildFilterForm.componentInstance;
 

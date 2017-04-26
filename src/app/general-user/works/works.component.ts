@@ -69,7 +69,7 @@ export class WorksComponent implements OnInit {
   // Variable to catch the enum that the router sends.
   private assignmentFilter: AssignmentFilter;
   // Variable to store the current User logged.
-  private currentUser: CurrentUser;
+  public currentUser: CurrentUser;
 
   public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService) {
     this.currentUser = this.httpService.getCurrentUser();
