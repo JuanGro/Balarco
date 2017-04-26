@@ -106,8 +106,6 @@ export class WorksComponent implements OnInit {
                         this.worksList.push(new Work(workJSON));
                         this.completeWorksList.push(new Work(workJSON));
                       }
-                      console.log(this.worksList);
-                      console.log(this.completeWorksList);
                     },
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
