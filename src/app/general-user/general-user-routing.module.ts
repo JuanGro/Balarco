@@ -28,6 +28,14 @@ const routes: Routes = [
           title: 'My Assignments',
           type: AssignmentFilter.MY_ASSIGNMENTS
         }
+      },
+      {
+        path: 'to_be_paid',
+        component: WorksComponent,
+        data: {
+          title: 'To Be Paid',
+          type: AssignmentFilter.TO_BE_PAID
+        }
       }
     ]
   }

@@ -314,11 +314,15 @@
                 </li>
 
                 <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_CUENTAS, roleEnum.DIRECTOR_ARTE ])" class="nav-item nav-dropdown" routerLinkActive="open">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i>Todos los trabajos</a>
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i>Todos los Trabajos</a>
                 </li>
 
                 <li class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/my_assignments']"><i class="glyphicons glyphicons-shopping-cart"></i> Mis Asignaciones</a>
+                </li>
+
+                <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.ADMINISTRACION ])" class="nav-item nav-dropdown" routerLinkActive="open">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/to_be_paid']"><i class="glyphicons glyphicons-shopping-cart"></i>Por Pagar</a>
                 </li>
 
                 <li *ngIf="currentUser.hasRole([ roleEnum.DIRECTOR_CUENTAS, roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
