@@ -14,5 +14,7 @@ export const environment = {
   'ART_TYPES_URL': 'works/art_types/',
   'WORK_TYPES_URL': 'works/work_types/',
   'WORKS_URL': 'works/works/',
-  'STATUS_URL': 'works/status/'
+  'STATUS_URL': 'works/status/',
+  'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
+  'USER_LIST_NOTIFICATIONS_URL': 'ws://localhost:8000/users/stream/',
 };

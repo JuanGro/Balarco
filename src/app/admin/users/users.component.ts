@@ -28,11 +28,15 @@ declare var ReconnectingWebSocket: any;
 **/
 export class UsersComponent implements OnInit, OnChanges{
   // Received from table component, it returns the user that was selected to see in detail.
-  @Input() currentUser: User;
+  @Input('currentUser') currentUser: User;
+  // Received from table component, it gives me the value that the user is typing in the search.
+  @Input('valueSearch') valueSearch: string;
   // Variable that saves the title to show in the template.
   public title: string;
   // List of users received from httpService.
   public userList: User[];
+  // List of users received from httpService.
+  public completeUserList: User[];
   // List of groups received from httpService
   public groupList: Group[];
   // Variable for save the object received from child component and manage if the form is for update or create user.
@@ -47,8 +51,6 @@ export class UsersComponent implements OnInit, OnChanges{
   public descriptionDangerModal: string;
   // Variable to control notificiation banner
   @Input() notificationBannerIsActive: boolean;
-  //
-  public socket: any;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -66,7 +68,7 @@ export class UsersComponent implements OnInit, OnChanges{
     this.loadUserList(environment.USERS_URL);
     this.loadGroupList(environment.GROUPS_URL);
     this.notificationBannerIsActive = false;
-    this.receiveNotifications("2", "localhost:8000/dashboard/");
+    this.receiveNotifications(environment.USER_LIST_NOTIFICATIONS_URL);
   }
 
   public ngOnChanges(){
@@ -84,10 +86,13 @@ export class UsersComponent implements OnInit, OnChanges{
                     .map((data: any) => data.json())
                     .subscribe(userListJSON => {
                       // Creates user objetc list from JSON.
+                      this.completeUserList = [];
                       this.userList = [];
                       for (let userJSON of userListJSON) {
+                        this.completeUserList.push(new User(userJSON));
                         this.userList.push(new User(userJSON));
                       }
+                      this.completeUserList.sort();
                     },
                       err => {
                         this.toaster.show(err, 'Error', 'Ocurrió un error al cargar usuarios');
@@ -156,6 +161,28 @@ export class UsersComponent implements OnInit, OnChanges{
   }
 
   /**
+  * Shows the user list that the user is requesting in the filter.
+  * Params:
+  *   - value: String from search form.
+  **/
+  public getValueSearch(value: string) {
+    this.valueSearch = value;
+    this.userList = [];
+    if (this.valueSearch === '') {
+      this.userList = this.completeUserList;
+    } else {
+      for (let userFromList of this.completeUserList) {
+        if (userFromList.username.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            userFromList.first_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+            userFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+            let user = new User(userFromList);
+            this.userList.push(user);
+        }
+      }
+    }
+  }
+
+  /**
   * Recieves event when a new user is created in the form.
   * It pushes the new user to the list.
   * Params:
@@ -186,25 +213,37 @@ export class UsersComponent implements OnInit, OnChanges{
   *   - userId: Current user id to connect to correct channel
   *   - url: General address to connect to, to receive notifications
   **/
-  public receiveNotifications(userId: string, url: string) {
-    var ws_path = "ws" + '://' + url  + userId + "/" + "stream/";
+  public receiveNotifications(url: string) {
+    var ws_path = url
     console.log("Connecting to " + ws_path);
-    this.socket = new ReconnectingWebSocket(ws_path);
+    var socket = new ReconnectingWebSocket(ws_path);
     var self = this;
-    this.socket.onmessage = function(message) {
+    socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
     };
-    this.socket.onopen = function() { console.log("Connected to notification socket"); }
-    this.socket.onclose = function() { console.log("Disconnected to notification socket"); }
+    socket.onopen = function() { console.log("Connected to notification socket"); }
+    socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
 
   /**
-  * 
-  *
+  * Reloads user list after
   **/
   public reloadUserList(){
     this.notificationBannerIsActive = false;
     this.loadUserList(environment.USERS_URL);
+  }
+
+  /**
+  * Returns current user's id.
+  **/
+  public getCurrentUserId(){
+    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUserJSON) {
+      return currentUserJSON["id"];
+    }
+    else {
+      return null;
+    }
   }
 
 }

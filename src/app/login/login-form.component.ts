@@ -14,16 +14,18 @@ import { Login } from './login';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'login-complex-form',
-  templateUrl: 'login.complexform.html'
+  selector: 'login-form',
+  templateUrl: 'login-form.component.html'
 })
-export class LoginComplexFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
   // Initialization of control form.
   public loginForm: FormGroup;
   // Variable to active the form.
   public active: boolean = true;
   // Login object for the ngForm handle.
   public login: Login;
+  // Variable for recover title modal
+  public titleRecoverPasswordModal: string = 'Recuperar tu contraseña';
 
   constructor(private loginService: HttpService, private router: Router, private toaster: CustomToastService) { }
 
@@ -55,7 +57,7 @@ export class LoginComplexFormComponent implements OnInit {
   }
 
   /**
-  * Method to get the complete current user from API and set the roles.
+  * Method to get the complete current user from API and set the roles with user id.
   * Params:
   *   - username: Username of current user.
   **/
@@ -71,7 +73,7 @@ export class LoginComplexFormComponent implements OnInit {
                          for (let group of usersList[0].groups_complete) {
                            groupNames.push(group.name);
                          }
-                         this.loginService.setUserRoles(groupNames);
+                         this.loginService.setUserRolesAndId(groupNames, usersList[0].id);
                          this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
                        }
                      });
