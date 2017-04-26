@@ -4,11 +4,13 @@ export class CurrentUser {
   username: string;
   token: string;
   roles: Role[];
+  id: string;
 
   constructor(object: any) {
     this.username = object.username;
     this.token = object.token;
     this.roles = object.roles;
+    this.id = object.id;
   }
 
   /**
