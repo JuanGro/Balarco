@@ -48,6 +48,13 @@ var WorksComponent = (function () {
         this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
         this.loadStatusList(environment.STATUS_URL);
         this.loadUserExecutivesList(environment.USERS_URL);
+        this.loadWorksDependingOnParentMode();
+        this.notificationBannerIsActive = false;
+        this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
+    };
+    WorksComponent.prototype.ngOnChanges = function () {
+    };
+    WorksComponent.prototype.loadWorksDependingOnParentMode = function () {
         if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
             this.loadWorksList(environment.WORKS_URL);
         }
@@ -57,10 +64,6 @@ var WorksComponent = (function () {
         else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
             this.loadWorksList(environment.WORKS_URL, ['5', '6']);
         }
-        this.notificationBannerIsActive = false;
-        this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
-    };
-    WorksComponent.prototype.ngOnChanges = function () {
     };
     WorksComponent.prototype.loadWorksList = function (url, statusIdArray) {
         var _this = this;
@@ -217,15 +220,7 @@ var WorksComponent = (function () {
         this.stopFilterButton = true;
     };
     WorksComponent.prototype.onWorkUpdated = function (event) {
-        if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
-            this.loadWorksList(environment.WORKS_URL);
-        }
-        else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
-            this.loadWorksList(environment.MY_ASSIGNMENTS);
-        }
-        else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
-            this.loadWorksList(environment.WORKS_URL, ['5', '6']);
-        }
+        this.loadWorksDependingOnParentMode();
     };
     WorksComponent.prototype.removeWork = function (object) {
         var _this = this;

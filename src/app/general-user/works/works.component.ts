@@ -104,14 +104,8 @@ export class WorksComponent implements OnInit, OnChanges {
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
     this.loadUserExecutivesList(environment.USERS_URL);
+    this.loadWorksDependingOnParentMode();
 
-    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
-      this.loadWorksList(environment.WORKS_URL);
-    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
-      this.loadWorksList(environment.MY_ASSIGNMENTS);
-    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
-      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
-    }
     this.notificationBannerIsActive = false;
     this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
   }
@@ -121,6 +115,19 @@ export class WorksComponent implements OnInit, OnChanges {
   **/
   public ngOnChanges() {
 
+  }
+
+  /**
+  * Call load methods for works depending on the mode of the parent.
+  **/
+  private loadWorksDependingOnParentMode() {
+    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+      this.loadWorksList(environment.WORKS_URL);
+    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+      this.loadWorksList(environment.MY_ASSIGNMENTS);
+    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
+    }
   }
 
   /**
@@ -349,13 +356,7 @@ export class WorksComponent implements OnInit, OnChanges {
   * It updates the work selected.
   **/
   public onWorkUpdated(event: Work) {
-    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
-      this.loadWorksList(environment.WORKS_URL);
-    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
-      this.loadWorksList(environment.MY_ASSIGNMENTS);
-    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
-      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
-    }
+    this.loadWorksDependingOnParentMode();
   }
 
   /**
