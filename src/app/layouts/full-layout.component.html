@@ -301,18 +301,11 @@
                 </li> -->
 
                 <!-- Admin -->
-                <li class="nav-item nav-dropdown" routerLinkActive="open">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/completed-designs-list']"><i class="glyphicons glyphicons-crown"></i> Diseños terminados</a>
-                </li>
                 <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/users']"><i class="glyphicons glyphicons-crown"></i> Usuarios</a>
                 </li>
 
                 <!-- Account -->
-                <li class="nav-item nav-dropdown" routerLinkActive="open">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/designs-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Diseños activos</a>
-                </li>
-
                 <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_CUENTAS, roleEnum.DIRECTOR_ARTE ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i>Todos los Trabajos</a>
                 </li>
@@ -335,17 +328,7 @@
 
                 <li *ngIf="currentUser.hasRole([ roleEnum.DIRECTOR_CUENTAS, roleEnum.SUPER_USUARIO ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/accounts/igualas-list']"><i class="glyphicons glyphicons-shopping-cart"></i> Igualas</a>
-                </li>
-
-                <!-- Design director -->
-                <li class="nav-item nav-dropdown" routerLinkActive="open">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/design-director/designs-list']"><i class="glyphicons glyphicons-pen"></i> Diseños</a>
-                </li>
-
-                <!-- Designer -->
-                <li class="nav-item nav-dropdown" routerLinkActive="open">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/designer/owned-designs-list']"><i class="glyphicons glyphicons-brush"></i> Mis diseños</a>
-                </li>
+                </li>                
 
                 <!-- End of example -->
 
