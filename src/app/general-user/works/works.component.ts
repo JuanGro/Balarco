@@ -3,6 +3,7 @@ import { Component, Input, OnInit, OnChanges} from '@angular/core';
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
@@ -72,7 +73,7 @@ export class WorksComponent implements OnInit, OnChanges{
   @Input() notificationBannerIsActive: boolean;
   public userId: string;
 
-  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
+  public constructor(public httpService: HttpService, private toaster: CustomToastService, private toasterService: ToasterService) { }
 
   /**
   * Builds the component for first time.
@@ -367,6 +368,10 @@ export class WorksComponent implements OnInit, OnChanges{
     var self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
+        var messageData = JSON.parse(message.data);
+        var messageString = messageData["text"];
+        self.showToast("Trabajos", messageString);
+        console.log(message)
     };
     socket.onopen = function() { console.log("Connected to notification socket"); }
     socket.onclose = function() { console.log("Disconnected to notification socket"); }
@@ -399,5 +404,39 @@ export class WorksComponent implements OnInit, OnChanges{
     else {
       return null;
     }
+  }
+
+    /**
+  * Creates a toast depending on a Response object.
+  * Parameters:
+  *   - response: Response received from the request.
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  * Returns:
+  *   - toast created.
+  **/
+  public createToast(title?: string, message?: string): Toast {
+    let type: string;
+    title = ''
+    type = 'success';
+    let toast: Toast = {
+        type: type,
+        title: title,
+        body: message,
+        showCloseButton: false
+    };
+    return toast;
+  }
+
+  /**
+  * Shows a toast depending on a Response object.
+  * Parameters:
+  *   - response: Response received from the request.
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  **/
+  public showToast(title?: string, message?: string) {
+    let toast = this.createToast(title, message);
+    this.toasterService.pop(toast);
   }
 }
