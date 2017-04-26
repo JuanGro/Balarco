@@ -35,7 +35,7 @@
             <!-- [graduationArtTypes] sends the graduation art types list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <!-- (workCreated) listens to add the new work -->
-            <work-form [userExecutivesList]="userExecutivesList" [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
+            <work-form [currentUser]="currentUser" [userExecutivesList]="userExecutivesList" [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
         </div>
     </div>
 </div>
@@ -58,7 +58,7 @@
             <!-- (requestWarning) shows confirmation modal -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <!-- (workUpdated) listens to update the work -->
-            <work-form [work]="work" [userExecutivesList]="userExecutivesList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"
+            <work-form [currentUser]="currentUser" [work]="work" [userExecutivesList]="userExecutivesList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"
                 (workUpdated)="onWorkUpdated($event)"></work-form>
         </div>
     </div>
