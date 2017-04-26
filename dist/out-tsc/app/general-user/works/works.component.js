@@ -51,11 +51,19 @@ var WorksComponent = (function () {
             this.loadWorksList(environment.MY_ASSIGNMENTS);
         }
         else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+            this.loadWorksList(environment.WORKS_URL, ['5', '6']);
         }
     };
-    WorksComponent.prototype.loadWorksList = function (url) {
+    WorksComponent.prototype.loadWorksList = function (url, statusIdArray) {
         var _this = this;
-        this.httpService.getObject(url)
+        var params = new URLSearchParams();
+        if (statusIdArray) {
+            for (var _i = 0, statusIdArray_1 = statusIdArray; _i < statusIdArray_1.length; _i++) {
+                var statusId = statusIdArray_1[_i];
+                params.append('current_status_id', statusId);
+            }
+        }
+        this.httpService.getObject(url, params)
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             _this.worksList = [];

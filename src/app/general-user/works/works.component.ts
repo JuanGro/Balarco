@@ -98,7 +98,7 @@ export class WorksComponent implements OnInit {
     } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
       this.loadWorksList(environment.MY_ASSIGNMENTS);
     } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
-
+      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
     }
   }
 
@@ -107,8 +107,14 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
-  private loadWorksList(url: string) {
-    this.httpService.getObject(url)
+  private loadWorksList(url: string, statusIdArray?: string[]) {
+    let params = new URLSearchParams();
+    if (statusIdArray) {
+      for (let statusId of statusIdArray) {
+        params.append('current_status_id', statusId);
+      }
+    }
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
