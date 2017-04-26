@@ -29,7 +29,7 @@ var WorksComponent = (function () {
     }
     WorksComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.data.subscribe(function (data) { return _this.assignmentFilter = data['type']; });
+        this.route.data.subscribe(function (data) { _this.assignmentFilter = data['type']; console.log('SET'); });
         this.title = 'Lista de Trabajos';
         this.titleNewModal = 'Nuevo Trabajo';
         this.titleUpdateModal = 'Modificar Trabajo';

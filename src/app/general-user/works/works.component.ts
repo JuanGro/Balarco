@@ -76,7 +76,7 @@ export class WorksComponent implements OnInit {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
-    this.route.data.subscribe(data => this.assignmentFilter = data['type'] as AssignmentFilter);
+    this.route.data.subscribe(data => {this.assignmentFilter = data['type'] as AssignmentFilter; console.log('SET');});
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
