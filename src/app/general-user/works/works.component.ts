@@ -333,10 +333,12 @@ export class WorksComponent implements OnInit {
   * It updates the work selected.
   **/
   public onWorkUpdated(event: Work) {
-    let oldWork = this.worksList.filter(work => work.id === event.id)[0];
-    let index = this.worksList.indexOf(oldWork);
-    if (index >= 0) {
-      this.worksList[index] = event;
+    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+      this.loadWorksList(environment.WORKS_URL);
+    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+      this.loadWorksList(environment.MY_ASSIGNMENTS);
+    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
     }
   }
 

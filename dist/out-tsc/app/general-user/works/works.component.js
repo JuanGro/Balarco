@@ -210,10 +210,14 @@ var WorksComponent = (function () {
         this.stopFilterButton = true;
     };
     WorksComponent.prototype.onWorkUpdated = function (event) {
-        var oldWork = this.worksList.filter(function (work) { return work.id === event.id; })[0];
-        var index = this.worksList.indexOf(oldWork);
-        if (index >= 0) {
-            this.worksList[index] = event;
+        if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+            this.loadWorksList(environment.WORKS_URL);
+        }
+        else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+            this.loadWorksList(environment.MY_ASSIGNMENTS);
+        }
+        else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+            this.loadWorksList(environment.WORKS_URL, ['5', '6']);
         }
     };
     WorksComponent.prototype.removeWork = function (object) {
