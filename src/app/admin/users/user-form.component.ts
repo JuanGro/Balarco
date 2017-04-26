@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 // Models
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 * - Request actions in modals to the parent component.
 **/
 export class UserFormComponent implements OnChanges {
+  @ViewChild('roles') public ngSelect;
   // Receives the user selected by the user or the empty object to know if is called the update or create user form.
   @Input('user') user: User;
   // Receives the group list from parent component.
@@ -66,6 +67,7 @@ export class UserFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default currentGroupNameList for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    this.ngSelect.active = [];
     // Initialize lists.
     this.userGroupsComplete = [];
     this.groupStringList = [];
@@ -183,6 +185,7 @@ export class UserFormComponent implements OnChanges {
       let updatedUser = new User(this.oldUser);
       this.userUpdated.emit(updatedUser);
     }
+    this.ngOnChanges();
     form.reset();
   }
 
