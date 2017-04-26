@@ -30,7 +30,7 @@ var WorksComponent = (function () {
     }
     WorksComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.data.subscribe(function (data) { _this.assignmentFilter = data['type']; console.log('SET'); });
+        this.route.data.subscribe(function (data) { return _this.assignmentFilter = data['type']; });
         this.title = 'Lista de Trabajos';
         this.titleNewModal = 'Nuevo Trabajo';
         this.titleUpdateModal = 'Modificar Trabajo';
@@ -71,22 +71,6 @@ var WorksComponent = (function () {
             _this.completeWorksList = [];
             for (var _i = 0, worksListJSON_1 = worksListJSON; _i < worksListJSON_1.length; _i++) {
                 var workJSON = worksListJSON_1[_i];
-                _this.worksList.push(new Work(workJSON));
-                _this.completeWorksList.push(new Work(workJSON));
-            }
-        }, function (error) {
-            _this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
-        });
-    };
-    WorksComponent.prototype.loadWorksToBePaid = function (url) {
-        var _this = this;
-        this.httpService.getObject(url)
-            .map(function (data) { return data.json(); })
-            .subscribe(function (worksListJSON) {
-            _this.worksList = [];
-            _this.completeWorksList = [];
-            for (var _i = 0, worksListJSON_2 = worksListJSON; _i < worksListJSON_2.length; _i++) {
-                var workJSON = worksListJSON_2[_i];
                 _this.worksList.push(new Work(workJSON));
                 _this.completeWorksList.push(new Work(workJSON));
             }
@@ -212,8 +196,8 @@ var WorksComponent = (function () {
             .map(function (data) { return data.json(); })
             .subscribe(function (worksListJSON) {
             _this.worksList = [];
-            for (var _i = 0, worksListJSON_3 = worksListJSON; _i < worksListJSON_3.length; _i++) {
-                var workJSON = worksListJSON_3[_i];
+            for (var _i = 0, worksListJSON_2 = worksListJSON; _i < worksListJSON_2.length; _i++) {
+                var workJSON = worksListJSON_2[_i];
                 _this.worksList.push(new Work(workJSON));
             }
         }, function (error) {

@@ -78,7 +78,7 @@ export class WorkFormComponent implements OnChanges {
   // Variable to store Work before starting to update.
   public oldWork: Work;
   // Needed variable for comparing Role enum in template.
-  private roleEnum = Role;
+  public roleEnum = Role;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 

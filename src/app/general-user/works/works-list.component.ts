@@ -40,9 +40,9 @@ export class WorksListComponent {
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Needed variable for comparing enum in template.
-  private staticEnum = AssignmentFilter;
+  public staticEnum = AssignmentFilter;
   // Needed variable for comparing Role enum in template.
-  private roleEnum = Role;
+  public roleEnum = Role;
 
   public constructor() { }
 

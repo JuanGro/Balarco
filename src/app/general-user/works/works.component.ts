@@ -81,7 +81,7 @@ export class WorksComponent implements OnInit {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
-    this.route.data.subscribe(data => {this.assignmentFilter = data['type'] as AssignmentFilter; console.log('SET');});
+    this.route.data.subscribe(data => this.assignmentFilter = data['type'] as AssignmentFilter);
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
@@ -120,28 +120,6 @@ export class WorksComponent implements OnInit {
       }
     }
     this.httpService.getObject(url, params)
-                    .map((data: any) => data.json())
-                    .subscribe(worksListJSON => {
-                      this.worksList = [];
-                      this.completeWorksList = [];
-                      for (let workJSON of worksListJSON) {
-                        this.worksList.push(new Work(workJSON));
-                        this.completeWorksList.push(new Work(workJSON));
-                      }
-                    },
-                    error => {
-                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los trabajos');
-                    });
-  }
-
-  /**
-  * Loads all the works which are in the state of Payment from the get method in httpService
-  * Params:
-  *   - url: The url where the service will comunicate to get the Work objects.
-  **/
-  private loadWorksToBePaid(url: string) {
-
-    this.httpService.getObject(url)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
