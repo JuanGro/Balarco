@@ -7,7 +7,6 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Models
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
-import { User } from '../../admin/users/user-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
