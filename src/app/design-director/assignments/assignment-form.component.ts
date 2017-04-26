@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Services
@@ -27,6 +27,7 @@ import { User } from '../../admin/users/user-model';
 * - Request actions in modals to the parent component.
 **/
 export class AssignmentFormComponent implements OnChanges {
+  @ViewChild('assignments_works') public ngSelect;
   // Receives the current work from parent component.
   @Input('work') work: Work;
   // Receives user list from parent component.
@@ -41,8 +42,6 @@ export class AssignmentFormComponent implements OnChanges {
   @Output() titleModal: EventEmitter<string> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Variable to store Work before starting to update.
-  public oldWork: Work;
   // Variable to save which designer is selecting the user in the Ng2-Select.
   public value: Array<any>;
   // List which saves all the users in strings to handle in the Ng2-Select.
@@ -60,6 +59,8 @@ export class AssignmentFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
   **/
   public ngOnChanges() {
+    this.value = [];
+    this.ngSelect.active = [];
     // Initialize lists.
     this.designerStringList = [];
     this.designerListToSend = [];
@@ -103,6 +104,7 @@ export class AssignmentFormComponent implements OnChanges {
             designerObject.id = designer.designer;
             designerObject.text = designer_name;
             this.value.push(designerObject);
+            console.log('khé');
           }
         }
       }
@@ -148,11 +150,7 @@ export class AssignmentFormComponent implements OnChanges {
   * Set work with TWDB with old values or clear object if it's new.
   **/
   public cancelForm(form: NgForm) {
-    if (this.oldWork) {
-      this.workUpdated.emit(this.oldWork);
-    }
-    this.work = new Work();
-    form.control.markAsUntouched();
+    this.ngOnChanges();
   }
 
   /**
