@@ -120,6 +120,7 @@ export class AssignmentFormComponent implements OnChanges {
 
     this.submitUpdatedWork();
     form.control.markAsUntouched();
+    console.log(this.work);
   }
 
   /**
@@ -180,7 +181,10 @@ export class AssignmentFormComponent implements OnChanges {
   **/
   public refreshValue(value: any): void {
     if (!this.designersChanges) {
+      console.log('aiuda');
       this.designerListToSend = this.designerListDefault;
+      console.log(this.designerListDefault);
+      console.log(this.designerListToSend);
       this.designersChanges = true;
     }
     this.value = value;

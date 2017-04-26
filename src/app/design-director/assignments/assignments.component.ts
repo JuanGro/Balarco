@@ -93,6 +93,7 @@ export class AssignmentsComponent implements OnInit {
                     .subscribe(userListJSON => {
                       // Creates clients objects from JSON.
                       this.userList = [];
+                      this.designerListDefault = [];
                       let userJSON: User;
                       for (userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
