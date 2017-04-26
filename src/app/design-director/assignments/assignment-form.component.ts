@@ -119,7 +119,6 @@ export class AssignmentFormComponent implements OnChanges {
 
     this.submitUpdatedWork();
     form.control.markAsUntouched();
-    console.log(this.work);
   }
 
   /**
