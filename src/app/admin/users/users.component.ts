@@ -79,6 +79,7 @@ export class UsersComponent implements OnInit {
                         this.completeUserList.push(new User(userJSON));
                         this.userList.push(new User(userJSON));
                       }
+                      this.completeUserList.sort();
                     },
                       err => {
                         this.toaster.show(err, 'Error', 'Ocurrió un error al cargar usuarios');
@@ -154,7 +155,6 @@ export class UsersComponent implements OnInit {
   public getValueSearch(value: string) {
     this.valueSearch = value;
     this.userList = [];
-    this.completeUserList.sort();
     if (this.valueSearch === '') {
       this.userList = this.completeUserList;
     } else {

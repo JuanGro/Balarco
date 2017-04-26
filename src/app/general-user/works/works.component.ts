@@ -11,6 +11,7 @@ import { User } from '../../admin/users/user-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
@@ -52,6 +53,8 @@ export class WorksComponent implements OnInit {
   public userList: User[];
   // List of Status.
   public statusList: Status[];
+  // List of User allowed to be executives.
+  public userExecutivesList: User[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -89,6 +92,7 @@ export class WorksComponent implements OnInit {
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
+    this.loadUserExecutivesList(environment.USERS_URL);
   }
 
   /**
@@ -252,6 +256,29 @@ export class WorksComponent implements OnInit {
                     },
                     error => {
                       this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los estados');
+                    });
+  }
+
+  /**
+  * Loads all the User that can be executives with httpService.
+  * Params:
+  *   - url: Url to Users API methods.
+  **/
+  private loadUserExecutivesList(url: string) {
+    let params = new URLSearchParams();
+    params.append('group_name', 'Super usuario');
+    params.append('group_name', 'Director de cuentas');
+    params.append('group_name', 'Ejecutivo SR');
+    params.append('group_name', 'Ejecutivo JR');
+    this.httpService.getObject(url, params)
+                    .map((data: any) => data.json())
+                    .subscribe(usersListJSON => {
+                      this.userExecutivesList = [];
+                      for (let user of usersListJSON) {
+                        this.userExecutivesList.push(new User(user));
+                      }
+                    }, error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los ejecutivos');
                     });
   }
 

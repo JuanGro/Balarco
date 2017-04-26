@@ -15,5 +15,6 @@ export const environment = {
   'WORK_TYPES_URL': 'works/work_types/',
   'WORKS_URL': 'works/works/',
   'STATUS_URL': 'works/status/',
-  'WORKS_UNASSIGNED_URL': 'works/works/unassigned_works/'
+  'WORKS_UNASSIGNED_URL': 'works/works/unassigned_works/',
+  'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
 };

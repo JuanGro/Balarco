@@ -116,9 +116,6 @@ export class AssignmentFormComponent implements OnChanges {
   public submitWorkForm(form: NgForm, object: Work) {
     this.work.work_designers = this.designerListToSend;
 
-    // TODO: Remove when Users module is ready.
-    this.work.executive_id = 9;
-
     this.submitUpdatedWork();
     form.control.markAsUntouched();
   }

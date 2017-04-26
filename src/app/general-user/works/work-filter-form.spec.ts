@@ -28,6 +28,9 @@ import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
 import { WorkFilterFormComponent } from './work-filter-form.component';
 
+// Pipes
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
+
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
@@ -38,7 +41,7 @@ import { WorkFilter } from './work-filter-model';
 // Pipes
 import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 
-describe('WorksComponent tests', () => {
+describe('WorksFilterFormComponent tests', () => {
   // Fixture for debugging and testing a WorksComponent.
     let fixtureParent: ComponentFixture<WorksComponent>;
     // Fixture for debugging and testing a WorkFormComponent.
