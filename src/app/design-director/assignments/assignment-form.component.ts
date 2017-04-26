@@ -104,7 +104,6 @@ export class AssignmentFormComponent implements OnChanges {
             designerObject.id = designer.designer;
             designerObject.text = designer_name;
             this.value.push(designerObject);
-            console.log('khé');
           }
         }
       }
@@ -181,10 +180,10 @@ export class AssignmentFormComponent implements OnChanges {
   **/
   public refreshValue(value: any): void {
     if (!this.designersChanges) {
-      console.log('aiuda');
-      this.designerListToSend = this.designerListDefault;
-      console.log(this.designerListDefault);
-      console.log(this.designerListToSend);
+      this.designerListToSend = [];
+      for (let designer of this.designerListDefault) {
+        this.designerListToSend.push(new Designer(designer));
+      }
       this.designersChanges = true;
     }
     this.value = value;
