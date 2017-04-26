@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges} from '@angular/core';
 
 // Classes
 import { User } from './user-model';
@@ -26,7 +26,7 @@ declare var ReconnectingWebSocket: any;
 * - Update an specific user.
 * - Remove a user.
 **/
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnChanges{
   // Received from table component, it returns the user that was selected to see in detail.
   @Input() currentUser: User;
   // Variable that saves the title to show in the template.
@@ -45,6 +45,10 @@ export class UsersComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger user modal.
   public descriptionDangerModal: string;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
+  //
+  public socket: any;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -61,7 +65,13 @@ export class UsersComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este usuario?';
     this.loadUserList(environment.USERS_URL);
     this.loadGroupList(environment.GROUPS_URL);
-    this.receiveNotifications("2", "localhost:8000/dashboard/", this.loadUserList(environment.USERS_URL));
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications("2", "localhost:8000/dashboard/");
+  }
+
+  public ngOnChanges(){
+    //this.notificationBannerIsActive = false;
+    console.log("On changes");
   }
 
   /**
@@ -173,16 +183,28 @@ export class UsersComponent implements OnInit {
   * Opens websocket connection to specified url and current userId
   * to receive notification of changes to the database.
   * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
   **/
-  public receiveNotifications(userId: string, url: string, action) {
+  public receiveNotifications(userId: string, url: string) {
     var ws_path = "ws" + '://' + url  + userId + "/" + "stream/";
     console.log("Connecting to " + ws_path);
-    var socket = new ReconnectingWebSocket(ws_path);
-    socket.onmessage = function(message, action) {
-        console.log(message.data);
+    this.socket = new ReconnectingWebSocket(ws_path);
+    var self = this;
+    this.socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
     };
-    socket.onopen = function() { console.log("Connected to notification socket"); }
-    socket.onclose = function() { console.log("Disconnected to notification socket"); }
+    this.socket.onopen = function() { console.log("Connected to notification socket"); }
+    this.socket.onclose = function() { console.log("Disconnected to notification socket"); }
   };
+
+  /**
+  * 
+  *
+  **/
+  public reloadUserList(){
+    this.notificationBannerIsActive = false;
+    this.loadUserList(environment.USERS_URL);
+  }
 
 }
