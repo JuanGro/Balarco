@@ -71,7 +71,6 @@ export class WorksComponent implements OnInit, OnChanges {
   public stopFilterButton: boolean;
   // Variable to control notificiation banner
   @Input() notificationBannerIsActive: boolean;
-  public userId: string;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService, private toasterService: ToasterService) { }
 
@@ -97,8 +96,7 @@ export class WorksComponent implements OnInit, OnChanges {
     this.loadStatusList(environment.STATUS_URL);
     this.loadUserExecutivesList(environment.USERS_URL);
     this.notificationBannerIsActive = false;
-    this.userId = this.getCurrentUserId();
-    this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.userId);
+    this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
   }
 
   /**
@@ -362,8 +360,8 @@ export class WorksComponent implements OnInit, OnChanges {
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string, userId: string) {
-    let ws_path = environment.WS_URL + url + userId;
-    let socket = new ReconnectingWebSocket(ws_path);
+    let wsPath = environment.WS_URL + url + userId;
+    let socket = new ReconnectingWebSocket(wsPath);
     let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
@@ -389,18 +387,6 @@ export class WorksComponent implements OnInit, OnChanges {
   }
 
   /**
-  * Returns current user's id.
-  **/
-  public getCurrentUserId() {
-    let currentUserJSON = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUserJSON) {
-      return currentUserJSON['id'];
-    } else {
-      return null;
-    }
-  }
-
-    /**
   * Creates a toast depending on a Response object.
   * Parameters:
   *   - response: Response received from the request.

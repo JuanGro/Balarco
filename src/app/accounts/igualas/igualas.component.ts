@@ -253,8 +253,8 @@ export class IgualasComponent implements OnInit, OnChanges {
   *   - url: General address to connect to, to receive notifications
   **/
   public receiveNotifications(url: string) {
-    let ws_path = environment.WS_URL + url;
-    let socket = new ReconnectingWebSocket(ws_path);
+    let wsPath = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(wsPath);
     let self = this;
     socket.onmessage = function(message) {
         self.notificationBannerIsActive = true;
