@@ -387,9 +387,8 @@ export class WorksComponent implements OnInit, OnChanges {
   }
 
   /**
-  * Creates a toast depending on a Response object.
+  * Creates a toast
   * Parameters:
-  *   - response: Response received from the request.
   *   - title(Optional): Title for the toast.
   *   - message(Optional): Message for the toast.
   * Returns:
@@ -408,9 +407,8 @@ export class WorksComponent implements OnInit, OnChanges {
   }
 
   /**
-  * Shows a toast depending on a Response object.
+  * Shows a toast
   * Parameters:
-  *   - response: Response received from the request.
   *   - title(Optional): Title for the toast.
   *   - message(Optional): Message for the toast.
   **/
