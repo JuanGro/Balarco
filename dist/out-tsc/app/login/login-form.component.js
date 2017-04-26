@@ -14,17 +14,18 @@ import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 import { Login } from './login';
 import { environment } from '../../environments/environment';
-var LoginComplexFormComponent = (function () {
-    function LoginComplexFormComponent(loginService, router, toaster) {
+var LoginFormComponent = (function () {
+    function LoginFormComponent(loginService, router, toaster) {
         this.loginService = loginService;
         this.router = router;
         this.toaster = toaster;
         this.active = true;
+        this.titleRecoverPasswordModal = 'Recuperar tu contraseña';
     }
-    LoginComplexFormComponent.prototype.ngOnInit = function () {
+    LoginFormComponent.prototype.ngOnInit = function () {
         this.login = new Login();
     };
-    LoginComplexFormComponent.prototype.submitLoginForm = function (model) {
+    LoginFormComponent.prototype.submitLoginForm = function (model) {
         var _this = this;
         this.loginService.login(model.username, model.password).subscribe(function (result) {
             if (result === true) {
@@ -34,7 +35,7 @@ var LoginComplexFormComponent = (function () {
             _this.toaster.show(error, 'Error al ingresar', 'Usuario o contraseña incorrectos');
         });
     };
-    LoginComplexFormComponent.prototype.setCurrentUserRoles = function (username) {
+    LoginFormComponent.prototype.setCurrentUserRoles = function (username) {
         var _this = this;
         var params = new URLSearchParams();
         params.set('username', username);
@@ -47,19 +48,19 @@ var LoginComplexFormComponent = (function () {
                     var group = _a[_i];
                     groupNames.push(group.name);
                 }
-                _this.loginService.setUserRoles(groupNames);
+                _this.loginService.setUserRolesAndId(groupNames, usersList[0].id);
                 _this.router.navigateByUrl('designer/owned-designs-list');
             }
         });
     };
-    return LoginComplexFormComponent;
+    return LoginFormComponent;
 }());
-LoginComplexFormComponent = __decorate([
+LoginFormComponent = __decorate([
     Component({
-        selector: 'login-complex-form',
-        templateUrl: 'login.complexform.html'
+        selector: 'login-form',
+        templateUrl: 'login-form.component.html'
     }),
     __metadata("design:paramtypes", [HttpService, Router, CustomToastService])
-], LoginComplexFormComponent);
-export { LoginComplexFormComponent };
-//# sourceMappingURL=../../../../src/app/login/login.complexform.js.map
+], LoginFormComponent);
+export { LoginFormComponent };
+//# sourceMappingURL=../../../../src/app/login/login-form.component.js.map

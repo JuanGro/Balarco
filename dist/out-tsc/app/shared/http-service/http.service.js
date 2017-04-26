@@ -95,7 +95,7 @@ var HttpService = (function (_super) {
             }
         });
     };
-    HttpService.prototype.setUserRoles = function (roleNames) {
+    HttpService.prototype.setUserRolesAndId = function (roleNames, id) {
         var roles = [];
         for (var _i = 0, roleNames_1 = roleNames; _i < roleNames_1.length; _i++) {
             var roleName = roleNames_1[_i];
@@ -129,7 +129,7 @@ var HttpService = (function (_super) {
             }
         }
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        currentUser = JSON.stringify({ username: currentUser.username, token: currentUser.token, roles: roles });
+        currentUser = JSON.stringify({ id: id, username: currentUser.username, token: currentUser.token, roles: roles });
         localStorage.setItem('currentUser', currentUser);
     };
     HttpService.prototype.getCurrentUser = function () {

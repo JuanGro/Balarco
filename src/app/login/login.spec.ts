@@ -4,9 +4,13 @@ import { DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
+import { ModalModule } from 'ng2-bootstrap/modal';
+
 // Components
 import { LoginComponent } from './login.component';
-import { LoginComplexFormComponent } from './login.complexform';
+import { LoginFormComponent } from './login-form.component';
+import { RecoverPasswordFormComponent } from './recover-password-form.component';
+
 // Services
 import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
@@ -37,8 +41,9 @@ describe('Login Component', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ FormsModule, ReactiveFormsModule, ToasterModule],
-      declarations: [ LoginComponent, LoginComplexFormComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, ToasterModule,
+              ModalModule.forRoot() ],
+      declarations: [ LoginComponent, LoginFormComponent, RecoverPasswordFormComponent ],
       providers: [
         {provide: HttpService, useValue: httpServiceStub },
         {provide: Router, useValue: mockRouter },
@@ -91,5 +96,4 @@ describe('Login Component', () => {
     fixture.detectChanges(); // detect changes explicitly
     expect(el.textContent).toContain(comp.title);
   });
-
 });

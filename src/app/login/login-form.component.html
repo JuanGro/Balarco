@@ -60,8 +60,45 @@
         </div>
         <!-- Recover password -->
         <div class="col-6 text-right">
-            <button type="button" class="btn btn-link px-0">Forgot password?</button>
+            <button type="button" class="btn btn-link px-0" (click)="recoverPasswordModal.show()">Forgot password?</button>
         </div>
     </div>
 </form>
+
 <toaster-container></toaster-container>
+
+<!-- Modal recover password -->
+<div bsModal #recoverPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myRecoverPasswordModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ titleRecoverPasswordModal }}</h4>
+            </div>
+            <!-- Common Form -->
+            <!-- Child component, it contains the recover password form -->
+            <!-- (passwordRecovered) listens the confirmation to recover the password -->
+            <!-- (requestCloseModal) listens for the close of the modal -->
+            <recover-password-form (requestCloseModal)="recoverPasswordModal.hide()" (passwordRecovered)="successfulModal.show()"></recover-password-form>
+        </div>
+    </div>
+</div>
+
+<!-- Succesful modal for recover password -->
+<div bsModal #successfulModal="bs-modal" class="modal fade" id="mySuccessfulModal" tabindex="-1" role="dialog" aria-labelledby="successfulModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¡Correo enviado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="successfulModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Sí el correo existe en nuestro sistema, se te enviará un correo para recuperar tu contraseña. No olvides revisar tu carpeta de correo no deseado en caso de no recibirlo.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="successfulModal.hide()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
