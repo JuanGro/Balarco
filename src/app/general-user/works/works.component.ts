@@ -399,18 +399,11 @@ export class WorksComponent implements OnInit, OnChanges {
   };
 
   /**
-  * Reloads user list after
+  * Reloads user list after receiving notifiations.
   **/
   public reloadWorkList() {
     this.notificationBannerIsActive = false;
-    this.loadWorksList(environment.WORKS_URL);
-    this.loadClientsList(environment.CLIENTS_URL);
-    this.loadContactsList(environment.CONTACTS_URL);
-    this.loadIgualasList(environment.IGUALAS_URL);
-    this.loadWorkTypesList(environment.WORK_TYPES_URL);
-    this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
-    this.loadStatusList(environment.STATUS_URL);
-    this.loadUserExecutivesList(environment.USERS_URL);
+    this.loadWorksDependingOnParentMode();
   }
 
   /**
