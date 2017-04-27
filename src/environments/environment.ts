@@ -17,6 +17,7 @@ export const environment = {
   'WORKS_URL': 'works/works/',
   'STATUS_URL': 'works/status/',
   'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
+  'MY_ASSIGNMENTS': 'works/works/my_assignments/',
   'USER_LIST_NOTIFICATIONS_URL': 'users/stream/',
   'CLIENT_LIST_NOTIFICATIONS_URL': 'clients/stream/',
   'CONTACT_LIST_NOTIFICATIONS_URL': 'contacts/stream/',

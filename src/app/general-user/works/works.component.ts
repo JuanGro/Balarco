@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -9,6 +10,7 @@ import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { User } from '../../admin/users/user-model';
@@ -69,10 +71,17 @@ export class WorksComponent implements OnInit, OnChanges {
   public descriptionDangerModal: string;
   // Variable to disable stop filter button.
   public stopFilterButton: boolean;
+  // Variable to catch the enum that the router sends.
+  private assignmentFilter: AssignmentFilter;
+  // Variable to store the current User logged.
+  public currentUser: CurrentUser;
   // Variable to control notificiation banner
   @Input() notificationBannerIsActive: boolean;
 
-  public constructor(public httpService: HttpService, private toaster: CustomToastService, private toasterService: ToasterService) { }
+  public constructor(private route: ActivatedRoute, public httpService: HttpService,
+                    private toaster: CustomToastService, private toasterService: ToasterService) {
+    this.currentUser = this.httpService.getCurrentUser();
+  }
 
   /**
   * Builds the component for first time.
@@ -80,6 +89,7 @@ export class WorksComponent implements OnInit, OnChanges {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
+    this.route.data.subscribe(data => this.assignmentFilter = data['type'] as AssignmentFilter);
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
@@ -87,7 +97,7 @@ export class WorksComponent implements OnInit, OnChanges {
     this.titleFilterModal = 'Filtrar trabajo(s)';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
     this.stopFilterButton = true;
-    this.loadWorksList(environment.WORKS_URL);
+
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
@@ -95,6 +105,8 @@ export class WorksComponent implements OnInit, OnChanges {
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
     this.loadUserExecutivesList(environment.USERS_URL);
+    this.loadWorksDependingOnParentMode();
+
     this.notificationBannerIsActive = false;
     this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
   }
@@ -103,6 +115,20 @@ export class WorksComponent implements OnInit, OnChanges {
   * Implements needed method to observ changes on inputs
   **/
   public ngOnChanges() {
+
+  }
+
+  /**
+  * Call load methods for works depending on the mode of the parent.
+  **/
+  private loadWorksDependingOnParentMode() {
+    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+      this.loadWorksList(environment.WORKS_URL);
+    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+      this.loadWorksList(environment.MY_ASSIGNMENTS);
+    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
+    }
   }
 
   /**
@@ -110,8 +136,14 @@ export class WorksComponent implements OnInit, OnChanges {
   * Params:
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
-  private loadWorksList(url: string) {
-    this.httpService.getObject(url)
+  private loadWorksList(url: string, statusIdArray?: string[]) {
+    let params = new URLSearchParams();
+    if (statusIdArray) {
+      for (let statusId of statusIdArray) {
+        params.append('current_status_id', statusId);
+      }
+    }
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
@@ -325,11 +357,7 @@ export class WorksComponent implements OnInit, OnChanges {
   * It updates the work selected.
   **/
   public onWorkUpdated(event: Work) {
-    let oldWork = this.worksList.filter(work => work.id === event.id)[0];
-    let index = this.worksList.indexOf(oldWork);
-    if (index >= 0) {
-      this.worksList[index] = event;
-    }
+    this.loadWorksDependingOnParentMode();
   }
 
   /**
@@ -372,18 +400,11 @@ export class WorksComponent implements OnInit, OnChanges {
   };
 
   /**
-  * Reloads user list after
+  * Reloads user list after receiving notifications.
   **/
   public reloadWorkList() {
     this.notificationBannerIsActive = false;
-    this.loadWorksList(environment.WORKS_URL);
-    this.loadClientsList(environment.CLIENTS_URL);
-    this.loadContactsList(environment.CONTACTS_URL);
-    this.loadIgualasList(environment.IGUALAS_URL);
-    this.loadWorkTypesList(environment.WORK_TYPES_URL);
-    this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
-    this.loadStatusList(environment.STATUS_URL);
-    this.loadUserExecutivesList(environment.USERS_URL);
+    this.loadWorksDependingOnParentMode();
   }
 
   /**
@@ -417,3 +438,12 @@ export class WorksComponent implements OnInit, OnChanges {
     this.toasterService.pop(toast);
   }
 }
+
+/**
+* Enum to keep track of the behaivour that WorkComponent will have.
+**/
+export enum AssignmentFilter {
+  ALL_WORKS,
+  MY_ASSIGNMENTS,
+  TO_BE_PAID
+};

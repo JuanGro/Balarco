@@ -18,7 +18,7 @@
 <!-- (requestShowFilterWorkModal) receives the request to show the works filter modal -->
 <!-- (requestStopWorkFilter) receives the request to stop the works filter -->
 <!-- (currentWork) receives the work who was selected by the user -->
-<works-list [stopFilterButton]="stopFilterButton" [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()"
+<works-list [currentUser]="currentUser" [assignmentFilter]="assignmentFilter" [stopFilterButton]="stopFilterButton" [worksList]="worksList" (requestShowNewWorkModal)="newWorkModal.show()" (requestShowUpdateWorkModal)="updateWorkModal.show()" (requestShowFilterWorkModal)="filterWorkModal.show()" (requestStopWorkFilter)="stopWorkFilter()"
     (currentWork)="getWorkFromTable($event)"></works-list>
 
 <!-- Modal New Work -->
@@ -38,7 +38,7 @@
             <!-- [graduationArtTypes] sends the graduation art types list to the form -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <!-- (workCreated) listens to add the new work -->
-            <work-form [userExecutivesList]="userExecutivesList" [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
+            <work-form [currentUser]="currentUser" [userExecutivesList]="userExecutivesList" [statusList]="statusList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestCloseModal)="newWorkModal.hide()" (workCreated)="onWorkCreated($event)"></work-form>
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@
             <!-- (requestWarning) shows confirmation modal -->
             <!-- (requestCloseModal) listens for the close of the modal -->
             <!-- (workUpdated) listens to update the work -->
-            <work-form [work]="work" [userExecutivesList]="userExecutivesList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"
+            <work-form [currentUser]="currentUser" [work]="work" [userExecutivesList]="userExecutivesList" [clientsList]="clientsList" [contactsList]="contactsList" [igualasList]="igualasList" [workTypesList]="workTypesList" [graduationArtTypes]="graduationArtTypes" (requestWarning)="dangerModal.show()" (requestCloseModal)="updateWorkModal.hide()"
                 (workUpdated)="onWorkUpdated($event)"></work-form>
         </div>
     </div>

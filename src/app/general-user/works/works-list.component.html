@@ -9,8 +9,10 @@
                         <div class="row">
                             <!-- Add work -->
                             <!-- Calls the requestNewWorkModal method, it requests the new work modal -->
-                            <div class="col-9" (click)="requestNewWorkModal($event)">
+                            <div *ngIf="assignmentFilter == staticEnum.ALL_WORKS && currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" class="col-8" (click)="requestNewWorkModal($event)">
                                 <i class="icon-plus icons font-2xl d-block"></i>
+                            </div>
+                            <div *ngIf="assignmentFilter == staticEnum.MY_ASSIGNMENTS || staticEnum.TO_BE_PAID" class="col-8">
                             </div>
                             <!-- Search field -->
                             <div class="col-3 align-self-end">
