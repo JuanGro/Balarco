@@ -21,13 +21,12 @@ import { User } from '../../admin/users/user-model';
 /**
 * Component which manage the forms for update and create a work:
 * - Use OnChanges feature because it's important to know if the user opens a new modal or update modal depending
-* in the work object value, the component is listening for each change in that variable.
+* in the work object currentDesigner, the component is listening for each change in that variable.
 * - Initialize form.
 * - Request save the work.
 * - Request actions in modals to the parent component.
 **/
 export class AssignmentFormComponent implements OnChanges {
-  @ViewChild('assignments_works') public ngSelect;
   // Receives the current work from parent component.
   @Input('work') work: Work;
   // Receives user list from parent component.
@@ -43,40 +42,32 @@ export class AssignmentFormComponent implements OnChanges {
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
   // Variable to save which designer is selecting the user in the Ng2-Select.
-  public value: Array<any>;
+  public currentDesigner: Array<any>;
   // List which saves all the users in strings to handle in the Ng2-Select.
   public designerStringList: DesignerString[];
   // List of designers which will be sent to create/update a user.
   public designerListToSend: Designer[];
-  // Variable to identify if the ng2-select is used or not to change or assign designers.
-  public designersChanges: boolean;
+  public designerName: string;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time each time when it's called.
   *   - Initialize the form depending if the new or update work form is called.
-  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
+  *   - Use an auxiliary variable to select a default currentDesigner for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.value = [];
-    this.ngSelect.active = [];
     // Initialize lists.
+    this.currentDesigner = [];
     this.designerStringList = [];
     this.designerListToSend = [];
-    this.value = [];
-    let designer_name = '';
-
-    // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
-    this.designersChanges = false;
+    this.designerName = '';
 
     // Get the user list and convert to string showing his group.
     if (this.userList) {
       for (let designer of this.userList) {
-        let designerObject: DesignerString = new DesignerString();
-        designerObject.id = designer.id;
-        designerObject.text = designer.first_name + ' ' + designer.last_name + ' (' + designer.groups_complete[0].name + ')';
-        this.designerStringList.push(designerObject);
+        this.designerName = designer.first_name + ' ' + designer.last_name + ' (' + designer.groups_complete[0].name + ')';
+        this.designerStringList.push(this.convertToNgSelectFormat(designer.id, this.designerName));
       };
     }
 
@@ -90,32 +81,36 @@ export class AssignmentFormComponent implements OnChanges {
       // Saves in the list the designers for the current work.
       if (this.work.work_designers) {
         for (let designer of this.work.work_designers) {
-          this.designerListToSend.push(designer);
-
-          let designer_complete = this.userList.filter(x => x.id === +designer.designer);
-          if (designer_complete.length > 0) {
-            designer_name = designer_complete[0].first_name + ' ' + designer_complete[0].last_name +
-            ' (' + designer_complete[0].groups_complete[0].name + ')';
-          }
 
           // Show the designers assigned to the work
           if (designer.active_work === true) {
-            let designerObject: DesignerString = new DesignerString();
-            designerObject.id = designer.designer;
-            designerObject.text = designer_name;
-            this.value.push(designerObject);
+            let designer_complete = this.userList.filter(x => x.id === +designer.designer);
+            if (designer_complete.length > 0) {
+              this.designerName = designer_complete[0].first_name + ' ' + designer_complete[0].last_name +
+              ' (' + designer_complete[0].groups_complete[0].name + ')';
+            }
+            this.designerListToSend.push(designer);
+            this.currentDesigner.push(this.convertToNgSelectFormat(designer.designer, this.designerName));
           }
         }
       }
     }
   }
 
+  public convertToNgSelectFormat(designer_id: number, designer_name: string) {
+    let designerObject: DesignerString = new DesignerString();
+    designerObject.id = designer_id;
+    designerObject.text = designer_name;
+    return designerObject;
+  }
+
   /**
   * Executes the submitUpdatedWork or submitNewWork depending if the work
   * received when the modal was called is empty or not.
   **/
-  public submitWorkForm(form: NgForm, object: Work) {
+  public submitWorkForm(form: NgForm) {
     this.work.work_designers = this.designerListToSend;
+    console.log(this.work);
 
     this.submitUpdatedWork();
     form.control.markAsUntouched();
@@ -156,45 +151,33 @@ export class AssignmentFormComponent implements OnChanges {
   * Adds the selected element to the designerListToSend list.
   **/
   public selected(value: DesignerString): void {
-    let designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
+    let designer: Designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
     let index = this.designerListToSend.indexOf(designer);
     if (index >= 0) {
       this.designerListToSend[index].active_work = true;
+    } else {
+      let designer_aux: Designer = new Designer();
+      designer_aux.active_work = true;
+      designer_aux.designer = value.id;
+      this.designerListToSend.push(designer_aux);
     }
+    this.currentDesigner.push(value);
   }
 
   /**
   * Removes the selected element in the designerListToSend list.
   **/
   public removed(value: DesignerString): void {
-    let designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
+    let designer: Designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
     let index = this.designerListToSend.indexOf(designer);
     if (index >= 0) {
       this.designerListToSend[index].active_work = false;
     }
-  }
 
-  /**
-  * Identify the value that is selected..
-  **/
-  public refreshValue(value: any): void {
-    if (!this.designersChanges) {
-      this.designerListToSend = [];
-      for (let designer of this.designerListDefault) {
-        this.designerListToSend.push(new Designer(designer));
-      }
-      this.designersChanges = true;
+    let designerString = this.currentDesigner.filter(designer_aux => designer_aux.designer === value.id)[0];
+    let indexString = this.currentDesigner.indexOf(designerString);
+    if (indexString >= 0) {
+      this.currentDesigner.slice(indexString, 1);
     }
-    this.value = value;
-  }
-
-  /**
-  * Method to show like an string the current user group list.
-  **/
-  public itemsToString(value: Array<any> = []): string {
-    return value
-      .map((item: any) => {
-        return item.text;
-      }).join(', ');
   }
 }
