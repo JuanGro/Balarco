@@ -1,3 +1,4 @@
+import { Role } from '../auth/role';
 var CurrentUser = (function () {
     function CurrentUser(object) {
         this.username = object.username;
@@ -23,13 +24,33 @@ var CurrentUser = (function () {
         var rolesString = '';
         for (var i = 0; i < this.roles.length; i++) {
             if (i == this.roles.length - 1) {
-                rolesString += this.roles[i];
+                rolesString += this.getRoleName(this.roles[i]);
             }
             else {
-                rolesString += this.roles[i] + ', ';
+                rolesString += this.getRoleName(this.roles[i]) + ', ';
             }
         }
         return rolesString;
+    };
+    CurrentUser.prototype.getRoleName = function (role) {
+        switch (role) {
+            case Role.DIRECTOR_CUENTAS:
+                return 'Director de cuentas';
+            case Role.EJECUTIVO_SR:
+                return 'Ejecutivo SR';
+            case Role.EJECUTIVO_JR:
+                return 'Ejecutivo JR';
+            case Role.ADMINISTRACION:
+                return 'Administración';
+            case Role.DIRECTOR_ARTE:
+                return 'Director de arte';
+            case Role.DISENADOR_SR:
+                return 'Diseñador SR';
+            case Role.DISENADOR_JR:
+                return 'Diseñador JR';
+            case Role.SUPER_USUARIO:
+                return 'Super usuario';
+        }
     };
     return CurrentUser;
 }());
