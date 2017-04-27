@@ -113,11 +113,8 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="recipient-assignments" class="form-control-label">Roles:</label>
-                <ng-select #roles [multiple]="true" [items]="groupStringList" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No groups selected">
+                <ng-select #roles [multiple]="true" [active]="currentGroupNameList" [items]="groupStringList" (selected)="selected($event)" (removed)="removed($event)" placeholder="No groups selected">
                 </ng-select>
-                <br/>
-                <!-- Current roles selected -->
-                <pre class="alert alert-info">{{ itemsToString(currentGroupNameList) }}</pre>
             </div>
         </div>
 
@@ -133,7 +130,7 @@
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(userModalForm)">Cancelar</button>
             <!-- Submits updated or new user -->
             <!-- Calls the submitUserForm method, the submit button is only displayed if all the fields are valid and at least one group is selected, then it closes the current modal -->
-            <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid || userGroupsComplete.length < 1" (click)="requestCloseThisModal($event)">Guardar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid || currentGroupNameList.length < 1" (click)="requestCloseThisModal($event)">Guardar</button>
         </div>
 
     </form>

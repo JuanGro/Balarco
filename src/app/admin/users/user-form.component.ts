@@ -27,7 +27,6 @@ import { environment } from '../../../environments/environment';
 * - Request actions in modals to the parent component.
 **/
 export class UserFormComponent implements OnChanges {
-  @ViewChild('roles') public ngSelect;
   // Receives the user selected by the user or the empty object to know if is called the update or create user form.
   @Input('user') user: User;
   // Receives the group list from parent component.
@@ -55,9 +54,7 @@ export class UserFormComponent implements OnChanges {
   // List which saves all the groups in strings to handle in the Ng2-Select.
   public groupStringList: GroupString[];
   // List of groups which will be sent to create/update a user.
-  public userGroupsComplete: Group[];
-  // Variable to identify if the ng2-select is used or not to change or assign a group.
-  public groupsChanges: boolean;
+  public groupListToSend: Group[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -67,22 +64,15 @@ export class UserFormComponent implements OnChanges {
   *   - Use an auxiliary variable to select a default currentGroupNameList for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.ngSelect.active = [];
     // Initialize lists.
-    this.userGroupsComplete = [];
+    this.groupListToSend = [];
     this.groupStringList = [];
     this.currentGroupNameList = [];
-
-    // Boolean to know if it's neccessary to reset the ng-select if the user is going to change groups.
-    this.groupsChanges = false;
 
     // Get the entire group list and convert to ng2-select format.
     if (this.groupList) {
       for (let group of this.groupList) {
-        let groupObject: GroupString = new GroupString();
-        groupObject.id = group.id;
-        groupObject.text = group.name;
-        this.groupStringList.push(groupObject);
+        this.groupStringList.push(this.convertToNgSelectFormat(group));
       };
     }
 
@@ -91,17 +81,27 @@ export class UserFormComponent implements OnChanges {
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
+
       // Save in the list the current groups if is selected an existent user.
       if (this.user.groups_complete) {
         for (let group of this.user.groups_complete) {
-          this.userGroupsComplete.push(group);
-          let groupObject: GroupString = new GroupString();
-          groupObject.id = group.id;
-          groupObject.text = group.name;
-          this.currentGroupNameList.push(groupObject);
+          // Save them in the group list to send.
+          this.groupListToSend.push(group);
+          // Save them in the group string list.
+          this.currentGroupNameList.push(this.convertToNgSelectFormat(group));
         }
       }
     }
+  }
+
+  /**
+   * Convert the current group to ng-select format wich includes id and text attributes.
+   **/
+  public convertToNgSelectFormat(object: Group) {
+    let stringObject: GroupString = new GroupString();
+      stringObject.id = object.id;
+      stringObject.text = object.name;
+      return stringObject;
   }
 
   /**
@@ -111,9 +111,7 @@ export class UserFormComponent implements OnChanges {
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
   public submitUserForm(form: NgModel, object: User) {
-    this.currentGroupList = [];
-    object.groups_complete = this.userGroupsComplete;
-
+    object.groups_complete = this.groupListToSend;
     if (this.user.id) {
       // Update user
       this.submitUpdatedUser(object, this.user.id);
@@ -190,40 +188,28 @@ export class UserFormComponent implements OnChanges {
   }
 
   /**
-  * Adds the selected element to the userGroupsComplete list.
+  * Adds the selected element to the groupListToSend list.
   **/
-  public selected(currentGroupNameList: any): void {
-    this.userGroupsComplete.push(currentGroupNameList);
+  public selected(value: GroupString): void {
+    this.currentGroupNameList.push(value);
+    let group = this.groupList.filter(group_aux => group_aux.id === value.id)[0];
+    this.groupListToSend.push(group);
   }
 
   /**
-  * Removes the selected element in the userGroupsComplete list.
+  * Removes the selected element in the groupListToSend list.
   **/
-  public removed(currentGroupNameList: any): void {
-    let index = this.userGroupsComplete.indexOf(currentGroupNameList);
+  public removed(value: GroupString): void {
+    let group = this.groupListToSend.filter(group_aux => group_aux.id === value.id)[0];
+    let index = this.groupListToSend.indexOf(group);
     if (index >= 0) {
-      this.userGroupsComplete.splice(index, 1);
+      this.groupListToSend.splice(index, 1);
     }
-  }
 
-  /**
-  * Identiies if the user is changing the groups to reset the userGroupsComplete list.
-  **/
-  public refreshValue(currentGroupNameList: any): void {
-    if (!this.groupsChanges) {
-      this.userGroupsComplete = [];
-      this.groupsChanges = true;
+    let groupString = this.currentGroupNameList.filter(group_aux => group_aux.id === value.id)[0];
+    let indexString = this.currentGroupNameList.indexOf(groupString);
+    if (indexString >= 0) {
+      this.currentGroupNameList.splice(indexString, 1);
     }
-    this.currentGroupNameList = currentGroupNameList;
-  }
-
-  /**
-  * Method to show like an string the current user group list.
-  **/
-  public itemsToString(currentGroupNameList: Array<any> = []): string {
-    return currentGroupNameList
-      .map((item: any) => {
-        return item.text;
-      }).join(', ');
   }
 }
