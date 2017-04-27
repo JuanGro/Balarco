@@ -101,7 +101,7 @@ describe('WorksComponent tests', function () {
                 },
                 { provide: ActivatedRoute, useClass: (function () {
                         function class_1() {
-                            this.navigate = jasmine.createSpy("navigate");
+                            this.navigate = jasmine.createSpy('navigate');
                         }
                         return class_1;
                     }()) },

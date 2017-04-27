@@ -137,7 +137,7 @@ describe('WorksComponent tests', () => {
                   },
                   deps: [MockBackend, BaseRequestOptions]
                 },
-                { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy("navigate"); } },
+                { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy('navigate'); } },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
@@ -153,7 +153,7 @@ describe('WorksComponent tests', () => {
 
         // WorksComponent test instance.
         component = fixtureParent.componentInstance;
-        component.currentUser = new CurrentUser({ id: 1, username: 'hi'});  
+        component.currentUser = new CurrentUser({ id: 1, username: 'hi'});
         // WorkFormComponent test instance.
         componentForm = fixtureChildForm.componentInstance;
         componentForm.currentUser = component.currentUser;

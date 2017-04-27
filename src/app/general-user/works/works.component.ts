@@ -78,7 +78,8 @@ export class WorksComponent implements OnInit, OnChanges {
   // Variable to control notificiation banner
   @Input() notificationBannerIsActive: boolean;
 
-  public constructor(private route: ActivatedRoute, public httpService: HttpService, private toaster: CustomToastService, private toasterService: ToasterService) {
+  public constructor(private route: ActivatedRoute, public httpService: HttpService,
+                    private toaster: CustomToastService, private toasterService: ToasterService) {
     this.currentUser = this.httpService.getCurrentUser();
   }
 

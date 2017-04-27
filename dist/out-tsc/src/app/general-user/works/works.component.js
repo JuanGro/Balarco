@@ -278,7 +278,8 @@ WorksComponent = __decorate([
         selector: 'works',
         templateUrl: 'works.component.html'
     }),
-    __metadata("design:paramtypes", [ActivatedRoute, HttpService, CustomToastService, ToasterService])
+    __metadata("design:paramtypes", [ActivatedRoute, HttpService,
+        CustomToastService, ToasterService])
 ], WorksComponent);
 export { WorksComponent };
 export var AssignmentFilter;

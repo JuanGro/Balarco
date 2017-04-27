@@ -140,7 +140,7 @@ describe('WorkFormComponent tests', () => {
                 },
                 deps: [MockBackend, BaseRequestOptions]
               },
-              { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy("navigate"); } },
+              { provide: ActivatedRoute, useClass: class { navigate = jasmine.createSpy('navigate'); } },
               MockBackend, BaseRequestOptions, CustomToastService
           ]
       });
