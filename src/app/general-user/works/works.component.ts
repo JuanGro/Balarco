@@ -399,7 +399,7 @@ export class WorksComponent implements OnInit, OnChanges {
   };
 
   /**
-  * Reloads user list after receiving notifiations.
+  * Reloads user list after receiving notifications.
   **/
   public reloadWorkList() {
     this.notificationBannerIsActive = false;
