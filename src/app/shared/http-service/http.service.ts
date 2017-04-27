@@ -205,7 +205,7 @@ export class HttpService extends Http {
                                   token: currentUser.token,
                                   roles: roles,
                                   firstName: firstName,
-                                  lastName: lastName });
+                                  lastName: lastName});
     localStorage.setItem('currentUser', currentUser);
   }
 

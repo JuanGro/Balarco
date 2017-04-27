@@ -32,4 +32,27 @@ export class CurrentUser {
     }
     return false;
   }
+
+  /**
+  * Method that returns user's full name
+  * Returns:
+  *   - fullname.
+  **/
+  public getFullName(): string {
+    return this.firstName + ' ' + this.lastName;
+  }
+
+  public getRolesString(): string {
+    let rolesString = '';
+    for (let i = 0; i < this.roles.length; i++) {
+      if (i == this.roles.length - 1) {
+        rolesString += this.roles[i];
+      } else {
+        rolesString += this.roles[i] + ', ';
+      }
+    }
+    return rolesString;
+  }
+
+  
 }

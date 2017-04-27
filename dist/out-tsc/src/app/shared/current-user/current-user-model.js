@@ -16,6 +16,21 @@ var CurrentUser = (function () {
         }
         return false;
     };
+    CurrentUser.prototype.getFullName = function () {
+        return this.firstName + ' ' + this.lastName;
+    };
+    CurrentUser.prototype.getRolesString = function () {
+        var rolesString = '';
+        for (var i = 0; i < this.roles.length; i++) {
+            if (i == this.roles.length - 1) {
+                rolesString += this.roles[i];
+            }
+            else {
+                rolesString += this.roles[i] + ', ';
+            }
+        }
+        return rolesString;
+    };
     return CurrentUser;
 }());
 export { CurrentUser };
