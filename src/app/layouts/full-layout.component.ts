@@ -19,7 +19,7 @@ export class FullLayoutComponent implements OnInit {
 
     private currentUser: CurrentUser;
     // Variable needed for accessing enum in template.
-    private roleEnum = Role;
+    public roleEnum = Role;
 
     constructor(private httpService: HttpService) {
         this.currentUser = httpService.getCurrentUser();

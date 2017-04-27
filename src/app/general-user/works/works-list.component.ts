@@ -2,6 +2,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 // Models
 import { Work } from './work-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
+import { Role } from '../../shared/auth/role';
+
+// Enum
+import { AssignmentFilter } from './works.component';
 
 @Component({
   selector: 'works-list',
@@ -18,6 +23,10 @@ export class WorksListComponent {
   @Input('worksList') worksList: Work[];
   // Variable to disable stop filter button.
   @Input('stopFilterButton') stopFilterButton: boolean;
+  // Variable to know the behavior of Works comp.
+  @Input('assignmentFilter') assignmentFilter: AssignmentFilter;
+  // Variable to know the currentUser logged.
+  @Input('currentUser') currentUser: CurrentUser;
   // Sends the request to show the new work modal in parent component.
   @Output() requestShowNewWorkModal: EventEmitter<string> = new EventEmitter();
   // Sends the request to show the update work modal in parent component.
@@ -30,6 +39,10 @@ export class WorksListComponent {
   @Output() currentWork: EventEmitter<Work> = new EventEmitter<Work>();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
+  // Needed variable for comparing enum in template.
+  public staticEnum = AssignmentFilter;
+  // Needed variable for comparing Role enum in template.
+  public roleEnum = Role;
 
   public constructor() { }
 
