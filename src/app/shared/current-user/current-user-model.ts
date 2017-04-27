@@ -47,16 +47,12 @@ export class CurrentUser {
   * Returns:
   *   - roles in string format.
   **/
-  public getRolesString(): string {
-    let rolesString = '';
-    for (let i = 0; i < this.roles.length; i++) {
-      if (i == this.roles.length - 1) {
-        rolesString += this.getRoleName(this.roles[i]);
-      } else {
-        rolesString += this.getRoleName(this.roles[i]) + ', ';
-      }
+  public getRoles(): string[] {
+    let rolesStrings = [];
+    for (let role of this.roles) {
+      rolesStrings.push(this.getRoleName(role));
     }
-    return rolesString;
+    return rolesStrings;
   }
 
   /**

@@ -20,17 +20,13 @@ var CurrentUser = (function () {
     CurrentUser.prototype.getFullName = function () {
         return this.firstName + ' ' + this.lastName;
     };
-    CurrentUser.prototype.getRolesString = function () {
-        var rolesString = '';
-        for (var i = 0; i < this.roles.length; i++) {
-            if (i == this.roles.length - 1) {
-                rolesString += this.getRoleName(this.roles[i]);
-            }
-            else {
-                rolesString += this.getRoleName(this.roles[i]) + ', ';
-            }
+    CurrentUser.prototype.getRoles = function () {
+        var rolesStrings = [];
+        for (var _i = 0, _a = this.roles; _i < _a.length; _i++) {
+            var role = _a[_i];
+            rolesStrings.push(this.getRoleName(role));
         }
-        return rolesString;
+        return rolesStrings;
     };
     CurrentUser.prototype.getRoleName = function (role) {
         switch (role) {
