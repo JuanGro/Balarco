@@ -73,7 +73,10 @@ export class LoginFormComponent implements OnInit {
                          for (let group of usersList[0].groups_complete) {
                            groupNames.push(group.name);
                          }
-                         this.loginService.setUserRolesAndId(groupNames, usersList[0].id);
+                         this.loginService.setUserInfo(groupNames,
+                                                              usersList[0].id,
+                                                              usersList[0].first_name,
+                                                              usersList[0].last_name);
                          this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
                        }
                      });
