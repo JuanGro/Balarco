@@ -108,31 +108,13 @@
             </div>
         </div>
 
-
         <!-- Fourth row -->
-        <div class="form-group row">
-            <div class="col-md-6" [class.has-success]="!groups_complete.errors && groups_complete.touched" [class.has-danger]="groups_complete.errors && groups_complete.touched">
-                <!-- Role field -->
-                <label for="user-role" class="form-control-label">Roles:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select multiple id="groups_complete" name="groups_complete" class="form-control" [(ngModel)]="user.groups_complete" #groups_complete="ngModel" size=8 [class.form-control-success]="!groups_complete.errors && groups_complete.touched" [class.form-control-danger]="groups_complete.errors && groups_complete.touched"
-                        required>
-                      <option *ngFor="let group of groupList" value="{{ group.id }}">{{ group.name }}</option>
-                    </select>
-                </div>
-
-                <!-- Mandatory role feedback -->
-                <div *ngIf="groups_complete.errors && groups_complete.touched">
-                    <div [hidden]="!groups_complete.errors.required">
-                        <div class="form-control-feedback">El rol es obligatorio.</div>
-                    </div>
-                </div>
-
-                <!-- Current roles feedback -->
-                <div *ngIf="user && array !== ''" class="alert alert-info" role="alert">
-                    <strong>Roles actuales: </strong>{{ array }}
-                </div>
+        <!-- NG2-SELECT -->
+        <div class="row">
+            <div class="col-md-12">
+                <label for="recipient-assignments" class="form-control-label">Roles:</label>
+                <ng-select #roles [multiple]="true" [active]="currentGroupNameList" [items]="groupStringList" (selected)="selected($event)" (removed)="removed($event)" placeholder="No groups selected">
+                </ng-select>
             </div>
         </div>
 
@@ -147,8 +129,8 @@
             <!-- Hides modal -->
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(userModalForm)">Cancelar</button>
             <!-- Submits updated or new user -->
-            <!-- Calls the submitUserForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
-            <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
+            <!-- Calls the submitUserForm method, the submit button is only displayed if all the fields are valid and at least one group is selected, then it closes the current modal -->
+            <button type="submit" class="btn btn-primary" [disabled]="!userModalForm.form.valid || currentGroupNameList.length < 1" (click)="requestCloseThisModal($event)">Guardar</button>
         </div>
 
     </form>
