@@ -153,8 +153,7 @@ describe('WorksComponent tests', () => {
 
         // WorksComponent test instance.
         component = fixtureParent.componentInstance;
-        component.currentUser = new CurrentUser({ id: 1, username: 'hi'});
-        console.log(component.currentUser);
+        component.currentUser = new CurrentUser({ id: 1, username: 'hi'});  
         // WorkFormComponent test instance.
         componentForm = fixtureChildForm.componentInstance;
         componentForm.currentUser = component.currentUser;
