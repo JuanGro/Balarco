@@ -210,6 +210,12 @@ export class UsersComponent implements OnInit, OnChanges {
     if (index >= 0) {
       this.userList[index] = event;
     }
+
+    let lastUserComplete = this.completeUserList.filter(user => user.id === event.id)[0];
+    let indexComplete = this.completeUserList.indexOf(lastUserComplete);
+    if (indexComplete >= 0) {
+      this.completeUserList[indexComplete] = event;
+    }
   }
 
   /**
