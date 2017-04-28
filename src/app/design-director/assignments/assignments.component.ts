@@ -62,7 +62,9 @@ export class AssignmentsComponent implements OnInit {
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
   private loadWorksList(url: string) {
-    this.httpService.getObject(url)
+    let params = new URLSearchParams();
+    params.append('current_status', '1');
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
@@ -125,7 +127,6 @@ export class AssignmentsComponent implements OnInit {
     } else {
       for (let workFromList of this.completeWorksList) {
         if (workFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            workFromList.current_status_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             workFromList.work_type_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
             this.worksList.push(new Work(workFromList));
         }
