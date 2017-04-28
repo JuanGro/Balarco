@@ -160,5 +160,11 @@ export class AssignmentsComponent implements OnInit {
     if (index >= 0) {
       this.worksList[index] = event;
     }
+
+    let oldWorkBase = this.completeWorksList.filter(work => work.id === event.id)[0];
+    let indexBase = this.completeWorksList.indexOf(oldWorkBase);
+    if (indexBase >= 0) {
+      this.completeWorksList[indexBase] = event;
+    }
   }
 }
