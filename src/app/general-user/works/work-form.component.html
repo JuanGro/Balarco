@@ -13,7 +13,7 @@
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                     <input type="text" id="name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
-                        required>
+                        [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                 </div>
                 <!-- Feedback name -->
                 <div *ngIf="name.errors && name.touched">
@@ -35,7 +35,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <select id="executive" name="executive" class="form-control" size="1" [(ngModel)]="work.executive" #executive="ngModel" required>
+                    <select id="executive" name="executive" class="form-control" size="1" [(ngModel)]="work.executive" #executive="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                     <option *ngFor="let executive of userExecutivesList" value="{{ executive.id }}">{{ executive.first_name + ' ' + executive.last_name }}</option>
                 </select>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" required>
+                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" required>
+                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
                 </div>
@@ -95,7 +95,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                    <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" required>
+                    <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                     <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
                 </select>
                 </div>
@@ -113,7 +113,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                    <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" #iguala="ngModel" required>
+                    <select id="iguala" name="iguala" class="form-control" size="1" (change)="onIgualaChange($event.target.value)" [(ngModel)]="work.iguala" #iguala="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
                     <option *ngFor="let iguala of currentIgualas" value="{{ iguala.id }}">{{ iguala.name }}</option>
                 </select>
                 </div>
@@ -133,7 +133,7 @@
                     <div class="form-group row">
                         <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
                         <div class="col-3">
-                            <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity">
+                            <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
                     <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" #description="ngModel" [class.form-control-success]="!description.errors && description.touched"
-                        [class.form-control-danger]="description.errors && description.touched" required></textarea>
+                        [class.form-control-danger]="description.errors && description.touched" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required></textarea>
                 </div>
                 <!-- Feedback description -->
                 <div *ngIf="description.errors && description.touched">
@@ -241,18 +241,18 @@
         </div>
 
         <!-- Eight row -->
-        <div class="form-group row">
+        <div class="form-group row" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
             <div class="col-md-6">
                 <!-- StartDate Field -->
                 <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
                 <div class="card-block">
                     <div id="iguala-start-date" style="display:inline-block; min-height:290px;">
-                        <datepicker name="creation_date" [(ngModel)]="work.creation_date" required></datepicker>
+                        <datepicker name="creation_date" [(ngModel)]="work.creation_date" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required></datepicker>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
                 <!-- EndDate Field -->
                 <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
                 <div class="card-block">
@@ -270,7 +270,7 @@
             <!-- <button *ngIf="!work.id" type="reset" class="btn btn-danger" (click)="cancelForm()">Limpiar</button> -->
             <!-- Delete work -->
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the work.id exists because it's used only for update work modal -->
-            <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)">Eliminar</button>
+            <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">Eliminar</button>
             <!-- Hides modal -->
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(worksModalForm)">Cancelar</button>
             <!-- Submits updated or new work -->
