@@ -16,9 +16,9 @@ import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Role } from '../../shared/auth/role';
 import { Status } from './status/status-model';
-import { User } from '../../admin/users/user-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
+import { User } from '../../admin/users/user-model';
 
 @Component({
   selector: 'work-form',
@@ -34,7 +34,7 @@ import { WorkType } from './work-type/work-type-model';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
-  @Input() work: Work;
+  @Input('work') work: Work;
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
@@ -47,6 +47,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
   // Receives status list from parent component.
   @Input('statusList') statusList: Status[];
+  // Receives user list from parent component.
+  @Input('userList') userList: User[];
   // Receives executives list.
   @Input('userExecutivesList') userExecutivesList: User[];
   // Receives the currentUser logged.

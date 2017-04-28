@@ -15,6 +15,8 @@ import { WorkFilterFormComponent } from './works/work-filter-form.component';
 
 // Datepicker
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+
+// Ng-select
 import { SelectModule } from 'ng2-select';
 
 // Services

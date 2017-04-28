@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CanActivateAuthGuard } from '../shared/auth/auth.service';
 // Base
 import { DesignsListComponent } from './designs-list.component';
+import { AssignmentsComponent } from './assignments/assignments.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
         component: DesignsListComponent,
         data: {
           title: 'Designs List'
+        }
+      },
+      {
+        path: 'assignments',
+        component: AssignmentsComponent,
+        data: {
+          title: 'Assignments'
         }
       }
     ]

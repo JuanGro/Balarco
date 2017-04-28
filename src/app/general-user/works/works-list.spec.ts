@@ -17,6 +17,9 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
 
+// Ng-select
+import { SelectModule } from 'ng2-select';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -51,7 +54,7 @@ describe('WorkListComponent tests', () => {
     // Fixture for debugging and testing a WorksListComponent .
     let fixtureChildTable: ComponentFixture<WorksListComponent>;
     // Fixture for debugging and testing a WorksFilterFormComponent .
-  let fixtureChildFilterForm: ComponentFixture<WorkFilterFormComponent>;
+    let fixtureChildFilterForm: ComponentFixture<WorkFilterFormComponent>;
 
     // Save WorksComponent to test it's methods and variables.
     let componentParent: WorksComponent;
@@ -60,7 +63,7 @@ describe('WorkListComponent tests', () => {
     // Save WorksListComponent  to test it's methods and variables.
     let component: WorksListComponent;
     // Save WorkFilterFormComponent  to test it's methods and variables.
-  let componentFilterForm: WorkFilterFormComponent ;
+    let componentFilterForm: WorkFilterFormComponent ;
 
     // Handles on the component's DOM element.
     let de: DebugElement;
@@ -115,8 +118,8 @@ describe('WorkListComponent tests', () => {
         TestBed.configureTestingModule({
             // Declare all what the test component has.
             declarations: [ WorksComponent, WorksListComponent , WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe ],
-            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-                    ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), ToasterModule, NgxPaginationModule ],
+            imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule, SelectModule,
+            ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), ToasterModule, NgxPaginationModule ],
             providers: [ WorksListComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {

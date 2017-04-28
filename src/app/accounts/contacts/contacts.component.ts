@@ -147,18 +147,14 @@ export class ContactsComponent implements OnInit, OnChanges {
     this.valueSearch = value;
     this.contactsList = [];
     this.completeContactsList.sort();
-    if (this.valueSearch === '') {
-      this.contactsList = this.completeContactsList;
-    } else {
-      for (let contactFromList of this.completeContactsList) {
-        if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-            let contact = new Contact(contactFromList);
-            this.contactsList.push(contact);
-        }
+    for (let contactFromList of this.completeContactsList) {
+      if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+          let contact = new Contact(contactFromList);
+          this.contactsList.push(contact);
       }
     }
   }

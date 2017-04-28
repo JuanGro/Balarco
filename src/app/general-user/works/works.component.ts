@@ -55,6 +55,8 @@ export class WorksComponent implements OnInit, OnChanges {
   public workTypesList: WorkType[];
   // List of Work Types of graduation only.
   public graduationArtTypes: ArtWork[];
+  // Variable that saves all users from DB.
+  public userList: User[];
   // List of Status.
   public statusList: Status[];
   // List of User allowed to be executives.
@@ -101,6 +103,7 @@ export class WorksComponent implements OnInit, OnChanges {
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadUserList(environment.USERS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
@@ -217,6 +220,26 @@ export class WorksComponent implements OnInit, OnChanges {
                         this.toaster.show(error, 'Error', 'Ocurrió un error al cargar las igualas');
                       });
 
+  }
+
+  /**
+  * Loads all the users from the get method in httpService to use it the user attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the User object.
+  **/
+  private loadUserList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(userListJSON => {
+                      // Creates clients objects from JSON.
+                      this.userList = [];
+                      for (let userJSON of userListJSON) {
+                        this.userList.push(new User(userJSON));
+                      }
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los usuarios');
+                    });
   }
 
   /**

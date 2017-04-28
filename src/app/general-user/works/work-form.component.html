@@ -216,6 +216,31 @@
         </div>
 
         <!-- Seventh row -->
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="designers" class="form-control-label"><strong>Diseñadores asignados:</strong></label>
+                <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de termino</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let designer of this.work.work_designers">
+                            <td>{{ designer.designer }}</td>
+                            <td>{{ designer.designer_name }} {{ designer.designer_last_name }}</td>
+                            <td>{{ designer.start_date | date }}</td>
+                            <td>{{ designer.end_date | date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Eight row -->
         <div class="form-group row" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
             <div class="col-md-6">
                 <!-- StartDate Field -->
@@ -249,7 +274,7 @@
             <!-- Hides modal -->
             <button type="button" class="btn btn-secondary" (click)="requestCloseThisModal($event)" (click)="cancelForm(worksModalForm)">Cancelar</button>
             <!-- Submits updated or new work -->
-            <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid, then it closes the current modal -->
+            <!-- Calls the submitWorkForm method, the submit button is only displayed if all the fields are valid and at least one designer is selected, then it closes the current modal -->
             <button type="submit" class="btn btn-primary" [disabled]="!worksModalForm.form.valid" (click)="requestCloseThisModal($event)">Guardar</button>
         </div>
 
