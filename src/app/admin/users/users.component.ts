@@ -195,7 +195,10 @@ export class UsersComponent implements OnInit, OnChanges {
   *   - event: New user received from the event.
   **/
   public onUserCreated(event: User) {
-    this.userList.push(event);
+    this.completeUserList.push(event);
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
+    }
   }
 
   /**
@@ -205,16 +208,14 @@ export class UsersComponent implements OnInit, OnChanges {
   *   - event: Updated user received from the event.
   **/
   public onUserUpdated(event: User) {
-    let lastUser = this.userList.filter(user => user.id === event.id)[0];
-    let index = this.userList.indexOf(lastUser);
-    if (index >= 0) {
-      this.userList[index] = event;
-    }
-
     let lastUserComplete = this.completeUserList.filter(user => user.id === event.id)[0];
     let indexComplete = this.completeUserList.indexOf(lastUserComplete);
     if (indexComplete >= 0) {
       this.completeUserList[indexComplete] = event;
+    }
+
+    if (this.valueSearch) {
+      this.getValueSearch(this.valueSearch);
     }
   }
 
