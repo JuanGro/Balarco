@@ -247,8 +247,8 @@
                     <strong>Settings</strong>
                 </div> -->
 
-                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
                 <!--<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
                 <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
                 <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
                 <div class="divider"></div>
@@ -269,10 +269,12 @@
         <div class="sidebar-header">
             <img src="assets/img/avatars/8.jpg" class="img-avatar" alt="Avatar">
             <div>
-                <strong>Telma</strong>
+                <strong>{{ currentUser.getFullName() }}</strong>
             </div>
             <div class="text-muted">
-                <small> Super Usuario</small>
+                <div *ngFor="let role of currentUser.getRoles()">
+                  <small >{{ role }}</small>
+                </div>
             </div>
 
             <!--<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -305,7 +307,7 @@
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin/users']"><i class="glyphicons glyphicons-crown"></i> Usuarios</a>
                 </li>
                 <!-- Account -->
-                <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_CUENTAS, roleEnum.ADMINISTRACION ])" class="nav-item nav-dropdown" routerLinkActive="open">
+                <li *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_CUENTAS, roleEnum.DIRECTOR_ARTE ])" class="nav-item nav-dropdown" routerLinkActive="open">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/general-user/works']"><i class="glyphicons glyphicons-shopping-cart"></i>Todos los Trabajos</a>
                 </li>
 
