@@ -38,9 +38,6 @@ import { SelectModule } from 'ng2-select';
 // Models
 import { WorkFilter } from './work-filter-model';
 
-// Pipes
-import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
-
 describe('WorksFilterFormComponent tests', () => {
   // Fixture for debugging and testing a WorksComponent.
     let fixtureParent: ComponentFixture<WorksComponent>;

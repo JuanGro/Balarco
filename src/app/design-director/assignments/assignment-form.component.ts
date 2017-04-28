@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Services
@@ -47,6 +47,7 @@ export class AssignmentFormComponent implements OnChanges {
   public designerStringList: DesignerString[];
   // List of designers which will be sent to create/update a user.
   public designerListToSend: Designer[];
+  // Variable to save the current user and his role.
   public designerName: string;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
@@ -61,7 +62,6 @@ export class AssignmentFormComponent implements OnChanges {
     this.currentDesigner = [];
     this.designerStringList = [];
     this.designerListToSend = [];
-    this.designerName = '';
 
     // Get the user list and convert to string showing his group.
     if (this.userList) {
@@ -81,14 +81,11 @@ export class AssignmentFormComponent implements OnChanges {
       // Saves in the list the designers for the current work.
       if (this.work.work_designers) {
         for (let designer of this.work.work_designers) {
-
           // Show the designers assigned to the work
           if (designer.active_work === true) {
-            let designer_complete = this.userList.filter(x => x.id === +designer.designer);
-            if (designer_complete.length > 0) {
-              this.designerName = designer_complete[0].first_name + ' ' + designer_complete[0].last_name +
-              ' (' + designer_complete[0].groups_complete[0].name + ')';
-            }
+            let designer_complete = this.userList.filter(x => x.id === +designer.designer)[0];
+            this.designerName = designer_complete.first_name + ' ' + designer_complete.last_name +
+              ' (' + designer_complete.groups_complete[0].name + ')';
             this.designerListToSend.push(designer);
             this.currentDesigner.push(this.convertToNgSelectFormat(designer.designer, this.designerName));
           }
@@ -97,6 +94,11 @@ export class AssignmentFormComponent implements OnChanges {
     }
   }
 
+  /**
+   * Convert to ng-select format an object list or array.
+   * @param designer_id: Id to use in the new object.
+   * @param designer_name: text to show in the ng-select field.
+   */
   public convertToNgSelectFormat(designer_id: number, designer_name: string) {
     let designerObject: DesignerString = new DesignerString();
     designerObject.id = designer_id;
@@ -110,8 +112,6 @@ export class AssignmentFormComponent implements OnChanges {
   **/
   public submitWorkForm(form: NgForm) {
     this.work.work_designers = this.designerListToSend;
-    console.log(this.work);
-
     this.submitUpdatedWork();
     form.control.markAsUntouched();
   }
@@ -124,7 +124,7 @@ export class AssignmentFormComponent implements OnChanges {
       if (result.ok) {
         let updatedWork = new Work(result.json());
         this.workUpdated.emit(updatedWork);
-        this.toaster.show(result, 'Trabajo actulizado', 'El trabajo se actualizó con éxito');
+        this.toaster.show(result, 'Trabajo actualizado', 'El trabajo se actualizó con éxito');
       }
     },
     error => {
@@ -151,11 +151,13 @@ export class AssignmentFormComponent implements OnChanges {
   * Adds the selected element to the designerListToSend list.
   **/
   public selected(value: DesignerString): void {
+    // If it exists I change it's active_work attribute
     let designer: Designer = this.designerListToSend.filter(designer_aux => designer_aux.designer === value.id)[0];
     let index = this.designerListToSend.indexOf(designer);
     if (index >= 0) {
       this.designerListToSend[index].active_work = true;
     } else {
+      // If not, I create the new Designer.
       let designer_aux: Designer = new Designer();
       designer_aux.active_work = true;
       designer_aux.designer = value.id;

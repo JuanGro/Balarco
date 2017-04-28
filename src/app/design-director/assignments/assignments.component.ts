@@ -91,12 +91,15 @@ export class AssignmentsComponent implements OnInit {
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(userListJSON => {
-                      // Creates clients objects from JSON.
+                      // Initialize lists
                       this.userList = [];
                       this.designerListDefault = [];
-                      let userJSON: User;
-                      for (userJSON of userListJSON) {
+
+                      // Creates clients objects from JSON.
+                      for (let userJSON of userListJSON) {
                         this.userList.push(new User(userJSON));
+                        /* Assign to designerListDefault all the users with
+                        active_work: false */
                         let designer: Designer = new Designer();
                         designer.designer = userJSON.id;
                         designer.active_work = false;
@@ -124,8 +127,7 @@ export class AssignmentsComponent implements OnInit {
         if (workFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             workFromList.current_status_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
             workFromList.work_type_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-            let work = new Work(workFromList);
-            this.worksList.push(work);
+            this.worksList.push(new Work(workFromList));
         }
       }
     }
