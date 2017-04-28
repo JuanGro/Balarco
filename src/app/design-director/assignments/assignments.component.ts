@@ -63,7 +63,7 @@ export class AssignmentsComponent implements OnInit {
   **/
   private loadWorksList(url: string) {
     let params = new URLSearchParams();
-    params.append('current_status', '1');
+    params.append('current_status_id', '1');
     this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
