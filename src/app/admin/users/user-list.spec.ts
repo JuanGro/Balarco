@@ -13,6 +13,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
+// Ng2-select
+import { SelectModule } from 'ng2-select';
+
 // Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -77,8 +80,8 @@ describe('UserListComponent  tests.', () => {
             // Declare all what the test component has.
             declarations: [ UsersComponent, UserListComponent , UserFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, NgxPaginationModule ],
-            providers: [ UserListComponent ,
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, SelectModule, NgxPaginationModule ],
+            providers: [ UserListComponent,
                 {
                   provide: HttpService, useFactory: (backend, options) => {
                     return new HttpService(backend, options);

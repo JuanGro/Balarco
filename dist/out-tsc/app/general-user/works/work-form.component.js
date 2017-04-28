@@ -12,6 +12,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
+import { Role } from '../../shared/auth/role';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 var WorkFormComponent = (function () {
@@ -24,6 +26,7 @@ var WorkFormComponent = (function () {
         this.workUpdated = new EventEmitter();
         this.modalAction = '';
         this.currentWorkTypeId = 0;
+        this.roleEnum = Role;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
         if (!this.work) {
@@ -231,6 +234,10 @@ __decorate([
     Input('userExecutivesList'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "userExecutivesList", void 0);
+__decorate([
+    Input('currentUser'),
+    __metadata("design:type", CurrentUser)
+], WorkFormComponent.prototype, "currentUser", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

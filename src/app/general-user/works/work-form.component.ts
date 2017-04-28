@@ -12,7 +12,9 @@ import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Role } from '../../shared/auth/role';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
@@ -49,6 +51,8 @@ export class WorkFormComponent implements OnChanges {
   @Input('userList') userList: User[];
   // Receives executives list.
   @Input('userExecutivesList') userExecutivesList: User[];
+  // Receives the currentUser logged.
+  @Input('currentUser') currentUser: CurrentUser;
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -75,6 +79,8 @@ export class WorkFormComponent implements OnChanges {
   private contact_id: number;
   // Variable to store Work before starting to update.
   public oldWork: Work;
+  // Needed variable for comparing Role enum in template.
+  public roleEnum = Role;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
