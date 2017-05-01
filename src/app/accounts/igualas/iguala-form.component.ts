@@ -146,4 +146,12 @@ export class IgualaFormComponent implements OnChanges {
     }
     form.control.markAsUntouched();
   }
+
+  /**
+  * Open in a new tab the url to get the report.
+  **/
+  public downloadReport() {
+    let url = environment.API_URL + environment.IGUALAS_URL + this.iguala.id + '/report/';
+    window.open(url);
+  }
 }
