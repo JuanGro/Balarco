@@ -4,16 +4,21 @@ import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { WorkFilterFormComponent } from './work-filter-form.component';
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
@@ -24,9 +29,11 @@ describe('WorkListComponent tests', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
+    var fixtureChildFilterForm;
     var componentParent;
     var componentForm;
     var component;
+    var componentFilterForm;
     var de;
     var el;
     var modalAction;
@@ -66,9 +73,9 @@ describe('WorkListComponent tests', function () {
     var testWorkList = [testWork1, testWork2];
     beforeEach(async(function () {
         TestBed.configureTestingModule({
-            declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
+            declarations: [WorksComponent, WorksListComponent, WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule],
+                ChartsModule, DropdownModule, ModalModule.forRoot(), DatepickerModule.forRoot(), ToasterModule, NgxPaginationModule],
             providers: [WorksListComponent,
                 {
                     provide: HttpService, useFactory: function (backend, options) {
@@ -76,15 +83,23 @@ describe('WorkListComponent tests', function () {
                     },
                     deps: [MockBackend, BaseRequestOptions]
                 },
+                { provide: ActivatedRoute, useClass: (function () {
+                        function class_1() {
+                            this.navigate = jasmine.createSpy("navigate");
+                        }
+                        return class_1;
+                    }()) },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
         fixtureParent = TestBed.createComponent(WorksComponent);
         fixtureChildForm = TestBed.createComponent(WorkFormComponent);
         fixtureChildTable = TestBed.createComponent(WorksListComponent);
+        fixtureChildFilterForm = TestBed.createComponent(WorkFilterFormComponent);
         componentParent = fixtureParent.componentInstance;
         componentForm = fixtureChildForm.componentInstance;
         component = fixtureChildTable.componentInstance;
+        componentFilterForm = fixtureChildFilterForm.componentInstance;
         de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
     }));

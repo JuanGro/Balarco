@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges} from '@angular/core';
 
 // Models
 import { Contact } from './contact-model';
@@ -11,6 +11,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'contacts',
   templateUrl: 'contacts.component.html'
@@ -22,7 +26,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific contact.
 * - Remove a contact.
 **/
-export class ContactsComponent implements OnInit {
+export class ContactsComponent implements OnInit, OnChanges {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentContact') currentContact: Contact;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -45,6 +49,8 @@ export class ContactsComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger contact modal.
   public descriptionDangerModal: string;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -59,9 +65,16 @@ export class ContactsComponent implements OnInit {
     this.titleUpdateModal = 'Modificar Contacto';
     this.titleDangerModal = 'Eliminar contacto';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este contacto?';
-
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.CONTACT_LIST_NOTIFICATIONS_URL);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
   }
 
   /**
@@ -134,18 +147,14 @@ export class ContactsComponent implements OnInit {
     this.valueSearch = value;
     this.contactsList = [];
     this.completeContactsList.sort();
-    if (this.valueSearch === '') {
-      this.contactsList = this.completeContactsList;
-    } else {
-      for (let contactFromList of this.completeContactsList) {
-        if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
-            contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
-            let contact = new Contact(contactFromList);
-            this.contactsList.push(contact);
-        }
+    for (let contactFromList of this.completeContactsList) {
+      if (contactFromList.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.last_name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.charge.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.client_complete.name.toLowerCase().includes(this.valueSearch.toLowerCase()) ||
+          contactFromList.email.toLowerCase().includes(this.valueSearch.toLowerCase())) {
+          let contact = new Contact(contactFromList);
+          this.contactsList.push(contact);
       }
     }
   }
@@ -172,7 +181,12 @@ export class ContactsComponent implements OnInit {
       }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar contacto');
+      let errorBody = JSON.parse(error['_body']);
+      if (error.status === 400) {
+        this.toaster.show(error, 'Error', errorBody);
+      } else {
+        this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar el contacto');
+      }
     });
   }
 
@@ -204,5 +218,29 @@ export class ContactsComponent implements OnInit {
         this.getValueSearch(this.valueSearch);
       }
     }
+  }
+
+  /**
+  * Opens websocket connection to specified url and
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string) {
+    let wsPath = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+    };
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadContactList() {
+    this.notificationBannerIsActive = false;
+    this.loadContactsList(environment.CONTACTS_URL);
   }
 }

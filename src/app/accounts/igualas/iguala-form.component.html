@@ -85,7 +85,8 @@
 
         <!-- Buttons -->
         <div class="modal-footer">
-            <!-- Clear form -->
+            <!-- Calls the downloadReport method, this button is only visible if you are watching an existent iguala -->
+            <button type="button" class="btn btn-warning" (click)="downloadReport()" *ngIf="iguala.id">Descargar reporte</button>
             <!-- Delete iguala -->
             <!-- Calls the requestWarningModal method, the confirmation is only displayed if the iguala.id exists because it's used only for update iguala modal -->
             <button type="button" class="btn btn-danger" (click)="requestWarningModal($event)" *ngIf="iguala.id">Eliminar</button>

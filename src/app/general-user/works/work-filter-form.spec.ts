@@ -38,7 +38,6 @@ import { SelectModule } from 'ng2-select';
 // Models
 import { WorkFilter } from './work-filter-model';
 
-
 describe('WorksFilterFormComponent tests', () => {
   // Fixture for debugging and testing a WorksComponent.
     let fixtureParent: ComponentFixture<WorksComponent>;

@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 // Models
 import { WorkFilter } from './work-filter-model';
@@ -45,13 +45,13 @@ export class WorkFilterFormComponent implements OnChanges {
     public modalAction: string = '';
     // Variable to control the work filter.
     public workFilter: WorkFilter;
-    // Variable for filtering Contacts by Client selected in dropdown.
+    // Variable for filtering Contacts by Client selected in dropdown.		
     private currentContacts: Contact[];
-    // Variable for filtering Igualas by Client selected in dropdown.
+    // Variable for filtering Igualas by Client selected in dropdown.		
     private currentIgualas: Iguala[];
-    // Variable to set the client when an existing work is received.
+    // Variable to set the client when an existing work is received.		
     private client_id: number;
-    // Variable to set the contact when client dropdown changes.
+    // Variable to set the contact when client dropdown changes.		
     private contact_id: number;
     // Variable to test request url.
     public urlTesting: string;
@@ -68,8 +68,8 @@ export class WorkFilterFormComponent implements OnChanges {
         this.initialDropdownSetup();
     }
 
-    /**
-     * Method to fill dropdowns initially when the modal is shown and Work is new.
+    /**		
+     * Method to fill dropdowns initially when the modal is shown and Work is new.		
      **/
     private initialDropdownSetup() {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
@@ -157,20 +157,20 @@ export class WorkFilterFormComponent implements OnChanges {
         this.resultSearch.emit(urlFilterWorks);
     }
 
-    /**
-     * Method that listens to event of change in the Clients dropdown.
-     * Params:
-     *   - id: Id of the new client selected.
+    /**		
+     * Method that listens to event of change in the Clients dropdown.		
+     * Params:		
+     *   - id: Id of the new client selected.		
      **/
     public onClientChange(id: number) {
         this.filterContactsByClientId(id);
         this.filterIgualasByClientId(id);
     }
 
-    /**
-     * Method that filters the contacts by the client id.
-     * Params:
-     *   - id: Id of the client from which the contacts will be filtered.
+    /**		
+     * Method that filters the contacts by the client id.		
+     * Params:		
+     *   - id: Id of the client from which the contacts will be filtered.		
      **/
     private filterContactsByClientId(id: number) {
         if (this.contactsList) {
@@ -183,10 +183,10 @@ export class WorkFilterFormComponent implements OnChanges {
         }
     }
 
-    /**
-     * Method that filters the igualas by the client id.
-     * Params:
-     *   - id: Id of the client from which the igualas will be filtered.
+    /**		
+     * Method that filters the igualas by the client id.		
+     * Params:		
+     *   - id: Id of the client from which the igualas will be filtered.		
      **/
     private filterIgualasByClientId(id: number) {
         if (this.igualasList) {
@@ -199,16 +199,16 @@ export class WorkFilterFormComponent implements OnChanges {
         }
     }
 
-    /**
-     * Requests to parent component to close the current modal.
+    /**		
+     * Requests to parent component to close the current modal.		
      **/
     public requestCloseThisModal() {
         this.modalAction = 'Close modal';
         this.requestCloseModal.emit(this.modalAction);
     }
 
-    /**
-     * Reset the current form.
+    /**		
+     * Reset the current form.		
      **/
     public cancelForm(form: NgForm) {
         form.control.markAsUntouched();

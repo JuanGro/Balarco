@@ -1,21 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+import { ToasterService, Toast } from 'angular2-toaster/angular2-toaster';
 
 // Models
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
+import { User } from '../../admin/users/user-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
 import { URLSearchParams } from '@angular/http';
 
 // Environment
 import { environment } from '../../../environments/environment';
+
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
 
 @Component({
   selector: 'works',
@@ -28,7 +36,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific work.
 * - Remove a work.
 **/
-export class WorksComponent implements OnInit {
+export class WorksComponent implements OnInit, OnChanges {
   // Variable that saves the title to show in the template.
   public title: string;
   // Variable to keep track of current work.
@@ -47,8 +55,12 @@ export class WorksComponent implements OnInit {
   public workTypesList: WorkType[];
   // List of Work Types of graduation only.
   public graduationArtTypes: ArtWork[];
+  // Variable that saves all users from DB.
+  public userList: User[];
   // List of Status.
   public statusList: Status[];
+  // List of User allowed to be executives.
+  public userExecutivesList: User[];
   // Title of new work modal.
   public titleNewModal: string;
   // Title of update work modal.
@@ -61,8 +73,17 @@ export class WorksComponent implements OnInit {
   public descriptionDangerModal: string;
   // Variable to disable stop filter button.
   public stopFilterButton: boolean;
+  // Variable to catch the enum that the router sends.
+  private assignmentFilter: AssignmentFilter;
+  // Variable to store the current User logged.
+  public currentUser: CurrentUser;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
-  public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
+  public constructor(private route: ActivatedRoute, public httpService: HttpService,
+                    private toaster: CustomToastService, private toasterService: ToasterService) {
+    this.currentUser = this.httpService.getCurrentUser();
+  }
 
   /**
   * Builds the component for first time.
@@ -70,6 +91,7 @@ export class WorksComponent implements OnInit {
   *   - Load the work list from get method in httpService.
   **/
   public ngOnInit() {
+    this.route.data.subscribe(data => this.assignmentFilter = data['type'] as AssignmentFilter);
     this.title = 'Lista de Trabajos';
     this.titleNewModal = 'Nuevo Trabajo';
     this.titleUpdateModal = 'Modificar Trabajo';
@@ -78,13 +100,38 @@ export class WorksComponent implements OnInit {
     this.descriptionDangerModal = '¿Está usted seguro de eliminar este trabajo?';
     this.stopFilterButton = true;
 
-    this.loadWorksList(environment.WORKS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadContactsList(environment.CONTACTS_URL);
     this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadUserList(environment.USERS_URL);
     this.loadWorkTypesList(environment.WORK_TYPES_URL);
     this.loadWorkTypesForGraduation(environment.ART_TYPES_URL);
     this.loadStatusList(environment.STATUS_URL);
+    this.loadUserExecutivesList(environment.USERS_URL);
+    this.loadWorksDependingOnParentMode();
+
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.WORK_LIST_NOTIFICATIONS_URL, this.httpService.getCurrentUser().id);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
+
+  }
+
+  /**
+  * Call load methods for works depending on the mode of the parent.
+  **/
+  private loadWorksDependingOnParentMode() {
+    if (this.assignmentFilter === AssignmentFilter.ALL_WORKS) {
+      this.loadWorksList(environment.WORKS_URL);
+    } else if (this.assignmentFilter === AssignmentFilter.MY_ASSIGNMENTS) {
+      this.loadWorksList(environment.MY_ASSIGNMENTS);
+    } else if (this.assignmentFilter === AssignmentFilter.TO_BE_PAID) {
+      this.loadWorksList(environment.WORKS_URL, ['5', '6']);
+    }
   }
 
   /**
@@ -92,8 +139,14 @@ export class WorksComponent implements OnInit {
   * Params:
   *   - url: The url where the service will comunicate to get the Work objects.
   **/
-  private loadWorksList(url: string) {
-    this.httpService.getObject(url)
+  private loadWorksList(url: string, statusIdArray?: string[]) {
+    let params = new URLSearchParams();
+    if (statusIdArray) {
+      for (let statusId of statusIdArray) {
+        params.append('current_status_id', statusId);
+      }
+    }
+    this.httpService.getObject(url, params)
                     .map((data: any) => data.json())
                     .subscribe(worksListJSON => {
                       this.worksList = [];
@@ -170,6 +223,26 @@ export class WorksComponent implements OnInit {
   }
 
   /**
+  * Loads all the users from the get method in httpService to use it the user attribute of the current component.
+  * Params:
+  *   - url: The url where the service will comunicate to get the User object.
+  **/
+  private loadUserList(url: string) {
+    this.httpService.getObject(url)
+                    .map((data: any) => data.json())
+                    .subscribe(userListJSON => {
+                      // Creates clients objects from JSON.
+                      this.userList = [];
+                      for (let userJSON of userListJSON) {
+                        this.userList.push(new User(userJSON));
+                      }
+                    },
+                    error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los usuarios');
+                    });
+  }
+
+  /**
   * Loads all the workTypes with httpService.
   * Params:
   *   - url: Url to work types API methods.
@@ -232,6 +305,29 @@ export class WorksComponent implements OnInit {
   }
 
   /**
+  * Loads all the User that can be executives with httpService.
+  * Params:
+  *   - url: Url to Users API methods.
+  **/
+  private loadUserExecutivesList(url: string) {
+    let params = new URLSearchParams();
+    params.append('group_name', 'Super usuario');
+    params.append('group_name', 'Director de cuentas');
+    params.append('group_name', 'Ejecutivo SR');
+    params.append('group_name', 'Ejecutivo JR');
+    this.httpService.getObject(url, params)
+                    .map((data: any) => data.json())
+                    .subscribe(usersListJSON => {
+                      this.userExecutivesList = [];
+                      for (let user of usersListJSON) {
+                        this.userExecutivesList.push(new User(user));
+                      }
+                    }, error => {
+                      this.toaster.show(error, 'Error', 'Ocurrió un error al cargar los ejecutivos');
+                    });
+  }
+
+  /**
   * Recieves the work which is selected by the user.
   * Params:
   *   - object: Work selected.
@@ -284,11 +380,7 @@ export class WorksComponent implements OnInit {
   * It updates the work selected.
   **/
   public onWorkUpdated(event: Work) {
-    let oldWork = this.worksList.filter(work => work.id === event.id)[0];
-    let index = this.worksList.indexOf(oldWork);
-    if (index >= 0) {
-      this.worksList[index] = event;
-    }
+    this.loadWorksDependingOnParentMode();
   }
 
   /**
@@ -306,8 +398,75 @@ export class WorksComponent implements OnInit {
         this.toaster.show(result, 'Trabajo eliminado', 'El trabajo se eliminó con éxito');
       }
     },
-  error => {
-    this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
-  });
+    error => {
+      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar trabajo');
+    });
+  }
+
+  /**
+  * Opens websocket connection to specified url
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string, userId: string) {
+    let wsPath = environment.WS_URL + url + userId;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+        let messageData = JSON.parse(message.data);
+        let messageString = messageData['text'];
+        self.showToast('Trabajos', messageString);
+    };
+  };
+
+  /**
+  * Reloads user list after receiving notifications.
+  **/
+  public reloadWorkList() {
+    this.notificationBannerIsActive = false;
+    this.loadWorksDependingOnParentMode();
+  }
+
+  /**
+  * Creates a toast
+  * Parameters:
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  * Returns:
+  *   - toast created.
+  **/
+  public createToast(title?: string, message?: string): Toast {
+    let type: string;
+    type = 'success';
+    let toast: Toast = {
+        type: type,
+        title: title,
+        body: message,
+        showCloseButton: false
+    };
+    return toast;
+  }
+
+  /**
+  * Shows a toast
+  * Parameters:
+  *   - title(Optional): Title for the toast.
+  *   - message(Optional): Message for the toast.
+  **/
+  public showToast(title?: string, message?: string) {
+    let toast = this.createToast(title, message);
+    this.toasterService.pop(toast);
   }
 }
+
+/**
+* Enum to keep track of the behaivour that WorkComponent will have.
+**/
+export enum AssignmentFilter {
+  ALL_WORKS,
+  MY_ASSIGNMENTS,
+  TO_BE_PAID
+};
