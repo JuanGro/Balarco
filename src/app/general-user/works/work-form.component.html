@@ -13,7 +13,7 @@
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
                     <input type="text" id="name" placeholder="Nuevo Proyecto" class="form-control" minlength="3" maxlength="24" name="name" [(ngModel)]="work.name" #name="ngModel" [class.form-control-success]="!name.errors && name.touched" [class.form-control-danger]="name.errors && name.touched"
-                        [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
+                        [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])" required>
                 </div>
                 <!-- Feedback name -->
                 <div *ngIf="name.errors && name.touched">
@@ -35,7 +35,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <select id="executive" name="executive" class="form-control" size="1" [(ngModel)]="work.executive" #executive="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
+                    <select id="executive" name="executive" class="form-control" size="1" [(ngModel)]="work.executive" #executive="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.ADMINISTRACION ])" required>
                     <option *ngFor="let executive of userExecutivesList" value="{{ executive.id }}">{{ executive.first_name + ' ' + executive.last_name }}</option>
                 </select>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i>
                 </span>
-                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
+                    <select id="client" name="client" class="form-control" size="1" (change)="onClientChange($event.target.value)" [(ngModel)]="client_id" #client="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])" required>
                     <option *ngFor="let client of clientsList" value="{{ client.id }}">{{ client.name }}</option>
                 </select>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i>
                 </span>
-                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
+                    <select id="contact" name="contact" class="form-control" size="1" [(ngModel)]="contact_id" #contact="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])" required>
                     <option *ngFor="let contact of currentContacts" value="{{ contact.id }}">{{ contact.name }} {{ contact.last_name}}</option>
                 </select>
                 </div>
@@ -95,7 +95,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paint-brush"></i>
                 </span>
-                    <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required>
+                    <select id="type" name="type" class="form-control" size="1" (change)="onWorkTypeChange($event.target.value)" [(ngModel)]="work.work_type" #type="ngModel" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])" required>
                     <option *ngFor="let type of workTypesList" value="{{ type.id }}">{{ type.name }}</option>
                 </select>
                 </div>
@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6" *ngIf="currentWorkTypeId == 1" [class.has-success]="!iguala.errors && iguala.touched" [class.has-danger]="iguala.errors && iguala.touched">
+            <div class="col-md-6" *ngIf="currentWorkTypeId == 1 && currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_SR, roleEnum.ADMINISTRACION ])" [class.has-success]="!iguala.errors && iguala.touched" [class.has-danger]="iguala.errors && iguala.touched">
                 <!-- Iguala field -->
                 <label for="recipient-iguala" class="form-control-label">Iguala:</label>
                 <div class="input-group">
@@ -133,7 +133,7 @@
                     <div class="form-group row">
                         <label for="art-work-{{ artWork.id }}" class="col-4 col-form-label">{{ artWork.name }}</label>
                         <div class="col-3">
-                            <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
+                            <input class="form-control" type="number" name="{{ artWork.name }}" value="{{ artWork.quantity }}" id="art-work-{{ artWork.id }}" [(ngModel)]="artWork.quantity" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])">
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <span class="input-group-addon"><i class="fa fa-pencil"></i>
                 </span>
                     <textarea type="text" id="recipient-description" placeholder="Lorem ipsum..." class="form-control" minlength="3" maxlength="200" rows="3" name="description" [(ngModel)]="work.brief" #description="ngModel" [class.form-control-success]="!description.errors && description.touched"
-                        [class.form-control-danger]="description.errors && description.touched" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" required></textarea>
+                        [class.form-control-danger]="description.errors && description.touched" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])" required></textarea>
                 </div>
                 <!-- Feedback description -->
                 <div *ngIf="description.errors && description.touched">
@@ -174,7 +174,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-check"></i>
                 </span>
-                    <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" #status="ngModel" required>
+                    <select id="status" name="status" class="form-control" size="1" [(ngModel)]="work.current_status" #status="ngModel" [disabled]="currentUser.hasRole([ roleEnum.DISENADOR_JR ])" required>
                     <option *ngFor="let status of possibleStatus" value="{{ status.id }}">{{ status.name }}</option>
                 </select>
                 </div>
@@ -198,7 +198,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-external-link"></i>
                 </span>
-                    <input type="text" id="final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link" #final_link="ngModel" [class.form-control-success]="final_link.touched">
+                    <input type="text" id="final-link" placeholder="http://google.com" class="form-control" minlength="3" maxlength="24" name="final-link" [(ngModel)]="work.final_link" #final_link="ngModel" [class.form-control-success]="final_link.touched" [disabled]="!currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.DIRECTOR_ARTE, roleEnum.DISENADOR_SR])">
                 </div>
                 <!-- Feedback final link IF NEEDED -->
                 <!-- <div *ngIf="final-link.errors && final-link.touched" class="alert alert-danger">
@@ -241,7 +241,7 @@
         </div>
 
         <!-- Eight row -->
-        <div class="form-group row" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
+        <div class="form-group row" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])">
             <div class="col-md-6">
                 <!-- StartDate Field -->
                 <label for="iguala-start-date" class="form-control-label">Fecha Inicio:</label>
@@ -252,7 +252,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])">
+            <div class="col-md-6" *ngIf="currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS, roleEnum.EJECUTIVO_JR, roleEnum.ADMINISTRACION ])">
                 <!-- EndDate Field -->
                 <label for="iguala-end-date" class="form-control-label">Fecha Fin:</label>
                 <div class="card-block">
