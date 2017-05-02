@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Response } from '@angular/http';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
