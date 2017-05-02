@@ -19,7 +19,8 @@
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.bundle.min.js",
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "./app/shared/reconnecting-websocket.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

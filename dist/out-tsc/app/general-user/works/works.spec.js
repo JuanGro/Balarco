@@ -4,9 +4,11 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
@@ -14,21 +16,26 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { WorkFilterFormComponent } from './work-filter-form.component';
 import { DatepickerModule } from 'ng2-bootstrap/datepicker';
 import { SelectModule } from 'ng2-select';
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 describe('WorksComponent tests', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
+    var fixtureChildFilterForm;
     var component;
     var componentForm;
     var componentTable;
+    var componentFilterForm;
     var de;
     var el;
     var testWork = new Work({
@@ -81,9 +88,10 @@ describe('WorksComponent tests', function () {
     });
     beforeEach(async(function () {
         TestBed.configureTestingModule({
-            declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
+            declarations: [WorksComponent, WorksListComponent, WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule],
+                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(),
+                SelectModule, NgxPaginationModule],
             providers: [
                 {
                     provide: HttpService, useFactory: function (backend, options) {
@@ -91,15 +99,27 @@ describe('WorksComponent tests', function () {
                     },
                     deps: [MockBackend, BaseRequestOptions]
                 },
+                { provide: ActivatedRoute, useClass: (function () {
+                        function class_1() {
+                            this.navigate = jasmine.createSpy("navigate");
+                        }
+                        return class_1;
+                    }()) },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
         fixtureParent = TestBed.createComponent(WorksComponent);
         fixtureChildForm = TestBed.createComponent(WorkFormComponent);
         fixtureChildTable = TestBed.createComponent(WorksListComponent);
+        fixtureChildFilterForm = TestBed.createComponent(WorkFilterFormComponent);
         component = fixtureParent.componentInstance;
+        component.currentUser = new CurrentUser({ id: 1, username: 'hi' });
+        console.log(component.currentUser);
         componentForm = fixtureChildForm.componentInstance;
+        componentForm.currentUser = component.currentUser;
         componentTable = fixtureChildTable.componentInstance;
+        componentTable.currentUser = component.currentUser;
+        componentFilterForm = fixtureChildFilterForm.componentInstance;
         de = fixtureParent.debugElement.query(By.css('h1'));
         el = de.nativeElement;
     }));

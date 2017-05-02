@@ -9,7 +9,7 @@
                         <div class="row">
                             <!-- Add work -->
                             <!-- Calls the requestNewWorkModal method, it requests the new work modal -->
-                            <div class="col align-self-start" (click)="requestNewWorkModal($event)">
+                            <div *ngIf="assignmentFilter == staticEnum.ALL_WORKS && currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" class="col align-self-start" (click)="requestNewWorkModal($event)">
                                 <i class="icon-plus icons font-2xl d-block"></i>
                             </div>
                             <div class="col align-self-center"></div>

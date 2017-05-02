@@ -1,9 +1,10 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 // Models
 import { User } from './user-model';
 import { Group } from './group-model';
+import { GroupString } from './group-model';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -19,7 +20,7 @@ import { environment } from '../../../environments/environment';
 /**
 * Component which manage the forms for update and create a user:
 * - Use OnChanges feature because it's important to know if the user opens a new modal or update modal depending
-* in the user object value, the component is listening for each change in that variable.
+* in the user object currentGroupNameList, the component is listening for each change in that variable.
 * - Initialize form.
 * - Create validations.
 * - Request save the user.
@@ -30,8 +31,6 @@ export class UserFormComponent implements OnChanges {
   @Input('user') user: User;
   // Receives the group list from parent component.
   @Input('groupList') groupList: Group[];
-  // List containing the users's current groups
-  public currentGroupList: Group[] = [];
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the user is permanent removed.
@@ -40,55 +39,69 @@ export class UserFormComponent implements OnChanges {
   @Output() userCreated: EventEmitter<User> = new EventEmitter();
   // Event for parent to update the currentUser.
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
+  // List containing the users's current groups
+  public currentGroupList: Group[] = [];
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Initialization of control form.
-  public userModalForm: FormGroup;
   // Variable to return the old user if cancel the update form.
   public oldUser: User;
   // Variable to active the form.
   public active: boolean = true;
   // Variable to show the role of the contact selected.
   public array: string = '';
+  // Variable to save which group is selecting the user in the Ng2-Select.
+  public currentGroupNameList: Array<any>;
+  // List which saves all the groups in strings to handle in the Ng2-Select.
+  public groupStringList: GroupString[];
+  // List of groups which will be sent to create/update a user.
+  public groupListToSend: Group[];
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
   /**
   * Builds the component for first time each time when it's called.
   *   - Initialize the form depending wether the new or update user form is called.
-  *   - Use an auxiliary variable to select a default value for the dropdown used in the form.
+  *   - Use an auxiliary variable to select a default currentGroupNameList for the dropdown used in the form.
   **/
   public ngOnChanges() {
-    this.array = '';
+    // Initialize lists.
+    this.groupListToSend = [];
+    this.groupStringList = [];
+    this.currentGroupNameList = [];
+
+    // Get the entire group list and convert to ng2-select format.
+    if (this.groupList) {
+      for (let group of this.groupList) {
+        this.groupStringList.push(this.convertToNgSelectFormat(group));
+      };
+    }
+
     if (!this.user) {
       this.user = new User();
       this.oldUser = new User();
     } else {
       this.oldUser = new User(this.user);
-      this.showRoles(this.array);
+
+      // Save in the list the current groups if is selected an existent user.
+      if (this.user.groups_complete) {
+        for (let group of this.user.groups_complete) {
+          // Save them in the group list to send.
+          this.groupListToSend.push(group);
+          // Save them in the group string list.
+          this.currentGroupNameList.push(this.convertToNgSelectFormat(group));
+        }
+      }
     }
   }
 
   /**
-  * Builds an string containing all the roles for the current contact.
-  *   Params:
-  *   - roles: String where it's saved the roles for the current contact.
-  **/
-  public showRoles(roles) {
-    if (this.user.groups_complete && roles === '') {
-      for (let group of this.user.groups_complete) {
-        if (group) {
-          group = new Group(group);
-          if (roles === '') {
-            roles = group.name;
-          } else {
-            roles += ', ' + group.name;
-          }
-        }
-      }
-      roles += '.';
-    }
-    this.array = roles;
+   * Convert the current group to ng-select format wich includes id and text attributes.
+   **/
+  public convertToNgSelectFormat(object: Group) {
+    let stringObject: GroupString = new GroupString();
+      stringObject.id = object.id;
+      stringObject.text = object.name;
+      return stringObject;
   }
 
   /**
@@ -97,16 +110,8 @@ export class UserFormComponent implements OnChanges {
   *   - object: User object received from modal.
   *   - isValid: Boolean that tells if all the validations were correct.
   **/
-  public submitUserForm(object: User) {
-    this.currentGroupList = [];
-    for (let group of object.groups_complete) {
-      let id: number = +group;
-      group = new Group();
-      group.id = id;
-      group.name = '';
-      this.currentGroupList.push(group);
-    }
-    object.groups_complete = this.currentGroupList;
+  public submitUserForm(form: NgModel, object: User) {
+    object.groups_complete = this.groupListToSend;
     if (this.user.id) {
       // Update user
       this.submitUpdatedUser(object, this.user.id);
@@ -114,8 +119,7 @@ export class UserFormComponent implements OnChanges {
       // Create user
       this.submitNewUser(object);
     }
-    this.active = false;
-    setTimeout(() => this.active = true, 0);
+    form.reset();
   }
 
   /**
@@ -152,7 +156,6 @@ export class UserFormComponent implements OnChanges {
     error => {
       this.toaster.show(error, 'Error', 'Ocurrió un error al guardar el usuario');
     });
-    this.user = new User();
   }
 
   /**
@@ -174,14 +177,39 @@ export class UserFormComponent implements OnChanges {
   /**
   * Initialize the form and return to the original object the user.
   **/
-  public cancelForm() {
+  public cancelForm(form: NgModel) {
     if (this.oldUser.id) {
       this.user = this.oldUser;
       let updatedUser = new User(this.oldUser);
       this.userUpdated.emit(updatedUser);
     }
-    this.user = new User();
-    setTimeout(() => this.active = false, 1);
-    setTimeout(() => this.active = true, 0);
+    this.ngOnChanges();
+    form.reset();
+  }
+
+  /**
+  * Adds the selected element to the groupListToSend list.
+  **/
+  public selected(value: GroupString): void {
+    this.currentGroupNameList.push(value);
+    let group = this.groupList.filter(group_aux => group_aux.id === value.id)[0];
+    this.groupListToSend.push(group);
+  }
+
+  /**
+  * Removes the selected element in the groupListToSend list.
+  **/
+  public removed(value: GroupString): void {
+    let group = this.groupListToSend.filter(group_aux => group_aux.id === value.id)[0];
+    let index = this.groupListToSend.indexOf(group);
+    if (index >= 0) {
+      this.groupListToSend.splice(index, 1);
+    }
+
+    let groupString = this.currentGroupNameList.filter(group_aux => group_aux.id === value.id)[0];
+    let indexString = this.currentGroupNameList.indexOf(groupString);
+    if (indexString >= 0) {
+      this.currentGroupNameList.splice(indexString, 1);
+    }
   }
 }

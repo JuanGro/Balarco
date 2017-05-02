@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 // Class
 import { Client } from './client-model';
@@ -9,6 +9,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 
 // Environment
 import { environment } from '../../../environments/environment';
+
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
 
 @Component({
   selector: 'clients',
@@ -21,7 +25,7 @@ import { environment } from '../../../environments/environment';
 * - Update an specific client.
 * - Remove a client.
 **/
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit, OnChanges {
   // Received from table component, it gives me the contact that the user selected to see his detail.
   @Input('currentClient') currentClient: Client;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -42,6 +46,8 @@ export class ClientsComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger client modal.
   public descriptionDangerModal: string;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -56,8 +62,15 @@ export class ClientsComponent implements OnInit {
     this.titleUpdateModal = 'Modificar compañía';
     this.titleDangerModal = 'Eliminar compañía';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar esta compañía?';
-
     this.loadClientsList(environment.CLIENTS_URL);
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.CLIENT_LIST_NOTIFICATIONS_URL);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
   }
 
   /**
@@ -178,5 +191,29 @@ export class ClientsComponent implements OnInit {
         this.getValueSearch(this.valueSearch);
       }
     }
+  }
+
+  /**
+  * Opens websocket connection to specified url and
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string) {
+    let wsPath = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+    };
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadClientList() {
+    this.notificationBannerIsActive = false;
+    this.loadClientsList(environment.CLIENTS_URL);
   }
 }

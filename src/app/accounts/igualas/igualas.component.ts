@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges} from '@angular/core';
 
 // Models
 import { Iguala } from './iguala-model';
@@ -13,6 +13,10 @@ import { CustomToastService } from '../../shared/toast/custom-toast.service';
 // Environment
 import { environment } from '../../../environments/environment';
 
+// Notifications
+import './../../shared/reconnecting-websocket.min';
+declare var ReconnectingWebSocket: any;
+
 @Component({
   selector: 'igualas',
   templateUrl: 'igualas.component.html'
@@ -24,7 +28,7 @@ import { environment } from '../../../environments/environment';
 * - Update an Iguala.
 * - Remove an Iguala.
 **/
-export class IgualasComponent implements OnInit {
+export class IgualasComponent implements OnInit, OnChanges {
   // Received from table component, it gives me the iguala that the user selected to see his detail.
   @Input('currentIguala') currentIguala: Iguala;
   // Received from table component, it gives me the value that the user is typing in the search.
@@ -51,6 +55,8 @@ export class IgualasComponent implements OnInit {
   public titleDangerModal: string;
   // Description for danger Iguala modal.
   public descriptionDangerModal: string;
+  // Variable to control notificiation banner
+  @Input() notificationBannerIsActive: boolean;
 
   public constructor(public httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -65,10 +71,17 @@ export class IgualasComponent implements OnInit {
     this.titleUpdateModal = 'Modificar Iguala';
     this.titleDangerModal = 'Eliminar Iguala';
     this.descriptionDangerModal = '¿Está usted seguro de eliminar esta iguala?';
-
     this.loadIgualasList(environment.IGUALAS_URL);
     this.loadClientsList(environment.CLIENTS_URL);
     this.loadArtTypeList(environment.ART_TYPES_URL);
+    this.notificationBannerIsActive = false;
+    this.receiveNotifications(environment.IGUALAS_LIST_NOTIFICATIONS_URL);
+  }
+
+  /**
+  * Implements needed method to observ changes on inputs
+  **/
+  public ngOnChanges() {
   }
 
   /**
@@ -216,7 +229,12 @@ export class IgualasComponent implements OnInit {
       }
     },
     error => {
-      this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar iguala');
+      let errorBody = JSON.parse(error['_body']);
+      if (error.status === 400) {
+        this.toaster.show(error, 'Error', errorBody);
+      } else {
+        this.toaster.show(error, 'Error', 'Ocurrió un error al eliminar la iguala');
+      }
     });
   }
 
@@ -225,5 +243,31 @@ export class IgualasComponent implements OnInit {
   **/
   public initializeModal() {
     this.iguala = new Iguala();
+  }
+
+  /**
+  * Opens websocket connection to specified url
+  * to receive notification of changes to the database.
+  * Params:
+  *   - userId: Current user id to connect to correct channel
+  *   - url: General address to connect to, to receive notifications
+  **/
+  public receiveNotifications(url: string) {
+    let wsPath = environment.WS_URL + url;
+    let socket = new ReconnectingWebSocket(wsPath);
+    let self = this;
+    socket.onmessage = function(message) {
+        self.notificationBannerIsActive = true;
+    };
+  };
+
+  /**
+  * Reloads user list after
+  **/
+  public reloadIgualaList() {
+    this.notificationBannerIsActive = false;
+    this.loadIgualasList(environment.IGUALAS_URL);
+    this.loadClientsList(environment.CLIENTS_URL);
+    this.loadArtTypeList(environment.ART_TYPES_URL);
   }
 }

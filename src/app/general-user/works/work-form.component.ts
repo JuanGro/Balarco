@@ -12,10 +12,13 @@ import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
 import { Client } from '../../accounts/clients/client-model';
 import { Contact } from '../../accounts/contacts/contact-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
 import { Iguala } from '../../accounts/igualas/iguala-model';
+import { Role } from '../../shared/auth/role';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 import { WorkType } from './work-type/work-type-model';
+import { User } from '../../admin/users/user-model';
 
 @Component({
   selector: 'work-form',
@@ -31,7 +34,7 @@ import { WorkType } from './work-type/work-type-model';
 * - Request actions in modals to the parent component.
 **/
 export class WorkFormComponent implements OnChanges {
-  @Input() work: Work;
+  @Input('work') work: Work;
   // Receives the contacts list from parent component.
   @Input('contactsList') contactsList: Contact[];
   // Receives the clients list from parent component.
@@ -44,6 +47,12 @@ export class WorkFormComponent implements OnChanges {
   @Input('graduationArtTypes') graduationArtTypes: ArtWork[];
   // Receives status list from parent component.
   @Input('statusList') statusList: Status[];
+  // Receives user list from parent component.
+  @Input('userList') userList: User[];
+  // Receives executives list.
+  @Input('userExecutivesList') userExecutivesList: User[];
+  // Receives the currentUser logged.
+  @Input('currentUser') currentUser: CurrentUser;
   // Requests close of the current modal to parent component.
   @Output() requestCloseModal: EventEmitter<string> = new EventEmitter();
   // Requests to parent component the show of the danger modal to confirm if the contact is permanent removed.
@@ -54,8 +63,10 @@ export class WorkFormComponent implements OnChanges {
   @Output() workUpdated: EventEmitter<Work> = new EventEmitter();
   // Variable to check in test what action is executed between components.
   public modalAction: string = '';
-  // Variable for filtering Contacts by Client selected in dropown..
+  // Variable for filtering Contacts by Client selected in dropdown.
   private currentContacts: Contact[];
+  // Variable for filtering Igualas by Client selected in dropdown.
+  private currentIgualas: Iguala[];
   // Variable for filtering ArtWorks by Iguala selected in dropdown.
   private currentArtWorkList: ArtWork[];
   // Variable to keep track of the current work type chosen.
@@ -68,6 +79,8 @@ export class WorkFormComponent implements OnChanges {
   private contact_id: number;
   // Variable to store Work before starting to update.
   public oldWork: Work;
+  // Needed variable for comparing Role enum in template.
+  public roleEnum = Role;
 
   public constructor(private httpService: HttpService, private toaster: CustomToastService) { }
 
@@ -100,9 +113,10 @@ export class WorkFormComponent implements OnChanges {
     if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
       this.client_id = this.clientsList[0].id;
       this.filterContactsByClientId(this.client_id);
+      this.filterIgualasByClientId(this.client_id);
     }
-    if (this.igualasList && this.igualasList.length > 0) {
-      this.filterArtWorksByIgualaId(this.igualasList[0].id);
+    if (this.userExecutivesList && this.userExecutivesList.length > 0) {
+      this.work.executive = this.userExecutivesList[0].id;
     }
     if (this.workTypesList && this.workTypesList.length > 0) {
       this.currentWorkTypeId = this.workTypesList[0].work_type_id;
@@ -132,6 +146,7 @@ export class WorkFormComponent implements OnChanges {
       if (this.work.contact_complete) {
         this.client_id = this.work.contact_complete.client;
         this.filterContactsByClientId(this.client_id);
+        this.filterIgualasByClientId(this.client_id);
       }
       this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
       this.currentArtWorkList = this.work.art_works;
@@ -146,8 +161,6 @@ export class WorkFormComponent implements OnChanges {
   public submitWorkForm(form: NgForm, object: Work) {
     this.work.art_works = this.currentArtWorkList;
     this.work.contact = this.contact_id;
-    // TODO: Remove when Users module is ready.
-    this.work.executive_id = 1;
     if (this.work.id) {
       // Update work
       this.submitUpdatedWork();
@@ -198,6 +211,7 @@ export class WorkFormComponent implements OnChanges {
   **/
   public onClientChange(id: number) {
     this.filterContactsByClientId(id);
+    this.filterIgualasByClientId(id);
   }
 
   /**
@@ -210,6 +224,24 @@ export class WorkFormComponent implements OnChanges {
       this.currentContacts = this.contactsList.filter(x => x.client === +id);
       if (this.currentContacts.length > 0) {
         this.contact_id = this.currentContacts[0].id;
+      }
+    }
+  }
+
+  /**
+  * Method that filters the igualas by the client id.
+  * Params:
+  *   - id: Id of the client from which the igualas will be filtered.
+  **/
+  private filterIgualasByClientId(id: number) {
+    if (this.igualasList) {
+      this.currentIgualas = this.igualasList.filter(x => x.client === +id);
+      if (this.currentIgualas.length > 0) {
+        this.work.iguala = this.currentIgualas[0].id;
+        this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
+      } else {
+        this.work.iguala = null;
+        this.currentArtWorkList = [];
       }
     }
   }

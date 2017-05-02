@@ -12,6 +12,8 @@ import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
 import { environment } from '../../../environments/environment';
 import { ArtWork } from './art-works/art-work-model';
+import { CurrentUser } from '../../shared/current-user/current-user-model';
+import { Role } from '../../shared/auth/role';
 import { Status } from './status/status-model';
 import { Work } from './work-model';
 var WorkFormComponent = (function () {
@@ -23,8 +25,8 @@ var WorkFormComponent = (function () {
         this.workCreated = new EventEmitter();
         this.workUpdated = new EventEmitter();
         this.modalAction = '';
-        this.active = true;
         this.currentWorkTypeId = 0;
+        this.roleEnum = Role;
     }
     WorkFormComponent.prototype.ngOnChanges = function () {
         if (!this.work) {
@@ -46,9 +48,10 @@ var WorkFormComponent = (function () {
         if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
             this.client_id = this.clientsList[0].id;
             this.filterContactsByClientId(this.client_id);
+            this.filterIgualasByClientId(this.client_id);
         }
-        if (this.igualasList && this.igualasList.length > 0) {
-            this.filterArtWorksByIgualaId(this.igualasList[0].id);
+        if (this.userExecutivesList && this.userExecutivesList.length > 0) {
+            this.work.executive = this.userExecutivesList[0].id;
         }
         if (this.workTypesList && this.workTypesList.length > 0) {
             this.currentWorkTypeId = this.workTypesList[0].work_type_id;
@@ -71,25 +74,24 @@ var WorkFormComponent = (function () {
             if (this.work.contact_complete) {
                 this.client_id = this.work.contact_complete.client;
                 this.filterContactsByClientId(this.client_id);
+                this.filterIgualasByClientId(this.client_id);
             }
             this.currentWorkTypeId = this.work.work_type_complete.work_type_id;
             this.currentArtWorkList = this.work.art_works;
             this.contact_id = this.work.contact;
         }
     };
-    WorkFormComponent.prototype.submitWorkForm = function () {
-        var _this = this;
+    WorkFormComponent.prototype.submitWorkForm = function (form, object) {
         this.work.art_works = this.currentArtWorkList;
         this.work.contact = this.contact_id;
-        this.work.executive_id = 1;
         if (this.work.id) {
             this.submitUpdatedWork();
         }
         else {
             this.submitNewWork();
         }
-        this.active = false;
-        setTimeout(function () { return _this.active = true; }, 1);
+        this.work = new Work();
+        form.control.markAsUntouched();
     };
     WorkFormComponent.prototype.submitNewWork = function () {
         var _this = this;
@@ -105,7 +107,6 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.submitUpdatedWork = function () {
         var _this = this;
-        console.log(this.work.generateJSONForPOST());
         this.httpService.updateObject(environment.WORKS_URL + this.work.id + '/', this.work.generateJSONForPOST()).subscribe(function (result) {
             if (result.ok) {
                 var updatedWork = new Work(result.json());
@@ -118,12 +119,26 @@ var WorkFormComponent = (function () {
     };
     WorkFormComponent.prototype.onClientChange = function (id) {
         this.filterContactsByClientId(id);
+        this.filterIgualasByClientId(id);
     };
     WorkFormComponent.prototype.filterContactsByClientId = function (id) {
         if (this.contactsList) {
             this.currentContacts = this.contactsList.filter(function (x) { return x.client === +id; });
             if (this.currentContacts.length > 0) {
                 this.contact_id = this.currentContacts[0].id;
+            }
+        }
+    };
+    WorkFormComponent.prototype.filterIgualasByClientId = function (id) {
+        if (this.igualasList) {
+            this.currentIgualas = this.igualasList.filter(function (x) { return x.client === +id; });
+            if (this.currentIgualas.length > 0) {
+                this.work.iguala = this.currentIgualas[0].id;
+                this.filterArtWorksByIgualaId(this.currentIgualas[0].id);
+            }
+            else {
+                this.work.iguala = null;
+                this.currentArtWorkList = [];
             }
         }
     };
@@ -178,13 +193,12 @@ var WorkFormComponent = (function () {
         this.modalAction = 'Show warning modal';
         this.requestWarning.emit(this.modalAction);
     };
-    WorkFormComponent.prototype.cancelForm = function () {
-        var _this = this;
+    WorkFormComponent.prototype.cancelForm = function (form) {
         if (this.oldWork) {
             this.workUpdated.emit(this.oldWork);
         }
-        setTimeout(function () { return _this.active = false; }, 0);
-        setTimeout(function () { return _this.active = true; }, 1);
+        this.work = new Work();
+        form.control.markAsUntouched();
     };
     return WorkFormComponent;
 }());
@@ -216,6 +230,14 @@ __decorate([
     Input('statusList'),
     __metadata("design:type", Array)
 ], WorkFormComponent.prototype, "statusList", void 0);
+__decorate([
+    Input('userExecutivesList'),
+    __metadata("design:type", Array)
+], WorkFormComponent.prototype, "userExecutivesList", void 0);
+__decorate([
+    Input('currentUser'),
+    __metadata("design:type", CurrentUser)
+], WorkFormComponent.prototype, "currentUser", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

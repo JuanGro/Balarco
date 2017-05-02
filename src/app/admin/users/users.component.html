@@ -6,13 +6,16 @@
         </blockquote>
     </div>
 </div>
-
+<!-- Notifications banner -->
+<div *ngIf="notificationBannerIsActive" class="alert alert-info" role="role">
+    Se realizaron cambios en la lista de usuarios. <a href="javascript:;" (click)="reloadUserList($event)">Actualizar lista</a>
+</div>
 <!-- Child component, it contains the table -->
 <!-- [userList] sends the user list to the table -->
 <!-- (requestShowNewUserModal) receives the request to show the new modal and initialize it -->
 <!-- (requestShowUpdateUserModal) receives the request to show the update modal -->
 <!-- (currentUser) receives the user that was selected -->
-<user-list [userList]="userList" (requestShowNewUserModal)="newUserModal.show()" (requestShowNewUserModal)="initializeModal()" (requestShowUpdateUserModal)="updateUserModal.show()" (currentUser)="getUserFromTable($event)"></user-list>
+<user-list [userList]="userList" (requestShowNewUserModal)="newUserModal.show()" (requestShowNewUserModal)="initializeModal()" (requestShowUpdateUserModal)="updateUserModal.show()" (currentUser)="getUserFromTable($event)" (valueSearch)="getValueSearch($event)"></user-list>
 
 
 <!-- Modal New User -->

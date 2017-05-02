@@ -3,9 +3,11 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import * as ng2Bootstrap from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
@@ -15,6 +17,8 @@ import { SelectModule } from 'ng2-select';
 import { WorksComponent } from './works.component';
 import { WorksListComponent } from './works-list.component';
 import { WorkFormComponent } from './work-form.component';
+import { WorkFilterFormComponent } from './work-filter-form.component';
+import { CalculateDeliveryDatePipe } from './work-dates-format-table.pipe';
 import { ArtWork } from './art-works/art-work-model';
 import { Contact } from '../../accounts/contacts/contact-model';
 import { Client } from '../../accounts/clients/client-model';
@@ -26,9 +30,11 @@ describe('WorkFormComponent tests', function () {
     var fixtureParent;
     var fixtureChildForm;
     var fixtureChildTable;
+    var fixtureChildFilterForm;
     var componentParent;
     var component;
     var componentTable;
+    var componentFilterForm;
     var modalAction;
     var testWork1 = new Work({
         id: 1, name: 'Test Work', creation_date: new Date(), expected_delivery_date: new Date(),
@@ -83,9 +89,10 @@ describe('WorkFormComponent tests', function () {
     ];
     beforeEach(async(function () {
         TestBed.configureTestingModule({
-            declarations: [WorksComponent, WorksListComponent, WorkFormComponent],
+            declarations: [WorksComponent, WorksListComponent, WorkFormComponent, WorkFilterFormComponent, CalculateDeliveryDatePipe],
             imports: [ng2Bootstrap.Ng2BootstrapModule, CommonModule, FormsModule,
-                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(), SelectModule],
+                ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, DatepickerModule.forRoot(),
+                SelectModule, NgxPaginationModule],
             providers: [WorkFormComponent,
                 {
                     provide: HttpService, useFactory: function (backend, options) {
@@ -93,15 +100,23 @@ describe('WorkFormComponent tests', function () {
                     },
                     deps: [MockBackend, BaseRequestOptions]
                 },
+                { provide: ActivatedRoute, useClass: (function () {
+                        function class_1() {
+                            this.navigate = jasmine.createSpy("navigate");
+                        }
+                        return class_1;
+                    }()) },
                 MockBackend, BaseRequestOptions, CustomToastService
             ]
         });
         fixtureParent = TestBed.createComponent(WorksComponent);
         fixtureChildForm = TestBed.createComponent(WorkFormComponent);
         fixtureChildTable = TestBed.createComponent(WorksListComponent);
+        fixtureChildFilterForm = TestBed.createComponent(WorkFilterFormComponent);
         componentParent = fixtureParent.componentInstance;
         component = fixtureChildForm.componentInstance;
         componentTable = fixtureChildTable.componentInstance;
+        componentFilterForm = fixtureChildFilterForm.componentInstance;
     }));
     describe('Components defined for the child works form component', function () {
         it('should have a defined current component', function () {
@@ -196,17 +211,6 @@ describe('WorkFormComponent tests', function () {
             modalAction.requestWarning.subscribe(function (result) {
                 expect(result).toBe('Show warning modal');
             });
-        }));
-    });
-    describe('Cancel form method is correctly send depending if its current work is not empty', function () {
-        it('should send the work updated', async(function () {
-            component.work = testWork1;
-            component.ngOnChanges();
-            component.cancelForm();
-            expect(component.work).toBeDefined();
-            expect(component.work.name).toBeDefined();
-            expect(component.work.id).toBeDefined();
-            expect(component.work.contact).toBeDefined();
         }));
     });
 });

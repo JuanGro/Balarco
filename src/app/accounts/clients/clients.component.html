@@ -6,7 +6,10 @@
         </blockquote>
     </div>
 </div>
-
+<!-- Notifications banner -->
+<div *ngIf="notificationBannerIsActive" class="alert alert-info" role="role">
+    Se realizaron cambios en la lista de compañías. <a href="javascript:;" (click)="reloadClientList($event)">Actualizar lista</a>
+</div>
 <!-- Child component, it contains the table -->
 <!-- [clientsList] sends the clients list to the table -->
 <!-- (requestShowNewClientModal) receives the request to show the new modal and initialize it -->

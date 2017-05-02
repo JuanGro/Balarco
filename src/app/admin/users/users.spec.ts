@@ -13,11 +13,17 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 // Forms
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
+// Ng2-select
+import { SelectModule } from 'ng2-select';
+
 // Services
 import { BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HttpService } from './../../shared/http-service/http.service';
 import { CustomToastService } from '../../shared/toast/custom-toast.service';
+
+// Pagination
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Components
 import { UsersComponent } from './users.component';
@@ -58,7 +64,7 @@ describe('ContactsComponent tests.', () => {
             // Declare all what the test component has.
             declarations: [ UsersComponent, UserListComponent , UserFormComponent ],
             imports: [ ng2Bootstrap.Ng2BootstrapModule, CommonModule, ReactiveFormsModule, FormsModule,
-            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule ],
+            ChartsModule, DropdownModule, ModalModule.forRoot(), ToasterModule, SelectModule, NgxPaginationModule ],
             providers: [
                 {
                   provide: HttpService, useFactory: (backend, options) => {

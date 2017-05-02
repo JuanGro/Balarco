@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
+            
                 <!-- Header -->
                 <div class="card-header">
                     <div class="row">
@@ -12,11 +13,11 @@
                             <i class="icon-plus icons font-2xl d-block"></i>
                         </div>
                         <!-- Search field -->
-                        <!-- <div class="col-4 input-group align-self-end">
+                        <div class="col-4 input-group align-self-end">
                             <span class="input-group-addon"><i class="fa fa-search"></i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search by name" />
-                        </div> -->
+                            <input #search type="text" class="form-control" placeholder="Search by name" (input)="filterItem(search.value)" />
+                        </div>
                     </div>
                 </div>
 
@@ -35,7 +36,7 @@
                             <!-- Select user to update -->
                             <!-- Calls the requestUpdateUserModal method, it requests the update user modal -->
                             <!-- Sends the selected user to the function sendCurrentUser -->
-                            <tr data-toggle="modal" *ngFor="let user of userList" (click)="requestUpdateUserModal($event)" (click)="sendCurrentUser(user)">
+                            <tr data-toggle="modal" *ngFor="let user of userList | paginate: { itemsPerPage: 10, currentPage: p }" (click)="requestUpdateUserModal($event)" (click)="sendCurrentUser(user)">
                                 <th scope="row">{{ user.id }}</th>
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.first_name }}</td>
@@ -45,19 +46,7 @@
                     </table>
 
                     <!-- Pagination -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Prev</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>

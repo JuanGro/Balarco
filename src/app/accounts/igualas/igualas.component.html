@@ -6,7 +6,10 @@
         </blockquote>
     </div>
 </div>
-
+<!-- Notifications banner -->
+<div *ngIf="notificationBannerIsActive" class="alert alert-info" role="role">
+    Se realizaron cambios en la lista de igualas. <a href="javascript:;" (click)="reloadIgualaList($event)">Actualizar lista</a>
+</div>
 <!-- Child component, it contains the table -->
 <!-- [igualasList] sends the igualas list to the table -->
 <!-- [clientsList] sends the clients list to the table -->
