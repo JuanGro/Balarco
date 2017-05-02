@@ -52,28 +52,27 @@
     <div class="sidebar">
         <!-- Left pannel -->
         <!-- Personal information -->
-        <!-- <div class="sidebar-header row align-items-center"> -->
-        <!-- <img src="assets/img/avatars/8.jpg" class="img-avatar" alt="Avatar"> -->
-        <!--<div>
+        <div class="sidebar-header">
+            <img src="img/logo.png" class="img-avatar" alt="Avatar">
+            <div>
                 <strong>{{ currentUser.getFullName() }}</strong>
             </div>
-            <br>
             <div class="text-muted">
                 <div *ngFor="let role of currentUser.getRoles()">
-                  <small >{{ role }}</small>
+                    <small>{{ role }}</small>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- Left panel tabs -->
         <nav class="sidebar-nav">
             <ul class="nav">
-                <li class="nav-title">
+                <!-- <li class="nav-title">
                     Usuario
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"><i class="glyphicons glyphicons-user"></i> <strong>{{ currentUser.getFullName() }}</strong></a>
-                </li>
+                </li> -->
 
                 <li class="divider"></li>
                 <li class="nav-title">
