@@ -341,8 +341,8 @@ $table-sm-cell-padding:         .3rem !default;
 
 $table-bg:                      transparent !default;
 
-$table-inverse-bg:              $brand-inverse;
-$table-inverse-color:           $brand-primary;
+$table-inverse-bg:              $gray-dark !default;
+$table-inverse-color:           $body-bg !default;
 
 $table-bg-accent:               rgba($black,.05) !default;
 $table-bg-hover:                rgba($black,.075) !default;
