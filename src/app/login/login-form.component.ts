@@ -85,6 +85,11 @@ export class LoginFormComponent implements OnInit {
                      });
   }
 
+  /**
+  * Method that decides the redirection after login depending on user.
+  * Params:
+  *   - user: Current user logged.
+  **/
   private redirectByCurrentUser(user: CurrentUser) {
     if (user.hasRole([ Role.SUPER_USUARIO, Role.DIRECTOR_ARTE, Role.DIRECTOR_CUENTAS ])) {
       this.router.navigateByUrl('/general-user/works');

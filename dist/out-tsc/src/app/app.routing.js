@@ -11,7 +11,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 export var routes = [
     {
         path: '',
-        redirectTo: 'designer/owned-designs-list',
+        redirectTo: '/general-user/my_assignments',
         pathMatch: 'full',
     },
     {
