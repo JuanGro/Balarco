@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { Response } from '@angular/http';
 
 // Services
 import { HttpService } from './../../shared/http-service/http.service';
@@ -148,10 +149,28 @@ export class IgualaFormComponent implements OnChanges {
   }
 
   /**
-  * Open in a new tab the url to get the report.
+  * Make a get request to download the report from an iguala.
   **/
   public downloadReport() {
-    let url = environment.API_URL + environment.IGUALAS_URL + this.iguala.id + '/report/';
-    window.open(url);
+    this.httpService.getObject(environment.IGUALAS_URL + this.iguala.id + '/report/')
+                    .subscribe(result => {
+                      let parsedResponse = result.text();
+                      this.extractContent(parsedResponse, this.iguala.name);
+                    });
+  }
+
+  /**
+  * Method to download a csv file from a Response object.
+  * Params:
+  *   - data: data received from server.
+  *   - name: name of the current iguala.
+  **/
+  private extractContent(data: any, name: string) {
+    let blob = new Blob(['\ufeff', data], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    let anchor = document.createElement('a');
+    anchor.download = name + '_report.csv';
+    anchor.href = url;
+    anchor.click();
   }
 }
