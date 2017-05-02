@@ -12,7 +12,7 @@
                             <div *ngIf="assignmentFilter == staticEnum.ALL_WORKS && currentUser.hasRole([ roleEnum.SUPER_USUARIO, roleEnum.EJECUTIVO_SR, roleEnum.DIRECTOR_CUENTAS ])" class="col align-self-start" (click)="requestNewWorkModal($event)">
                                 <i class="icon-plus icons font-2xl d-block"></i>
                             </div>
-                            <div class="col *ngIf=" assignmentFilter==s taticEnum.MY_ASSIGNMENTS || staticEnum.TO_BE_PAID " align-self-center"></div>
+                            <div class="col align-self-center" *ngIf="assignmentFilter == staticEnum.MY_ASSIGNMENTS || staticEnum.TO_BE_PAID"></div>
                             <div class="col align-self-center"></div>
                             <div class="col align-self-center"></div>
                             <!-- Search field -->
