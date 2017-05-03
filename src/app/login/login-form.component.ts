@@ -9,6 +9,8 @@ import { CustomToastService } from '../shared/toast/custom-toast.service';
 
 // Class
 import { Login } from './login';
+import { CurrentUser } from '../shared/current-user/current-user-model';
+import { Role } from '../shared/auth/role';
 
 // Environment
 import { environment } from '../../environments/environment';
@@ -77,8 +79,25 @@ export class LoginFormComponent implements OnInit {
                                                               usersList[0].id,
                                                               usersList[0].first_name,
                                                               usersList[0].last_name);
-                         this.router.navigateByUrl('designer/owned-designs-list'); // Mock dashboard route.
+
+                         this.redirectByCurrentUser(this.loginService.getCurrentUser());
                        }
                      });
+  }
+
+  /**
+  * Method that decides the redirection after login depending on user.
+  * Params:
+  *   - user: Current user logged.
+  **/
+  private redirectByCurrentUser(user: CurrentUser) {
+    if (user.hasRole([ Role.SUPER_USUARIO, Role.DIRECTOR_ARTE, Role.DIRECTOR_CUENTAS ])) {
+      this.router.navigateByUrl('/general-user/works');
+    } else if (user.hasRole([ Role.ADMINISTRACION])) {
+      this.router.navigateByUrl('/general-user/to_be_paid');
+    } else {
+      this.router.navigateByUrl('/general-user/my_assignments');
+    }
+
   }
 }

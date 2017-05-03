@@ -13,6 +13,7 @@ import { URLSearchParams } from '@angular/http';
 import { HttpService } from '../shared/http-service/http.service';
 import { CustomToastService } from '../shared/toast/custom-toast.service';
 import { Login } from './login';
+import { Role } from '../shared/auth/role';
 import { environment } from '../../environments/environment';
 var LoginFormComponent = (function () {
     function LoginFormComponent(loginService, router, toaster) {
@@ -49,9 +50,20 @@ var LoginFormComponent = (function () {
                     groupNames.push(group.name);
                 }
                 _this.loginService.setUserInfo(groupNames, usersList[0].id, usersList[0].first_name, usersList[0].last_name);
-                _this.router.navigateByUrl('designer/owned-designs-list');
+                _this.redirectByCurrentUser(_this.loginService.getCurrentUser());
             }
         });
+    };
+    LoginFormComponent.prototype.redirectByCurrentUser = function (user) {
+        if (user.hasRole([Role.SUPER_USUARIO, Role.DIRECTOR_ARTE, Role.DIRECTOR_CUENTAS])) {
+            this.router.navigateByUrl('/general-user/works');
+        }
+        else if (user.hasRole([Role.ADMINISTRACION])) {
+            this.router.navigateByUrl('/general-user/to_be_paid');
+        }
+        else {
+            this.router.navigateByUrl('/general-user/my_assignments');
+        }
     };
     return LoginFormComponent;
 }());

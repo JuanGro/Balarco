@@ -1,4 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 // Models
 import { WorkFilter } from './work-filter-model';
@@ -44,6 +45,14 @@ export class WorkFilterFormComponent implements OnChanges {
     public modalAction: string = '';
     // Variable to control the work filter.
     public workFilter: WorkFilter;
+    // Variable for filtering Contacts by Client selected in dropdown.		
+    private currentContacts: Contact[];
+    // Variable for filtering Igualas by Client selected in dropdown.		
+    private currentIgualas: Iguala[];
+    // Variable to set the client when an existing work is received.		
+    private client_id: number;
+    // Variable to set the contact when client dropdown changes.		
+    private contact_id: number;
     // Variable to test request url.
     public urlTesting: string;
 
@@ -56,6 +65,26 @@ export class WorkFilterFormComponent implements OnChanges {
      **/
     public ngOnChanges() {
         this.workFilter = new WorkFilter();
+        this.initialDropdownSetup();
+    }
+
+    /**		
+     * Method to fill dropdowns initially when the modal is shown and Work is new.		
+     **/
+    private initialDropdownSetup() {
+        if (this.clientsList && this.contactsList && this.clientsList.length > 0) {
+            this.client_id = this.clientsList[0].id;
+            this.filterContactsByClientId(this.client_id);
+        }
+
+        if (this.statusList && this.statusList.length > 0) {
+            this.workFilter.current_status = this.statusList[0].id;
+        }
+
+        if (this.igualasList && this.igualasList.length > 0) {
+            this.workFilter.iguala = this.igualasList[0].id;
+            this.filterIgualasByClientId(this.client_id);
+        }
     }
 
     /**
@@ -126,5 +155,62 @@ export class WorkFilterFormComponent implements OnChanges {
         this.urlTesting = urlFilterWorks;
 
         this.resultSearch.emit(urlFilterWorks);
+    }
+
+    /**		
+     * Method that listens to event of change in the Clients dropdown.		
+     * Params:		
+     *   - id: Id of the new client selected.		
+     **/
+    public onClientChange(id: number) {
+        this.filterContactsByClientId(id);
+        this.filterIgualasByClientId(id);
+    }
+
+    /**		
+     * Method that filters the contacts by the client id.		
+     * Params:		
+     *   - id: Id of the client from which the contacts will be filtered.		
+     **/
+    private filterContactsByClientId(id: number) {
+        if (this.contactsList) {
+            this.currentContacts = this.contactsList.filter(x => x.client === +id);
+            if (this.currentContacts.length > 0) {
+                this.contact_id = this.currentContacts[0].id;
+            } else {
+                this.contact_id = null;
+            }
+        }
+    }
+
+    /**		
+     * Method that filters the igualas by the client id.		
+     * Params:		
+     *   - id: Id of the client from which the igualas will be filtered.		
+     **/
+    private filterIgualasByClientId(id: number) {
+        if (this.igualasList) {
+            this.currentIgualas = this.igualasList.filter(x => x.client === +id);
+            if (this.currentIgualas.length > 0) {
+                this.workFilter.iguala = this.currentIgualas[0].id;
+            } else {
+                this.workFilter.iguala = null;
+            }
+        }
+    }
+
+    /**		
+     * Requests to parent component to close the current modal.		
+     **/
+    public requestCloseThisModal() {
+        this.modalAction = 'Close modal';
+        this.requestCloseModal.emit(this.modalAction);
+    }
+
+    /**		
+     * Reset the current form.		
+     **/
+    public cancelForm(form: NgForm) {
+        form.control.markAsUntouched();
     }
 }
