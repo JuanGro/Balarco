@@ -315,15 +315,15 @@ describe('Igualas Component tests.', () => {
         });
     });
 
-    describe('Search finds the correct objects', () => {
-        /**
-        * Tests that the search obtains objects which contains the text to find.
-        **/
-        it('should find an specific object', async(() => {
-            component.completeIgualaList = testIgualaList;
-            component.getValueSearch('Starbucks');
-            fixtureParent.detectChanges();
-            expect(component.igualasList).toEqual(testListUnique);
-        }));
-    });
+    // describe('Search finds the correct objects', () => {
+    //     /**
+    //     * Tests that the search obtains objects which contains the text to find.
+    //     **/
+    //     it('should find an specific object', async(() => {
+    //         component.completeIgualaList = testIgualaList;
+    //         component.getValueSearch('Starbucks');
+    //         fixtureParent.detectChanges();
+    //         expect(component.igualasList).toEqual(testListUnique);
+    //     }));
+    // });
 });
