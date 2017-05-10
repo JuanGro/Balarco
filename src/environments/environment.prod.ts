@@ -1,3 +1,22 @@
 export const environment = {
-  production: true
+  production: true,
+  'API_URL': 'http://198.199.95.61/api/',
+  'WS_URL': 'ws://198.199.95.61/api/',
+  'CLIENTS_URL': 'clients/clients/',
+  'CONTACTS_URL': 'clients/contacts/',
+  'IGUALAS_URL': 'works/igualas/',
+  'USERS_URL': 'users/users/',
+  'GROUPS_URL': 'users/groups/',
+  'ART_TYPES_URL': 'works/art_types/',
+  'WORK_TYPES_URL': 'works/work_types/',
+  'WORKS_URL': 'works/works/',
+  'STATUS_URL': 'works/status/',
+  'WORKS_UNASSIGNED_URL': 'works/works/unassigned_works/',
+  'RECOVER_PASSWORD_URL': 'users/auth/password/reset/',
+  'MY_ASSIGNMENTS': 'works/works/my_assignments/',
+  'USER_LIST_NOTIFICATIONS_URL': 'users/stream/',
+  'CLIENT_LIST_NOTIFICATIONS_URL': 'clients/stream/',
+  'CONTACT_LIST_NOTIFICATIONS_URL': 'contacts/stream/',
+  'IGUALAS_LIST_NOTIFICATIONS_URL': 'igualas/stream/',
+  'WORK_LIST_NOTIFICATIONS_URL': 'works/stream/',
 };
