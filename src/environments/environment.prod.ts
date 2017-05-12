@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  'API_URL': 'http://198.199.95.61/api/',
-  'WS_URL': 'ws://198.199.95.61/api/',
+  'API_URL': 'http://104.236.168.191/api/',
+  'WS_URL': 'ws://104.236.168.191/api/',
   'CLIENTS_URL': 'clients/clients/',
   'CONTACTS_URL': 'clients/contacts/',
   'IGUALAS_URL': 'works/igualas/',
