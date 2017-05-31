@@ -12,7 +12,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-user"></i>
                 </span>
-                    <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="50" name="username" [(ngModel)]="user.username" #username="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                    <input type="text" id="recipient-name" placeholder="usuario@balarco.com" class="form-control" minlength="3" maxlength="99" name="username" [(ngModel)]="user.username" #username="ngModel" pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`\{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
                         [class.form-control-success]="!username.errors && username.touched" [class.form-control-danger]="username.errors && username.touched" required>
                 </div>
                 <!-- Feedback name -->
@@ -24,7 +24,7 @@
                         <div class="form-control-feedback">El correo debe ser mayor o igual a 3 caracteres.</div>
                     </div>
                     <div [hidden]="!username.errors.maxlength">
-                        <div class="form-control-feedback">El correo debe ser menor a 25 caracteres.</div>
+                        <div class="form-control-feedback">El correo debe ser menor a 100 caracteres.</div>
                     </div>
                     <div [hidden]="!username.errors.pattern">
                         <div class="form-control-feedback">El correo no es válido.</div>
