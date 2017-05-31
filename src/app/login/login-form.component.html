@@ -34,7 +34,7 @@
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon-lock"></i>
                 </span>
-                <input type="password" id="recipient-password" class="form-control" placeholder="Password" minlength="6" maxlength="99" name="password" [(ngModel)]="login.password" #password="ngModel" [class.form-control-success]="!password.errors && password.touched"
+                <input type="password" id="recipient-password" class="form-control" placeholder="Password" minlength="6" maxlength="24" name="password" [(ngModel)]="login.password" #password="ngModel" [class.form-control-success]="!password.errors && password.touched"
                     [class.form-control-danger]="password.errors && password.touched" required>
             </div>
             <!-- Feedback password -->
@@ -46,7 +46,7 @@
                     <div class="form-control-feedback">La contraseña debe ser mayor o igual a 6 caracteres.</div>
                 </div>
                 <div [hidden]="!password.errors.maxlength">
-                    <div class="form-control-feedback">La contraseña debe ser menor a 100 caracteres.</div>
+                    <div class="form-control-feedback">La contraseña debe ser menor a 25 caracteres.</div>
                 </div>
             </div>
         </div>
